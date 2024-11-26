@@ -9,180 +9,228 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
+        <!-- <header class="absolute inset-x-0 top-0 z-50">
+            <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+                <div class="flex lg:flex-1">
+                    <a href="#" class="-m-1.5 p-1.5">
+                        <img class="h-8 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600" alt="Logo">
+                    </a>
+                </div>
+                <div class="flex lg:hidden">
+                    <button id="mobile-menu-toggle" type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-300">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="hidden lg:flex lg:gap-x-12">
+                    <a href="#product" class="text-sm font-semibold text-gray-100 hover:text-indigo-400">Product</a>
+                    <a href="#features" class="text-sm font-semibold text-gray-100 hover:text-indigo-400">Features</a>
+                    <a href="#marketplace" class="text-sm font-semibold text-gray-100 hover:text-indigo-400">Marketplace</a>
+                    <a href="#company" class="text-sm font-semibold text-gray-100 hover:text-indigo-400">Company</a>
+                </div>
+                <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                    <a href="#login" class="text-sm font-semibold text-gray-100 hover:text-indigo-400">Log in <span aria-hidden="true">&rarr;</span></a>
+                </div>
+            </nav>
+            <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 z-50 bg-black bg-opacity-95">
+                <div class="p-6">
+                    <div class="flex items-center justify-between">
+                        <a href="#" class="-m-1.5 p-1.5">
+                            <img class="h-8 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600" alt="Logo">
+                        </a>
+                        <button id="mobile-menu-close" type="button" class="-m-2.5 rounded-md p-2.5 text-gray-300">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mt-6">
+                        <a href="#product" class="block py-2 text-base font-semibold text-gray-100 hover:bg-gray-800">Product</a>
+                        <a href="#features" class="block py-2 text-base font-semibold text-gray-100 hover:bg-gray-800">Features</a>
+                        <a href="#marketplace" class="block py-2 text-base font-semibold text-gray-100 hover:bg-gray-800">Marketplace</a>
+                        <a href="#company" class="block py-2 text-base font-semibold text-gray-100 hover:bg-gray-800">Company</a>
+                        <a href="#login" class="block mt-4 py-2 text-base font-semibold text-gray-100 hover:bg-gray-800">Log in</a>
+                    </div>
+                </div>
+            </div>
+        </header> -->
 
 <body class="flex justify-center items-center bg-black font-nunito overflow-y-scroll overflow-x-hidden">
-    <div class="w-11/12 max-w-md mx-auto mt-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8" style="opacity: 1;">
-            <div style="opacity: 1; transform: none;">
-                <div class="rounded-lg border bg-card text-card-foreground shadow-sm relative overflow-hidden group hover:shadow-lg transition-all duration-300 h-full">
-                    <div class="p-4 md:p-6">
-                        <div class="mb-4">
-                            <div class="inline-flex p-2 md:p-3 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 bg-opacity-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-leaf h-5 w-5 md:h-6 md:w-6 text-foreground">
-                                    <path d="M12 2C13.6569 2 15 3.34315 15 5C15 6.65685 13.6569 8 12 8C10.3431 8 9 6.65685 9 5C9 3.34315 10.3431 2 12 2ZM12 12C12 14.2091 9.20914 16 6 16C2.79086 16 0 14.2091 0 12C0 9.79086 2.79086 8 6 8C9.20914 8 12 9.79086 12 12ZM12 22C12 20.7909 9.20914 19 6 19C2.79086 19 0 20.7909 0 22C0 23.2091 2.79086 24 6 24C9.20914 24 12 23.2091 12 22Z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <h3 class="text-lg md:text-xl font-semibold mb-2 text-foreground text-white">Ecological</h3>
-                        <p class="text-sm md:text-base text-muted-foreground mb-4 text-white">We help the environmental protection program as there is no need to print a card anymore. At a time when nature is asking for our help, we also participate by not printing paper cards!</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="opacity: 1; transform: none;">
-                <div class="rounded-lg border bg-card text-card-foreground shadow-sm relative overflow-hidden group hover:shadow-lg transition-all duration-300 h-full">
-                    <div class="p-4 md:p-6">
-                        <div class="mb-4">
-                            <div class="inline-flex p-2 md:p-3 rounded-lg bg-gradient-to-r from-green-500 to-teal-500 bg-opacity-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone h-5 w-5 md:h-6 md:w-6 text-foreground">
-                                    <path d="M17 15L14 12L17 9M14 12H4M14 12L7 17M4 15L4 17H16L17 17"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <h3 class="text-lg md:text-xl font-semibold mb-2 text-foreground text-white">Easy to Use</h3>
-                        <p class="text-sm md:text-base text-muted-foreground mb-4 text-white">Share your digital profile easily and quickly using NFC, QR Code, and/or the unique URL! The innovative TC-DBC App helps you manage your own cards and other TC-DBC profiles effectively!</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="opacity: 1; transform: none;">
-                <div class="rounded-lg border bg-card text-card-foreground shadow-sm relative overflow-hidden group hover:shadow-lg transition-all duration-300 h-full">
-                    <div class="p-4 md:p-6">
-                        <div class="mb-4">
-                            <div class="inline-flex p-2 md:p-3 rounded-lg bg-gradient-to-r from-yellow-500 to-orange-500 bg-opacity-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign h-5 w-5 md:h-6 md:w-6 text-foreground">
-                                    <line x1="12" y1="1" x2="12" y2="23"></line>
-                                    <path d="M17 6C19.2091 6 21 7.79086 21 10C21 12.2091 19.2091 14 17 14H13M7 6C4.79086 6 3 7.79086 3 10C3 12.2091 4.79086 14 7 14H11"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <h3 class="text-lg md:text-xl font-semibold mb-2 text-foreground text-white">Economic</h3>
-                        <p class="text-sm md:text-base text-muted-foreground mb-4 text-white">There is no need to buy a physical card, and for those who want a digital card with basic contact information, there is the FREE4ALL package, with no fees, forever!</p>
-                    </div>
-                </div>
-            </div>
-        
-            <div style="opacity: 1; transform: none;">
-                <div class="rounded-lg border bg-card text-card-foreground shadow-sm relative overflow-hidden group hover:shadow-lg transition-all duration-300 h-full">
-                    <div class="p-4 md:p-6">
-                        <div class="mb-4">
-                            <div class="inline-flex p-2 md:p-3 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 bg-opacity-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lightbulb h-5 w-5 md:h-6 md:w-6 text-foreground">
-                                    <path d="M9 18C9 17.4477 9.44772 17 10 17H14C14.5523 17 15 17.4477 15 18V21H9V18Z"></path>
-                                    <path d="M12 2C10.3431 2 9 3.34315 9 5C9 6.65685 10.3431 8 12 8C13.6569 8 15 6.65685 15 5C15 3.34315 13.6569 2 12 2Z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <h3 class="text-lg md:text-xl font-semibold mb-2 text-foreground text-white">Innovative</h3>
-                        <p class="text-sm md:text-base text-muted-foreground mb-4 text-white">You can display elements that will make your digital card stand out! Integration of Google Maps, YouTube Videos, Services/Products, Photos, Payment Methods, Working Hours.</p>
+    <div class="w-8/12 mx-auto mt-6">
+        <div class="relative isolate px-6 pt-14 lg:px-8">
+            <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+                <div class="text-center">
+                    <h1 class="text-5xl font-semibold tracking-tight text-gray-100 sm:text-7xl">
+                        Build and Share Your Digital Identity
+                    </h1>
+                    <p class="mt-8 text-lg text-gray-400 sm:text-xl">
+                        Welcome to a revolutionary way of networking! This platform is designed to make creating, managing, and sharing your digital identity seamless. Using cutting-edge NFC technology, we’re replacing traditional business cards with a sustainable, digital alternative.
+                    </p>
+                    <div class="mt-10 flex items-center justify-center gap-x-6">
+                        <a href="#why" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
+                            Why us?
+                        </a>
+                        <a href="#learn-more" class="text-sm font-semibold text-gray-100 hover:text-indigo-400">
+                            Learn More <span aria-hidden="true">→</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-        <br><br><br><hr><br><br><br>
+        
+        <div class="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8" id="why">
+            <h2 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+                Why Choose Digital Cards?
+            </h2>
+            <p class="mt-6 text-lg text-gray-300">
+                This project is built to provide a modern, eco-friendly solution for professionals and individuals who want to stand out. With NFC-enabled profiles, sharing contact information and portfolios is faster, smarter, and more engaging than ever.
+            </p>
+            <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+                <a href="#data-fill" class="rounded-md px-3.5 py-2.5 text-sm font-semibold text-gray-100 border border-white/50 shadow-sm hover:bg-gray-900">
+                    Get Started
+                </a>
+                <a href="#learn-more" class="text-sm font-semibold text-white">
+                    Learn More <span aria-hidden="true">→</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-24" id="learn-more">
+            <div class="rounded-lg border bg-gray-800 text-gray-100 shadow-sm relative overflow-hidden group hover:shadow-lg transition-all duration-300 h-full">
+                <div class="p-6">
+                    <div class="inline-flex p-3 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 bg-opacity-10">
+                        <i class="fas fa-leaf text-xl text-blue-400"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mt-4">Eco-Friendly</h3>
+                    <p class="mt-2 text-gray-300">
+                        Say goodbye to paper waste. Our digital solution eliminates the need for printed cards, contributing to environmental conservation while providing a modern alternative.
+                    </p>
+                </div>
+            </div>
+        
+            <div class="rounded-lg border bg-gray-800 text-gray-100 shadow-sm relative overflow-hidden group hover:shadow-lg transition-all duration-300 h-full">
+                <div class="p-6">
+                    <div class="inline-flex p-3 rounded-lg bg-gradient-to-r from-green-500 to-teal-500 bg-opacity-10">
+                        <i class="fas fa-share-alt text-xl text-green-400"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mt-4">Effortless Sharing</h3>
+                    <p class="mt-2 text-gray-300">
+                        Share your profile with just a tap using NFC or QR codes. Whether it’s a professional contact or a personal connection, sharing has never been easier.
+                    </p>
+                </div>
+            </div>
+        
+            <div class="rounded-lg border bg-gray-800 text-gray-100 shadow-sm relative overflow-hidden group hover:shadow-lg transition-all duration-300 h-full">
+                <div class="p-6">
+                    <div class="inline-flex p-3 rounded-lg bg-gradient-to-r from-yellow-500 to-orange-500 bg-opacity-10">
+                        <i class="fas fa-dollar-sign text-xl text-yellow-400"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mt-4">Cost-Effective</h3>
+                    <p class="mt-2 text-gray-300">
+                        Forget about reprinting business cards. Our platform lets you update your information digitally, saving time and money.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr>
         <!-- Start of the Form -->
-        <form action="submit-form.php" method="POST" enctype="multipart/form-data" class="space-y-6">
-            <!-- Profile Picture and v c Section -->
-            <div class="text-center space-y-4 text-white">
-                <img src="150.png" alt="profile-picture" id="profile-picture"
-                    class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer" />
-                <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
-                <h1>
-                    <input type="text" id="user-name" name="user-name" placeholder="Enter your name" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                </h1>
-                <p>
-                    <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                </p>
-            </div>
-
-            <!-- Dynamic Social Links Section -->
-            <div id="dynamic-links" class="space-y-4">
-                <div class="bg-white/10 p-4 rounded border border-white/50 shadow-md">
-                    <label for="social-link" class="block text-white">Enter your social link:</label>
-                    <ul class="space-y-2">
-                        <li
-                            class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
-                            <i class="fa fa-link text-xl text-white mr-3"></i>
-                            <input type="url" name="social-links[]" placeholder="https://your-link.com"         class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                        </li>
-                    </ul>
+         <section class="flex justify-center items-center py-24">
+            <form action="submit-form.php" method="POST" id="data-fill" class="space-y-6 lg:w-6/12 sm:w-11/12 w-full">
+                <!-- Profile Picture and v c Section -->
+                <div class="text-center space-y-4 text-white">
+                    <img src="150.png" alt="profile-picture" id="profile-picture"
+                        class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer" />
+                    <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
+                    <h1>
+                        <input type="text" id="user-name" name="user-name" placeholder="Enter your name" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                    </h1>
+                    <p>
+                        <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                    </p>
                 </div>
-                <div class="">
-                    <button type="button" id="add-link-btn" class="bg-yellow-800 hover:bg-blue-500 text-white hover:text-black py-2 px-4 rounded transition duration-300">
-                        Add Another Link
+    
+                <!-- Dynamic Social Links Section -->
+                <div id="dynamic-links" class="space-y-4">
+                    <div class="bg-white/10 p-4 rounded border border-white/50 shadow-md">
+                        <label for="social-link" class="block text-white">Enter your social link:</label>
+                        <ul class="space-y-2">
+                            <li
+                                class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
+                                <i class="fa fa-link text-xl text-white mr-3"></i>
+                                <input type="url" name="social-links[]" placeholder="https://your-link.com"         class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="">
+                        <button type="button" id="add-link-btn" class="bg-yellow-800 hover:bg-blue-500 text-white hover:text-black py-2 px-4 rounded transition duration-300">
+                            Add Another Link
+                        </button>
+                    </div>
+                </div>
+    
+                <!-- Add Contact Section -->
+                <div>
+                    <div class="space-y-2 w-full bg-white/10 p-4 rounded border border-white/50 shadow-md">
+                        <input type="email" name="email" placeholder="Email" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" required />
+                        <hr>
+                        <input type="tel" name="phone" placeholder="Phone" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                        <hr>
+                        <input type="text" name="address" placeholder="Address" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                    </div>
+                </div>
+    
+                <!-- Submit Button -->
+                <center>
+                    <button id="saveContactBtn" type="submit"
+                        class="text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-300">
+                        Submit Your Portfolio Info
                     </button>
-                </div>
-            </div>
+                </center>
+            </form>
+         </section>
 
-            <!-- Add Contact Section -->
-            <div>
-                <div class="space-y-2 w-full bg-white/10 p-4 rounded border border-white/50 shadow-md">
-                    <input type="email" name="email" placeholder="Email" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" required />
-                    <hr>
-                    <input type="tel" name="phone" placeholder="Phone" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                    <hr>
-                    <input type="text" name="address" placeholder="Address" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                </div>
-            </div>
-
-            <!-- Submit Button -->
-            <center>
-                <button id="saveContactBtn" type="submit"
-                    class="text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-300">
-                    Submit Your Portfolio Info
-                </button>
-            </center>
-        </form>
         <br><br><br><br><br><br>
         <!-- End of the Form -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // Image upload functionality
-        document.getElementById('profile-picture').addEventListener('click', function () {
-            document.getElementById('image-input').click();
-        });
-
-        document.getElementById('image-input').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    document.getElementById('profile-picture').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // JavaScript to dynamically add more input fields for social links
-        const addLinkButton = document.getElementById('add-link-btn');
-        const dynamicLinks = document.getElementById('dynamic-links');
-
-        addLinkButton.addEventListener('click', function () {
-            const newInputDiv = document.createElement('div');
-            newInputDiv.classList.add('bg-white/10', 'p-4', 'rounded', 'border', 'border-white/50', 'shadow-md', 'relative', 'mb-4');
-            newInputDiv.innerHTML = `
-                <label class="block text-white mb-2">Enter your social link:</label>
-                <ul class="space-y-2">
+        document.addEventListener("DOMContentLoaded", () => {
+            const profilePicture = document.getElementById('profile-picture');
+            const imageInput = document.getElementById('image-input');
+            const addLinkBtn = document.getElementById('add-link-btn');
+            const dynamicLinks = document.getElementById('dynamic-links');
+    
+            // Profile picture preview
+            profilePicture.addEventListener('click', () => {
+                imageInput.click();
+            });
+    
+            imageInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        profilePicture.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+    
+            // Add another link dynamically
+            addLinkBtn.addEventListener('click', () => {
+                const linkItem = `
                     <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
                         <i class="fa fa-link text-xl text-white mr-3"></i>
-                        <input type="url" name="social-links[]" placeholder="https://your-link.com" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" required />
-                    </li>
-                </ul>
-                <button type="button" class="absolute top-2 right-2 bg-red-500 text-white text-sm px-2 py-1 rounded hover:bg-red-700 remove-link-btn">
-                    X
-                </button>
-            `;
-
-            dynamicLinks.insertBefore(newInputDiv, addLinkButton.parentElement);
-
-            // Add event listener to the remove button
-            newInputDiv.querySelector('.remove-link-btn').addEventListener('click', function () {
-                newInputDiv.remove();
+                        <input type="url" name="social-links[]" placeholder="https://your-link.com" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                    </li>`;
+                const ul = dynamicLinks.querySelector('ul');
+                ul.insertAdjacentHTML('beforeend', linkItem);
             });
         });
     </script>
+    
+    <!-- <script src="script.js"></script> -->
 </body>
-
 </html>
