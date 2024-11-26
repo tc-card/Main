@@ -1,76 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<v c>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</v c>
 
-<body>
-    <div class="container">
+<body class="flex justify-center items-center bg-black font-nunito overflow-y-scroll overflow-x-hidden">
+    <div class="w-11/12 max-w-md mx-auto mt-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8" style="opacity: 1;">
+            <div style="opacity: 1; transform: none;">
+                <div class="rounded-lg border bg-card text-card-foreground shadow-sm relative overflow-hidden group hover:shadow-lg transition-all duration-300 h-full">
+                    <div class="p-4 md:p-6">
+                        <div class="mb-4">
+                            <div class="inline-flex p-2 md:p-3 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 bg-opacity-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-leaf h-5 w-5 md:h-6 md:w-6 text-foreground">
+                                    <path d="M12 2C13.6569 2 15 3.34315 15 5C15 6.65685 13.6569 8 12 8C10.3431 8 9 6.65685 9 5C9 3.34315 10.3431 2 12 2ZM12 12C12 14.2091 9.20914 16 6 16C2.79086 16 0 14.2091 0 12C0 9.79086 2.79086 8 6 8C9.20914 8 12 9.79086 12 12ZM12 22C12 20.7909 9.20914 19 6 19C2.79086 19 0 20.7909 0 22C0 23.2091 2.79086 24 6 24C9.20914 24 12 23.2091 12 22Z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-semibold mb-2 text-foreground text-white">Ecological</h3>
+                        <p class="text-sm md:text-base text-muted-foreground mb-4 text-white">We help the environmental protection program as there is no need to print a card anymore. At a time when nature is asking for our help, we also participate by not printing paper cards!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="opacity: 1; transform: none;">
+                <div class="rounded-lg border bg-card text-card-foreground shadow-sm relative overflow-hidden group hover:shadow-lg transition-all duration-300 h-full">
+                    <div class="p-4 md:p-6">
+                        <div class="mb-4">
+                            <div class="inline-flex p-2 md:p-3 rounded-lg bg-gradient-to-r from-green-500 to-teal-500 bg-opacity-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone h-5 w-5 md:h-6 md:w-6 text-foreground">
+                                    <path d="M17 15L14 12L17 9M14 12H4M14 12L7 17M4 15L4 17H16L17 17"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-semibold mb-2 text-foreground text-white">Easy to Use</h3>
+                        <p class="text-sm md:text-base text-muted-foreground mb-4 text-white">Share your digital profile easily and quickly using NFC, QR Code, and/or the unique URL! The innovative TC-DBC App helps you manage your own cards and other TC-DBC profiles effectively!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="opacity: 1; transform: none;">
+                <div class="rounded-lg border bg-card text-card-foreground shadow-sm relative overflow-hidden group hover:shadow-lg transition-all duration-300 h-full">
+                    <div class="p-4 md:p-6">
+                        <div class="mb-4">
+                            <div class="inline-flex p-2 md:p-3 rounded-lg bg-gradient-to-r from-yellow-500 to-orange-500 bg-opacity-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign h-5 w-5 md:h-6 md:w-6 text-foreground">
+                                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                                    <path d="M17 6C19.2091 6 21 7.79086 21 10C21 12.2091 19.2091 14 17 14H13M7 6C4.79086 6 3 7.79086 3 10C3 12.2091 4.79086 14 7 14H11"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-semibold mb-2 text-foreground text-white">Economic</h3>
+                        <p class="text-sm md:text-base text-muted-foreground mb-4 text-white">There is no need to buy a physical card, and for those who want a digital card with basic contact information, there is the FREE4ALL package, with no fees, forever!</p>
+                    </div>
+                </div>
+            </div>
+        
+            <div style="opacity: 1; transform: none;">
+                <div class="rounded-lg border bg-card text-card-foreground shadow-sm relative overflow-hidden group hover:shadow-lg transition-all duration-300 h-full">
+                    <div class="p-4 md:p-6">
+                        <div class="mb-4">
+                            <div class="inline-flex p-2 md:p-3 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 bg-opacity-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lightbulb h-5 w-5 md:h-6 md:w-6 text-foreground">
+                                    <path d="M9 18C9 17.4477 9.44772 17 10 17H14C14.5523 17 15 17.4477 15 18V21H9V18Z"></path>
+                                    <path d="M12 2C10.3431 2 9 3.34315 9 5C9 6.65685 10.3431 8 12 8C13.6569 8 15 6.65685 15 5C15 3.34315 13.6569 2 12 2Z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-semibold mb-2 text-foreground text-white">Innovative</h3>
+                        <p class="text-sm md:text-base text-muted-foreground mb-4 text-white">You can display elements that will make your digital card stand out! Integration of Google Maps, YouTube Videos, Services/Products, Photos, Payment Methods, Working Hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <br><br><br><hr><br><br><br>
         <!-- Start of the Form -->
-        <form action="submit-form.php" method="POST" enctype="multipart/form-data">
-            <!-- src="https://via.placeholder.com/150" -->
-            <div class="head-section">
-                <img src="150.png" alt="profile-picture" id="profile-picture" style="cursor: pointer;" />
-                <input type="file" id="image-input" name="profile-picture" style="display: none;" accept="image/*" />
-                <h1><input type="text" id="user-name" name="user-name" placeholder="Enter your name" class="input-field" required /></h1>
+        <form action="submit-form.php" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <!-- Profile Picture and v c Section -->
+            <div class="text-center space-y-4 text-white">
+                <img src="150.png" alt="profile-picture" id="profile-picture"
+                    class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer" />
+                <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
+                <h1>
+                    <input type="text" id="user-name" name="user-name" placeholder="Enter your name" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                </h1>
                 <p>
-                    <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline" class="input-field" />
+                    <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
                 </p>
             </div>
 
             <!-- Dynamic Social Links Section -->
-            <div class="dynamic-links">
-                <div class="social-links">
-                    <div class="link-input">
-                        <label for="social-link">Enter your social link:</label>
-                        <ul>
-                            <li class="twitter">
-                                <a target="_self">
-                                    <i class="fa fa-link"></i>
-                                    <input type="url" name="social-links[]" placeholder="https://your-link.com"/>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+            <div id="dynamic-links" class="space-y-4">
+                <div class="bg-white/10 p-4 rounded border border-white/50 shadow-md">
+                    <label for="social-link" class="block text-white">Enter your social link:</label>
+                    <ul class="space-y-2">
+                        <li
+                            class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
+                            <i class="fa fa-link text-xl text-white mr-3"></i>
+                            <input type="url" name="social-links[]" placeholder="https://your-link.com"         class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                        </li>
+                    </ul>
                 </div>
-                <center>
-                    <button type="button" id="add-link-btn">Add Another Link</button>
-                </center>
+                <div class="">
+                    <button type="button" id="add-link-btn" class="bg-yellow-800 hover:bg-blue-500 text-white hover:text-black py-2 px-4 rounded transition duration-300">
+                        Add Another Link
+                    </button>
+                </div>
             </div>
 
-            <!-- Save Contact Button -->
+            <!-- Add Contact Section -->
             <div>
-                <button type="submit" id="saveContactBtn">
-                    <i class="fas fa-address-book"></i>
-                    <div>
-                        <input type="email" name="email" placeholder="Email" class="input-field">
-                        <input type="tel" name="phone" placeholder="Phone" class="input-field">
-                        <input type="text" name="address" placeholder="Address" class="input-field">
-                    </div>
-                </button>
+                <div class="space-y-2 w-full bg-white/10 p-4 rounded border border-white/50 shadow-md">
+                    <input type="email" name="email" placeholder="Email" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" required />
+                    <hr>
+                    <input type="tel" name="phone" placeholder="Phone" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                    <hr>
+                    <input type="text" name="address" placeholder="Address" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                </div>
             </div>
+
+            <!-- Submit Button -->
+            <center>
+                <button id="saveContactBtn" type="submit"
+                    class="text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-300">
+                    Submit Your Portfolio Info
+                </button>
+            </center>
         </form>
         <!-- End of the Form -->
     </div>
 
-    <!-- Include SweetAlert (if used for the button) -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         // Image upload functionality
-        document.getElementById('profile-picture').addEventListener('click', function() {
+        document.getElementById('profile-picture').addEventListener('click', function () {
             document.getElementById('image-input').click();
         });
 
-        document.getElementById('image-input').addEventListener('change', function(event) {
+        document.getElementById('image-input').addEventListener('change', function (event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     document.getElementById('profile-picture').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
@@ -79,24 +157,30 @@
 
         // JavaScript to dynamically add more input fields for social links
         const addLinkButton = document.getElementById('add-link-btn');
-        const linkInputContainer = document.querySelector('.dynamic-links');
+        const dynamicLinks = document.getElementById('dynamic-links');
 
-        addLinkButton.addEventListener('click', function() {
+        addLinkButton.addEventListener('click', function () {
             const newInputDiv = document.createElement('div');
-            newInputDiv.classList.add('link-input');
+            newInputDiv.classList.add('bg-white/10', 'p-4', 'rounded', 'border', 'border-white/50', 'shadow-md', 'relative', 'mb-4');
             newInputDiv.innerHTML = `
-                <div class="social-links">
-                    <ul>
-                        <li class="linkedin">
-                            <a href="https://linkedin.com" target="_blank">
-                                <i class="fa fa-link"></i>
-                                <input type="url" name="social-links[]" placeholder="https://your-link.com" />
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <label class="block text-white mb-2">Enter your social link:</label>
+                <ul class="space-y-2">
+                    <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
+                        <i class="fa fa-link text-xl text-white mr-3"></i>
+                        <input type="url" name="social-links[]" placeholder="https://your-link.com" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" required />
+                    </li>
+                </ul>
+                <button type="button" class="absolute top-2 right-2 bg-red-500 text-white text-sm px-2 py-1 rounded hover:bg-red-700 remove-link-btn">
+                    X
+                </button>
             `;
-            linkInputContainer.insertBefore(newInputDiv, addLinkButton);
+
+            dynamicLinks.insertBefore(newInputDiv, addLinkButton.parentElement);
+
+            // Add event listener to the remove button
+            newInputDiv.querySelector('.remove-link-btn').addEventListener('click', function () {
+                newInputDiv.remove();
+            });
         });
     </script>
 </body>
