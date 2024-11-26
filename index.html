@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Start of the Form -->
+        <form action="submit-form.php" method="POST" enctype="multipart/form-data">
+            <!-- Head Section -->
+            <div class="head-section">
+                <img src="https://via.placeholder.com/150" alt="profile-picture" id="profile-picture" style="cursor: pointer;" />
+                <input type="file" id="image-input" name="profile-picture" style="display: none;" accept="image/*" />
+                <h1><input type="text" id="user-name" name="user-name" placeholder="Enter your name" class="input-field" required /></h1>
+                <p>
+                    <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline" class="input-field" />
+                </p>
+            </div>
+
+            <!-- Dynamic Social Links Section -->
+            <div class="dynamic-links">
+                <div class="social-links">
+                    <div class="link-input">
+                        <label for="social-link">Enter your social link:</label>
+                        <ul>
+                            <li class="twitter">
+                                <a href="https://twitter.com" target="_blank">
+                                    <i class="fa fa-link"></i>
+                                    <input type="url" name="social-links[]" placeholder="https://your-link.com"/>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <center>
+                    <button type="button" id="add-link-btn">Add Another Link</button>
+                </center>
+            </div>
+
+            <!-- Save Contact Button -->
+            <div>
+                <button type="submit" id="saveContactBtn">
+                    <i class="fas fa-address-book"></i>
+                    <div>
+                        <input type="email" name="email" placeholder="Email" class="input-field">
+                        <input type="tel" name="phone" placeholder="Phone" class="input-field">
+                        <input type="text" name="address" placeholder="Address" class="input-field">
+                    </div>
+                </button>
+            </div>
+        </form>
+        <!-- End of the Form -->
+    </div>
+
+    <!-- Include SweetAlert (if used for the button) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Image upload functionality
+        document.getElementById('profile-picture').addEventListener('click', function() {
+            document.getElementById('image-input').click();
+        });
+
+        document.getElementById('image-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-picture').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // JavaScript to dynamically add more input fields for social links
+        const addLinkButton = document.getElementById('add-link-btn');
+        const linkInputContainer = document.querySelector('.dynamic-links');
+
+        addLinkButton.addEventListener('click', function() {
+            const newInputDiv = document.createElement('div');
+            newInputDiv.classList.add('link-input');
+            newInputDiv.innerHTML = `
+                <div class="social-links">
+                    <ul>
+                        <li class="linkedin">
+                            <a href="https://linkedin.com" target="_blank">
+                                <i class="fa fa-link"></i>
+                                <input type="url" name="social-links[]" placeholder="https://your-link.com" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            `;
+            linkInputContainer.insertBefore(newInputDiv, addLinkButton);
+        });
+    </script>
+</body>
+
+</html>
