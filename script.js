@@ -11,6 +11,26 @@
 //     mobileMenu.classList.add('hidden');
 // });
 
+function WhyNFC() {
+  Swal.fire({
+    icon: "info",
+    title: "What is NFC?",
+    html: `<div style='text-align:left'>
+                NFC is a wireless communication technology that enables data exchange between two devices in proximity to each other.
+            <br><hr><br>
+                It is based on radio frequency identification (RFID) technology and allows different devices to send and receive data over short distances by creating a magnetic field that induces an electric current in a nearby NFC-enabled device.<br><hr><br>
+                NFC technology is widely used in various industries and applications, such as contactless payments, public transportation, access control systems, and smart home automation.
+            <br><hr><br>
+                NFC-enabled devices include smartphones, tablets, contactless payment cards, and other devices with built-in NFC chips.
+            <br><hr><br>
+                There are many advantages, including its ease of use, speed, and convenience. Since it requires proximity between devices, it is considered to be a secure form of communication.
+            <br><hr><br>
+                NFC is also very versatile and can be used in a wide range of applications, making it a popular choice for developers and businesses.
+           </div>
+        `,
+    confirmButtonText: "Got It! \\_/",
+  });
+}
 
 const ProFeatureTexts = [
   "5 NFC Cards",
@@ -29,16 +49,15 @@ const ProFeatureTexts = [
   "Email messaging app",
 ];
 
-
 const featureTexts = [
-    "1 NFC Card",
-    "Share basic contact info",
-    "Pre-designed themes",
-    "Unlimited links",
-    "Maps",
-    "Pageview statistics",
-    "Shared access",
-    "QR code",
+  "1 NFC Card",
+  "Share basic contact info",
+  "Pre-designed themes",
+  "Unlimited links",
+  "Maps",
+  "Pageview statistics",
+  "Shared access",
+  "QR code",
 ];
 
 function populateProList() {
