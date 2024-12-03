@@ -10,6 +10,31 @@
 // mobileMenuClose.addEventListener('click', () => {
 //     mobileMenu.classList.add('hidden');
 // });
+ $(document).ready(function () {
+          // Initialize the carousel
+          $('.carousel').slick({
+              dots: true,
+              infinite: true,
+              speed: 500,
+              slidesToShow: 3, // Show 3 images by default (for large screens)
+              slidesToScroll: 1,
+              autoplay: true,
+              autoplaySpeed: 2200,
+              pauseOnHover: true,
+              arrows: true,
+              responsive: [
+                  {
+                      breakpoint: 768, // Adjust for screens smaller than 768px
+                      settings: {
+                          slidesToShow: 1, // Show 1 image per slide on smaller screens
+                          slidesToScroll: 1,
+                          autoplaySpeed: 2200,
+                          pauseOnHover: true,
+                      }
+                  }
+              ]
+          });
+      });
 
 function WhyNFC() {
   Swal.fire({
@@ -82,3 +107,39 @@ function populateStarterList() {
 
 populateProList();
 populateStarterList();
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const profilePicture = document.getElementById('profile-picture');
+  const imageInput = document.getElementById('image-input');
+  const addLinkBtn = document.getElementById('add-link-btn');
+  const dynamicLinks = document.getElementById('dynamic-links');
+
+  // Profile picture preview
+  profilePicture.addEventListener('click', () => {
+      imageInput.click();
+  });
+
+  imageInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+              profilePicture.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+      }
+  });
+
+  // Add another link dynamically
+  addLinkBtn.addEventListener('click', () => {
+      const linkItem = `
+          <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
+              <i class="fa fa-link text-xl text-white mr-3"></i>
+              <input type="url" name="social-links[]" placeholder="https://your-link.com" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+          </li>`;
+      const ul = dynamicLinks.querySelector('ul');
+      ul.insertAdjacentHTML('beforeend', linkItem);
+  });
+});
