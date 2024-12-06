@@ -131,15 +131,33 @@ document.addEventListener("DOMContentLoaded", () => {
           reader.readAsDataURL(file);
       }
   });
-
   // Add another link dynamically
   addLinkBtn.addEventListener('click', () => {
+      // Create the new link item
       const linkItem = `
-          <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
+          <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20 relative">
               <i class="fa fa-link text-xl text-white mr-3"></i>
               <input type="url" name="social-links[]" placeholder="https://your-link.com" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+              <button type="button" class="remove-link-btn" style="
+                  position: absolute;
+                  top: 5px;
+                  right: 5px;
+                  background-color: red;
+                  color: white;
+                  border: none;
+                  padding: 5px 10px;
+                  border-radius: 5px;
+                  cursor: pointer;
+              ">X</button>
           </li>`;
+      
       const ul = dynamicLinks.querySelector('ul');
       ul.insertAdjacentHTML('beforeend', linkItem);
+  
+      // Add event listener to the remove button of the newly added link item
+      const removeButton = ul.querySelector('li:last-child .remove-link-btn');
+      removeButton.addEventListener('click', function() {
+          removeButton.parentElement.remove();
+      });
   });
 });
