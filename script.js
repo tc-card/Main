@@ -36,6 +36,7 @@
           });
       });
 
+document.querySelector('#learn-more').addEventListener('click', WhyNFC);
 function WhyNFC() {
   Swal.fire({
     icon: "info",
