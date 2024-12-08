@@ -62,18 +62,15 @@ function WhyNFC() {
 
 const ProFeatureTexts = [
   "5 NFC Cards",
-  "Full-featured contact website",
   "Unlimited updates & edits",
-  "Messaging apps and social media links",
-  "Premium support (24h response)",
+  "Premium support",
   "Professional models",
-  "Custom design",
+  "Customized layout",
   "Images, videos, music",
   "Price lists",
-  "Custom HTML",
   "Scheduled display of blocks",
   "Remove our watermark",
-  "Custom domain",
+  "Advanced analytics",
   "Email messaging app",
 ];
 
@@ -83,10 +80,12 @@ const featureTexts = [
   "Pre-designed themes",
   "Unlimited links",
   "Maps",
-  "Pageview statistics",
+  "Custom design",
   "Shared access",
   "QR code",
 ];
+
+
 
 function populateProList() {
   const ul = document.getElementById("pro-list");

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Plan Features</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Adding a subtle background gradient */
+    body {
+      background: linear-gradient(135deg, #000, #1f1b24);
+    }
+  </style>
+  <style>
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    .cards {
+      background: linear-gradient(45deg, #000000, #59595996, #000000);
+      background-size: 400% 400%;
+      animation: gradientAnimation 5s ease infinite;
+    }
+  </style>
+  
+</head>
+<body class="text-green-400">
+
+  <div class="container mx-auto p-8">
+    <h1 class="text-4xl font-bold text-center mb-12 text-yellow-400">Basic Plan Features</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      
+      <!-- Feature 1: 1 NFC Card -->
+      <div class="cards bg-black border border-md border-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out">
+        <img src="nfc-card-basic-image.jpg" alt="1 NFC Card" class="w-full h-40 object-cover rounded-md mb-4">
+        <h3 class="text-xl font-semibold mb-2 text-blue-400">1 NFC Card</h3>
+        <p>One NFC card for sharing basic contact information.</p>
+      </div>
+
+      <!-- Feature 2: Share Basic Info -->
+      <div class="cards bg-black border border-md border-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out">
+        <img src="share-basic-info-image.jpg" alt="Share Basic Info" class="w-full h-40 object-cover rounded-md mb-4">
+        <h3 class="text-xl font-semibold mb-2 text-blue-400">Share basic contact info</h3>
+        <p>Basic sharing options for name, phone number, email, and other details.</p>
+      </div>
+
+      <!-- Feature 3: Pre-designed Themes -->
+      <div class="cards bg-black border border-md border-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out">
+        <img src="pre-designed-themes-image.jpg" alt="Pre-designed Themes" class="w-full h-40 object-cover rounded-md mb-4">
+        <h3 class="text-xl font-semibold mb-2 text-blue-400">Pre-designed themes</h3>
+        <p>A selection of pre-designed themes for quick setup.</p>
+      </div>
+
+      <!-- Feature 4: Unlimited Links -->
+      <div class="cards bg-black border border-md border-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out">
+        <img src="unlimited-links-image.jpg" alt="Unlimited Links" class="w-full h-40 object-cover rounded-md mb-4">
+        <h3 class="text-xl font-semibold mb-2 text-blue-400">Unlimited links</h3>
+        <p>No limits on the number of links you can add.</p>
+      </div>
+
+      <!-- Feature 5: Maps -->
+      <div class="cards bg-black border border-md border-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out">
+        <img src="maps-image.jpg" alt="Maps" class="w-full h-40 object-cover rounded-md mb-4">
+        <h3 class="text-xl font-semibold mb-2 text-blue-400">Maps</h3>
+        <p>Basic map integration to show location on your webfolio.</p>
+      </div>
+
+      <!-- Feature 6: Custom Design -->
+      <div class="cards bg-black border border-md border-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out">
+        <img src="custom-design-image.jpg" alt="Custom Design" class="w-full h-40 object-cover rounded-md mb-4">
+        <h3 class="text-xl font-semibold mb-2 text-blue-400">Custom design</h3>
+        <p>A level of customization, but less flexible than the Pro version.</p>
+      </div>
+
+      <!-- Feature 7: Shared Access -->
+      <div class="cards bg-black border border-md border-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out">
+        <img src="shared-access-image.jpg" alt="Shared Access" class="w-full h-40 object-cover rounded-md mb-4">
+        <h3 class="text-xl font-semibold mb-2 text-blue-400">Shared access</h3>
+        <p>Allow multiple users to access or edit the webfolio.</p>
+      </div>
+
+      <!-- Feature 8: QR Code -->
+      <div class="cards bg-black border border-md border-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out">
+        <img src="qr-code-image.jpg" alt="QR Code" class="w-full h-40 object-cover rounded-md mb-4">
+        <h3 class="text-xl font-semibold mb-2 text-blue-400">QR code</h3>
+        <p>A scannable QR code for easy sharing of the webfolio.</p>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
