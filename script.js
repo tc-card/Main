@@ -55,6 +55,8 @@ function WhyNFC() {
            </div>
         `,
     confirmButtonText: "Got It! \\_/",
+    background:"#1f1f1f",
+    color:"#1dfb"
   });
 }
 
