@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <title>Total Connect | Digital Business Cards</title>
+    <meta name="description" content="Create, manage, and share digital business cards using NFC technology. Eco-friendly, cost-effective, and modern networking solutions.">
+    <meta name="image" content="https://totalkonnect.github.io/Main/Assets/4.png">
+    <meta property="og:image" content="https://totalkonnect.github.io/Main/Assets/4.png">
+    <meta property="og:image:width" content="1200">
+    
+    <link rel="icon" href="./Assets/150.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        .style-preview {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            width: 300px;
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            display: none;
+            z-index: 50;
+        }
+        @media (min-width: 1024px) {
+            .style-preview {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+
+<body class="min-h-screen flex justify-center items-center bg-black text-white font-nunito">
+    <!-- Style Preview Section -->
+    <div id="style-preview" class="style-preview bg-black/80 backdrop-blur shadow-2xl">
+            <div class="p-4">
+            <h3 class="text-lg font-semibold">Live Preview</h3>
+            <div id="preview-content"></div>
+        </div>
+    </div>
+
+    <main class="flex flex-col min-h-screen w-full">
+        <section class="flex-grow flex justify-center items-center flex-col space-y-6 w-full max-w-4xl px-4 mx-auto mb-24">
+            <form method="POST" id="data-fill" class="space-y-6 w-full lg:w-8/12 bg-black/50 rounded-xl shadow-xl p-8">
+                        <!-- Profile Section -->
+            <div class="text-center space-y-4 text-white">
+                <img src="/Assets/150.png" alt="profile-picture" id="profile-picture" class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer" />
+                <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
+                <input type="text" id="user-name" name="user-name" placeholder="Enter your name" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+            </div>
+
+            <!-- Social Links Section -->
+            <div id="dynamic-links" class="space-y-4">
+                <div class="bg-white/10 p-4 rounded border border-white/50 shadow-md">
+                    <label class="block text-white">Enter your social link:</label>
+                    <ul class="space-y-2">
+                        <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
+                            <i class="fa fa-link text-xl text-white mr-3"></i>
+                            <input type="url" name="social-links[]" placeholder="https://your-link.com" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                        </li>
+                    </ul>
+                </div>
+                <button type="button" id="add-link-btn" class="bg-yellow-800 hover:bg-blue-500 text-white hover:text-black py-2 px-4 rounded transition duration-300">
+                    Add Another Link
+                </button>
+            </div>
+
+            <!-- Style Selection (Modified) -->
+                <div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
+                    <label class="block text-white font-semibold mb-4">Choose Your Style</label>
+                    
+                    <!-- Style Presets (Grid updated) -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <button type="button" class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform" data-style="minimal">
+                            <div class="h-20 bg-gradient-to-r from-gray-900 to-black rounded"></div>
+                            <p class="mt-2 text-sm">Minimal Dark</p>
+                        </button>
+                        
+                        <button type="button" class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform" data-style="gradient">
+                            <div class="h-20 bg-gradient-to-r from-gray-700 via-gray-900 to-gray-700 rounded"></div>
+                            <p class="mt-2 text-sm">Gradient</p>
+                        </button>
+<!--                         
+                        <button type="button" class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform" data-style="nature">
+                            <div class="h-20 bg-[url('/Assets/nature-bg.jpg')] bg-cover bg-center rounded"></div>
+                            <p class="mt-2 text-sm">Nature</p>
+                        </button>
+                        
+                        <button type="button" class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform" data-style="geometric">
+                            <div class="h-20 bg-[url('/Assets/geometric-bg.svg')] bg-cover rounded"></div>
+                            <p class="mt-2 text-sm">Geometric</p>
+                        </button>
+                    </div>
+]
+                    <div class="space-y-4">
+                        <label class="block text-sm text-gray-300">Custom Colors</label>
+                        <div>
+                            <label class="text-xs text-gray-400">Background</label>
+                            <input type="color" id="bgColor" name="background-color" value="#000000" class="h-10 w-full">
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="space-y-2 w-full bg-white/10 p-4 rounded border border-white/50 shadow-md">
+                <input type="email" name="email" placeholder="Email" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" required />
+                <hr>
+                <input type="tel" name="phone" placeholder="Phone" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                <hr>
+                <input type="text" name="address" placeholder="Address" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+            </div>
+
+            <!-- Submit Button (Enhanced) -->
+            <button id="saveContactBtn" type="submit" 
+                class="w-full md:w-auto mx-auto block text-center bg-blue-500 hover:bg-blue-600 text-white py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Create Your Digital Card
+            </button>
+        </form>
+    </section>
+    
+    <br>
+    <!-- End of the Form -->
+    <footer class="text-gray-400 py-6 text-center">
+        <p>&copy; 2024 Total Connect. All rights reserved.</p>
+    </footer>
+    <img src="/Assets/zfooter.gif" alt="cute animation" class="mt-8">
+</main>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="script.js"></script>
+</body>
+</html>

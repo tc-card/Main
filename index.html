@@ -233,68 +233,6 @@ video {
                 </div>
             </div>
             <br>
-            <hr>
-            <!-- Start of the Form -->
-            <section class="flex justify-center items-center py-24">
-                <form action="submit-form.php" method="POST" id="data-fill"
-                    class="space-y-6 lg:w-6/12 sm:w-11/12 w-full">
-                    <!-- Profile Picture and v c Section -->
-                    <div class="text-center space-y-4 text-white">
-                        <img src="Assets/150.png" alt="profile-picture" id="profile-picture" class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer" />
-                        <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
-                        <h1>
-                            <input type="text" id="user-name" name="user-name" placeholder="Enter your name"
-                                class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                        </h1>
-                        <p>
-                            <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                        </p>
-                    </div>
-
-                    <!-- Dynamic Social Links Section -->
-                    <div id="dynamic-links" class="space-y-4">
-                        <div class="bg-white/10 p-4 rounded border border-white/50 shadow-md">
-                            <label for="social-link" class="block text-white">Enter your social link:</label>
-                            <ul class="space-y-2">
-                                <li
-                                    class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
-                                    <i class="fa fa-link text-xl text-white mr-3"></i>
-                                    <input type="url" name="social-links[]" placeholder="https://your-link.com" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="">
-                            <button type="button" id="add-link-btn"
-                                class="bg-yellow-800 hover:bg-blue-500 text-white hover:text-black py-2 px-4 rounded transition duration-300">
-                                Add Another Link
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Add Contact Section -->
-                    <div>
-                        <div class="space-y-2 w-full bg-white/10 p-4 rounded border border-white/50 shadow-md">
-                            <input type="email" name="email" placeholder="Email"
-                                class="w-full bg-transparent text-white p-2 rounded focus:outline-none" required />
-                            <hr>
-                            <input type="tel" name="phone" placeholder="Phone"
-                                class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                            <hr>
-                            <input type="text" name="address" placeholder="Address"
-                                class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                        </div>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <center>
-                        <button id="saveContactBtn" type="submit"
-                            class="text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-300">
-                            Submit Your Portfolio Info
-                        </button>
-                    </center>
-                </form>
-            </section>
-
             <br><br><br><br><br><br>
             <!-- End of the Form -->
             <footer class="text-gray-400 py-6 text-center">
@@ -302,7 +240,7 @@ video {
             </footer>
         </div>
     </div>
-    <img src="Assets/zfooter.gif" alt="cute animation">
+    <img src="Assets/zfooter.gif" alt="cute animation" class="mt-8">
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
