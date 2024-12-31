@@ -206,90 +206,32 @@ video {
 
 
             
-
-            <div class="relative bg-black px-6" id="Pricing">
-                <div class="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-24 blur-3xl"aria-hidden="true">
+            <div class="relative bg-black px-4" id="Pricing">
+                <div class="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-24 blur-3xl" aria-hidden="true">
                     <div class="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-yellow-600 via-gray-800 to-green-900 opacity-30"
                         style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
                     </div>
                 </div>
+                
                 <center>
                     <img src="Assets/zcenterp.gif" width="50%">
                 </center>
+                
                 <div class="mx-auto max-w-4xl text-center">
                     <h2 class="text-base font-semibold text-yellow-500 uppercase">Pricing</h2>
-                    <p class="mt-2 text-5xl font-semibold tracking-tight text-gray-200 sm:text-6xl">Find Your Perfect
-                        Plan</p>
+                    <p class="mt-2 text-5xl font-semibold tracking-tight text-gray-200 sm:text-6xl">Find Your Perfect Plan</p>
                 </div>
+                
                 <p class="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-gray-400 sm:text-xl">
                     Explore our tailored plans to create a professional online presence with NFC technology and
                     full-featured contact websites.
                 </p>
-
-                <!-- Pricing Cards -->
-                <div class="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center gap-y-6 sm:mt-8 lg:max-w-6xl lg:grid-cols-3 lg:gap-6">
-                    <!-- Starter Plan -->
-                    <div class="rounded-3xl bg-gray-900 p-8 ring-1 ring-gray-700">
-                        <h3 id="tier-starter-plan" class="text-base font-semibold text-green-400">Starter</h3>
-                        <p class="mt-4 flex items-baseline gap-x-2">
-                            <span class="text-5xl font-semibold text-green-400">$19</span>
-                            <span class="text-base text-gray-400">One-Time Fee</span>
-                        </p>
-                        <p class="mt-6 text-base text-gray-400">A simple solution to kickstart your NFC experience.</p>
-                        <ul id="starter-list" role="list" class="mt-8 space-y-3 text-sm text-gray-400 sm:mt-10">
-                            <li>Basic NFC functionality</li>
-                            <li>1 customizable profile</li>
-                            <li>Email support</li>
-                        </ul>
-                        <a href="#"
-                            class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-green-400 ring-1 ring-green-400 hover:bg-gray-800 hover:text-gray-100 sm:mt-10">
-                            Get Started
-                        </a>
-                    </div>
-
-                    <!-- Pro Plan -->
-                    <div class="relative rounded-3xl bg-gray-900 p-8 ring-1 ring-yellow-500">
-                        <span
-                            class="absolute -top-3 right-4 rounded-full bg-yellow-500 px-3 py-1.5 text-xs font-bold text-black">Most
-                            Popular</span>
-                        <h3 id="tier-pro-plan" class="text-base font-semibold text-yellow-500">Pro</h3>
-                        <p class="mt-4 flex items-baseline gap-x-2">
-                            <span class="text-5xl font-semibold text-yellow-500">$59</span>
-                            <span class="text-base text-gray-400">/year</span>
-                        </p>
-                        <p class="mt-6 text-base text-gray-400">Transform your business with a customizable contact
-                            website and advanced NFC features.</p>
-                        <ul id="pro-list" role="list" class="mt-8 space-y-3 text-sm text-gray-400 sm:mt-10">
-                            <li>Advanced NFC features</li>
-                            <li>5 customizable profiles</li>
-                            <li>Priority email support</li>
-                        </ul>
-                        <a href="#"
-                            class="mt-8 block rounded-md bg-yellow-500 px-3.5 py-2.5 text-center text-sm font-semibold text-black shadow-sm hover:bg-yellow-400 sm:mt-10">
-                            Upgrade Now
-                        </a>
-                    </div>
-
-                    <!-- Premium Plan -->
-                    <div class="rounded-3xl bg-gray-900 p-8 ring-1 ring-gray-700">
-                        <h3 id="tier-premium-plan" class="text-base font-semibold text-indigo-400">Premium</h3>
-                        <p class="mt-4 flex items-baseline gap-x-2">
-                            <span class="text-5xl font-semibold text-indigo-400">Custom</span>
-                        </p>
-                        <p class="mt-6 text-base text-gray-400">A solution to meet your specific NFC needs.</p>
-                        <ul id="premium-list" role="list" class="mt-8 space-y-3 text-sm text-gray-400 sm:mt-10">
-                            <li>Fully customizable solution</li>
-                            <li>Unlimited profiles</li>
-                            <li>Dedicated support</li>
-                        </ul>
-                        <a href="#"
-                            class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-indigo-400 ring-1 ring-indigo-400 hover:bg-gray-800 hover:text-gray-100 sm:mt-10">
-                            Contact Us
-                        </a>
-                    </div>
+            
+                <!-- Pricing Cards Container -->
+                <div id="pricing-container" class=" mt-6 grid max-w-20xl grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-2">
+                    <!-- Cards will be dynamically inserted here -->
                 </div>
             </div>
-
             <br>
             <hr>
             <!-- Start of the Form -->
