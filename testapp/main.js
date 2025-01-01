@@ -1,33 +1,5 @@
-// Constants
-const CONFIG = {
-    maxFileSize: 5 * 1024 * 1024,
-    allowedTypes: ['image/jpeg', 'image/png', 'image/gif'],
-    googleScriptUrl: 'YOUR_GOOGLE_APPS_SCRIPT_URL'
-};
 
-// Style Presets
-const stylePresets = {
-    minimal: {
-        background: '#000000',
-        accent: '#ffffff',
-        customClasses: 'bg-black'
-    },
-    gradient: {
-        background: 'linear-gradient(to bottom right,rgb(44, 50, 59),rgb(0, 0, 0), rgb(44, 50, 59)',
-        accent: '#ffffff',
-        customClasses: 'bg-gradient-to-r from-gray-500 via-black to-gray-500'
-    },
-    nature: {
-        background: "url('/Assets/nature-bg.jpg')",
-        accent: '#4ADE80',
-        customClasses: 'bg-cover bg-center'
-    },
-    geometric: {
-        background: "url('/Assets/geometric-bg.svg')",
-        accent: '#F59E0B',
-        customClasses: 'bg-cover'
-    }
-};
+import { CONFIG, stylePresets } from './config.js';
 
 document.addEventListener("DOMContentLoaded", () => {
     const elements = {
@@ -84,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Event Listeners
     elements.profilePicture.addEventListener('click', () => elements.imageInput.click());
-    
     elements.imageInput.addEventListener('change', (event) => {
         handleImageUpload(event.target.files[0], elements.profilePicture);
     });
@@ -116,7 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener('click', () => {
             const style = stylePresets[button.dataset.style];
             document.body.style.background = style.background;
-            document.documentElement.style.setProperty('--accent-color', style.accent);
             
             document.querySelectorAll('.style-preset').forEach(btn => 
                 btn.classList.remove('selected'));
