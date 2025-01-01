@@ -33,6 +33,18 @@
                 display: block;
             }
         }
+        @keyframes spin-slow {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .animate-spin-slow {
+            animation: spin-slow 3s linear infinite;
+        }
     </style>
 </head>
 
@@ -51,8 +63,16 @@
             <form method="POST" id="data-fill" class="space-y-6 w-full lg:w-8/12 bg-black/50 rounded-xl shadow-xl p-8">
                         <!-- Profile Section -->
             <div class="text-center space-y-4 text-white">
-                <img src="../Assets/150.png" alt="profile-picture" id="profile-picture" class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer" />
-                <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
+                <div class="absolute inset-0 rounded-full border-2 border-blue-500 animate-spin-slow opacity-70"></div>
+            <img src="../Assets/150.png" 
+                 alt="profile-picture" 
+                 id="profile-picture" 
+                 class="w-32 h-32 rounded-full object-cover cursor-pointer relative z-10 group-hover:scale-95 transition-transform duration-300" />
+            <input type="file" 
+                   id="image-input" 
+                   name="profile-picture" 
+                   class="hidden" 
+                   accept="image/*" />
                 <input type="text" id="user-name" name="user-name" placeholder="Enter your name" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
                 <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
             </div>
