@@ -87,11 +87,34 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener('click', () => {
             const style = stylePresets[button.dataset.style];
             document.body.style.background = style.background;
+            document.body.style.backgroundSize = 'cover';
             
+            // Check if bright style and update text/border colors
+            if (button.dataset.style.includes('bright')) {
+                document.body.style.color = '#000000';
+                document.querySelectorAll('.border, .border-2').forEach(el => {
+                    el.style.borderColor = '#000000';
+                });
+                document.querySelectorAll('input, textarea').forEach(input => {
+                    input.style.color = '#000000';
+                    input.style.setProperty('::placeholder', '#000000', 'important');
+                });
+            } else {
+                document.body.style.color = '#ffffff';
+                document.querySelectorAll('.border, .border-2').forEach(el => {
+                    el.style.borderColor = 'rgba(255, 255, 255, 0.5)';
+                });
+                document.querySelectorAll('input, textarea').forEach(input => {
+                    input.style.color = '#ffffff';
+                    input.style.setProperty('::placeholder', '#ffffff', 'important');
+                });
+            }
+            
+            // UI feedback
             document.querySelectorAll('.style-preset').forEach(btn => 
                 btn.classList.remove('selected'));
             button.classList.add('selected');
-
+    
             Swal.fire({
                 icon: 'success',
                 title: 'Style Updated',
@@ -107,19 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.style.background = e.target.value;
     });
 
-    elements.bgImage.addEventListener('change', (e) => {
-        handleImageUpload(e.target.files[0], null);
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                document.body.style.backgroundImage = `url(${e.target.result})`;
-                document.body.style.backgroundSize = 'cover';
-                document.body.style.backgroundPosition = 'center';
-            };
-            reader.readAsDataURL(file);
-        }
-    });
 
     // Form Submission
     elements.form.addEventListener('submit', async (e) => {
@@ -198,5 +208,55 @@ document.addEventListener("DOMContentLoaded", () => {
         } finally {
             submitBtn.disabled = false;
         }
+    });
+});
+document.addEventListener("DOMContentLoaded", () => {
+    const bgImageInput = document.getElementById('bgImage');
+    
+    if (!bgImageInput) {
+        console.error('Background image input not found');
+        return;
+    }
+
+    bgImageInput.addEventListener('change', (e) => {
+        console.log('File input change detected');
+        const file = e.target.files[0];
+        
+        if (!file) {
+            console.log('No file selected');
+            return;
+        }
+
+        console.log('File selected:', file.name);
+
+        const reader = new FileReader();
+        
+        reader.onload = (event) => {
+            console.log('File read successfully');
+            document.body.style.backgroundImage = `url('${event.target.result}')`;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+            document.body.style.backgroundRepeat = 'no-repeat';
+            
+            Swal.fire({
+                icon: 'success',
+                title: 'Background Updated',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        };
+
+        reader.onerror = (error) => {
+            console.error('Error reading file:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to read image file'
+            });
+        };
+
+        reader.readAsDataURL(file);
     });
 });

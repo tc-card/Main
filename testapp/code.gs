@@ -6,7 +6,6 @@ function doPost(e) {
     new Date(), // Timestamp
     data.name,
     data.tagline,
-    //is this correct ?
     data.socialLinks.join(",\n"),
     data.email,
     data.phone,

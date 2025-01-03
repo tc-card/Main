@@ -30,7 +30,12 @@ header {
     width: 100%;
     height: 100vh; /* Ensures the header takes up the full viewport height */
 }
-
+.card-hover {
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👏</text></svg>") 16 0, auto;
+    }
+.price-hover {
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>✨</text></svg>") 16 0, auto;
+    }
 .video-background {
     position: absolute;
     top: 0;
@@ -79,7 +84,7 @@ video {
                 </div>
             </div>
         </header>
-    <div class="container mx-auto mt-8">
+    <div class="container mx-auto mt-8" id="features">
         <div class="w-8/12 mx-auto">
             <div class="carousel max-w-6xl grid md:grid-cols-2 gap-8 items-center" style="width: 100%;">
                 <div class="p-2 "><img width="100%" src="Assets/2.png" alt="Image 1"></div>
@@ -106,59 +111,52 @@ video {
                     </a>
                 </div>
             </div>
-
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="learn-more">
-                <div
-                    class="rounded-lg border bg-gray-800 text-gray-100 shadow-sm relative overflow-hidden group hover:shadow-lg transition-all duration-300 h-full">
+                <!-- Eco-Friendly Card -->
+                <div class="rounded-lg border border-gray-800 bg-black/80 text-gray-100 shadow-md relative overflow-hidden group hover:shadow-2xl transition-all duration-300 h-full hover:border-gray-700 card-hover">
                     <div class="p-6">
-                        <div
-                            class="inline-flex p-3 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 bg-opacity-10">
-                            <i class="fas fa-leaf text-xl text-blue-400"></i>
+                        <div class="inline-flex p-3 rounded-lg bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700">
+                            <i class="fas fa-leaf text-xl text-green-400"></i>
                         </div>
-                        <h3 class="text-lg font-semibold mt-4">Eco-Friendly</h3>
-                        <p class="mt-2 text-gray-300">
+                        <h3 class="text-lg font-semibold mt-4 text-white">Eco-Friendly</h3>
+                        <p class="mt-2 text-gray-400 leading-relaxed">
                             Say goodbye to paper waste. Our digital solution eliminates the need for printed cards,
                             contributing to environmental conservation while providing a modern alternative.
                         </p>
                     </div>
                 </div>
-
-                <div
-                    class="rounded-lg border bg-gray-800 text-gray-100 shadow-sm relative overflow-hidden group hover:shadow-lg transition-all duration-300 h-full">
+            
+                <!-- Effortless Sharing Card -->
+                <div class="rounded-lg border border-gray-800 bg-black/80 text-gray-100 shadow-md relative overflow-hidden group hover:shadow-2xl transition-all duration-300 h-full hover:border-gray-700 card-hover">
                     <div class="p-6">
-                        <div
-                            class="inline-flex p-3 rounded-lg bg-gradient-to-r from-green-500 to-teal-500 bg-opacity-10">
-                            <i class="fas fa-share-alt text-xl text-green-400"></i>
+                        <div class="inline-flex p-3 rounded-lg bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700">
+                            <i class="fas fa-share-alt text-xl text-blue-400"></i>
                         </div>
-                        <h3 class="text-lg font-semibold mt-4">Effortless Sharing</h3>
-                        <p class="mt-2 text-gray-300">
-                            Share your profile with just a tap using NFC or QR codes. Whether it’s a professional
-                            contact or
+                        <h3 class="text-lg font-semibold mt-4 text-white">Effortless Sharing</h3>
+                        <p class="mt-2 text-gray-400 leading-relaxed">
+                            Share your profile with just a tap using NFC or QR codes. Whether it's a professional contact or
                             a personal connection, sharing has never been easier.
                         </p>
                     </div>
                 </div>
-
-                <div
-                    class="rounded-lg border bg-gray-800 text-gray-100 shadow-sm relative overflow-hidden group hover:shadow-lg transition-all duration-300 h-full">
+            
+                <!-- Cost-Effective Card -->
+                <div class="rounded-lg border border-gray-800 bg-black/80 text-gray-100 shadow-md relative overflow-hidden group hover:shadow-2xl transition-all duration-300 h-full hover:border-gray-700 card-hover">
                     <div class="p-6">
-                        <div
-                            class="inline-flex p-3 rounded-lg bg-gradient-to-r from-yellow-500 to-orange-500 bg-opacity-10">
+                        <div class="inline-flex p-3 rounded-lg bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700">
                             <i class="fas fa-dollar-sign text-xl text-yellow-400"></i>
                         </div>
-                        <h3 class="text-lg font-semibold mt-4">Cost-Effective</h3>
-                        <p class="mt-2 text-gray-300">
-                            Forget about reprinting business cards. Our platform lets you update your information
-                            digitally,
+                        <h3 class="text-lg font-semibold mt-4 text-white">Cost-Effective</h3>
+                        <p class="mt-2 text-lime-400 leading-relaxed">
+                            Forget about reprinting business cards. Our platform lets you update your information digitally,
                             saving time and money.
                         </p>
                     </div>
                 </div>
             </div>
 
-
             
-            <div class="relative bg-black px-4" id="Pricing">
+            <div class="relative bg-black px-4 price-hover" id="Pricing">
                 <div class="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-24 blur-3xl" aria-hidden="true">
                     <div class="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-yellow-600 via-gray-800 to-green-900 opacity-30"
                         style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
@@ -186,14 +184,12 @@ video {
             </div>
             
             <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                <a href="/testapp/" class="rounded-md px-3.5 py-2.5 text-xl font-semibold text-gray-100 border border-white/50 shadow-sm hover:bg-yellow-500">
+                <a href="testapp/" class="rounded-md px-3.5 py-2.5 my-28 text-xl font-semibold text-gray-100 border border-white/50 shadow-sm hover:bg-gray-700">
                     Preview For Yourself
                 </a>
             </div>
-            <br>
-            <br><br><br><br><br><br>
             <!-- End of the Form -->
-            <footer class="text-gray-400 py-6 text-center">
+            <footer class="text-gray-400 py-6 top-my-280 text-center">
                 <p>&copy; 2024 Total Connect. All rights reserved.</p>
             </footer>
         </div>
