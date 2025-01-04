@@ -36,29 +36,45 @@
           });
       });
 
-document.querySelector('#learn-more').addEventListener('click', WhyNFC);
-function WhyNFC() {
-  Swal.fire({
-    icon: "info",
-    title: "What is NFC?",
-    html: `<div style='text-align:left'>
-                NFC is a wireless communication technology that enables data exchange between two devices in proximity to each other.
-            <br><hr><br>
-                It is based on radio frequency identification (RFID) technology and allows different devices to send and receive data over short distances by creating a magnetic field that induces an electric current in a nearby NFC-enabled device.<br><hr><br>
-                NFC technology is widely used in various industries and applications, such as contactless payments, public transportation, access control systems, and smart home automation.
-            <br><hr><br>
-                NFC-enabled devices include smartphones, tablets, contactless payment cards, and other devices with built-in NFC chips.
-            <br><hr><br>
-                There are many advantages, including its ease of use, speed, and convenience. Since it requires proximity between devices, it is considered to be a secure form of communication.
-            <br><hr><br>
-                NFC is also very versatile and can be used in a wide range of applications, making it a popular choice for developers and businesses.
-           </div>
-        `,
-    confirmButtonText: "Got It! \\_/",
-    background:"#1f1f1f",
-    color:"#1dfb"
-  });
-}
+      document.querySelector('#learn-more').addEventListener('click', WhyNFC);
+      function WhyNFC() {
+        Swal.fire({
+          icon: "info",
+          title: "Understanding NFC Technology",
+          html: `<div style='text-align:left; line-height:1.6;'>
+                      <strong>What is NFC?</strong><br>
+                      Near Field Communication (NFC) is a secure wireless technology that enables seamless data exchange between devices in close proximity.
+                  <br><hr><br>
+                      <strong>How does it work?</strong><br>
+                      Using advanced RFID technology, NFC creates a secure connection between compatible devices, allowing instant data transfer without physical contact.
+                  <br><hr><br>
+                      <strong>Where is it used?</strong><br>
+                      NFC powers many modern conveniences including:
+                      • Digital payments
+                      • Access control systems
+                      • Business networking
+                      • Smart device integration
+                  <br><hr><br>
+                      <strong>Why choose NFC?</strong><br>
+                      • Instant connectivity
+                      • Enhanced security
+                      • Universal compatibility
+                      • Future-proof technology
+                  <br><hr><br>
+                      <strong>Business Benefits</strong><br>
+                      NFC technology streamlines professional networking, enhances brand perception, and provides a sustainable solution for modern business connectivity.
+                 </div>
+              `,
+          confirmButtonText: "Understand",
+          background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
+          color: "#fff",
+          customClass: {
+            container: 'custom-swal-container',
+            popup: 'custom-swal-popup',
+            content: 'custom-swal-content'
+          }
+        });
+      }
 const cardContents = [
   {
     tier: "Basic",
@@ -75,7 +91,7 @@ const cardContents = [
       "Contact Button"
     ],
     colorClasses: "bg-gray-900 ring-green-400 text-green-400",
-    link: "#",
+    link: "testapp/test.html",
   },
   {
     tier: "Standard", 

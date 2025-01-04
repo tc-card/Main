@@ -55,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Event Listeners
-    elements.profilePicture.addEventListener('click', () => elements.imageInput.click());
     elements.imageInput.addEventListener('change', (event) => {
         handleImageUpload(event.target.files[0], elements.profilePicture);
     });
@@ -259,4 +258,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         reader.readAsDataURL(file);
     });
+});
+
+document.getElementById('profile-picture').addEventListener('click', function() {
+    document.getElementById('image-input').click();
 });

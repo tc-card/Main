@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Total Connect | digital business cards</title>
-    <meta name="description" content="Create, manage, and share digital business cards using NFC technology. Eco-friendly, cost-effective, and modern networking solutions.">
+    <meta name="description"
+        content="Create, manage, and share digital business cards using NFC technology. Eco-friendly, cost-effective, and modern networking solutions.">
     <!-- meta name for img -->
     <meta name="image" content="https://totalkonnect.github.io/Main/Assets/4.png">
     <meta property="og:image" content="https://totalkonnect.github.io/Main/Assets/4.png">
@@ -18,78 +19,100 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
-    <link rel="preload" href="Assets/TC-cards.gif" as="image">
     <link rel="preload" href="Assets/TC-cards.mp4" as="video">
     <style>
-html {
-  scroll-behavior: smooth;
-}
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background: linear-gradient(180deg, 
+                #000000 20%,
+                rgb(13, 18, 29) 25%,
+                #000000 45%,
+                rgb(13, 18, 29) 75%,
+                #000000 100%
+            );
+        }
 
-header {
-    position: relative;
-    width: 100%;
-    height: 100vh; /* Ensures the header takes up the full viewport height */
-}
-.card-hover {
-        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👏</text></svg>") 16 0, auto;
-    }
-.price-hover {
-        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>✨</text></svg>") 16 0, auto;
-    }
-.video-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Places the video behind the content */
-}
+        header {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            /* Ensures the header takes up the full viewport height */
+        }
 
-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the video stretches to cover the area */
-}
+        .card-hover {
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👏</text></svg>") 16 0, auto;
+        }
 
-</style>
+        .price-hover {
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>✨</text></svg>") 16 0, auto;
+        }
+
+        a:hover {
+            background: rgb(15, 23, 42);
+            border-color: white;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* Places the video behind the content */
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ensures the video stretches to cover the area */
+        }
+    </style>
 </head>
-<body class="min-h-screen flex flex-col justify-center items-center bg-black text-white font-nunito overflow-y-scroll overflow-x-hidden">
-        <header class="relative isolate px-6 pt-14 lg:px-8">
-             <!-- Video Background -->
-             <div class="video-background">
-                <video autoplay muted loop class="w-full h-full sm:h-1/2 object-cover">
-                    <source src="Assets/TC-cards.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-                <div class="text-center">
-                    <h1 class="text-5xl font-semibold tracking-tight text-gray-100 sm:text-7xl">
-                        Build and Share Your Digital Identity
-                    </h1>
-                    <p class="mt-8 text-lg text-gray-400 sm:text-xl">
-                        Welcome to a revolutionary way of networking! This platform is designed to make creating,
-                        managing, and sharing your digital identity seamless. Using cutting-edge NFC technology,
-                        we’re
-                        replacing traditional business cards with a sustainable, digital alternative.
-                    </p>
-                    <div class="mt-10 flex items-center justify-center gap-x-6 text-2xl">
-                        <a href="#why" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
-                            Why us?
-                        </a>
-                        <a href="#Pricing" class="text-sm font-semibold text-gray-100 rounded-md border border-transparent hover:border-white transition-all duration-300 px-4 py-2">
-                         Pricing <span aria-hidden="true">→</span>
-                     </a>
-                    </div>
+
+<body class="flex flex-col justify-center items-center bg-black text-white font-nunito overflow-y-scroll overflow-x-hidden" >
+    <header class="relative isolate px-6 pt-14 lg:px-8">
+        <!-- Video Background -->
+        <div class="video-background">
+            <video autoplay muted loop class="w-full h-full sm:h-1/2 object-cover">
+                <source src="Assets/TC-cards.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+            <div class="text-center">
+                <h1 class="text-5xl font-semibold tracking-tight text-gray-100 sm:text-7xl">
+                    Build and Share Your Digital Identity
+                </h1>
+                <p class="mt-8 text-lg text-gray-400 sm:text-xl">
+                    Welcome to a revolutionary way of networking! This platform is designed to make creating,
+                    managing, and sharing your digital identity seamless. Using cutting-edge NFC technology,
+                    we’re
+                    replacing traditional business cards with a sustainable, digital alternative.
+                </p>
+                <div class="mt-10 flex items-center justify-center gap-x-6 text-2xl">
+                    <a href="#why" class="rounded-md bg-gray-800 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm">
+                        Why us?
+                    </a>
+                    <a href="#Pricing"
+                        class="text-sm font-semibold text-gray-100 rounded-md border border-transparent hover:border-white transition-all duration-300 px-4 py-2">
+                        Pricing <span aria-hidden="true">→</span>
+                    </a>
                 </div>
             </div>
-        </header>
-    <div class="container mx-auto mt-8" id="features">
+        </div>
+    </header>
+
+    <div class="container mx-auto mt-8 text-white" id="features">
         <div class="w-8/12 mx-auto">
             <div class="carousel max-w-6xl grid md:grid-cols-2 gap-8 items-center" style="width: 100%;">
                 <div class="p-2 "><img width="100%" src="Assets/2.png" alt="Image 1"></div>
                 <div class="p-2 "><img width="100%" src="Assets/3.png" alt="Image 2"></div>
-                <div class="p-2 "><img width="100%" src="https://totalkonnect.github.io/Main/Assets/4.png" alt="Image 3"></div>
+                <div class="p-2 "><img width="100%" src="https://totalkonnect.github.io/Main/Assets/4.png"
+                        alt="Image 3"></div>
                 <div class="p-2 "><img width="100%" src="Assets/5.png" alt="Image 4"></div>
             </div>
             <div class="mx-auto max-w-8xl py-24 sm:px-6 sm:py-32 lg:px-8" id="why">
@@ -103,19 +126,24 @@ video {
                     smarter, and more engaging than ever.
                 </p>
                 <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                    <a href="https://starter.totalconnect.io" class="rounded-md px-3.5 py-2.5 text-sm font-semibold text-gray-100 border border-white/50 shadow-sm hover:bg-yellow-500">
+                    <a href="#Pricing"
+                        class="rounded-md px-3.5 py-2.5 text-sm font-semibold text-gray-100 border border-white/50 shadow-sm hover:bg-gray-800">
                         Get Started
                     </a>
-                    <a href="#learnmore" id="learn-more" class="text-sm font-semibold text-gray-100 rounded-md border border-transparent hover:border-white hover:bg-indigo-600 transition-all duration-300 px-4 py-2">
+
+                    <a href="#learnmore" id="learn-more"
+                        class="learn-more-btn text-sm font-semibold text-gray-100 rounded-md border border-transparent hover:border-white transition-all duration-300 px-3.5 py-2.5">
                         Learn More <span aria-hidden="true">→</span>
                     </a>
                 </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="learn-more">
                 <!-- Eco-Friendly Card -->
-                <div class="rounded-lg border border-gray-800 bg-black/80 text-gray-100 shadow-md relative overflow-hidden group hover:shadow-2xl transition-all duration-300 h-full hover:border-gray-700 card-hover">
+                <div
+                    class="rounded-lg border border-gray-800 bg-black/80 text-gray-100 shadow-md relative overflow-hidden group hover:shadow-2xl transition-all duration-300 h-full hover:border-gray-700 card-hover">
                     <div class="p-6">
-                        <div class="inline-flex p-3 rounded-lg bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700">
+                        <div
+                            class="inline-flex p-3 rounded-lg bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700">
                             <i class="fas fa-leaf text-xl text-green-400"></i>
                         </div>
                         <h3 class="text-lg font-semibold mt-4 text-white">Eco-Friendly</h3>
@@ -125,66 +153,76 @@ video {
                         </p>
                     </div>
                 </div>
-            
+
                 <!-- Effortless Sharing Card -->
-                <div class="rounded-lg border border-gray-800 bg-black/80 text-gray-100 shadow-md relative overflow-hidden group hover:shadow-2xl transition-all duration-300 h-full hover:border-gray-700 card-hover">
+                <div
+                    class="rounded-lg border border-gray-800 bg-black/80 text-gray-100 shadow-md relative overflow-hidden group hover:shadow-2xl transition-all duration-300 h-full hover:border-gray-700 card-hover">
                     <div class="p-6">
-                        <div class="inline-flex p-3 rounded-lg bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700">
+                        <div
+                            class="inline-flex p-3 rounded-lg bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700">
                             <i class="fas fa-share-alt text-xl text-blue-400"></i>
                         </div>
                         <h3 class="text-lg font-semibold mt-4 text-white">Effortless Sharing</h3>
                         <p class="mt-2 text-gray-400 leading-relaxed">
-                            Share your profile with just a tap using NFC or QR codes. Whether it's a professional contact or
+                            Share your profile with just a tap using NFC or QR codes. Whether it's a professional
+                            contact or
                             a personal connection, sharing has never been easier.
                         </p>
                     </div>
                 </div>
-            
+
                 <!-- Cost-Effective Card -->
-                <div class="rounded-lg border border-gray-800 bg-black/80 text-gray-100 shadow-md relative overflow-hidden group hover:shadow-2xl transition-all duration-300 h-full hover:border-gray-700 card-hover">
+                <div
+                    class="rounded-lg border border-gray-800 bg-black/80 text-gray-100 shadow-md relative overflow-hidden group hover:shadow-2xl transition-all duration-300 h-full hover:border-gray-700 card-hover">
                     <div class="p-6">
-                        <div class="inline-flex p-3 rounded-lg bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700">
+                        <div
+                            class="inline-flex p-3 rounded-lg bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700">
                             <i class="fas fa-dollar-sign text-xl text-yellow-400"></i>
                         </div>
                         <h3 class="text-lg font-semibold mt-4 text-white">Cost-Effective</h3>
                         <p class="mt-2 text-lime-400 leading-relaxed">
-                            Forget about reprinting business cards. Our platform lets you update your information digitally,
+                            Forget about reprinting business cards. Our platform lets you update your information
+                            digitally,
                             saving time and money.
                         </p>
                     </div>
                 </div>
             </div>
 
-            
-            <div class="relative bg-black px-4 price-hover" id="Pricing">
-                <div class="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-24 blur-3xl" aria-hidden="true">
+
+            <div class="relative px-4 price-hover" id="Pricing">
+                <div class="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-24 blur-3xl"
+                    aria-hidden="true">
                     <div class="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-yellow-600 via-gray-800 to-green-900 opacity-30"
                         style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
                     </div>
                 </div>
-                
+
                 <center>
                     <img src="Assets/zcenterp.gif" width="50%">
                 </center>
-                
+
                 <div class="mx-auto max-w-4xl text-center">
                     <h2 class="text-base font-semibold text-yellow-500 uppercase">Pricing</h2>
-                    <p class="mt-2 text-5xl font-semibold tracking-tight text-gray-200 sm:text-6xl">Find Your Perfect Plan</p>
+                    <p class="mt-2 text-5xl font-semibold tracking-tight text-gray-200 sm:text-6xl">Find Your Perfect
+                        Plan</p>
                 </div>
-                
+
                 <p class="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-gray-400 sm:text-xl">
                     Explore our tailored plans to create a professional online presence with NFC technology and
                     full-featured contact websites.
                 </p>
-            
+
                 <!-- Pricing Cards Container -->
-                <div id="pricing-container" class=" mt-6 grid max-w-20xl grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-2">
+                <div id="pricing-container"
+                    class=" mt-6 grid max-w-20xl grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-2">
                     <!-- Cards will be dynamically inserted here -->
                 </div>
             </div>
-            
-            <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                <a href="testapp/" class="rounded-md px-3.5 py-2.5 my-28 text-xl font-semibold text-gray-100 border border-white/50 shadow-sm hover:bg-gray-700">
+
+            <div class="mt-10 flex items-center justify-center gap-x-6 ">
+                <a href="testapp/"
+                    class="rounded-md px-3.5 py-2.5 my-28 text-xl font-semibold text-gray-100 border border-white/50 shadow-sm hover:bg-gray-700">
                     Preview For Yourself
                 </a>
             </div>
