@@ -16,7 +16,7 @@
     <meta property="og:image" content="https://totalkonnect.github.io/Main/Assets/4.png">
     <meta property="og:image:width" content="1200">
 
-    <link rel="icon" href="./Assets/150.png" type="image/x-icon">
+    <link rel="icon" href="../Assets/150.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -24,6 +24,21 @@
     <style>
         html {
             scroll-behavior: smooth;
+        }
+        .style-preset.selected {
+            border-color: #3B82F6;
+            transform: scale(1.05);
+        }
+
+        .style-preview {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 200px;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -37,7 +52,7 @@
             <form method="POST" id="data-fill" class="space-y-6 w-full lg:w-8/12 bg-black/50 rounded-xl shadow-xl p-8">
                 <!-- Profile Section -->
                 <div class="text-center space-y-4 text-white">
-                    <img src="../Assets/150.png" alt="profile-picture" id="profile-picture" class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer " />
+                    <img src=".../Assets/150.png" alt="profile-picture" id="profile-picture" class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer " />
                     <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
                     <input type="text" id="user-name" name="user-name" placeholder="Enter your name" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
                     <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
@@ -197,7 +212,7 @@
         <footer class="text-gray-400 py-6 text-center">
             <p>&copy; 2024 Total Connect. All rights reserved.</p>
         </footer>
-        <img src="../Assets/zfooter.gif" alt="cute animation" class="mt-8">
+        <img src=".../Assets/zfooter.gif" alt="cute animation" class="mt-8">
     </main>
 
     <!-- Scripts -->
