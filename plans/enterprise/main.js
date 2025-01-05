@@ -39,7 +39,15 @@ document.addEventListener("DOMContentLoaded", () => {
         reader.readAsDataURL(file);
     }
 
-    // Social Links Management
+    // Event Listeners
+    elements.imageInput.addEventListener('change', (event) => {
+        handleImageUpload(event.target.files[0], elements.profilePicture);
+    });
+
+    const dynamicLinks = document.getElementById('dynamic-links');
+    const addLinkBtn = document.getElementById('add-link-btn');
+
+    // Function to create the HTML for a new social link
     function createSocialLink() {
         return `
             <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20 relative group">
@@ -54,60 +62,34 @@ document.addEventListener("DOMContentLoaded", () => {
             </li>`;
     }
 
-    // Event Listeners
-    elements.imageInput.addEventListener('change', (event) => {
-        handleImageUpload(event.target.files[0], elements.profilePicture);
-    });
+    // Function to add remove button functionality
+    function addRemoveButtonListener(button) {
+        button.addEventListener('click', function() {
+            this.closest('li').remove();
+        });
+    }
 
-    elements.addLinkBtn.addEventListener('click', () => {
-        const ul = elements.dynamicLinks.querySelector('ul');
+    // Add button click handler
+    addLinkBtn.addEventListener('click', () => {
+        const ul = dynamicLinks.querySelector('ul');
         ul.insertAdjacentHTML('beforeend', createSocialLink());
         
-        const removeButton = ul.querySelector('li:last-child .remove-link-btn');
-        removeButton.addEventListener('click', function() {
-            Swal.fire({
-                title: 'Remove Link?',
-                text: 'Are you sure you want to remove this link?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, remove it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    removeButton.parentElement.remove();
-                }
-            });
-        });
+        // Add listener to the new remove button
+        const newLi = ul.lastElementChild;
+        const removeButton = newLi.querySelector('.remove-link-btn');
+        addRemoveButtonListener(removeButton);
     });
 
+    // Add listeners to any existing remove buttons
+    document.querySelectorAll('.remove-link-btn').forEach(button => {
+        addRemoveButtonListener(button);
+    });
     // Style Management
     document.querySelectorAll('.style-preset').forEach(button => {
         button.addEventListener('click', () => {
             const style = stylePresets[button.dataset.style];
             document.body.style.background = style.background;
             document.body.style.backgroundSize = 'cover';
-            
-            // Check if bright style and update text/border colors
-            if (button.dataset.style.includes('bright')) {
-                document.body.style.color = '#000000';
-                document.querySelectorAll('.border, .border-2').forEach(el => {
-                    el.style.borderColor = '#000000';
-                });
-                document.querySelectorAll('input, textarea').forEach(input => {
-                    input.style.color = '#000000';
-                    input.style.setProperty('::placeholder', '#000000', 'important');
-                });
-            } else {
-                document.body.style.color = '#ffffff';
-                document.querySelectorAll('.border, .border-2').forEach(el => {
-                    el.style.borderColor = 'rgba(255, 255, 255, 0.5)';
-                });
-                document.querySelectorAll('input, textarea').forEach(input => {
-                    input.style.color = '#ffffff';
-                    input.style.setProperty('::placeholder', '#ffffff', 'important');
-                });
-            }
             
             // UI feedback
             document.querySelectorAll('.style-preset').forEach(btn => 
@@ -154,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const formData = {
             name: document.getElementById('user-name').value,
             tagline: document.getElementById('user-tagline').value,
-            socialLinks: Array.from(document.getElementsByName('social-links[]'))
+            CompanyLinks: Array.from(document.getElementsByName('company-Links[]'))
                 .map(input => input.value)
                 .filter(link => link),
             email: document.querySelector('input[name="email"]').value,

@@ -22,18 +22,18 @@ export const stylePresets = {
         background: '#450a0a'
     },
 
-    // Bright Professional Colors
-    brightCorporateBlue: {
-        background: '#0ea5e9'  // Sky blue
+    // Lighter color themes
+    clouds: {
+        background: '#0ea5e9'
     },
-    brightSunset: {
-        background: '#f97316'  // Warm orange
+    Pink: {
+        background: '#9b0055'
     },
-    brightTeal: {
-        background: '#14b8a6'  // Fresh teal
+    SkyBlue: {
+        background: '#2563eb'
     },
-    brightViolet: {
-        background: '#8b5cf6'  // Soft purple
+    paleRed: {
+        background: '#f00f4d'
     },
 
     // Professional Gradients

@@ -18,6 +18,7 @@
 
         h3 {
             overflow: hidden;
+            max-height: 430px;
         }
 
         @layer utilities {
@@ -28,16 +29,16 @@
 
             @keyframes skew-scroll {
                 0% {
-                    transform: rotateX(20deg) rotateZ(-20deg) skewX(20deg) translateZ(0) translateY(0);
+                    transform:translateZ(0) translateY(0);
                 }
-
+ /* 100 rotateX(20deg) rotateZ(-20deg) skewX(20deg) || 0 rotateX(20deg) rotateZ(-20deg) skewX(20deg)  */
                 100% {
-                    transform: rotateX(20deg) rotateZ(-20deg) skewX(20deg) translateZ(0) translateY(-50%);
+                    transform:translateZ(0) translateY(-33%);
                 }
             }
 
             .animate-skew-scroll {
-                animation: skew-scroll 15s linear infinite;
+                animation: skew-scroll 15s linear infinite !important;
             }
 
             .glass-effect {
@@ -79,7 +80,7 @@
                     <h3 class="font-semibold text-purple-400 flex items-center gap-2 mb-4">
                         <i class="fas fa-star"></i>
                         What's Included:
-                        <div class="mx-auto grid h-[400px] w-[100%] animate-skew-scroll grid-cols-1 gap-5 sm:w-[600px] sm:grid-cols-2"
+                        <div class="mx-auto grid h-[100%] w-[100%] animate-skew-scroll grid-cols-1 gap-5 sm:w-[600px] sm:grid-cols-2"
                             style="mask-composite: intersect; -webkit-mask-composite: intersect; mask-image: 
                                 linear-gradient(to right, transparent, black 5rem),
                                 linear-gradient(to left, transparent, black 5rem),
@@ -127,8 +128,7 @@
             </div>
         </div>
     </div>
-    <section id="start"
-        class="flex-grow flex justify-center items-center flex-col space-y-6 w-full max-w-4xl px-4 mx-auto mb-24">
+    <section id="start" class="flex-grow flex justify-center items-center flex-col space-y-6 w-full max-w-4xl px-4 mx-auto mb-24">
         <h2 class="text-3xl font-bold text-center text-white py-16">Create Your Digital Card</h2>
         <form method="POST" id="data-fill" class="space-y-6 w-full lg:w-8/12 rounded-xl shadow-xl p-8">
             <!-- Profile Section -->
@@ -136,27 +136,24 @@
                 <img src="/Assets/150.png" alt="profile-picture" id="profile-picture"
                     class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer" />
                 <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
-                <input type="text" id="user-name" name="user-name" placeholder="Enter your name"
+                <input type="text" id="user-name" name="user-name" placeholder="Enter company name"
                     class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline"
+                <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter field"
                     class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
             </div>
 
-            <!-- Social Links Section -->
-            <div id="dynamic-links" class="space-y-4">
+            <!-- Company Links Section -->
+            <div id="dynamic-company-Link" class="space-y-4">
                 <div class="bg-white/10 p-4 rounded border border-white/50 shadow-md">
-                    <label class="block text-white">Enter your social link:</label>
+                    <label class="block text-white">Enter your links:</label>
                     <ul class="space-y-2">
-                        <li
-                            class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
+                        <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
                             <i class="fa fa-link text-xl text-white mr-3"></i>
-                            <input type="url" name="social-links[]" placeholder="https://your-link.com"
-                                class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                            <input type="url" name="company-Link[]" placeholder="https://your-link.com" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
                         </li>
                     </ul>
                 </div>
-                <button type="button" id="add-link-btn"
-                    class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl">
+                <button type="button" id="add-link-btn" class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl">
                     <i class="fa fa-plus text-sm"></i>
                     Add Another Link
                 </button>

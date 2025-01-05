@@ -39,7 +39,15 @@ document.addEventListener("DOMContentLoaded", () => {
         reader.readAsDataURL(file);
     }
 
-    // Social Links Management
+    // Event Listeners
+    elements.imageInput.addEventListener('change', (event) => {
+        handleImageUpload(event.target.files[0], elements.profilePicture);
+    });
+
+    const dynamicLinks = document.getElementById('dynamic-links');
+    const addLinkBtn = document.getElementById('add-link-btn');
+
+    // Function to create the HTML for a new social link
     function createSocialLink() {
         return `
             <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20 relative group">
@@ -54,31 +62,27 @@ document.addEventListener("DOMContentLoaded", () => {
             </li>`;
     }
 
-    // Event Listeners
-    elements.imageInput.addEventListener('change', (event) => {
-        handleImageUpload(event.target.files[0], elements.profilePicture);
-    });
+    // Function to add remove button functionality
+    function addRemoveButtonListener(button) {
+        button.addEventListener('click', function() {
+            this.closest('li').remove();
+        });
+    }
 
-    elements.addLinkBtn.addEventListener('click', () => {
-        const ul = elements.dynamicLinks.querySelector('ul');
+    // Add button click handler
+    addLinkBtn.addEventListener('click', () => {
+        const ul = dynamicLinks.querySelector('ul');
         ul.insertAdjacentHTML('beforeend', createSocialLink());
         
-        const removeButton = ul.querySelector('li:last-child .remove-link-btn');
-        removeButton.addEventListener('click', function() {
-            Swal.fire({
-                title: 'Remove Link?',
-                text: 'Are you sure you want to remove this link?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, remove it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    removeButton.parentElement.remove();
-                }
-            });
-        });
+        // Add listener to the new remove button
+        const newLi = ul.lastElementChild;
+        const removeButton = newLi.querySelector('.remove-link-btn');
+        addRemoveButtonListener(removeButton);
+    });
+
+    // Add listeners to any existing remove buttons
+    document.querySelectorAll('.remove-link-btn').forEach(button => {
+        addRemoveButtonListener(button);
     });
 
     // Style Management
