@@ -102,7 +102,7 @@ const cardContents = [
       // Core Features
       "5 NFC Cards",
       "Customizable web portfolio",
-      "unlimited media links",
+      "Unlimited media links",
       // Support
       "Email support",
       // Branding
