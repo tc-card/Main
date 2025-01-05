@@ -1,6 +1,10 @@
 
 import { CONFIG, stylePresets } from './config.js';
 
+document.getElementById('profile-picture').addEventListener('click', function() {
+    document.getElementById('image-input').click();
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     const elements = {
         profilePicture: document.getElementById('profile-picture'),
@@ -240,8 +244,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
         reader.readAsDataURL(file);
     });
-});
-
-document.getElementById('profile-picture').addEventListener('click', function() {
-    document.getElementById('image-input').click();
 });

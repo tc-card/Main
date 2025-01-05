@@ -1,6 +1,9 @@
 
 import { CONFIG, stylePresets } from './config.js';
 
+document.getElementById('profile-picture').addEventListener('click', function() {
+    document.getElementById('image-input').click();
+});
 document.addEventListener("DOMContentLoaded", () => {
     const elements = {
         profilePicture: document.getElementById('profile-picture'),
@@ -91,28 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const style = stylePresets[button.dataset.style];
             document.body.style.background = style.background;
             document.body.style.backgroundSize = 'cover';
-            
-            // Check if bright style and update text/border colors
-            if (button.dataset.style.includes('bright')) {
-                document.body.style.color = '#000000';
-                document.querySelectorAll('.border, .border-2').forEach(el => {
-                    el.style.borderColor = '#000000';
-                });
-                document.querySelectorAll('input, textarea').forEach(input => {
-                    input.style.color = '#000000';
-                    input.style.setProperty('::placeholder', '#000000', 'important');
-                });
-            } else {
-                document.body.style.color = '#ffffff';
-                document.querySelectorAll('.border, .border-2').forEach(el => {
-                    el.style.borderColor = 'rgba(255, 255, 255, 0.5)';
-                });
-                document.querySelectorAll('input, textarea').forEach(input => {
-                    input.style.color = '#ffffff';
-                    input.style.setProperty('::placeholder', '#ffffff', 'important');
-                });
-            }
-            
+
             // UI feedback
             document.querySelectorAll('.style-preset').forEach(btn => 
                 btn.classList.remove('selected'));
@@ -262,8 +244,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
         reader.readAsDataURL(file);
     });
-});
-
-document.getElementById('profile-picture').addEventListener('click', function() {
-    document.getElementById('image-input').click();
 });
