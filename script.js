@@ -84,6 +84,7 @@ const cardContents = [
       // Core Features
       "1 NFC Card",
       "Pre-designed web portfolio",
+      "5 media links",
       // Support
       "Email support",
       // Sharing Features
@@ -101,6 +102,7 @@ const cardContents = [
       // Core Features
       "5 NFC Cards",
       "Customizable web portfolio",
+      "unlimited media links",
       // Support
       "Email support",
       // Branding
