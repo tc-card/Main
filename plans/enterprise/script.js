@@ -22,7 +22,7 @@ function createCard(item) {
         backdrop-blur
     `;
     card.innerHTML = `
-        <i class="fas ${item.icon} text-purple-400"></i>
+        <i class="fas ${item.icon} text-red-400"></i>
         <p class="text-gray-300">${item.text}</p>
     `;
     return card;

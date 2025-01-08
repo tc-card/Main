@@ -153,7 +153,7 @@ const cardContents = [
       "Custom Domain",
       "Custom Forms"
     ],
-    colorClasses: "bg-gray-900 ring-purple-400 text-purple-400",
+    colorClasses: "bg-gray-900 ring-red-400 text-red-400",
     link: "plans/enterprise",
   }
 ];
@@ -174,8 +174,8 @@ const colorMapping = {
     bg: "bg-gray-800"
   },
   Enterprise: {
-    text: "text-purple-400", 
-    ring: "ring-purple-400",
+    text: "text-red-400", 
+    ring: "ring-red-400",
     bg: "bg-gray-800"
   }
 };
@@ -226,4 +226,4 @@ renderPricingCards();
 populateFeatureList("basic-list", cardContents[0].features, "text-green-400");
 populateFeatureList("standard-list", cardContents[1].features, "text-yellow-400");
 populateFeatureList("professional-list", cardContents[2].features, "text-blue-400");
-populateFeatureList("enterprise-list", cardContents[3].features, "text-purple-400");
+populateFeatureList("enterprise-list", cardContents[3].features, "text-red-400");
