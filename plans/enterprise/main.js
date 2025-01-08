@@ -1,16 +1,11 @@
-
 import { CONFIG, stylePresets } from './config.js';
-
-document.getElementById('profile-picture').addEventListener('click', function() {
-    document.getElementById('image-input').click();
-});
 
 document.addEventListener("DOMContentLoaded", () => {
     const elements = {
         profilePicture: document.getElementById('profile-picture'),
         imageInput: document.getElementById('image-input'),
         addLinkBtn: document.getElementById('add-link-btn'),
-        dynamicLinks: document.getElementById('dynamic-links'),
+        dynamicLinks: document.getElementById('company-link'),
         form: document.getElementById('data-fill'),
         bgColor: document.getElementById('bgColor'),
         bgImage: document.getElementById('bgImage')
@@ -43,20 +38,17 @@ document.addEventListener("DOMContentLoaded", () => {
         reader.readAsDataURL(file);
     }
 
-    // Event Listeners
+    // Event Listeners for Image Input
     elements.imageInput.addEventListener('change', (event) => {
         handleImageUpload(event.target.files[0], elements.profilePicture);
     });
 
-    const dynamicLinks = document.getElementById('dynamic-links');
-    const addLinkBtn = document.getElementById('add-link-btn');
-
-    // Function to create the HTML for a new social link
-    function createSocialLink() {
+    // Function to create the HTML for a new company link
+    function createCompanyLink() {
         return `
             <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20 relative group">
                 <i class="fa fa-link text-xl text-white mr-3"></i>
-                <input type="url" name="social-links[]" placeholder="https://your-link.com" 
+                <input type="url" name="company-link[]" placeholder="https://your-link.com" 
                        class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
                 <button type="button" class="remove-link-btn absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -73,10 +65,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Add button click handler
-    addLinkBtn.addEventListener('click', () => {
-        const ul = dynamicLinks.querySelector('ul');
-        ul.insertAdjacentHTML('beforeend', createSocialLink());
+    // Add button click handler to add a new company link
+    elements.addLinkBtn.addEventListener('click', () => {
+        const ul = elements.dynamicLinks.querySelector('ul');
+        ul.insertAdjacentHTML('beforeend', createCompanyLink());
         
         // Add listener to the new remove button
         const newLi = ul.lastElementChild;
@@ -88,13 +80,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('.remove-link-btn').forEach(button => {
         addRemoveButtonListener(button);
     });
-    // Style Management
+
+    // Style Management (apply preset styles)
     document.querySelectorAll('.style-preset').forEach(button => {
         button.addEventListener('click', () => {
             const style = stylePresets[button.dataset.style];
             document.body.style.background = style.background;
             document.body.style.backgroundSize = 'cover';
-            
+
             // UI feedback
             document.querySelectorAll('.style-preset').forEach(btn => 
                 btn.classList.remove('selected'));
@@ -111,10 +104,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // Background color input handler
     elements.bgColor.addEventListener('input', (e) => {
         document.body.style.background = e.target.value;
     });
-
 
     // Form Submission
     elements.form.addEventListener('submit', async (e) => {
@@ -140,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const formData = {
             name: document.getElementById('user-name').value,
             tagline: document.getElementById('user-tagline').value,
-            CompanyLinks: Array.from(document.getElementsByName('company-Links[]'))
+            CompanyLinks: Array.from(document.getElementsByName('company-link[]'))
                 .map(input => input.value)
                 .filter(link => link),
             email: document.querySelector('input[name="email"]').value,
@@ -194,9 +187,9 @@ document.addEventListener("DOMContentLoaded", () => {
             submitBtn.disabled = false;
         }
     });
-});
-document.addEventListener("DOMContentLoaded", () => {
-    const bgImageInput = document.getElementById('bgImage');
+
+    // Background Image Handler
+    const bgImageInput = elements.bgImage;
     
     if (!bgImageInput) {
         console.error('Background image input not found');
@@ -204,7 +197,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     bgImageInput.addEventListener('change', (e) => {
-        console.log('File input change detected');
         const file = e.target.files[0];
         
         if (!file) {
@@ -212,12 +204,9 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        console.log('File selected:', file.name);
-
         const reader = new FileReader();
         
         reader.onload = (event) => {
-            console.log('File read successfully');
             document.body.style.backgroundImage = `url('${event.target.result}')`;
             document.body.style.backgroundSize = 'cover';
             document.body.style.backgroundPosition = 'center';
@@ -234,7 +223,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         reader.onerror = (error) => {
-            console.error('Error reading file:', error);
             Swal.fire({
                 icon: 'error',
                 title: 'Error',

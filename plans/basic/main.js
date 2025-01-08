@@ -115,7 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.style.background = e.target.value;
     });
 
-
     // Form Submission
     elements.form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -146,13 +145,24 @@ document.addEventListener("DOMContentLoaded", () => {
             email: document.querySelector('input[name="email"]').value,
             phone: document.querySelector('input[name="phone"]').value,
             address: document.querySelector('input[name="address"]').value,
-            imageUrl: elements.profilePicture.src,
+            imageUrl: elements.profilePicture.src,  // Assuming you are updating the profile picture dynamically
             style: {
                 background: document.body.style.background,
                 accent: getComputedStyle(document.documentElement)
                     .getPropertyValue('--accent-color')
             }
         };
+
+        // Handle image file upload
+        const imageInput = document.getElementById('image-input');
+        if (imageInput.files.length > 0) {
+            const file = imageInput.files[0];
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                formData.imageUrl = reader.result;  // Use the uploaded image as base64
+            };
+            reader.readAsDataURL(file);
+        }
 
         try {
             const response = await fetch(CONFIG.googleScriptUrl, {
@@ -194,5 +204,6 @@ document.addEventListener("DOMContentLoaded", () => {
             submitBtn.disabled = false;
         }
     });
+
 });
 

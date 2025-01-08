@@ -19,6 +19,7 @@
         }
         h3{
             overflow: hidden;
+            max-height: 430px;
         }
         @layer utilities {
             .perspective-container {
@@ -28,10 +29,10 @@
             
             @keyframes skew-scroll {
                 0% {
-                    transform: rotateX(20deg) rotateZ(-20deg) skewX(20deg) translateZ(0) translateY(0);
+                    transform: translateZ(0) translateY(0);
                 }
                 100% {
-                    transform: rotateX(20deg) rotateZ(-20deg) skewX(20deg) translateZ(0) translateY(-50%);
+                    transform: translateZ(0) translateY(-33%);
                 }
             }
         
@@ -77,7 +78,7 @@
                     <h3 class="font-semibold text-blue-400 flex items-center gap-2 mb-4">
                         <i class="fas fa-star"></i>
                         What's Included:
-                        <div class="mx-auto grid h-[400px] w-[100%] animate-skew-scroll grid-cols-1 gap-5 sm:w-[600px] sm:grid-cols-2"
+                        <div class="mx-auto grid h-[100%] w-[100%] animate-skew-scroll grid-cols-1 gap-5 sm:w-[400px] sm:grid-cols-2"
                             style="mask-composite: intersect; -webkit-mask-composite: intersect; mask-image: 
                                 linear-gradient(to right, transparent, black 5rem),
                                 linear-gradient(to left, transparent, black 5rem),
@@ -128,58 +129,77 @@
 
     <section id="start" class="flex-grow flex justify-center items-center flex-col space-y-6 w-full max-w-4xl px-4 mx-auto mb-24">
         <h2 class="text-3xl font-bold text-center text-white py-16">Create Your Digital Card</h2>
-            <form method="POST" id="data-fill" class="space-y-6 w-full lg:w-8/12 rounded-xl shadow-xl p-8">
-                        <!-- Profile Section -->
+        <form method="POST" id="data-fill" class="space-y-8 w-full max-w-4xl rounded-xl shadow-xl p-8 border border-white">
+            <!-- Profile Section -->
             <div class="text-center space-y-4 text-white">
-                <img src="https://tc-card.github.io/Main//Assets/150.png" alt="profile-picture" id="profile-picture" class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer" />
+                <img src="https://tc-card.github.io/Main//Assets/150.png" alt="profile-picture" id="profile-picture"
+                    class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer hover:ring-blue-500/50 hover:ring-4 hover:p-2 transition-all" />
                 <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
-                <input type="text" id="user-name" name="user-name" placeholder="Enter your name" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                <input type="text" id="user-name" name="user-name" placeholder="Enter company name"
+                    class="w-full bg-gray-900/20 text-white p-3 rounded-lg border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all" />
+                <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter field"
+                    class="w-full bg-gray-900/20 text-white p-3 rounded-lg border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all" />
             </div>
 
-            <!-- Social Links Section -->
+            <!-- Company Links Section -->
             <div id="dynamic-links" class="space-y-4">
                 <div class="bg-white/10 p-4 rounded border border-white/50 shadow-md">
                     <label class="block text-white">Enter your social link:</label>
                     <ul class="space-y-2">
-                        <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
+                        <li
+                            class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
                             <i class="fa fa-link text-xl text-white mr-3"></i>
-                            <input type="url" name="social-links[]" placeholder="https://your-link.com" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                            <input type="url" name="social-links[]" placeholder="https://your-link.com"
+                                class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
                         </li>
                     </ul>
                 </div>
-                <button 
-                type="button" 
-                id="add-link-btn" 
-                class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl">
-                <i class="fa fa-plus text-sm"></i>
-                Add Another Link
-            </button>
+                <button type="button" id="add-link-btn" class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl">
+                    <i class="fa fa-plus text-sm"></i>
+                    Add Another Link
+                </button>
             </div>
+
 
             <!-- Style Selection (Modified) -->
             <div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
                 <label class="block text-white font-semibold mb-4">Choose Your Style</label>
-                
+
                 <!-- Professional Gradients -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                    <button type="button" class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform" data-style="corporateGradient">
-                        <div class="h-20 rounded" style="background: linear-gradient(145deg, rgb(9, 9, 11), rgb(24, 24, 27), rgb(9, 9, 11))"></div>
+                    <button type="button"
+                        class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform"
+                        data-style="corporateGradient">
+                        <div class="h-20 rounded"
+                            style="background: linear-gradient(145deg, rgb(9, 9, 11), rgb(24, 24, 27), rgb(9, 9, 11))">
+                        </div>
                         <p class="mt-2 text-sm">Executive</p>
                     </button>
-                    
-                    <button type="button" class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform" data-style="oceanGradient">
-                        <div class="h-20 rounded" style="background: linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))"></div>
+
+                    <button type="button"
+                        class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform"
+                        data-style="oceanGradient">
+                        <div class="h-20 rounded"
+                            style="background: linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))">
+                        </div>
                         <p class="mt-2 text-sm">Professional</p>
                     </button>
 
-                    <button type="button" class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform" data-style="forestGradient">
-                        <div class="h-20 rounded" style="background: linear-gradient(145deg, rgb(2, 44, 34), rgb(6, 78, 59), rgb(2, 44, 34))"></div>
+                    <button type="button"
+                        class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform"
+                        data-style="forestGradient">
+                        <div class="h-20 rounded"
+                            style="background: linear-gradient(145deg, rgb(2, 44, 34), rgb(6, 78, 59), rgb(2, 44, 34))">
+                        </div>
                         <p class="mt-2 text-sm">Success</p>
                     </button>
 
-                    <button type="button" class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform" data-style="burgundyGradient">
-                        <div class="h-20 rounded" style="background: linear-gradient(145deg, rgb(69, 10, 10), rgb(127, 29, 29), rgb(69, 10, 10))"></div>
+                    <button type="button"
+                        class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform"
+                        data-style="burgundyGradient">
+                        <div class="h-20 rounded"
+                            style="background: linear-gradient(145deg, rgb(69, 10, 10), rgb(127, 29, 29), rgb(69, 10, 10))">
+                        </div>
                         <p class="mt-2 text-sm">Leadership</p>
                     </button>
                 </div>
@@ -188,44 +208,228 @@
                 <label class="block text-white font-semibold mb-4">Solid Colors</label>
                 <div class="grid grid-cols-4 md:grid-cols-8 gap-4 mb-6">
                     <!-- Dark Colors -->
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="black">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="black">
                         <div class="h-6 rounded" style="background: #09090b"></div>
                     </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="navy">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="navy">
                         <div class="h-6 rounded" style="background: #020617"></div>
                     </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="forest">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="forest">
                         <div class="h-6 rounded" style="background: #022c22"></div>
                     </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="wine">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="wine">
                         <div class="h-6 rounded" style="background: #450a0a"></div>
                     </button>
-                    
+
                     <!-- Bright Professional Colors -->
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="brightCorporateBlue">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="brightCorporateBlue">
                         <div class="h-6 rounded" style="background: #0ea5e9"></div>
                     </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="brightSunset">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="brightSunset">
                         <div class="h-6 rounded" style="background: #f97316"></div>
                     </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="brightTeal">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="brightTeal">
                         <div class="h-6 rounded" style="background: #14b8a6"></div>
                     </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="brightViolet">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="brightViolet">
                         <div class="h-6 rounded" style="background: #8b5cf6"></div>
                     </button>
                 </div>
-            
+
                 <!-- Custom Background -->
                 <div class="space-y-4">
                     <label class="block text-white font-semibold mb-4">Upload Background Image</label>
                     <div class="relative">
                         <input type="file" id="bgImage" name="background-image" accept="image/*" class="hidden" />
-                        <button type="button" onclick="document.getElementById('bgImage').click()" class="w-full bg-white/10 border border-white/30 rounded-lg p-4 text-white hover:bg-white/20 transition-all flex items-center justify-center gap-2">
+                        <button type="button" onclick="document.getElementById('bgImage').click()"
+                            class="w-full bg-white/10 border border-white/30 rounded-lg p-4 text-white hover:bg-white/20 transition-all flex items-center justify-center gap-2">
                             <i class="fa fa-upload"></i>
                             Upload Background Image
                         </button>
                         <p class="text-xs mt-2">Recommended size: 1920x1080px. Max size: 5MB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
+                <label class="block text-white font-semibold text-xl mb-6">CRM Features</label>
+                <!-- Feature Selection -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                    <!-- Work Schedule -->
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" id="schedule-toggle" name="crm_features[]" value="schedule" class="mt-1.5 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                        <div class="flex flex-col">
+                            <label for="schedule-toggle" class="text-white font-medium">Work Schedule Display</label>
+                            <span class="text-gray-400 text-sm">Show your availability and business hours</span>
+                        </div>
+                    </div>
+        
+                    <!-- Feedback System -->
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" id="feedback-toggle" name="crm_features[]" value="feedback" class="mt-1.5 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                        <div class="flex flex-col">
+                            <label for="feedback-toggle" class="text-white font-medium">Feedback System</label>
+                            <span class="text-gray-400 text-sm">Collect customer feedback and ratings</span>
+                        </div>
+                    </div>
+        
+                    <!-- Messaging Form -->
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" id="messaging-toggle" name="crm_features[]" value="messaging" class="mt-1.5 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                        <div class="flex flex-col">
+                            <label for="messaging-toggle" class="text-white font-medium">Messaging Form</label>
+                            <span class="text-gray-400 text-sm">Direct communication channel</span>
+                        </div>
+                    </div>
+        
+                    <!-- Discounts -->
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" id="discounts-toggle" name="crm_features[]" value="discounts" class="mt-1.5 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                        <div class="flex flex-col">
+                            <label for="discounts-toggle" class="text-white font-medium">Discounts Display</label>
+                            <span class="text-gray-400 text-sm">Showcase special offers and promotions</span>
+                        </div>
+                    </div>
+        
+                    <!-- Testimonials -->
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" id="testimonials-toggle" name="crm_features[]" value="testimonials" class="mt-1.5 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                        <div class="flex flex-col">
+                            <label for="testimonials-toggle" class="text-white font-medium">Testimonials Section</label>
+                            <span class="text-gray-400 text-sm">Display customer reviews and testimonials</span>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Work Schedule Settings -->
+                <div id="schedule-settings" class="hidden bg-transparent p-6 rounded-lg border border-gray-700 space-y-4">
+                    <h4 class="text-white font-semibold mb-4">Work Schedule Settings</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <label class="text-gray-300 text-sm">Business Days</label>
+                            <div class="flex flex-wrap gap-2">
+                                <button type="button" name="business_days[]" value="monday" class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-blue-600 transition-colors">Mon</button>
+                                <button type="button" name="business_days[]" value="tuesday" class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-blue-600 transition-colors">Tue</button>
+                                <button type="button" name="business_days[]" value="wednesday" class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-blue-600 transition-colors">Wed</button>
+                                <button type="button" name="business_days[]" value="thursday" class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-blue-600 transition-colors">Thu</button>
+                                <button type="button" name="business_days[]" value="friday" class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-blue-600 transition-colors">Fri</button>
+                                <button type="button" name="business_days[]" value="saturday" class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-blue-600 transition-colors">Sat</button>
+                                <button type="button" name="business_days[]" value="sunday" class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-blue-600 transition-colors">Sun</button>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-gray-300 text-sm">Business Hours</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="time" name="business_hours_start" class="bg-gray-900/20 text-white p-2 rounded border border-gray-700" required>
+                                <span class="text-white">to</span>
+                                <input type="time" name="business_hours_end" class="bg-gray-900/20 text-white p-2 rounded border border-gray-700" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Feedback System Settings -->
+                <div id="feedback-settings" class="hidden bg-transparent p-6 rounded-lg border border-gray-700 space-y-4">
+                    <h4 class="text-white font-semibold mb-4">Feedback System Settings</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <input type="checkbox" name="feedback_star_rating" class="h-4 w-4 rounded border-gray-300">
+                            <label class="text-gray-300">Enable Star Rating</label>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <input type="checkbox" name="feedback_comments" class="h-4 w-4 rounded border-gray-300">
+                            <label class="text-gray-300">Allow Comments</label>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <input type="checkbox" name="feedback_notifications" class="h-4 w-4 rounded border-gray-300">
+                            <label class="text-gray-300">Email Notifications</label>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Messaging Form Settings -->
+                <div id="messaging-settings" class="hidden bg-transparent p-6 rounded-lg border border-gray-700 space-y-4">
+                    <h4 class="text-white font-semibold mb-4">Messaging Form Fields</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <label class="text-gray-300">Required Fields</label>
+                            <div class="flex gap-2">
+                                <button type="button" name="required_fields[]" value="name" class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-blue-600 transition-colors">Name</button>
+                                <button type="button" name="required_fields[]" value="email" class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-blue-600 transition-colors">Email</button>
+                                <button type="button" name="required_fields[]" value="phone" class="px-3 py-1 rounded bg-gray-700 text-white hover:bg-blue-600 transition-colors">Phone</button>
+                            </div>
+                        </div>
+                        <textarea name="message_template" placeholder="Custom Message Template" class="w-full bg-gray-900/20 text-white p-3 rounded border border-gray-700"></textarea>
+                    </div>
+                </div>
+        
+                <!-- Discounts Settings -->
+                <div id="discounts-settings" class="hidden bg-transparent p-6 rounded-lg border border-gray-700 space-y-4">
+                    <h4 class="text-white font-semibold mb-4">Discounts Display Settings</h4>
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" name="discount_title" placeholder="Discount Title" class="bg-gray-900/20 text-white p-2 rounded border border-gray-700">
+                            <input type="text" name="discount_code" placeholder="Discount Code" class="bg-gray-900/20 text-white p-2 rounded border border-gray-700">
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex-1">
+                                <label class="block text-gray-300 text-sm mb-1">Valid From</label>
+                                <input type="date" name="discount_start_date" class="w-full bg-gray-900/20 text-white p-2 rounded border border-gray-700">
+                            </div>
+                            <div class="flex-1">
+                                <label class="block text-gray-300 text-sm mb-1">Valid Until</label>
+                                <input type="date" name="discount_end_date" class="w-full bg-gray-900/20 text-white p-2 rounded border border-gray-700">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Testimonials Settings -->
+                <div id="testimonials-settings" class="hidden bg-transparent p-6 rounded-lg border border-gray-700 space-y-4">
+                    <h4 class="text-white font-semibold mb-4">Testimonials Settings</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <input type="checkbox" name="testimonial_show_photos" class="h-4 w-4 rounded border-gray-300">
+                            <label class="text-gray-300">Show Profile Pictures</label>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <input type="checkbox" name="testimonial_show_ratings" class="h-4 w-4 rounded border-gray-300">
+                            <label class="text-gray-300">Display Ratings</label>
+                        </div>
+                        <select name="testimonial_layout" class="w-full bg-gray-900/20 text-white p-2 rounded border border-gray-700">
+                            <option style="background-color: rgba(2, 20, 70, 0.788);" value="grid">Grid Layout</option>
+                            <option style="background-color: rgba(2, 20, 70, 0.788);" value="carousel">Carousel Layout</option>
+                            <option style="background-color: rgba(2, 20, 70, 0.788);" value="list">List Layout</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
+                <label class="block text-white font-semibold mb-4">Custom Domain</label>
+                <div class="flex flex-col gap-4">
+                    <select id="domainSelect" class="bg-transparent text-white p-3 rounded-lg border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all">
+                        <option value="have" style="background-color: rgba(2, 20, 70, 0.788);">I already have a domain</option>
+                        <option value="want" style="background-color: rgba(2, 20, 70, 0.788);">I would like to have a domain</option>
+                    </select>
+                    <div>
+                        <label id="domainLabel" class="domain-label">Enter your domain name:</label>
+                        <input type="text" id="domainInput" name="domain" placeholder="yourdomain.com" class="w-full bg-transparent text-white p-2 rounded-lg border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all" />
                     </div>
                 </div>
             </div>
@@ -258,50 +462,6 @@
     </center>
 
     
-    <script>
-        const items = [
-            { id: '1', text: '10 NFC Cards', icon: 'fa-credit-card' },
-            { id: '2', text: 'Fully customizable portfolio', icon: 'fa-palette' },
-            { id: '3', text: 'Priority support', icon: 'fa-headset' },
-            { id: '4', text: 'SLA guarantee', icon: 'fa-shield-alt' },
-            { id: '5', text: 'Custom branding', icon: 'fa-paint-brush' },
-            { id: '6', text: 'Custom Domain', icon: 'fa-globe' },
-            { id: '7', text: 'CRM Integration', icon: 'fa-plug' },
-            { id: '8', text: 'Advanced Contact Form', icon: 'fa-envelope-open-text' },
-            { id: '9', text: 'Remove watermark', icon: 'fa-check-circle' }
-        ];
-
-        // Keep the same card creation logic
-        function createCard(item) {
-            const card = document.createElement('div');
-            card.className = `
-                flex items-center space-x-3 
-                rounded-lg border border-gray-800 px-4 py-3
-                shadow-md transition-all
-                hover:border-blue-500/30 hover:bg-gray-900/50
-                backdrop-blur
-            `;
-            card.innerHTML = `
-                <i class="fas ${item.icon} text-blue-400"></i>
-                <p class="text-gray-300">${item.text}</p>
-            `;
-            return card;
-        }
-        const container = document.querySelector('.animate-skew-scroll');
-        if (container) {
-            try {
-                container.innerHTML = '';
-                // Create infinite loop by tripling items
-                const tripleItems = [...items, ...items, ...items];
-                tripleItems.forEach(item => {
-                    container.appendChild(createCard(item));
-                });
-            } catch (error) {
-                console.error('Error:', error);
-                container.innerHTML = '<div class="text-red-400">Error loading features</div>';
-            }
-        }
-    
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

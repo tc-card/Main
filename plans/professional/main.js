@@ -1,10 +1,46 @@
-
 import { CONFIG, stylePresets } from './config.js';
 
 document.getElementById('profile-picture').addEventListener('click', function() {
     document.getElementById('image-input').click();
 });
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
+    // Domain select and label update logic
+    const domainSelect = document.getElementById('domainSelect');
+    const domainLabel = document.getElementById('domainLabel');
+
+    const updateDomainLabel = () => {
+        const labelText = domainSelect.value === 'have' 
+            ? 'Enter your existing domain name:'
+            : 'Enter your desired domain name:';
+        domainLabel.textContent = labelText;
+    };
+
+    domainSelect.addEventListener('change', updateDomainLabel);
+    updateDomainLabel();
+
+    // Toggle settings visibility based on checkboxes
+    const features = ['schedule', 'feedback', 'messaging', 'discounts', 'testimonials'];
+
+    features.forEach(feature => {
+        const checkbox = document.getElementById(`${feature}-toggle`);
+        const settings = document.getElementById(`${feature}-settings`);
+        
+        if (checkbox && settings) {
+            checkbox.addEventListener('change', () => {
+                settings.classList.toggle('hidden', !checkbox.checked);
+            });
+        }
+    });
+
+    // Toggle business days selection
+    document.querySelectorAll('button[name="business_days[]"]').forEach(button => {
+        button.addEventListener('click', function () {
+            this.classList.toggle('bg-blue-600');
+            this.classList.toggle('bg-gray-700');
+        });
+    });
+
+    // Image Handling
     const elements = {
         profilePicture: document.getElementById('profile-picture'),
         imageInput: document.getElementById('image-input'),
@@ -12,10 +48,16 @@ document.addEventListener("DOMContentLoaded", () => {
         dynamicLinks: document.getElementById('dynamic-links'),
         form: document.getElementById('data-fill'),
         bgColor: document.getElementById('bgColor'),
-        bgImage: document.getElementById('bgImage')
+        bgImage: document.getElementById('bgImage'),
+        crmInput: document.getElementById('crm-input'),
+        domainInput: document.getElementById('domain-input'),
+        userNameInput: document.getElementById('user-name'),
+        userTaglineInput: document.getElementById('user-tagline'),
+        emailInput: document.querySelector('input[name="email"]'),
+        phoneInput: document.querySelector('input[name="phone"]'),
+        addressInput: document.querySelector('input[name="address"]')
     };
 
-    // Image Handling
     function handleImageUpload(file, targetElement) {
         if (!CONFIG.allowedTypes.includes(file.type)) {
             Swal.fire({
@@ -25,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             return;
         }
-        
+
         if (file.size > CONFIG.maxFileSize) {
             Swal.fire({
                 icon: 'error',
@@ -42,11 +84,11 @@ document.addEventListener("DOMContentLoaded", () => {
         reader.readAsDataURL(file);
     }
 
-    // Event Listeners
     elements.imageInput.addEventListener('change', (event) => {
         handleImageUpload(event.target.files[0], elements.profilePicture);
     });
 
+    
     const dynamicLinks = document.getElementById('dynamic-links');
     const addLinkBtn = document.getElementById('add-link-btn');
 
@@ -95,11 +137,10 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.style.background = style.background;
             document.body.style.backgroundSize = 'cover';
 
-            // UI feedback
             document.querySelectorAll('.style-preset').forEach(btn => 
                 btn.classList.remove('selected'));
             button.classList.add('selected');
-    
+
             Swal.fire({
                 icon: 'success',
                 title: 'Style Updated',
@@ -115,6 +156,30 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.style.background = e.target.value;
     });
 
+    elements.bgImage.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            document.body.style.backgroundImage = `url('${event.target.result}')`;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+            document.body.style.backgroundRepeat = 'no-repeat';
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Background Updated',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        };
+
+        reader.readAsDataURL(file);
+    });
 
     // Form Submission
     elements.form.addEventListener('submit', async (e) => {
@@ -122,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const submitBtn = e.target.querySelector('button[type="submit"]');
         submitBtn.disabled = true;
-        
+
         let timerInterval;
         Swal.fire({
             title: 'Submitting...',
@@ -138,15 +203,48 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const formData = {
-            name: document.getElementById('user-name').value,
-            tagline: document.getElementById('user-tagline').value,
-            socialLinks: Array.from(document.getElementsByName('social-links[]'))
+            crmFeatures: features.filter(feature => {
+                const checkbox = document.getElementById(`${feature}-toggle`);
+                return checkbox.checked;
+            }),
+            businessDays: Array.from(document.querySelectorAll('button[name="business_days[]"].bg-blue-600'))
+                .map(button => button.value),
+            workSchedule: {
+                start: elements.form.querySelector('input[name="business_hours_start"]').value,
+                end: elements.form.querySelector('input[name="business_hours_end"]').value
+            },
+            feedbackSettings: {
+                starRating: elements.form.querySelector('input[name="feedback_star_rating"]').checked,
+                comments: elements.form.querySelector('input[name="feedback_comments"]').checked,
+                notifications: elements.form.querySelector('input[name="feedback_notifications"]').checked
+            },
+            messagingSettings: {
+                requiredFields: Array.from(document.querySelectorAll('button[name="required_fields[]"].bg-blue-600'))
+                    .map(button => button.value),
+                messageTemplate: elements.form.querySelector('textarea[name="message_template"]').value
+            },
+            discountSettings: {
+                title: elements.form.querySelector('input[name="discount_title"]').value,
+                code: elements.form.querySelector('input[name="discount_code"]').value,
+                startDate: elements.form.querySelector('input[name="discount_start_date"]').value,
+                endDate: elements.form.querySelector('input[name="discount_end_date"]').value
+            },
+            testimonialSettings: {
+                showPhotos: elements.form.querySelector('input[name="testimonial_show_photos"]').checked,
+                showRatings: elements.form.querySelector('input[name="testimonial_show_ratings"]').checked,
+                layout: elements.form.querySelector('select[name="testimonial_layout"]').value
+            },
+            name: elements.userNameInput.value,
+            tagline: elements.userTaglineInput.value,
+            companyLinks: Array.from(document.getElementsByName('social-links[]'))
                 .map(input => input.value)
                 .filter(link => link),
-            email: document.querySelector('input[name="email"]').value,
-            phone: document.querySelector('input[name="phone"]').value,
-            address: document.querySelector('input[name="address"]').value,
-            imageUrl: elements.profilePicture.src,
+            email: elements.emailInput.value,
+            phone: elements.phoneInput.value,
+            address: elements.addressInput.value,
+            crm: elements.crmInput ? elements.crmInput.value : '',
+            domain: elements.domainInput ? elements.domainInput.value : '',
+            imageUrl: elements.profilePicture.src, // Image URL from uploaded profile picture
             style: {
                 background: document.body.style.background,
                 accent: getComputedStyle(document.documentElement)
@@ -168,80 +266,22 @@ document.addEventListener("DOMContentLoaded", () => {
                     icon: 'success',
                     title: 'Success!',
                     text: 'Your digital card has been created successfully!',
-                    showConfirmButton: true,
-                    confirmButtonText: 'View My Card',
-                    showCancelButton: true,
-                    cancelButtonText: 'Create Another'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Redirect to view card
-                        window.location.href = '/view-card.html';
-                    } else {
-                        elements.form.reset();
-                    }
+                    showConfirmButton: false,
+                    timer: 1500
                 });
             } else {
-                throw new Error('Submission failed');
+                throw new Error('Failed to submit form');
             }
         } catch (error) {
             Swal.fire({
                 icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong! Please try again.',
-                footer: '<a href="#">Need help?</a>'
+                title: 'Error!',
+                text: error.message,
+                showConfirmButton: false,
+                timer: 1500
             });
         } finally {
             submitBtn.disabled = false;
         }
-    });
-});
-document.addEventListener("DOMContentLoaded", () => {
-    const bgImageInput = document.getElementById('bgImage');
-    
-    if (!bgImageInput) {
-        console.error('Background image input not found');
-        return;
-    }
-
-    bgImageInput.addEventListener('change', (e) => {
-        console.log('File input change detected');
-        const file = e.target.files[0];
-        
-        if (!file) {
-            console.log('No file selected');
-            return;
-        }
-
-        console.log('File selected:', file.name);
-
-        const reader = new FileReader();
-        
-        reader.onload = (event) => {
-            console.log('File read successfully');
-            document.body.style.backgroundImage = `url('${event.target.result}')`;
-            document.body.style.backgroundSize = 'cover';
-            document.body.style.backgroundPosition = 'center';
-            document.body.style.backgroundRepeat = 'no-repeat';
-            
-            Swal.fire({
-                icon: 'success',
-                title: 'Background Updated',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 1500
-            });
-        };
-
-        reader.onerror = (error) => {
-            console.error('Error reading file:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Failed to read image file'
-            });
-        };
-
-        reader.readAsDataURL(file);
     });
 });
