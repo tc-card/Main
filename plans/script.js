@@ -16,7 +16,8 @@ const cardContents = [
       "Contact Button",
     ],
     colorClasses: "bg-gray-900 ring-green-400 text-green-400",
-    link: "plans/basic/",
+
+    link: "basic/",
   },
   {
     tier: "Standard",
@@ -36,7 +37,8 @@ const cardContents = [
       "Contact Form",
     ],
     colorClasses: "bg-gray-900 ring-yellow-400 text-yellow-400",
-    link: "plans/standard/",
+
+    link: "Standard/",
   },
   {
     tier: "Professional",
@@ -58,7 +60,7 @@ const cardContents = [
       "Remove our watermark",
     ],
     colorClasses: "bg-gray-900 ring-blue-400 text-blue-400",
-    link: "plans/professional/",
+    link: "Professional/",
   },
   {
     tier: "Enterprise",
@@ -78,8 +80,8 @@ const cardContents = [
       "Custom Forms",
     ],
     colorClasses: "bg-gray-900 ring-red-400 text-red-400",
-    link: "plans/enterprise",
-  },
+    link: "Enterprise/",
+  }
 ];
 const colorMapping = {
   Basic: {
@@ -98,10 +100,10 @@ const colorMapping = {
     bg: "bg-gray-800",
   },
   Enterprise: {
-    text: "text-red-400",
+    text: "text-red-400", 
     ring: "ring-red-400",
-    bg: "bg-gray-800",
-  },
+    bg: "bg-gray-800"
+  }
 };
 
 function generatePricingCard(content) {
