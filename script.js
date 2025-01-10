@@ -83,7 +83,7 @@ const cardContents = [
     features: [
       // Core Features
       "1 NFC Card",
-      "Pre-designed web portfolio",
+      "Pre-designed webfolio",
       "5 media links",
       // Support
       "Email support",
@@ -101,7 +101,7 @@ const cardContents = [
     features: [
       // Core Features
       "5 NFC Cards",
-      "Customizable web portfolio",
+      "More customizable webfolio",
       "Unlimited media links",
       // Support
       "Email support",
@@ -121,7 +121,7 @@ const cardContents = [
     features: [
       // Core Features
       "10 NFC Cards",
-      "Fully customizable web portfolio",
+      "Fully customizable webfolio",
       // Support & SLA
       "Priority support",
       "SLA guarantee",
@@ -143,7 +143,7 @@ const cardContents = [
     features: [
       // Core Features
       "Unlimited NFC Cards",
-      "Custom web portfolio design",
+      "Custom webfolio design",
       // Support & Management
       "Dedicated account manager",
       "Priority support",

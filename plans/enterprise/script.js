@@ -1,7 +1,7 @@
 
 const items = [
     { id: '1', text: 'Unlimited NFC Cards', icon: 'fa-infinity' },
-    { id: '2', text: 'Custom portfolio design', icon: 'fa-paint-brush' },
+    { id: '2', text: 'Custom webfolio design', icon: 'fa-paint-brush' },
     { id: '3', text: 'Dedicated account manager', icon: 'fa-user-tie' },
     { id: '4', text: 'Priority support', icon: 'fa-headset' },
     { id: '5', text: 'SLA guarantee', icon: 'fa-shield-alt' },
