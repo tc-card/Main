@@ -16,7 +16,6 @@ const cardContents = [
       "Contact Button",
     ],
     colorClasses: "bg-gray-900 ring-green-400 text-green-400",
-
     link: "basic/",
   },
   {
@@ -37,7 +36,6 @@ const cardContents = [
       "Contact Form",
     ],
     colorClasses: "bg-gray-900 ring-yellow-400 text-yellow-400",
-
     link: "Standard/",
   },
   {
@@ -81,7 +79,7 @@ const cardContents = [
     ],
     colorClasses: "bg-gray-900 ring-red-400 text-red-400",
     link: "Enterprise/",
-  }
+  },
 ];
 const colorMapping = {
   Basic: {
@@ -100,10 +98,10 @@ const colorMapping = {
     bg: "bg-gray-800",
   },
   Enterprise: {
-    text: "text-red-400", 
+    text: "text-red-400",
     ring: "ring-red-400",
-    bg: "bg-gray-800"
-  }
+    bg: "bg-gray-800",
+  },
 };
 
 function generatePricingCard(content) {
