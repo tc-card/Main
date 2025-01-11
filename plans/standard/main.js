@@ -1,6 +1,10 @@
 
 import { CONFIG, stylePresets } from './config.js';
 
+document.getElementById('profile-picture').addEventListener('click', function() {
+    document.getElementById('image-input').click();
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     const elements = {
         profilePicture: document.getElementById('profile-picture'),
@@ -243,4 +247,95 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.getElementById('profile-picture').addEventListener('click', function() {
     document.getElementById('image-input').click();
+});
+document.addEventListener("DOMContentLoaded", () => {
+    const formType = document.getElementById('form-type');
+    const formPreview = document.getElementById('form-preview');
+    const mainForm = document.getElementById('data-fill');
+
+    const forms = {
+        contact: {
+            title: 'Contact Request Form',
+            fields: [
+                { name: 'contact_name', placeholder: 'Your Name', type: 'text', required: true },
+                { name: 'contact_email', placeholder: 'Your Email', type: 'email', required: true },
+                { name: 'contact_phone', placeholder: 'Your Phone (Optional)', type: 'tel', required: false },
+                { name: 'contact_message', placeholder: 'Your Message/Inquiry', type: 'textarea', required: true },
+            ],
+        },
+        resource: {
+            title: 'Free Resource/Download Form',
+            fields: [
+                { name: 'resource_name', placeholder: 'Your Name', type: 'text', required: true },
+                { name: 'resource_email', placeholder: 'Your Email', type: 'email', required: true },
+                { name: 'resource_company', placeholder: 'Your Company/Profession (Optional)', type: 'text', required: false },
+                { name: 'resource_type', placeholder: 'Select Resource', type: 'select', options: ['Industry Guide', 'Template Pack', 'Checklist', 'Whitepaper'], required: true },
+            ],
+        },
+        quote: {
+            title: 'Project Quote/Estimate Form',
+            fields: [
+                { name: 'quote_name', placeholder: 'Your Name', type: 'text', required: true },
+                { name: 'quote_email', placeholder: 'Your Email', type: 'email', required: true },
+                { name: 'quote_phone', placeholder: 'Your Phone', type: 'tel', required: true },
+                { name: 'quote_details', placeholder: 'Project Details', type: 'textarea', required: true },
+                { name: 'quote_budget', placeholder: 'Budget Range', type: 'select', options: ['$1,000 - $5,000', '$5,000 - $10,000', '$10,000+'], required: true },
+                { name: 'quote_timeline', placeholder: 'Expected Timeline', type: 'date', required: false },
+            ],
+        },
+        newsletter: {
+            title: 'Newsletter/Updates Subscription',
+            fields: [
+                { name: 'newsletter_email', placeholder: 'Your Email', type: 'email', required: true },
+                { name: 'newsletter_name', placeholder: 'Your Name (Optional)', type: 'text', required: false },
+                { name: 'newsletter_interests', placeholder: 'Your Interests', type: 'select', options: ['Updates', 'News', 'Promotions', 'All'], required: false },
+            ],
+        },
+    };
+
+    function renderForm(type) {
+        const form = forms[type];
+        let formHtml = `<h3 class='text-xl font-semibold mb-4 text-white'>${form.title}</h3>`;
+
+        form.fields.forEach(field => {
+            if (field.type === 'textarea') {
+                formHtml += `
+                    <div class='mb-4'>
+                        <textarea 
+                            name='${field.name}' 
+                            placeholder='${field.placeholder}' 
+                            class='w-full p-3 bg-transparent text-white border border-white/50 rounded-lg focus:outline-none focus:border-white' 
+                            ${field.required ? 'required' : ''}>
+                        </textarea>
+                    </div>`;
+            } else if (field.type === 'select') {
+                formHtml += `
+                    <div class='mb-4'>
+                        <select 
+                            name='${field.name}' 
+                            class='w-full p-3 bg-transparent text-white border border-white/50 rounded-lg focus:outline-none focus:border-white'
+                            ${field.required ? 'required' : ''}>
+                            <option value="" disabled selected>${field.placeholder}</option>
+                            ${field.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                        </select>
+                    </div>`;
+            } else {
+                formHtml += `
+                    <div class='mb-4'>
+                        <input 
+                            type='${field.type}' 
+                            name='${field.name}' 
+                            placeholder='${field.placeholder}' 
+                            class='w-full p-3 bg-transparent text-white border border-white/50 rounded-lg focus:outline-none focus:border-white' 
+                            ${field.required ? 'required' : ''} />
+                    </div>`;
+            }
+        });
+
+        formPreview.innerHTML = formHtml;
+    }
+
+    formType.addEventListener('change', () => renderForm(formType.value));
+    // Initial render
+    renderForm('contact');
 });

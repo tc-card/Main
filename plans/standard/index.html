@@ -32,11 +32,11 @@
 
             @keyframes skew-scroll {
                 0% {
-                    transform:translateZ(0) translateY(0);
+                    transform: translateZ(0) translateY(0);
                 }
 
                 100% {
-                    transform:translateZ(0) translateY(-33%);
+                    transform: translateZ(0) translateY(-33%);
                 }
             }
 
@@ -85,14 +85,13 @@
                         <i class="fas fa-star"></i>
                         What's Included:
                         <div class="mx-auto grid h-[100%] w-[100%] animate-skew-scroll grid-cols-1 gap-5 sm:w-[600px] sm:grid-cols-2"
-                        style="mask-composite: intersect; -webkit-mask-composite: intersect; mask-image: 
+                            style="mask-composite: intersect; -webkit-mask-composite: intersect; mask-image: 
                             linear-gradient(to right, transparent, black 5rem),
                             linear-gradient(to left, transparent, black 5rem),
                             linear-gradient(to bottom, transparent, black 5rem),
                             linear-gradient(to top, transparent, black 5rem);
-                        "
-                    >
-                    </div>
+                        ">
+                        </div>
                     </h3>
                 </div>
 
@@ -139,14 +138,13 @@
         </div>
     </div>
 
-    <section id="start"
-        class="flex-grow flex justify-center items-center flex-col space-y-6 w-full max-w-4xl px-4 mx-auto mb-24">
+    <section id="start" class="flex-grow flex justify-center items-center flex-col space-y-6 w-full max-w-4xl px-4 mx-auto mb-24">
         <h2 class="text-3xl font-bold text-center text-white py-16">Create Your Digital Card</h2>
         <form method="POST" id="data-fill" class="space-y-6 w-full lg:w-8/12 rounded-xl shadow-xl p-8">
             <!-- Profile Section -->
             <div class="text-center space-y-4 text-white">
                 <img src="https://tc-card.github.io/Main//Assets/150.png" alt="profile-picture" id="profile-picture"
-                    class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer" />
+                    class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer hover:ring-blue-500/50 hover:ring-4 hover:p-2 transition-all" />
                 <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
                 <input type="text" id="user-name" name="user-name" placeholder="Enter your name"
                     class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
@@ -167,7 +165,8 @@
                         </li>
                     </ul>
                 </div>
-                <button type="button" id="add-link-btn" class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl">
+                <button type="button" id="add-link-btn"
+                    class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl">
                     <i class="fa fa-plus text-sm"></i>
                     Add Another Link
                 </button>
@@ -220,29 +219,45 @@
                 <label class="block text-white font-semibold mb-4">Solid Colors</label>
                 <div class="grid grid-cols-4 md:grid-cols-8 gap-4 mb-6">
                     <!-- Dark Colors -->
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="black">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="black">
                         <div class="h-6 rounded" style="background: #09090b"></div>
                     </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="navy">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="navy">
                         <div class="h-6 rounded" style="background: #020617"></div>
                     </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="forest">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="forest">
                         <div class="h-6 rounded" style="background: #022c22"></div>
                     </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="wine">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="wine">
                         <div class="h-6 rounded" style="background: #450a0a"></div>
                     </button>
                     <!-- Light Colors -->
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="clouds">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="clouds">
                         <div class="h-6 rounded" style="background: #0ea5e9"></div>
                     </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="Pink">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="Pink">
                         <div class="h-6 rounded" style="background: #9b0055"></div>
                     </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="SkyBlue">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="SkyBlue">
                         <div class="h-6 rounded" style="background: #2563eb"></div>
                     </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="paleRed">
+                    <button type="button"
+                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
+                        data-style="paleRed">
                         <div class="h-6 rounded" style="background: #df4d4d7c"></div>
                     </button>
                 </div>
@@ -261,7 +276,21 @@
                     </div>
                 </div>
             </div>
+            <!-- Forms -->
+            <div class="space-y-6 w-full lg:w-8/12 rounded-xl shadow-xl p-8 bg-white/10 border border-white/50">
+                <label for="form-type" class="block text-white font-medium mb-2">Choose a Form Type:</label>
+                <select id="form-type"
+                    class="w-full mb-4 p-2 rounded-lg bg-transparent text-white border border-white/50 focus:outline-none focus:border-white">
+                    <option value="contact">Contact Request Form</option>
+                    <option value="resource">Free Resource/Download Form</option>
+                    <option value="quote">Project Quote/Estimate Form</option>
+                    <option value="newsletter">Newsletter/Updates Subscription</option>
+                </select>
 
+                <div id="form-preview" class="mt-4">
+                    <!-- Form will be dynamically generated here -->
+                </div>
+            </div>
             <!-- Contact Section -->
             <div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
                 <label class="block text-white font-semibold mb-4">Contact Button Details</label>
@@ -275,13 +304,11 @@
                     class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
                 <p class="text-xs mt-2"><b>Name, Picture, Tagline </b>: will automatically be added!</p>
             </div>
-
             <!-- Submit Button (Enhanced) -->
             <button id="saveContactBtn" type="submit"
                 class="w-full md:w-auto mx-auto block text-center bg-blue-500 hover:bg-blue-600 text-white py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                 Create Your Digital Card
             </button>
-            </div>
         </form>
     </section>
 
@@ -295,11 +322,11 @@
         const items = [
             { id: '1', text: '5 NFC Cards', icon: 'fa-credit-card' },
             { id: '2', text: 'More Customizable webfolio', icon: 'fa-globe' },
+            { id: '6', text: 'Unlimited media links', icon: 'fa-link' },
             { id: '3', text: 'Email support', icon: 'fa-envelope' },
             { id: '4', text: 'Custom branding', icon: 'fa-paint-brush' },
             { id: '5', text: 'Remove our watermark', icon: 'fa-check-circle' },
             { id: '6', text: 'Contact Form', icon: 'fa-envelope-open-text' },
-            { id: '6', text: 'Unlimited media links', icon: 'fa-link' },
             { id: '7', text: 'Secure data sharing', icon: 'fa-lock' },
         ];
 

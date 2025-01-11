@@ -1,0 +1,56 @@
+
+html {
+    scroll-behavior: smooth;
+}
+body {
+    background: linear-gradient(180deg, 
+        #000000 20%,
+        #0d121d 25%,
+        #000000 45%,
+        #0d121d 75%,
+        #000000 100%
+    );
+}
+
+header {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    /* Ensures the header takes up the full viewport height */
+}
+
+.card-hover {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👏</text></svg>") 16 0, auto;
+}
+
+.price-hover {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>✨</text></svg>") 16 0, auto;
+}
+
+a:hover {
+    background: rgb(15, 23, 42);
+    border-color: white;
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    /* Places the video behind the content */
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ensures the video stretches to cover the area */
+}
+header {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    /* Ensures the header takes up the full viewport height */
+}

@@ -5,13 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Total Connect | digital business cards</title>
-    <meta name="description"
-        content="Create, manage, and share digital business cards using NFC technology. Eco-friendly, cost-effective, and modern networking solutions.">
-    <!-- meta name for img -->
     <meta name="image" content="https://tc-card.github.io/Main/Assets/4.png">
+    <meta name="description" content="Create, manage, and share digital business cards using NFC technology. Eco-friendly, cost-effective, and modern networking solutions.">
+    <!-- facebook meta -->
+    <meta property="og:title" content="Total Connect | digital business cards">
+    <meta property="og:description" content="Create, manage, and share digital business cards using NFC technology. Eco-friendly, cost-effective, and modern networking solutions.">
+    <meta property="og:url" content="https://tc-card.github.io/Main/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Total Connect">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta property="og:locale:alternate" content="ar_AR">
     <meta property="og:image" content="https://tc-card.github.io/Main/Assets/4.png">
-    <link rel="icon" href="https://tc-card.github.io/Main/Assets/150.png" type="image/x-icon">
     <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Total Connect | digital business cards">
+    <meta property="og:video" content="https://tc-card.github.io/Main/Assets/TC-cards.mp4">
+    <meta property="og:video:secure_url" content="https://tc-card.github.io/Main/Assets/TC-cards.mp4">
+    <meta property="og:video:type" content="video/mp4">
+    <meta property="og:video:width" content="1920">
+    <link rel="icon" href="https://tc-card.github.io/Main/Assets/150.png" type="image/x-icon">
+    <link rel="shortcut icon" href="Assets/150.png" type="image/x-icon">
+    <link rel="preload" href="https://tc-card.github.io/Main/Assets/TC-cards.mp4" as="video">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -19,64 +35,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
-    <link rel="preload" href="Assets/TC-cards.mp4" as="video">
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            background: linear-gradient(180deg, 
-                #000000 20%,
-                #0d121d 25%,
-                #000000 45%,
-                #0d121d 75%,
-                #000000 100%
-            );
-        }
-
-        header {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            /* Ensures the header takes up the full viewport height */
-        }
-
-        .card-hover {
-            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👏</text></svg>") 16 0, auto;
-        }
-
-        .price-hover {
-            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>✨</text></svg>") 16 0, auto;
-        }
-
-        a:hover {
-            background: rgb(15, 23, 42);
-            border-color: white;
-        }
-
-        .video-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            /* Places the video behind the content */
-        }
-
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* Ensures the video stretches to cover the area */
-        }
-        header {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            /* Ensures the header takes up the full viewport height */
-        }
-    </style>
 </head>
 
 <body class="flex flex-col justify-center items-center bg-black text-white font-nunito overflow-y-scroll overflow-x-hidden" >
