@@ -36,7 +36,7 @@ const cardContents = [
       "Contact Form",
     ],
     colorClasses: "bg-gray-900 ring-yellow-400 text-yellow-400",
-    link: "Standard/",
+    link: "standard/",
   },
   {
     tier: "Professional",
@@ -58,7 +58,7 @@ const cardContents = [
       "Remove our watermark",
     ],
     colorClasses: "bg-gray-900 ring-blue-400 text-blue-400",
-    link: "Professional/",
+    link: "professional/",
   },
   {
     tier: "Enterprise",
@@ -78,7 +78,7 @@ const cardContents = [
       "Custom Forms",
     ],
     colorClasses: "bg-gray-900 ring-red-400 text-red-400",
-    link: "Enterprise/",
+    link: "enterprise/",
   },
 ];
 const colorMapping = {
