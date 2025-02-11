@@ -225,6 +225,14 @@ document.addEventListener("DOMContentLoaded", () => {
         elements.submitBtn.disabled = true;
 
         try {
+            // Upload images and get their URLs
+            const profilePictureFile = elements.imageInput.files[0];
+            const backgroundImageFile = elements.bgImage.files[0];
+
+            const profilePictureUrl = profilePictureFile ? await uploadImage(profilePictureFile, 'profile') : '';
+            const backgroundImageUrl = backgroundImageFile ? await uploadImage(backgroundImageFile, 'background') : '';
+
+            // Prepare form data
             const data = {
                 name: document.getElementById('user-name').value.trim(),
                 email: document.querySelector('input[name="email"]').value.trim(),
@@ -236,8 +244,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     .filter(Boolean),
                 style: document.querySelector('.style-preset.selected')?.dataset.style || 'default',
                 form_type: elements.formType.value,
-                profile_picture: elements.profilePicture.src,
-                background_image: document.body.style.backgroundImage || ''
+                profile_picture: profilePictureUrl,
+                background_image: backgroundImageUrl
             };
 
             if (!data.name || !data.email) {
@@ -251,41 +259,43 @@ document.addEventListener("DOMContentLoaded", () => {
                 didOpen: () => Swal.showLoading()
             });
 
-            // Convert data to query parameters
+            // Submit form data
             const queryParams = new URLSearchParams(data).toString();
-            const url = `${CONFIG.googleScriptUrl}?${queryParams}&callback=handleResponse`;
+            const url = `${CONFIG.googleScriptUrl}?${queryParams}`;
 
-            // Create a script element for JSONP
-            const script = document.createElement('script');
-            script.src = url;
-            document.body.appendChild(script);
+            const response = await fetch(url, {
+                method: 'GET',
+            });
 
-            // Define the callback function to handle the response
-            window.handleResponse = (response) => {
-                if (response.status === 'success') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: 'Your digital card has been created successfully!',
-                        confirmButtonText: 'View My Card',
-                        showCancelButton: true,
-                        cancelButtonText: 'Create Another'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = `view-card.html?id=${response.cardId}`;
-                        } else {
-                            elements.form.reset();
-                            elements.profilePicture.src = CONFIG.defaultProfileImage;
-                            document.querySelectorAll('.style-preset').forEach(btn => {
-                                btn.classList.remove('selected');
-                            });
-                            document.body.style.background = stylePresets.minimal.background;
-                        }
-                    });
-                } else {
-                    throw new Error(response.message || 'Submission failed');
-                }
-            };
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Your digital card has been created successfully!',
+                    confirmButtonText: 'View My Card',
+                    showCancelButton: true,
+                    cancelButtonText: 'Create Another'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = `view-card.html?id=${result.cardId}`;
+                    } else {
+                        elements.form.reset();
+                        elements.profilePicture.src = CONFIG.defaultProfileImage;
+                        document.querySelectorAll('.style-preset').forEach(btn => {
+                            btn.classList.remove('selected');
+                        });
+                        document.body.style.background = stylePresets.minimal.background;
+                    }
+                });
+            } else {
+                throw new Error(result.message || 'Submission failed');
+            }
 
         } catch (error) {
             console.error('Submission error:', error);
@@ -299,4 +309,37 @@ document.addEventListener("DOMContentLoaded", () => {
             elements.submitBtn.disabled = false;
         }
     });
+
+    // Helper function to upload an image
+    async function uploadImage(file, type) {
+        const base64Image = await toBase64(file);
+
+        const response = await fetch('https://script.google.com/macros/s/AKfycbwBdmnYaegeNtQggUK0vPHW0_hE56MSf_A64Si0WNTE4Bcgd5DeM2RN8T71QB5j3dY/exec', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                image: base64Image,
+                type: type, // Pass the type (e.g., 'profile' or 'background')
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to upload image');
+        }
+
+        const result = await response.json();
+        return result.imageUrl;
+    }
+
+    // Helper function to convert a file to base64
+    function toBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result.split(',')[1]); // Get the base64 part
+            reader.onerror = error => reject(error);
+        });
+    }
 });
