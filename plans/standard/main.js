@@ -225,16 +225,25 @@ document.addEventListener("DOMContentLoaded", () => {
         elements.submitBtn.disabled = true;
 
         try {
-            // Upload images and get their URLs
+            const userName = document.getElementById('user-name').value.trim();
+            if (!userName) {
+                throw new Error('Name is required');
+            }
+
+            // Upload images
             const profilePictureFile = elements.imageInput.files[0];
             const backgroundImageFile = elements.bgImage.files[0];
 
-            const profilePictureUrl = profilePictureFile ? await uploadImage(profilePictureFile, 'profile') : '';
-            const backgroundImageUrl = backgroundImageFile ? await uploadImage(backgroundImageFile, 'background') : '';
+            if (profilePictureFile) {
+                await uploadImage(profilePictureFile, `${userName}_profile`);
+            }
+            if (backgroundImageFile) {
+                await uploadImage(backgroundImageFile, `${userName}_background`);
+            }
 
             // Prepare form data
             const data = {
-                name: document.getElementById('user-name').value.trim(),
+                name: userName,
                 email: document.querySelector('input[name="email"]').value.trim(),
                 tagline: document.getElementById('user-tagline').value.trim(),
                 phone: document.querySelector('input[name="phone"]').value.trim(),
@@ -244,12 +253,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     .filter(Boolean),
                 style: document.querySelector('.style-preset.selected')?.dataset.style || 'default',
                 form_type: elements.formType.value,
-                profile_picture: profilePictureUrl,
-                background_image: backgroundImageUrl
             };
 
-            if (!data.name || !data.email) {
-                throw new Error('Name and email are required fields');
+            if (!data.email) {
+                throw new Error('Email is required');
             }
 
             Swal.fire({
@@ -311,17 +318,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Helper function to upload an image
-    async function uploadImage(file, type) {
+    async function uploadImage(file, fileName) {
         const base64Image = await toBase64(file);
 
-        const response = await fetch('https://script.google.com/macros/s/AKfycbwBdmnYaegeNtQggUK0vPHW0_hE56MSf_A64Si0WNTE4Bcgd5DeM2RN8T71QB5j3dY/exec', {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbw5sXaOOylr8wg3ka87lgYRnTvT_1wX_HsvCn7Da67_4vAUl6rY3TfS4tqqi4Si3i1q/exec', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 image: base64Image,
-                type: type, // Pass the type (e.g., 'profile' or 'background')
+                fileName: fileName,
             }),
         });
 
