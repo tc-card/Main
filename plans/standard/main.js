@@ -317,12 +317,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Helper function to upload an image
   async function uploadImage(file, fileName) {
     try {
       const base64Image = await toBase64(file);
-
-      const response = await fetch('https://script.google.com/macros/s/AKfycbwsnP9bKAmiT_b70pMUXOy-3XzvyRQowFDBJcuSRwueuezCYezQGLJh1gjj6xRTK9L_/exec', {
+  
+      const response = await fetch('https://script.google.com/macros/s/AKfycbyBwkbzN5k0Qhah5QH7nwt4CcffYBHu7t_QsOr1tSnsn-lC7l9eas43NJDEOrcwJY7l/exec', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -332,11 +331,11 @@ document.addEventListener("DOMContentLoaded", () => {
           fileName: fileName,
         }),
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to upload image');
       }
-
+  
       const result = await response.json();
       return result.imageUrl;
     } catch (error) {
