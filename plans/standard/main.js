@@ -225,33 +225,23 @@ document.addEventListener("DOMContentLoaded", () => {
         elements.submitBtn.disabled = true;
 
         try {
-            const formData = new FormData();
+            const data = {
+                name: document.getElementById('user-name').value.trim(),
+                email: document.querySelector('input[name="email"]').value.trim(),
+                tagline: document.getElementById('user-tagline').value.trim(),
+                phone: document.querySelector('input[name="phone"]').value.trim(),
+                address: document.querySelector('input[name="address"]').value.trim(),
+                social_links: Array.from(document.getElementsByName('social-links[]'))
+                    .map(input => input.value.trim())
+                    .filter(Boolean),
+                style: document.querySelector('.style-preset.selected')?.dataset.style || 'default',
+                form_type: elements.formType.value,
+                profile_picture: elements.profilePicture.src,
+                background_image: document.body.style.backgroundImage || ''
+            };
 
-            // Add text fields
-            formData.append('name', document.getElementById('user-name').value.trim());
-            formData.append('email', document.querySelector('input[name="email"]').value.trim());
-            formData.append('tagline', document.getElementById('user-tagline').value.trim());
-            formData.append('phone', document.querySelector('input[name="phone"]').value.trim());
-            formData.append('address', document.querySelector('input[name="address"]').value.trim());
-            formData.append('style', document.querySelector('.style-preset.selected')?.dataset.style || 'default');
-            formData.append('form_type', elements.formType.value);
-
-            // Add social links
-            const socialLinks = Array.from(document.getElementsByName('social-links[]'))
-                .map(input => input.value.trim())
-                .filter(Boolean);
-            formData.append('social_links', socialLinks.join(','));
-
-            // Add profile picture
-            const profilePicture = elements.imageInput.files[0];
-            if (profilePicture) {
-                formData.append('profile_picture', profilePicture);
-            }
-
-            // Add background image
-            const backgroundImage = elements.bgImage.files[0];
-            if (backgroundImage) {
-                formData.append('background_image', backgroundImage);
+            if (!data.name || !data.email) {
+                throw new Error('Name and email are required fields');
             }
 
             Swal.fire({
@@ -261,41 +251,41 @@ document.addEventListener("DOMContentLoaded", () => {
                 didOpen: () => Swal.showLoading()
             });
 
-            // Send data to Google Apps Script
-            const response = await fetch(CONFIG.googleScriptUrl, {
-                method: 'POST',
-                body: formData,
-            });
+            // Convert data to query parameters
+            const queryParams = new URLSearchParams(data).toString();
+            const url = `${CONFIG.googleScriptUrl}?${queryParams}&callback=handleResponse`;
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            // Create a script element for JSONP
+            const script = document.createElement('script');
+            script.src = url;
+            document.body.appendChild(script);
 
-            const result = await response.json();
-
-            if (result.status === 'success') {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: 'Your digital card has been created successfully!',
-                    confirmButtonText: 'View My Card',
-                    showCancelButton: true,
-                    cancelButtonText: 'Create Another'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = `view-card.html?id=${result.cardId}`;
-                    } else {
-                        elements.form.reset();
-                        elements.profilePicture.src = CONFIG.defaultProfileImage;
-                        document.querySelectorAll('.style-preset').forEach(btn => {
-                            btn.classList.remove('selected');
-                        });
-                        document.body.style.background = stylePresets.minimal.background;
-                    }
-                });
-            } else {
-                throw new Error(result.message || 'Submission failed');
-            }
+            // Define the callback function to handle the response
+            window.handleResponse = (response) => {
+                if (response.status === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: 'Your digital card has been created successfully!',
+                        confirmButtonText: 'View My Card',
+                        showCancelButton: true,
+                        cancelButtonText: 'Create Another'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = `view-card.html?id=${response.cardId}`;
+                        } else {
+                            elements.form.reset();
+                            elements.profilePicture.src = CONFIG.defaultProfileImage;
+                            document.querySelectorAll('.style-preset').forEach(btn => {
+                                btn.classList.remove('selected');
+                            });
+                            document.body.style.background = stylePresets.minimal.background;
+                        }
+                    });
+                } else {
+                    throw new Error(response.message || 'Submission failed');
+                }
+            };
 
         } catch (error) {
             console.error('Submission error:', error);
