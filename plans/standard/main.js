@@ -317,25 +317,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Helper function to upload an image
-    async function uploadImage(file, fileName) {
-        const base64Image = await toBase64(file);
-
-        const response = await fetch('https://script.google.com/macros/s/AKfycbw5sXaOOylr8wg3ka87lgYRnTvT_1wX_HsvCn7Da67_4vAUl6rY3TfS4tqqi4Si3i1q/exec', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                image: base64Image,
-                fileName: fileName,
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to upload image');
+    async function uploadImage(base64Image, fileName) {
+        const chunkSize = 2000; // Split into chunks of 2000 characters
+        const totalChunks = Math.ceil(base64Image.length / chunkSize);
+    
+        for (let i = 0; i < totalChunks; i++) {
+            const chunk = base64Image.slice(i * chunkSize, (i + 1) * chunkSize);
+            const response = await fetch(`https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?chunk=${encodeURIComponent(chunk)}&fileName=${fileName}&chunkIndex=${i}&totalChunks=${totalChunks}`, {
+                method: 'GET',
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to upload chunk');
+            }
         }
-
+    
+        // Finalize upload
+        const response = await fetch(`https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?fileName=${fileName}&finalize=true`, {
+            method: 'GET',
+        });
+    
+        if (!response.ok) {
+            throw new Error('Failed to finalize upload');
+        }
+    
         const result = await response.json();
         return result.imageUrl;
     }
