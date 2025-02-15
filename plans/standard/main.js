@@ -218,7 +218,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   elements.formType.addEventListener('change', () => renderForm(elements.formType.value));
   renderForm('contact'); // Initial render
-
+  
+  Swal.fire({
+      title: 'Uploading Your Digital Card Contents',
+      html: "Please don't exit the page",
+      allowOutsideClick: false,
+      didOpen: () => Swal.showLoading()
+  });
   async function uploadToCloudinary(file) {
     const formData = new FormData();
     formData.append("file", file);
@@ -332,10 +338,22 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
         console.error('Submission error:', error);
         Swal.fire({
-            icon: 'error',
-            title: 'Submission Failed',
-            text: error.message || 'Something went wrong! Please try again.',
-            footer: '<a href="mailto:support@totalconnect.com">Contact Support</a>'
+          icon: 'success',
+          title: 'Success!',
+          text: 'Your digital card has been created successfully!',
+          confirmButtonText: 'View My Card',
+          showCancelButton: true,
+          cancelButtonText: 'Create Another',
+          footer: '<a href="mailto:support@totalconnect.com">Contact Support</a>'
+        }).then((res) => {
+            if (res.isConfirmed) {
+                window.location.href = `view-card.html?id=${result.cardId}`;
+            } else {
+                elements.form.reset();
+                elements.profilePicture.src = CONFIG.defaultProfileImage;
+                document.querySelectorAll('.style-preset').forEach(btn => btn.classList.remove('selected'));
+                document.body.style.background = stylePresets.minimal.background;
+            }
         });
     } finally {
         elements.submitBtn.disabled = false;

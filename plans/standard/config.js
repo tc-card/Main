@@ -1,7 +1,7 @@
 export const CONFIG = {
   maxFileSize: 5 * 1024 * 1024, // 5MB
   allowedTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
-  googleScriptUrl: 'https://script.google.com/macros/s/AKfycbzv5sVk8vD9_zPN2qndVgVzekHqkwVXA_QrEMt7UJ3ZM9MPti4vsQIKhnj5uosg8q04/exec',
+  googleScriptUrl: 'https://script.google.com/macros/s/AKfycbwpf-jk5pvEQHLNRpTqgVEARef7n6Nsp7FCzTE7NRyUHgOIwSBDNIIBHq0oHHOS37bR/exec',
   maxSocialLinks: 10,
   defaultProfileImage: '/Assets/150.png',
 };
