@@ -218,46 +218,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   elements.formType.addEventListener('change', () => renderForm(elements.formType.value));
   renderForm('contact'); // Initial render
-  
-  Swal.fire({
-      title: 'Uploading Your Digital Card Contents',
-      html: "Please don't exit the page",
-      allowOutsideClick: false,
-      didOpen: () => Swal.showLoading()
-  });
-  async function uploadToCloudinary(file) {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "preset"); // Ensure the preset is correct
-
-    try {
-        const response = await fetch("https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload", {
-            method: "POST",
-            body: formData
-        });
-
-        if (!response.ok) {
-            throw new Error(`Cloudinary upload failed: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        if (!data.secure_url) {
-            throw new Error('Cloudinary response did not return a secure URL');
-        }
-
-        return data.secure_url; // Returns the image URL
-    } catch (error) {
-        console.error("Image upload error:", error);
-        return ''; // Return empty string on failure
-    }
-}
-
 
   // Form Submission
   elements.form.addEventListener('submit', async (e) => {
     e.preventDefault();
     elements.submitBtn.disabled = true;
-
+    async function uploadToCloudinary(file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "preset"); // Ensure the preset is correct
+  
+      try {
+          const response = await fetch("https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload", {
+              method: "POST",
+              body: formData
+          });
+  
+          if (!response.ok) {
+              throw new Error(`Cloudinary upload failed: ${response.statusText}`);
+          }
+  
+          const data = await response.json();
+          if (!data.secure_url) {
+              throw new Error('Cloudinary response did not return a secure URL');
+          }
+  
+          return data.secure_url; // Returns the image URL
+      } catch (error) {
+          console.error("Image upload error:", error);
+          return ''; // Return empty string on failure
+      }
+    }
     try {
         const userName = document.getElementById('user-name').value.trim();
         const userEmail = document.querySelector('input[name="email"]').value.trim();

@@ -10,6 +10,7 @@
         body {
             font-family: Arial, sans-serif;
             color: white;
+            background-color: rgb(0, 0, 0);
             margin: 0;
             padding: 20px;
             display: flex;
@@ -19,8 +20,12 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .card-container {
+            text-align: center;
             max-width: 600px;
             width: 100%;
             background: rgba(17, 24, 39, 0.7);
@@ -41,6 +46,7 @@
         .social-links ul {
             list-style: none;
             padding: 0;
+            text-align: left;
         }
         .social-links ul li {
             background-color: rgba(255, 255, 255, 0.1);
@@ -67,28 +73,20 @@
         <h2>Loading...</h2>
     </div>
 
-    <script>
-            document.addEventListener("DOMContentLoaded", async function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const cardId = urlParams.get("id");
-            if (!cardId) {
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const urlParams = new URLSearchParams(window.location.search);
+                const cardId = urlParams.get("id");
+                if (!cardId) {
                 document.querySelector(".card-container").innerHTML = "<h2>No card ID provided.</h2>";
                 return;
-            }
+                }
 
-            try {
-                // Fetch data from Google Sheets using doGet
-                const response = await fetch(`https://script.google.com/macros/s/AKfycbwpf-jk5pvEQHLNRpTqgVEARef7n6Nsp7FCzTE7NRyUHgOIwSBDNIIBHq0oHHOS37bR/exec?id=${cardId}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                const data = await response.json();
-
+                // JSONP callback function
+                window.handleResponse = function (data) {
                 if (data.status !== "Active") {
-                document.querySelector(".card-container").innerHTML = "<h2>This card is inactive.</h2>";
-                return;
+                    document.querySelector(".card-container").innerHTML = "<h2>This card is inactive.</h2>";
+                    return;
                 }
 
                 // Apply background style
@@ -114,51 +112,67 @@
                 container.innerHTML = `
                     <!-- Profile Section -->
                     <div class="text-center space-y-4">
-                        <img src="${data['Profile Picture URL']}" alt="Profile Picture" class="profile-picture">
-                        <h2 class="text-3xl font-bold">${data.Name}</h2>
-                        <p class="text-gray-400">${data.Tagline}</p>
+                    <img src="${data['Profile Picture URL']}" alt="Profile Picture" class="profile-picture">
+                    <h2 class="text-3xl font-bold">${data.Name}</h2>
+                    <p class="text-gray-400">${data.Tagline}</p>
                     </div>
 
                     <!-- Social Links Section -->
                     <div class="social-links mt-8">
-                        <h3 class="text-2xl font-bold mb-4">Social Links</h3>
-                        <ul>
-                            ${data['Social Links'].split(",").map(link => `
-                                <li>
-                                    <a href="${link.trim()}" target="_blank" class="flex items-center gap-2">
-                                        <i class="fas fa-link"></i> ${link.trim()}
-                                    </a>
-                                </li>
-                            `).join("")}
-                        </ul>
+                    <h3 class="text-2xl font-bold mb-4">Social Links</h3>
+                    <ul>
+                        ${(data['Social Links'] || '').split(",").map(link => {
+                        const trimmedLink = link.trim();
+                        if (!trimmedLink) return '';
+
+                        // Extract the domain from the URL
+                        let domain = trimmedLink;
+                        try {
+                            const url = new URL(trimmedLink);
+                            domain = url.hostname.replace(/^www\./, ''); // Remove "www." if present
+                        } catch (e) {
+                            // If the URL is invalid, fall back to the trimmed link
+                            domain = trimmedLink;
+                        }
+
+                        return `
+                            <li>
+                            <a href="${trimmedLink}" target="_blank" class="flex items-center gap-2">
+                                <i class="fas fa-link"></i> ${domain}
+                            </a>
+                            </li>
+                        `;
+                        }).join("")}
+                    </ul>
                     </div>
 
                     <!-- Contact Section -->
                     <div class="contact-section mt-8">
-                        <h3 class="text-2xl font-bold mb-4">Contact Details</h3>
-                        <p><strong>Email:</strong> ${data.Email}</p>
-                        <p><strong>Phone:</strong> ${data.Phone}</p>
-                        <p><strong>Address:</strong> ${data.Address}</p>
+                    <h3 class="text-2xl font-bold mb-4">Contact Details</h3>
+                    <p><strong>Email:</strong> ${data.Email}</p>
+                    <p><strong>Phone:</strong> ${data.Phone}</p>
+                    <p><strong>Address:</strong> ${data.Address}</p>
                     </div>
 
                     <!-- Form Section -->
                     <div class="form-section mt-8">
-                        <h3 class="text-2xl font-bold mb-4">Form Type</h3>
-                        <p>${data['Form Type']}</p>
+                    <h3 class="text-2xl font-bold mb-4">Form Type</h3>
+                    <p>${data['Form Type']}</p>
                     </div>
 
                     <!-- Background Image -->
                     <div class="background-image mt-8">
-                        <h3 class="text-2xl font-bold mb-4">Background Image</h3>
-                        <img src="${data['Background Image URL']}" alt="Background Image">
+                    <h3 class="text-2xl font-bold mb-4">Background Image</h3>
+                    <img src="${data['Background Image URL']}" alt="Background Image">
                     </div>
                 `;
-            } catch (error) {
-            console.error(error);
-            const container = document.querySelector(".card-container");
-            container.innerHTML = "<h2>Error loading card data. Please try again later.</h2>";
-        }
-        });
-    </script>
+                };
+
+                // Create a script element for JSONP
+                const script = document.createElement("script");
+                script.src = `https://script.google.com/macros/s/AKfycbxZPuuhzvjy2Tr_jOeH2r8DOrdfZ_17yu2LsT_hvxjkFMY_ihb00Qc4GFDxV_iUPS5l/exec?id=${cardId}&callback=handleResponse`;
+                document.body.appendChild(script);
+            });
+        </script>
 </body>
 </html>
