@@ -219,138 +219,129 @@ document.addEventListener("DOMContentLoaded", () => {
   elements.formType.addEventListener('change', () => renderForm(elements.formType.value));
   renderForm('contact'); // Initial render
 
+  async function uploadToCloudinary(file) {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "preset"); // Ensure the preset is correct
+
+    try {
+        const response = await fetch("https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload", {
+            method: "POST",
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error(`Cloudinary upload failed: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        if (!data.secure_url) {
+            throw new Error('Cloudinary response did not return a secure URL');
+        }
+
+        return data.secure_url; // Returns the image URL
+    } catch (error) {
+        console.error("Image upload error:", error);
+        return ''; // Return empty string on failure
+    }
+}
+
+
   // Form Submission
   elements.form.addEventListener('submit', async (e) => {
     e.preventDefault();
     elements.submitBtn.disabled = true;
 
     try {
-      const userName = document.getElementById('user-name').value.trim();
-      if (!userName) {
-        throw new Error('Name is required');
-      }
+        const userName = document.getElementById('user-name').value.trim();
+        const userEmail = document.querySelector('input[name="email"]').value.trim();
 
-      // Upload images
-      const profilePictureFile = elements.imageInput.files[0];
-      const backgroundImageFile = elements.bgImage.files[0];
+        if (!userName || !userEmail) {
+            throw new Error('Name and email are required');
+        }
 
-      if (profilePictureFile) {
-        await uploadImage(profilePictureFile, `${userName}_profile`);
-      }
-      if (backgroundImageFile) {
-        await uploadImage(backgroundImageFile, `${userName}_background`);
-      }
+        // Upload images to Cloudinary
+        const profilePictureFile = elements.imageInput.files[0];
+        const backgroundImageFile = elements.bgImage.files[0];
 
-      // Prepare form data
-      const data = {
-        name: userName,
-        email: document.querySelector('input[name="email"]').value.trim(),
-        tagline: document.getElementById('user-tagline').value.trim(),
-        phone: document.querySelector('input[name="phone"]').value.trim(),
-        address: document.querySelector('input[name="address"]').value.trim(),
-        social_links: Array.from(document.getElementsByName('social-links[]'))
-          .map(input => input.value.trim())
-          .filter(Boolean),
-        style: document.querySelector('.style-preset.selected')?.dataset.style || 'default',
-        form_type: elements.formType.value,
-      };
+        let profilePictureUrl = '';
+        let backgroundImageUrl = '';
 
-      if (!data.email) {
-        throw new Error('Email is required');
-      }
+        if (profilePictureFile) {
+            profilePictureUrl = await uploadToCloudinary(profilePictureFile);
+        }
+        if (backgroundImageFile) {
+            backgroundImageUrl = await uploadToCloudinary(backgroundImageFile);
+        }
+        // Check the URLs
+        console.log('Profile Image URL:', profilePictureUrl);
+        console.log('Background Image URL:', backgroundImageUrl);
 
-      Swal.fire({
-        title: 'Creating Your Digital Card',
-        html: 'Please wait...',
-        allowOutsideClick: false,
-        didOpen: () => Swal.showLoading()
-      });
+        // Prepare form data
+        const data = {
+            name: userName,
+            email: userEmail,
+            tagline: document.getElementById('user-tagline').value.trim() || '',
+            phone: document.querySelector('input[name="phone"]').value.trim() || '',
+            address: document.querySelector('input[name="address"]').value.trim() || '',
+            social_links: Array.from(document.getElementsByName('social-links[]'))
+                .map(input => input.value.trim())
+                .filter(Boolean)
+                .join(','),
+            style: document.querySelector('.style-preset.selected')?.dataset.style || 'default',
+            form_type: elements.formType.value || '',
+            profile_picture: profilePictureUrl,
+            background_image: backgroundImageUrl
+        };
 
-      // Submit form data
-      const queryParams = new URLSearchParams(data).toString();
-      const url = `${CONFIG.googleScriptUrl}?${queryParams}`;
-
-      const response = await fetch(url, {
-        method: 'GET',
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
-
-      if (result.status === 'success') {
         Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: 'Your digital card has been created successfully!',
-          confirmButtonText: 'View My Card',
-          showCancelButton: true,
-          cancelButtonText: 'Create Another'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = `view-card.html?id=${result.cardId}`;
-          } else {
-            elements.form.reset();
-            elements.profilePicture.src = CONFIG.defaultProfileImage;
-            document.querySelectorAll('.style-preset').forEach(btn => {
-              btn.classList.remove('selected');
-            });
-            document.body.style.background = stylePresets.minimal.background;
-          }
+            title: 'Creating Your Digital Card',
+            html: 'Please wait...',
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading()
         });
-      } else {
-        throw new Error(result.message || 'Submission failed');
-      }
 
+        // Submit form data
+        const queryParams = new URLSearchParams(data).toString();
+        const url = `${CONFIG.googleScriptUrl}?${queryParams}`;
+
+        const response = await fetch(url, { method: 'GET' });
+        const result = await response.json();
+
+        if (!response.ok || result.status !== 'success') {
+            throw new Error(result.message || 'Submission failed');
+        }
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Your digital card has been created successfully!',
+            confirmButtonText: 'View My Card',
+            showCancelButton: true,
+            cancelButtonText: 'Create Another'
+        }).then((res) => {
+            if (res.isConfirmed) {
+                window.location.href = `view-card.html?id=${result.cardId}`;
+            } else {
+                elements.form.reset();
+                elements.profilePicture.src = CONFIG.defaultProfileImage;
+                document.querySelectorAll('.style-preset').forEach(btn => btn.classList.remove('selected'));
+                document.body.style.background = stylePresets.minimal.background;
+            }
+        });
     } catch (error) {
-      console.error('Submission error:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Submission Failed',
-        text: error.message || 'Something went wrong! Please try again.',
-        footer: '<a href="mailto:support@totalconnect.com">Contact Support</a>'
-      });
+        console.error('Submission error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Submission Failed',
+            text: error.message || 'Something went wrong! Please try again.',
+            footer: '<a href="mailto:support@totalconnect.com">Contact Support</a>'
+        });
     } finally {
-      elements.submitBtn.disabled = false;
+        elements.submitBtn.disabled = false;
+        // clear form
+        elements.form.reset();
+        elements.profilePicture.src = CONFIG.defaultProfileImage;
     }
   });
-
-  async function uploadImage(file, fileName) {
-    try {
-      const base64Image = await toBase64(file);
-  
-      const response = await fetch('https://script.google.com/macros/s/AKfycbyBwkbzN5k0Qhah5QH7nwt4CcffYBHu7t_QsOr1tSnsn-lC7l9eas43NJDEOrcwJY7l/exec', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          image: base64Image,
-          fileName: fileName,
-        }),
-      });
-  
-      if (!response.ok) {
-        throw new Error('Failed to upload image');
-      }
-  
-      const result = await response.json();
-      return result.imageUrl;
-    } catch (error) {
-      console.error('Image upload error:', error);
-      throw error;
-    }
-  }
-
-  // Helper function to convert a file to base64
-  function toBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result.split(',')[1]); // Get the base64 part
-      reader.onerror = error => reject(error);
-    });
-  }
 });
