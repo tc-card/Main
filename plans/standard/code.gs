@@ -48,7 +48,7 @@ function doGet(e) {
     // Process social links safely
     let socialLinks = '';
     if (formData.social_links) {
-      socialLinks = formData.social_links.split(',').join('\n');
+      socialLinks = formData.social_links.split(',').join(',\n');
     }
 
     // Prepare row data
@@ -111,7 +111,7 @@ function sendNotificationEmail(userEmail, userName, submissionId, profile_pictur
           body {
               font-family: Arial, sans-serif;
               line-height: 1.6;
-              color: #E0E0E0;
+              color: #fff;
               background-color: #121212;
               margin: 0;
               padding: 0;
@@ -160,15 +160,6 @@ function sendNotificationEmail(userEmail, userName, submissionId, profile_pictur
           th {
               background-color: #ffffff;
               color: #000000;
-          }
-          input {
-              width: 90%;
-              padding: 10px;
-              margin-top: 10px;
-              border: 1px solid #444;
-              background-color: #2a2a2a;
-              color: white;
-              border-radius: 5px;
           }
           .w-32 { width: 8rem; }
           .h-32 { height: 8rem; }
@@ -230,15 +221,9 @@ function sendNotificationEmail(userEmail, userName, submissionId, profile_pictur
                       </tr>
                   </table>
               </div>
-              <form action="mailto:your-email@example.com" method="post" enctype="text/plain">
-                  <input type="hidden" name="Name" value="${userName}">
-                  <input type="hidden" name="Email" value="${userEmail}">
-                  <label for="location"><strong>Delivery Location:</strong></label>
-                  <input type="text" id="location" name="Location" placeholder="Enter your delivery address" required>
-                  <button type="submit" class="button">Send Delivery Details</button>
-              </form>
+              
               <p>
-                  <a href="https://your-domain.com/view-card?id=${submissionId}">
+                  <a href="http://tc-card.github.io/Main/plans/standard/view-card?id=${submissionId}">
                       View My Digital Card
                   </a>
               </p>

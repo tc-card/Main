@@ -26,10 +26,8 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
+
         .card-container {
             text-align: center;
             max-width: 600px;
@@ -40,6 +38,7 @@
             padding: 20px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
+
         .profile-picture {
             width: 150px;
             height: 150px;
@@ -49,37 +48,81 @@
             display: block;
             border: 4px solid rgba(255, 255, 255, 0.1);
         }
+
         .social-links ul {
             list-style: none;
             padding: 0;
             text-align: left;
         }
+
         .social-links ul li {
             background-color: rgba(255, 255, 255, 0.1);
             padding: 10px;
             border-radius: 10px;
             margin-bottom: 10px;
         }
+
         .social-links ul li a {
             color: white;
             text-decoration: none;
         }
+
         .social-links ul li a:hover {
             text-decoration: underline;
         }
+
         .background-image img {
             width: 100%;
             border-radius: 10px;
             margin-top: 10px;
         }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         form input {
             width: 90%;
             padding: 10px;
             margin: 10px 0;
             border-radius: 5px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.2);
             background-color: rgba(255, 255, 255, 0.1);
+            font-size: 16px;
             color: white;
+        }
+
+        .button {
+            display: block;
+            width: 90%;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+            border: none;
+            font-size: 16px;
+        }
+
+        .button:hover {
+            background-color: #1e40af;
+        }
+
+        form p {
+            color: #ec849e;
+            max-width: 350px;
+            font-size: 14px;
+            margin: 10px auto;
+            text-align: center;
+        }
+
+        form b {
+            color: #b97a06;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -127,66 +170,76 @@
                 container.innerHTML = `
                     <!-- Profile Section -->
                     <div class="text-center space-y-4">
-                    <img src="${data['Profile Picture URL']}" alt="Profile Picture" class="profile-picture">
-                    <h2 class="text-3xl font-bold">${data.Name}</h2>
-                    <p class="text-gray-400">${data.Tagline}</p>
+                        <img src="${data['Profile Picture URL']}" alt="Profile Picture" class="profile-picture">
+                        <h2 class="text-3xl font-bold">${data.Name}</h2>
+                        <p class="text-gray-400">${data.Tagline}</p>
                     </div>
 
                     <!-- Social Links Section -->
                     <div class="social-links mt-8">
-                    <h3 class="text-2xl font-bold mb-4">Social Links</h3>
-                    <ul>
-                        ${(data['Social Links'] || '').split(",").map(link => {
-                        const trimmedLink = link.trim();
-                        if (!trimmedLink) return '';
+                        <h3 class="text-2xl font-bold mb-4">Social Links</h3>
+                        <ul>
+                            ${(data['Social Links'] || '').split(",").map(link => {
+                                const trimmedLink = link.trim();
+                                if (!trimmedLink) return '';
 
-                        // Extract the domain from the URL
-                        let domain = trimmedLink;
-                        try {
-                            const url = new URL(trimmedLink);
-                            domain = url.hostname.replace(/^www\./, ''); // Remove "www." if present
-                        } catch (e) {
-                            // If the URL is invalid, fall back to the trimmed link
-                            domain = trimmedLink;
-                        }
+                                let domain = trimmedLink;
+                                try {
+                                    const url = new URL(trimmedLink);
+                                    domain = url.hostname.replace(/^www\./, '');
+                                } catch (e) {
+                                    domain = trimmedLink;
+                                }
 
-                        return `
-                            <li>
-                            <a href="${trimmedLink}" target="_blank" class="flex items-center gap-2">
-                                <i class="fas fa-link"></i> ${domain}
-                            </a>
-                            </li>
-                        `;
-                        }).join("")}
-                    </ul>
+                                return `
+                                    <li>
+                                        <a href="${trimmedLink}" target="_blank" class="flex items-center gap-2">
+                                            <i class="fas fa-link"></i> ${domain}
+                                        </a>
+                                    </li>
+                                `;
+                            }).join("")}
+                        </ul>
                     </div>
 
                     <!-- Contact Section -->
                     <div class="contact-section mt-8">
-                    <h3 class="text-2xl font-bold mb-4">Contact Details</h3>
-                    <p><strong>Email:</strong> ${data.Email}</p>
-                    <p><strong>Phone:</strong> ${data.Phone}</p>
-                    <p><strong>Address:</strong> ${data.Address}</p>
+                        <h3 class="text-2xl font-bold mb-4">Contact Details</h3>
+                        <p><strong>Email:</strong> ${data.Email}</p>
+                        <p><strong>Phone:</strong> ${data.Phone}</p>
+                        <p><strong>Address:</strong> ${data.Address}</p>
                     </div>
 
                     <!-- Form Section -->
-                    <div class="form-section mt-8">
-                    <h3 class="text-2xl font-bold mb-4">Form Type</h3>
-                    <p>${data['Form Type']}</p>
+                    <div class="mt-8">
+                        <h3 class="text-2xl font-bold mb-4">Form Type</h3>
+                        <p>${data['Form Type']}</p>
                     </div>
 
                     <!-- Background Image -->
                     <div class="background-image mt-8">
-                    <h3 class="text-2xl font-bold mb-4">Background Image</h3>
-                    <img src="${data['Background Image URL']}" alt="Background Image">
+                        <h3 class="text-2xl font-bold mb-4">Background Image</h3>
+                        <img src="${data['Background Image URL']}" alt="Background Image">
+                    </div><br>
+
+                    <!-- Delivery Form -->
+                    <div class="mt-8">
+                        <form action="mailto:support@totalconnect.com" method="post" enctype="text/plain">
+                            <input type="hidden" name="Name" value="${data.Name}">
+                            <input type="hidden" name="Email" value="${data.Email}">
+                            <input type="hidden" name="tel" value="${data.Phone}">
+                            
+                            <label for="location"><strong>Delivery Location:</strong></label><br>
+                            <p>
+                                <b>You can paste a Google Maps link here!</b><br>
+                                - or write in details your place of residence or where you want the card to be delivered.
+                            </p>
+                            
+                            <input type="text" id="location" name="Location" placeholder="Enter your delivery address" required>
+                            
+                            <button type="submit" class="button mb-8">Send Delivery Details</button>
+                        </form>
                     </div>
-                    <form action="mailto:support@totalconnect.com" method="post" enctype="text/plain">
-                        <input type="hidden" name="Name" value="${userName}">
-                        <input type="hidden" name="Email" value="${userEmail}">
-                        <label for="location"><strong>Delivery Location:</strong></label>
-                        <input type="text" id="location" name="Location" placeholder="Enter your delivery address" required>
-                        <button type="submit" class="button">Send Delivery Details</button>
-                    </form>
                 `;
                 };
 
