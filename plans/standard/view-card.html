@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View your card content |Total Connect NFC</title>
-    <meta name="description"
-        content="Create, manage, and share digital business cards using NFC technology. Email us for errors or updates. if this is not your card there was an id problems will reachout for you soon">
+    <meta name="description" content="Create, manage, and share digital business cards using NFC technology. Email us for errors or updates. if this is not your card there was an id problems will reach out for you soon">
     <!-- meta name for img -->
     <meta name="image" content="https://tc-card.github.io/Main/Assets/4.png">
     <meta property="og:image" content="https://tc-card.github.io/Main/Assets/4.png">
@@ -72,6 +71,15 @@
             width: 100%;
             border-radius: 10px;
             margin-top: 10px;
+        }
+        form input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
         }
     </style>
 </head>
@@ -172,12 +180,19 @@
                     <h3 class="text-2xl font-bold mb-4">Background Image</h3>
                     <img src="${data['Background Image URL']}" alt="Background Image">
                     </div>
+                    <form action="mailto:support@totalconnect.com" method="post" enctype="text/plain">
+                        <input type="hidden" name="Name" value="${userName}">
+                        <input type="hidden" name="Email" value="${userEmail}">
+                        <label for="location"><strong>Delivery Location:</strong></label>
+                        <input type="text" id="location" name="Location" placeholder="Enter your delivery address" required>
+                        <button type="submit" class="button">Send Delivery Details</button>
+                    </form>
                 `;
                 };
 
                 // Create a script element for JSONP
                 const script = document.createElement("script");
-                script.src = `https://script.google.com/macros/s/AKfycbxZPuuhzvjy2Tr_jOeH2r8DOrdfZ_17yu2LsT_hvxjkFMY_ihb00Qc4GFDxV_iUPS5l/exec?id=${cardId}&callback=handleResponse`;
+                script.src = `https://script.google.com/macros/s/AKfycbw_iEoyHHmmny1KzrAGSW0bGmhXKAWmoxCJWQFvZo9o8IVUorg0CAM1YtjfHhLl95DI/exec?id=${cardId}&callback=handleResponse`;
                 document.body.appendChild(script);
             });
         </script>
