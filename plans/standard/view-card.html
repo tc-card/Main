@@ -140,9 +140,15 @@
                 return;
                 }
 
+                // Create a script element for JSONP
+                const script = document.createElement("script");
+                script.src = `https://script.google.com/macros/s/AKfycbwAOoLfvtCZ6U2i2Yq6a2yw_hKfLQKwLjR8yglg0Obi01ppL5IzhpbZsEs3F4ifMa-X/exec?id=${cardId}&callback=handleResponse`;//executed on 16/2/2025 5:45:53 PM titled "with viewcard"
+                document.body.appendChild(script);
+
                 // JSONP callback function
                 window.handleResponse = function (data) {
-                if (data.status !== "Active") {
+                console.log(cardId, data.Email);
+                if (data.Status !== "Active") {
                     document.querySelector(".card-container").innerHTML = "<h2>This card is inactive.</h2>";
                     return;
                 }
@@ -245,10 +251,6 @@
                     `;
                 };
 
-                // Create a script element for JSONP
-                const script = document.createElement("script");
-                script.src = `https://script.google.com/macros/s/AKfycbw_iEoyHHmmny1KzrAGSW0bGmhXKAWmoxCJWQFvZo9o8IVUorg0CAM1YtjfHhLl95DI/exec?id=${cardId}&callback=handleResponse`;
-                document.body.appendChild(script);
             });
         </script>
 </body>

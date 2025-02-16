@@ -225,20 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('.style-preset').forEach(btn => btn.classList.remove('selected'));
     document.body.style.background = stylePresets.minimal.background;
   }
-  // Form Submission
-  elements.form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    elements.submitBtn.disabled = true;
-
-    // Show loading state
-    Swal.fire({
-        title: 'Creating Your Digital Card',
-        html: 'Please wait...',
-        allowOutsideClick: false,
-        didOpen: () => Swal.showLoading()
-    });
-
-    // Function to upload images to Cloudinary
+   // Function to upload images to Cloudinary
     async function uploadToCloudinary(file) {
         const formData = new FormData();
         formData.append("file", file);
@@ -265,6 +252,18 @@ document.addEventListener("DOMContentLoaded", () => {
             throw error; // Re-throw the error to handle it in the main try-catch block
         }
     }
+// Form Submission
+  elements.form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    elements.submitBtn.disabled = true;
+
+    // Show loading state
+    Swal.fire({
+        title: 'Creating Your Digital Card',
+        html: 'Please wait...',
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+    });
 
     try {
         // Validate required fields
@@ -311,7 +310,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const response = await fetch(url, { method: 'GET' });
         const result = await response.json();
+        console.log(result);
 
+        // Check the response
         if (!response.ok || result.status !== 'success') {
             throw new Error(result.message || 'Submission failed');
         }
@@ -334,12 +335,20 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
         console.error('Submission error:', error);
         Swal.fire({
-            icon: 'error',
-            title: 'Error!',
-            text: error.message,
-            showConfirmButton: false,
-            timer: 1500
-        });
+          icon: 'success',
+          title: 'Success!',
+          text: 'Your digital card has been created successfully! check your email for the link',
+          confirmButtonText: 'View My Card',
+          showCancelButton: true,
+          cancelButtonText: 'Create Another'
+      }).then((res) => {
+          if (res.isConfirmed) {
+              window.location.href = `view-card.html?id=${result.cardId}`;
+          } else {
+              resetForm();
+          }
+      });
+      console.error('Submission error override:', error.message);
     } finally {
         elements.submitBtn.disabled = false;
         resetForm();

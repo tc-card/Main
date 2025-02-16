@@ -1,7 +1,7 @@
 export const CONFIG = {
   maxFileSize: 5 * 1024 * 1024, // 5MB
   allowedTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
-  googleScriptUrl: 'https://script.google.com/macros/s/AKfycbw_iEoyHHmmny1KzrAGSW0bGmhXKAWmoxCJWQFvZo9o8IVUorg0CAM1YtjfHhLl95DI/exec',
+  googleScriptUrl: 'https://script.google.com/macros/s/AKfycbyI_O03ITHsxGBrwqhc7ctEXw-z62j--w2M4eNwuXgxzg-fldjt3fD4aNBGD9eTgI08/exec', //executed on 16/2/2025 5:46:35 PM titled "without vie-card"
   maxSocialLinks: 10,
   defaultProfileImage: '/Assets/150.png',
 };
