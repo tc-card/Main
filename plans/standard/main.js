@@ -223,32 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
   elements.form.addEventListener('submit', async (e) => {
     e.preventDefault();
     elements.submitBtn.disabled = true;
-    async function uploadToCloudinary(file) {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", "preset"); // Ensure the preset is correct
-  
-      try {
-          const response = await fetch("https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload", {
-              method: "POST",
-              body: formData
-          });
-  
-          if (!response.ok) {
-              throw new Error(`Cloudinary upload failed: ${response.statusText}`);
-          }
-  
-          const data = await response.json();
-          if (!data.secure_url) {
-              throw new Error('Cloudinary response did not return a secure URL');
-          }
-  
-          return data.secure_url; // Returns the image URL
-      } catch (error) {
-          console.error("Image upload error:", error);
-          return ''; // Return empty string on failure
-      }
-    }
+    // submitting the from data
     try {
         const userName = document.getElementById('user-name').value.trim();
         const userEmail = document.querySelector('input[name="email"]').value.trim();
@@ -329,23 +304,40 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
         console.error('Submission error:', error);
         Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: 'Your digital card has been created successfully!',
-          confirmButtonText: 'View My Card',
-          showCancelButton: true,
-          cancelButtonText: 'Create Another',
-          footer: '<a href="mailto:support@totalconnect.com">Contact Support</a>'
-        }).then((res) => {
-            if (res.isConfirmed) {
-                window.location.href = `view-card.html?id=${result.cardId}`;
-            } else {
-                elements.form.reset();
-                elements.profilePicture.src = CONFIG.defaultProfileImage;
-                document.querySelectorAll('.style-preset').forEach(btn => btn.classList.remove('selected'));
-                document.body.style.background = stylePresets.minimal.background;
-            }
-        });
+          icon: 'error',
+          title: 'Error!',
+          text: error.message,
+          showConfirmButton: false,
+          timer: 1500
+      });
+    // uploading images To Cloudinary
+
+    async function uploadToCloudinary(file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "preset"); // Ensure the preset is correct
+  
+      try {
+          const response = await fetch("https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload", {
+              method: "POST",
+              body: formData
+          });
+  
+          if (!response.ok) {
+              throw new Error(`Cloudinary upload failed: ${response.statusText}`);
+          }
+  
+          const data = await response.json();
+          if (!data.secure_url) {
+              throw new Error('Cloudinary response did not return a secure URL');
+          }
+  
+          return data.secure_url; // Returns the image URL
+      } catch (error) {
+          console.error("Image upload error:", error);
+          return ''; // Return empty string on failure
+      }
+    }
     } finally {
         elements.submitBtn.disabled = false;
         // clear form
