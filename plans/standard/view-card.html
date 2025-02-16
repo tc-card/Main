@@ -130,9 +130,9 @@
     <div class="card-container">
         <h2>Loading...</h2>
     </div>
-
         <script>
             document.addEventListener("DOMContentLoaded", function () {
+                document.body.style = "background: url(https://tc-card.github.io/Main/Assets/bg.png) no-repeat center fixed !important; backdrop-filter: blur(5px);background-size: 100% 100%;";
                 const urlParams = new URLSearchParams(window.location.search);
                 const cardId = urlParams.get("id");
                 if (!cardId) {
@@ -239,7 +239,10 @@
                             <button type="submit" class="button mb-8">Send Delivery Details</button>
                         </form>
                     </div>
-                `;
+                    <footer class="text-gray-400 py-6 text-center">
+                        <p>&copy; 2024 Total Connect. All rights reserved.</p>
+                    </footer>
+                    `;
                 };
 
                 // Create a script element for JSONP
