@@ -197,7 +197,7 @@ function sendNotificationEmail(userEmail, userName, submissionId, profile_pictur
   <body>
       <div class="container">
           <div class="header">
-              <img src="http://tc-card.github.io/Main/Assets/150.png" alt="Logo" />
+              <img src="http://tc-card.github.io/Main/Assets/code.png" alt="Logo" />
               <h1>Welcome to Total Connect <br>Digital Cards</h1>
           </div>
           <div class="content">
