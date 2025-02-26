@@ -66,84 +66,76 @@
       }
 const cardContents = [
   {
+    tier: "Free",
+    price: "0 TND",
+    description: "Perfect for individuals starting their digital journey.",
+    badge: "No Credit Card Required",
+    features: [
+      "Pre-designed webfolio",
+      "3 media links",
+      "Mobile-friendly design",
+      "Share via Custom Link",
+      "Contact Button"
+    ],
+    colorClasses: "bg-gray-900 ring-purple-400 text-purple-400",
+    link: "plans/free/"
+  },
+  {
     tier: "Basic",
     price: "49 TND",
     description: "Perfect for individuals and small businesses starting with NFC technology.",
     features: [
-      // Core Features
       "1 NFC Card",
       "Pre-designed webfolio",
       "5 media links",
-      // Support
       "Email support",
-      // Sharing Features
       "QR code sharing",
+      "Contact Form",
       "Contact Button"
+    ],
+    limitations: [
+      "TC Watermark",
+      "Limited Templates",
+      "Basic Customization"
     ],
     colorClasses: "bg-gray-900 ring-green-400 text-green-400",
     link: "plans/basic/",
-  },
+  }
+];
+
+const advancedPlans = [
   {
-    tier: "Standard", 
+    tier: "Standard",
     price: "100 TND",
     description: "Essential features to enhance your business presence.",
     features: [
-      // Core Features
       "5 NFC Cards",
       "More customizable webfolio",
       "Unlimited media links",
-      // Support
       "Email support",
-      // Branding
       "Custom branding",
       "Remove our watermark",
-      // Enhanced Features
-      "Contact Form"
+      "Smart Form"
     ],
     colorClasses: "bg-gray-900 ring-yellow-400 text-yellow-400",
     link: "plans/standard/",
-  },
-  {
-    tier: "Professional",
-    price: "379 TND", 
-    description: "Advanced solutions for professionals and growing businesses.",
-    features: [
-      // Core Features
-      "10 NFC Cards",
-      "Fully customizable webfolio",
-      // Support & SLA
-      "Priority support",
-      "SLA guarantee",
-      // Branding & Domain
-      "Custom branding",
-      "Custom Domain",
-      // Advanced Features
-      "Integration with CRM tools",
-      "Advanced Contact Form",
-      "Remove our watermark"
-    ],
-    colorClasses: "bg-gray-900 ring-blue-400 text-blue-400",
-    link: "plans/professional/",
   },
   {
     tier: "Enterprise",
     price: "Custom Pricing",
     description: "Tailored solutions for enterprises with advanced needs.",
     features: [
-      // Core Features
       "Unlimited NFC Cards",
       "Custom webfolio design",
-      // Support & Management
       "Dedicated account manager",
       "Priority support",
       "SLA guarantee",
-      // Advanced Features
       "Custom integrations",
       "Custom Domain",
       "Custom Forms"
     ],
     colorClasses: "bg-gray-900 ring-red-400 text-red-400",
-    link: "plans/enterprise",
+    link: "plans/enterprise/",
   }
 ];
 const colorMapping = {
