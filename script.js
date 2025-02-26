@@ -100,10 +100,7 @@ const cardContents = [
     ],
     colorClasses: "bg-gray-900 ring-green-400 text-green-400",
     link: "plans/basic/",
-  }
-];
-
-const advancedPlans = [
+  },
   {
     tier: "Standard",
     price: "100 TND",
@@ -139,6 +136,11 @@ const advancedPlans = [
   }
 ];
 const colorMapping = {
+  Free: {
+    text: "text-purple-400",
+    ring: "ring-purple-400",
+    bg: "bg-gray-800",
+  },
   Basic: {
     text: "text-green-400",
     ring: "ring-green-400",
