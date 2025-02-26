@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,25 +18,28 @@
         html {
             scroll-behavior: smooth;
         }
-        h3{
+
+        h3 {
             overflow: hidden;
             max-height: 430px;
         }
+
         @layer utilities {
             .perspective-container {
                 perspective: 1000px;
                 transform-style: preserve-3d;
             }
-            
+
             @keyframes skew-scroll {
                 0% {
-                    transform:translateZ(0) translateY(0);
+                    transform: translateZ(0) translateY(0);
                 }
+
                 100% {
-                    transform:translateZ(0) translateY(-33%);
+                    transform: translateZ(0) translateY(-33%);
                 }
             }
-        
+
             .animate-skew-scroll {
                 animation: skew-scroll 12s linear infinite;
             }
@@ -47,6 +51,7 @@
         }
     </style>
 </head>
+
 <body class="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white justify-center items-center">
     <div class="max-w-6xl mx-auto px-4 py-16">
         <!-- Hero Section -->
@@ -60,7 +65,8 @@
         <!-- Main Content Grid -->
         <div class="grid lg:grid-cols-2 gap-12 items-start">
             <!-- Pricing Card -->
-            <div class="glass-effect rounded-2xl p-8 border border-gray-800 shadow-2xl hover:border-green-400/50 transition-all">
+            <div
+                class="glass-effect rounded-2xl p-8 border border-gray-800 shadow-2xl hover:border-green-400/50 transition-all">
                 <!-- Price Header -->
                 <div class="flex justify-between items-start mb-8">
                     <div>
@@ -84,16 +90,17 @@
                                 linear-gradient(to left, transparent, black 5rem),
                                 linear-gradient(to bottom, transparent, black 5rem),
                                 linear-gradient(to top, transparent, black 5rem);
-                            "
-                        >
+                            ">
                         </div>
                     </h3>
                 </div>
 
                 <!-- CTA Button -->
-                <button class="w-full py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold rounded-xl transition-all transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-lg">
-                    <a href="#start">Get Started Now</a>
-                </button>
+                <a href="#start">
+                    <button
+                        class="w-full py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold rounded-xl transition-all transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-lg">Get
+                        Started Now
+                    </button></a>
             </div>
 
             <!-- Benefits Section -->
@@ -101,24 +108,28 @@
                 <div class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl">
                     <h3 class="text-2xl font-bold mb-4 text-green-400">Why Choose Basic Plan?</h3>
                     <p class="text-gray-300 leading-relaxed text-lg">
-                        Perfect for individuals and small businesses starting with NFC technology. Get everything you need to establish your digital presence.
+                        Perfect for individuals and small businesses starting with NFC technology. Get everything you
+                        need to establish your digital presence.
                     </p>
                 </div>
 
                 <div class="grid gap-6">
-                    <div class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-green-400/30 transition-all">
+                    <div
+                        class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-green-400/30 transition-all">
                         <i class="fas fa-bolt text-3xl text-green-400 mb-4"></i>
                         <h4 class="text-xl font-semibold mb-2">Instant Setup</h4>
                         <p class="text-gray-400">Get your digital presence up and running in minutes</p>
                     </div>
-                    
-                    <div class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-green-400/30 transition-all">
+
+                    <div
+                        class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-green-400/30 transition-all">
                         <i class="fas fa-sync text-3xl text-green-400 mb-4"></i>
                         <h4 class="text-xl font-semibold mb-2">Easy Updates</h4>
                         <p class="text-gray-400">Email us to update your information anytime, anywhere</p>
                     </div>
 
-                    <div class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-green-400/30 transition-all">
+                    <div
+                        class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-green-400/30 transition-all">
                         <i class="fas fa-shield-alt text-3xl text-green-400 mb-4"></i>
                         <h4 class="text-xl font-semibold mb-2">Secure Sharing</h4>
                         <p class="text-gray-400">Share your details securely with NFC technology</p>
@@ -127,15 +138,19 @@
             </div>
         </div>
     </div>
-    <section id="start" class="flex-grow flex justify-center items-center flex-col space-y-6 w-full max-w-4xl px-4 mx-auto mb-24">
+    <section id="start"
+        class="flex-grow flex justify-center items-center flex-col space-y-6 w-full max-w-4xl px-4 mx-auto mb-24">
         <h2 class="text-3xl font-bold text-center text-white py-16">Create Your Digital Card</h2>
-            <form method="POST" id="data-fill" class="space-y-6 w-full lg:w-8/12 rounded-xl shadow-xl p-8">
-                        <!-- Profile Section -->
+        <form method="POST" id="data-fill" class="space-y-6 w-full lg:w-8/12 rounded-xl shadow-xl p-8">
+            <!-- Profile Section -->
             <div class="text-center space-y-4 text-white">
-                <img src="https://tc-card.github.io/Main//Assets/150.png" alt="profile-picture" id="profile-picture" class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer hover:ring-blue-500/50 hover:ring-4 hover:p-2 transition-all" />
+                <img src="https://tc-card.github.io/Main//Assets/150.png" alt="profile-picture" id="profile-picture"
+                    class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer hover:ring-blue-500/50 hover:ring-4 hover:p-2 transition-all" />
                 <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
-                <input type="text" id="user-name" name="user-name" placeholder="Enter your name" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                <input type="text" id="user-name" name="user-name" placeholder="Enter your name"
+                    class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline"
+                    class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
             </div>
 
             <!-- Social Links Section -->
@@ -143,34 +158,38 @@
                 <div class="bg-white/10 p-4 rounded border border-white/50 shadow-md">
                     <label class="block text-white">Enter your social link:</label>
                     <ul class="space-y-2">
-                        <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
+                        <li
+                            class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
                             <i class="fa fa-link text-xl text-white mr-3"></i>
-                            <input type="url" name="social-links[]" placeholder="https://your-link.com" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                            <input type="url" name="social-links[]" placeholder="https://your-link.com"
+                                class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
                         </li>
                     </ul>
                 </div>
-                <button 
-                type="button" 
-                id="add-link-btn" 
-                class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl">
-                <i class="fa fa-plus text-sm"></i>
-                Add Another Link
-            </button>
+                <button type="button" id="add-link-btn"
+                    class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl">
+                    <i class="fa fa-plus text-sm"></i>
+                    Add Another Link
+                </button>
             </div>
 
             <!-- Style Selection (Modified) -->
             <div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
                 <label class="block text-white font-semibold mb-4">Choose Your Style</label>
-                
+
                 <!-- Professional Gradients -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                     <button type="button" class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform" data-style="corporateGradient">
-                        <div class="h-20 rounded" style="background: linear-gradient(145deg, rgb(9, 9, 11), rgb(24, 24, 27), rgb(9, 9, 11))"></div>
+                        <div class="h-20 rounded"
+                            style="background: linear-gradient(145deg, rgb(9, 9, 11), rgb(24, 24, 27), rgb(9, 9, 11))">
+                        </div>
                         <p class="mt-2 text-sm">Executive</p>
                     </button>
 
                     <button type="button" class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform" data-style="oceanGradient">
-                        <div class="h-20 rounded" style="background: linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))"></div>
+                        <div class="h-20 rounded"
+                            style="background: linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))">
+                        </div>
                         <p class="mt-2 text-sm">Professional</p>
                     </button>
 
@@ -209,18 +228,21 @@
             </div>
 
             <!-- Contact Section -->
-            <div  class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
+            <div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
                 <label class="block text-white font-semibold mb-4">Contact Button Details</label>
-                <input type="email" name="email" placeholder="Email" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" required />
+                <input type="email" name="email" placeholder="Email"
+                    class="w-full bg-transparent text-white p-2 rounded focus:outline-none" required />
                 <hr>
-                <input type="tel" name="phone" placeholder="Phone" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                <input type="tel" name="phone" placeholder="Phone"
+                    class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
                 <hr>
-                <input type="text" name="address" placeholder="Address" class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                <input type="text" name="address" placeholder="Address"
+                    class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
                 <p class="text-xs mt-2"><b>Name, Picture, Tagline </b>: will automatically be added!</p>
             </div>
 
             <!-- Submit Button (Enhanced) -->
-            <button id="saveContactBtn" type="submit" 
+            <button id="saveContactBtn" type="submit"
                 class="w-full md:w-auto mx-auto block text-center bg-blue-500 hover:bg-blue-600 text-white py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                 Create Your Digital Card
             </button>
@@ -277,8 +299,9 @@
             }
         }
     </script>
-    
+
     <script type="module" src="config.js"></script>
     <script type="module" src="main.js"></script>
 </body>
+
 </html>

@@ -1,15 +1,4 @@
-//🏗️under construction🚧
-// const mobileMenu = document.getElementById('mobile-menu');
-// const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-// const mobileMenuClose = document.getElementById('mobile-menu-close');
 
-// mobileMenuToggle.addEventListener('click', () => {
-//     mobileMenu.classList.remove('hidden');
-// });
-
-// mobileMenuClose.addEventListener('click', () => {
-//     mobileMenu.classList.add('hidden');
-// });
  $(document).ready(function () {
           // Initialize the carousel
           $('.carousel').slick({
@@ -78,7 +67,7 @@
 const cardContents = [
   {
     tier: "Basic",
-    price: "79 TND",
+    price: "49 TND",
     description: "Perfect for individuals and small businesses starting with NFC technology.",
     features: [
       // Core Features
@@ -96,7 +85,7 @@ const cardContents = [
   },
   {
     tier: "Standard", 
-    price: "159 TND",
+    price: "100 TND",
     description: "Essential features to enhance your business presence.",
     features: [
       // Core Features
@@ -116,7 +105,7 @@ const cardContents = [
   },
   {
     tier: "Professional",
-    price: "399 TND", 
+    price: "379 TND", 
     description: "Advanced solutions for professionals and growing businesses.",
     features: [
       // Core Features
