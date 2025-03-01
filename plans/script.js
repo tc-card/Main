@@ -168,8 +168,8 @@ function generatePricingCard(content) {
   ` : '';
 
   return `
-      <div class="hover:scale-105 transform transition-all duration-300 relative rounded-3xl p-8 ring-1 ${colors.ring} ${specialStyles}">
-          ${tagElement}
+    <div class="hover:scale-105 transform transition-all duration-300 relative pricing-card ${content.tier.toLowerCase()} rounded-3xl p-8 ring-1 ${colors.ring} ${specialStyles}">
+        ${tagElement}
           <h3 class="text-base font-semibold ${colors.text}">${content.tier}</h3>
           <p class="mt-4 flex items-baseline gap-x-2">
               <span class="text-5xl font-semibold ${colors.text}">${content.price}</span>

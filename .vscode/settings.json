@@ -3,5 +3,6 @@
         "RFID",
         "testapp",
         "webfolio"
-    ]
+    ],
+    "liveServer.settings.port": 5501
 }

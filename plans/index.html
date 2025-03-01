@@ -89,7 +89,38 @@
             transform: scale(1.2, 1);
           }
         }
-      
+        .pricing-card {
+          background: rgba(24, 24, 27, 0.95);
+          backdrop-filter: blur(8px);
+          box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+          transform: scale(1.05);
+          background: rgba(24, 24, 27, 0.98);
+          box-shadow: 0 8px 42px 0 rgba(0, 0, 0, 0.45);
+        }
+
+        /* Card-specific gradients */
+        .pricing-card.free {
+          background: linear-gradient(145deg, 
+            rgba(24, 24, 27, 0.95), 
+            rgba(88, 28, 135, 0.15));
+        }
+
+        .pricing-card.basic {
+          background: linear-gradient(145deg, 
+            rgba(24, 24, 27, 0.95), 
+            rgba(22, 163, 74, 0.15));
+        }
+
+        .pricing-card.standard {
+          background: linear-gradient(145deg, 
+            rgba(24, 24, 27, 0.95), 
+            rgba(234, 179, 8, 0.15));
+        }
     </style>
 </head>
 
