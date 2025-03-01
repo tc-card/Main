@@ -29,7 +29,7 @@ const starterPlans = [
     features: [
       "1 NFC Card",
       "Pre-designed webfolio",
-      "5 media links",
+      "6 media links",
       "Email support",
       "QR code sharing",
       "Contact Form",

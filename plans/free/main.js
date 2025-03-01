@@ -113,11 +113,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentLinks = ul.querySelectorAll("li").length;
 
     // Check if the limit of 5 links has been reached
-    if (currentLinks >= 6) {
+    if (currentLinks >= 3) {
       Swal.fire({
         icon: "error",
         title: "Link Limit Reached",
-        text: "You can only add up to 6 social links.",
+        text: "You can only add up to 3 social links.",
         toast: true,
         position: "top-end",
         showConfirmButton: false,
