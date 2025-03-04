@@ -29,6 +29,7 @@ function doGet(e) {
         'Timestamp',
         'Name',
         'Tagline',
+        'link',
         'Email',
         'Phone',
         'Address',
@@ -39,9 +40,6 @@ function doGet(e) {
         'Status'
       ]);
     }
-
-    // Generate submission ID
-    const submissionId = Utilities.getUuid();
 
     // Process social links safely
     let socialLinks = '';
@@ -58,9 +56,9 @@ function doGet(e) {
       formData.phone || '',          // Phone
       formData.address || '',        // Address
       socialLinks,                   // Social Links
+      link,
       formData.style || 'default',    // Selected Style
       formData.profile_picture || '',  // Profile Picture URL
-      submissionId,                   // Submission ID
       'Inactive'                        // Status
     ];
 
@@ -69,7 +67,7 @@ function doGet(e) {
 
     // Send email notification
     try {
-      sendNotificationEmail(formData.email, formData.name, submissionId, formData.profile_picture);
+      sendNotificationEmail(formData.email, formData.name, formData.profile_picture);
     } catch (emailError) {
       console.error('Email notification failed:', emailError);
       // Continue execution even if email fails
@@ -79,8 +77,6 @@ function doGet(e) {
     return ContentService.createTextOutput(JSON.stringify({
       status: 'success',
       message: 'Form submitted successfully',
-      submissionId: submissionId,
-      cardId: submissionId
     }))
       .setMimeType(ContentService.MimeType.JSON)
       .setHeaders(headers);
@@ -98,7 +94,7 @@ function doGet(e) {
 }
 
 // Send email notification to user
-function sendNotificationEmail(userEmail, userName, submissionId, profile_picture) {
+function sendNotificationEmail(userEmail, userName, link, profile_picture) {
   const htmlBody = `
   <html>
   <head>
@@ -200,7 +196,7 @@ function sendNotificationEmail(userEmail, userName, submissionId, profile_pictur
               <img src="${profile_picture}" alt="Profile Picture" class="w-32 h-32 rounded-full object-cover cursor-pointer" />
               <p>Hello <strong>${userName}</strong>,</p>
               <p>Your digital card has been created successfully!</p>
-              <p>Submission ID: <strong>${submissionId}</strong></p>
+              <p>Sub link: <strong>${link}</strong></p>
               <div class="table-container">
                   <table>
                       <tr>
@@ -219,7 +215,7 @@ function sendNotificationEmail(userEmail, userName, submissionId, profile_pictur
               </div>
               
               <p>
-                  <a href="http://tc-card.github.io/Main/plans/basic/view-card?id=${submissionId}">
+                  <a href="http://tccard.tn/profile/${link}>
                       View My Digital Card
                   </a>
               </p>

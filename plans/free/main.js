@@ -186,12 +186,11 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       // Validate required fields
       const userName = document.getElementById("user-name").value.trim();
-      const userEmail = document
-        .querySelector('input[name="email"]')
-        .value.trim();
+      const userEmail = document.querySelector('input[name="email"]').value.trim();
+      const userLink = document.getElementById("user-link").value.trim();
 
-      if (!userName || !userEmail) {
-        throw new Error("Name and email are required");
+      if (!userName || !userLink || ) {
+        throw new Error("Name, Email and SubLink are required");
       }
 
       // Upload profile picture to Cloudinary
@@ -205,6 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
         name: userName,
         email: userEmail,
         tagline: document.getElementById("user-tagline").value.trim() || "",
+        link: userLink,
         phone: document.querySelector('input[name="phone"]').value.trim() || "",
         address:
           document.querySelector('input[name="address"]').value.trim() || "",
@@ -241,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cancelButtonText: "Create Another",
       }).then((res) => {
         if (res.isConfirmed) {
-          window.location.href = `view-card.html?id=${result.cardId}`;
+          window.location.href = `tccard.tn/profile?id=${userLink}`;
         } else {
           resetForm();
         }
