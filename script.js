@@ -78,7 +78,7 @@ const cardContents = [
       "Contact Button"
     ],
     colorClasses: "bg-gray-900 ring-purple-400 text-purple-400",
-    link: "plans/free/"
+    link: "/plans/free/"
   },
   {
     tier: "Basic",
@@ -99,7 +99,7 @@ const cardContents = [
       "Basic Customization"
     ],
     colorClasses: "bg-gray-900 ring-green-400 text-green-400",
-    link: "plans/basic/",
+    link: "/plans/basic/",
   },
   {
     tier: "Standard",
@@ -115,7 +115,7 @@ const cardContents = [
       "Smart Form"
     ],
     colorClasses: "bg-gray-900 ring-yellow-400 text-yellow-400",
-    link: "plans/standard/",
+    link: "/plans/standard/",
   },
   {
     tier: "Enterprise",
@@ -132,7 +132,7 @@ const cardContents = [
       "Custom Forms"
     ],
     colorClasses: "bg-gray-900 ring-red-400 text-red-400",
-    link: "plans/enterprise/",
+    link: "/plans/enterprise/",
   }
 ];
 const colorMapping = {
