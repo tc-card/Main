@@ -1,7 +1,7 @@
 export const CONFIG = {
   maxFileSize: 5 * 1024 * 1024, // 5MB
   allowedTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
-  googleScriptUrl: 'https://script.google.com/macros/s/AKfycbyI_O03ITHsxGBrwqhc7ctEXw-z62j--w2M4eNwuXgxzg-fldjt3fD4aNBGD9eTgI08/exec', //executed on 16/2/2025 5:46:35 PM titled "without vie-card"
+  googleScriptUrl: 'https://script.google.com/macros/s/AKfycbzTD2zmdWY2uYVb4bY2R0j2jdCHvhysV6aD3LwTBxKx9LYhO0FZLs0JX_kw7tP3FhAH/exec', //executed on 12/3/2025 11:56:30 PM titled "submission card 3/12-25"
   maxSocialLinks: 10,
   defaultProfileImage: '/Assets/150.png',
 };

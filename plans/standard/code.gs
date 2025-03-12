@@ -166,21 +166,6 @@ function sendNotificationEmail(userEmail, userName, submissionId, profile_pictur
           .rounded-full { border-radius: 9999px; }
           .object-cover { object-fit: cover; }
           .cursor-pointer { cursor: pointer; }
-          .button {
-              display: block;
-              width: 100%;
-              padding: 12px;
-              background: #2563eb;
-              color: white;
-              text-decoration: none;
-              border-radius: 5px;
-              margin-top: 15px;
-              cursor: pointer;
-              transition: background 0.3s;
-          }
-          .button:hover {
-              background-color: #1e40af;
-          }
           a {
               color: #2563eb;
               font-weight: bold;
@@ -197,7 +182,7 @@ function sendNotificationEmail(userEmail, userName, submissionId, profile_pictur
   <body>
       <div class="container">
           <div class="header">
-              <img src="http://tc-card.github.io/Main/Assets/code.png" alt="Logo" />
+              <img src="http://tccards.tn/Assets/150.png" alt="Logo" />
               <h1>Welcome to Total Connect <br>Digital Cards</h1>
           </div>
           <div class="content">
@@ -221,9 +206,8 @@ function sendNotificationEmail(userEmail, userName, submissionId, profile_pictur
                       </tr>
                   </table>
               </div>
-              
               <p>
-                  <a href="http://tc-card.github.io/Main/plans/standard/view-card?id=${submissionId}">
+                  <a href="http://tccards.tn/plans/standard/view-card?id=${submissionId}">
                       View My Digital Card
                   </a>
               </p>
@@ -242,7 +226,75 @@ function sendNotificationEmail(userEmail, userName, submissionId, profile_pictur
     {
       htmlBody: htmlBody,
       name: 'Total Connect Digital Cards',
-      replyTo: 'support@totalconnect.com'
+      replyTo: 'support@tccards.tn'
     }
   );
+}
+
+
+
+// vew-card.gs
+
+function doGet(e) {
+  const callback = e.parameter.callback;
+
+  try {
+    if (!e || !e.parameter || !e.parameter.id) {
+      throw new Error('Invalid request: No ID provided');
+    }
+
+    const ID = e.parameter.id;
+
+    // Fetch data from the sheet
+    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = spreadsheet.getSheetByName('Form Submissions');
+
+    if (!sheet) {
+      throw new Error('Sheet not found');
+    }
+
+    const data = sheet.getDataRange().getValues();
+    const headerRow = data[0]; // First row is headers
+    const row = data.find(row => row[11] === ID); // Assuming ID is in the 12th column
+
+    if (!row) {
+      throw new Error('Card not found');
+    }
+
+    // Map row data to headers
+    const cardData = {};
+    headerRow.forEach((header, index) => {
+      cardData[header] = row[index];
+    });
+
+    // Return card data as JSONP
+    const response = {
+      status: 'Active',
+      ...cardData
+    };
+
+    if (callback) {
+      return ContentService.createTextOutput(`${callback}(${JSON.stringify(response)})`)
+        .setMimeType(ContentService.MimeType.JAVASCRIPT);
+    } else {
+      return ContentService.createTextOutput(JSON.stringify(response))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+  } catch (error) {
+    // Log error and return error response
+    console.error('Request error:', error);
+    const errorResponse = {
+      status: 'error',
+      message: error.message || 'An error occurred while processing your request',
+    };
+
+    if (callback) {
+      return ContentService.createTextOutput(`${callback}(${JSON.stringify(errorResponse)})`)
+        .setMimeType(ContentService.MimeType.JAVASCRIPT);
+    } else {
+      return ContentService.createTextOutput(JSON.stringify(errorResponse))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+  }
 }
