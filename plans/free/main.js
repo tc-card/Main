@@ -62,43 +62,12 @@ document.addEventListener("DOMContentLoaded", () => {
     handleImageUpload(e.target.files[0], elements.profilePicture);
   });
 
-  // Function to upload images to Cloudinary
-  async function uploadToCloudinary(file) {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "preset"); // Ensure the preset is correct
-
-    try {
-      const response = await fetch(
-        "https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`Cloudinary upload failed: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      if (!data.secure_url) {
-        throw new Error("Cloudinary response did not return a secure URL");
-      }
-
-      return data.secure_url; // Returns the image URL
-    } catch (error) {
-      console.error("Image upload error:", error);
-      throw error; // Re-throw the error to handle it in the main try-catch block
-    }
-  }
-
   // Social Links Management
   function createSocialLink() {
     return `
         <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20 relative group">
             <i class="fa fa-link text-xl text-white mr-3"></i>
-            <input type="url" name="social-links[]" placeholder="https://your-link.com" 
+            <input type="url" name="social-links[]" placeholder="https://exemple.com/mylink" 
                 class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
             <button type="button" class="remove-link-btn absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -170,6 +139,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Function to upload images to Cloudinary
+  async function uploadToCloudinary(file) {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "preset"); // Ensure the preset is correct
+
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Cloudinary upload failed: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      if (!data.secure_url) {
+        throw new Error("Cloudinary response did not return a secure URL");
+      }
+
+      return data.secure_url; // Returns the image URL
+    } catch (error) {
+      console.error("Image upload error:", error);
+      throw error; // Re-throw the error to handle it in the main try-catch block
+    }
+  }
+
+
   // Form Submission
   elements.form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -188,9 +189,33 @@ document.addEventListener("DOMContentLoaded", () => {
       const userName = document.getElementById("user-name").value.trim();
       const userEmail = document.querySelector('input[name="email"]').value.trim();
       const userLink = document.getElementById("user-link").value.trim();
+      
+      //user link must have no spaces and no special characters except for - 
+      const regex = /^[a-zA-Z0-9-]*$/;
+      if (!regex.test(userLink)) {
+        throw new Error("Link must contain only letters, numbers and hyphens");
+      }
 
-      if (!userName || !userLink || ) {
+      if (!userName || !userLink || userLink) {
         throw new Error("Name, Email and SubLink are required");
+      }
+
+      // check if email is already used
+      const email = `${CONFIG.googleScriptUrl}?Email=${userEmail}`;
+      const retrieve = await fetch(email, { method: "GET" });
+      const answer = await retrieve.json();
+      console.log(answer);
+      if (answer.status === "success") {
+        throw new Error("there is a free account with this email already");
+      }
+
+      // check if the user link is already taken
+      const link = `${CONFIG.googleScriptUrl}?Link=${userLink}`;
+      const bravo = await fetch(link, { method: "GET" });
+      const tango = await bravo.json();
+      console.log(tango);
+      if (tango.status === "success") {
+        throw new Error("Link already taken");
       }
 
       // Upload profile picture to Cloudinary
@@ -241,7 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cancelButtonText: "Create Another",
       }).then((res) => {
         if (res.isConfirmed) {
-          window.location.href = `tccard.tn/profile?id=${userLink}`;
+          window.location.href = `https://tccards.tn/tccard.tn/profile/${link}`;
         } else {
           resetForm();
         }
@@ -252,7 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: "error",
         title: "Oops...",
         text: "Something went wrong! Please try again.",
-        footer: '<a href="#">Need help?</a>',
+        footer: '<a href="https://tccards.tn/help/">Need help?</a>',
       });
     } finally {
       elements.submitBtn.disabled = false;

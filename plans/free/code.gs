@@ -15,8 +15,14 @@ function doGet(e) {
     const formData = e.parameter;
 
     // Validate required fields
-    if (!formData?.name || !formData?.email) {
-      throw new Error('Name and email are required fields');
+    if (!formData?.name || !formData?.email || !formData?.link) {
+      throw new Error('Name, Email, and Link are required fields');
+    }
+
+    // Validate link format (no spaces or special characters except hyphens)
+    const linkRegex = /^[a-zA-Z0-9-]*$/;
+    if (!linkRegex.test(formData.link)) {
+      throw new Error('Link must contain only letters, numbers, and hyphens');
     }
 
     // Open the spreadsheet and sheet
@@ -29,17 +35,32 @@ function doGet(e) {
         'Timestamp',
         'Name',
         'Tagline',
-        'link',
         'Email',
         'Phone',
         'Address',
         'Social Links',
         'Selected Style',
         'Profile Picture URL',
+        'Link', // New column for user link
         'ID',
         'Status'
       ]);
     }
+
+    // Check if email is already used
+    const emailCheck = sheet.createTextFinder(formData.email).findAll();
+    if (emailCheck.length > 0) {
+      throw new Error('There is already an account with this email');
+    }
+
+    // Check if the link is already taken
+    const linkCheck = sheet.createTextFinder(formData.link).findAll();
+    if (linkCheck.length > 0) {
+      throw new Error('Link is already taken');
+    }
+
+    // Generate submission ID
+    const submissionId = Utilities.getUuid();
 
     // Process social links safely
     let socialLinks = '';
@@ -56,10 +77,11 @@ function doGet(e) {
       formData.phone || '',          // Phone
       formData.address || '',        // Address
       socialLinks,                   // Social Links
-      link,
-      formData.style || 'default',    // Selected Style
-      formData.profile_picture || '',  // Profile Picture URL
-      'Inactive'                        // Status
+      formData.style || 'default',   // Selected Style
+      formData.profile_picture || '', // Profile Picture URL
+      formData.link,                 // User Link
+      submissionId,                  // Submission ID
+      'Inactive'                     // Status
     ];
 
     // Add data to sheet
@@ -67,7 +89,7 @@ function doGet(e) {
 
     // Send email notification
     try {
-      sendNotificationEmail(formData.email, formData.name, formData.profile_picture);
+      sendNotificationEmail(formData.email, formData.name, submissionId, formData.profile_picture);
     } catch (emailError) {
       console.error('Email notification failed:', emailError);
       // Continue execution even if email fails
@@ -77,6 +99,8 @@ function doGet(e) {
     return ContentService.createTextOutput(JSON.stringify({
       status: 'success',
       message: 'Form submitted successfully',
+      submissionId: submissionId,
+      cardId: submissionId
     }))
       .setMimeType(ContentService.MimeType.JSON)
       .setHeaders(headers);
@@ -189,7 +213,7 @@ function sendNotificationEmail(userEmail, userName, link, profile_picture) {
   <body>
       <div class="container">
           <div class="header">
-              <img src="http://tc-card.github.io/Main/Assets/code.png" alt="Logo" />
+              <img src="https://tccards.tn/Assets/code.png" alt="Logo" />
               <h1>Welcome to Total Connect <br>Digital Cards</h1>
           </div>
           <div class="content">
@@ -204,20 +228,18 @@ function sendNotificationEmail(userEmail, userName, link, profile_picture) {
                           <td><i style="color: orange;">Basic</i></td>
                       </tr>
                       <tr>
-                          <th>Delivery Price</th>
-                          <td>7dt all over tunisia</td>
+                          <th>Congrats on acquiring your</th>
+                          <td>Free of cost TC Webfolio</td>
                       </tr>
                       <tr>
-                          <th>Total Price</th>
-                          <td><strong style="color: rgb(233, 67, 158);">79dt</strong></td>
+                          <th>Make sure to put it in good use</th>
+                          <td><strong style="color: rgb(233, 67, 158);"><a href="https://tccards.tn/plans">Check Also</strong></td>
                       </tr>
                   </table>
               </div>
               
               <p>
-                  <a href="http://tccard.tn/profile/${link}>
-                      View My Digital Card
-                  </a>
+                 <a href="http://tccards.tn/profile/${link}">View My webfolio</a>
               </p>
           </div>
           <div class="footer">
@@ -234,7 +256,7 @@ function sendNotificationEmail(userEmail, userName, link, profile_picture) {
     {
       htmlBody: htmlBody,
       name: 'Total Connect Digital Cards',
-      replyTo: 'support@totalconnect.com'
+      replyTo: 'support@tccards.tn'
     }
   );
 }
