@@ -98,7 +98,7 @@ function doGet(e) {
 }
 
 // Send email notification to user
-function sendNotificationEmail(userEmail, userName, submissionId, profile_picture) {
+function sendNotificationEmail(userEmail, userName, link, profile_picture) {
   const htmlBody = `
   <html>
   <head>
@@ -193,14 +193,14 @@ function sendNotificationEmail(userEmail, userName, submissionId, profile_pictur
   <body>
       <div class="container">
           <div class="header">
-              <img src="http://tc-card.github.io/Main/Assets/code.png" alt="Logo" />
+              <img src="https://tccards.tn/Assets/code.png" alt="Logo" />
               <h1>Welcome to Total Connect <br>Digital Cards</h1>
           </div>
           <div class="content">
               <img src="${profile_picture}" alt="Profile Picture" class="w-32 h-32 rounded-full object-cover cursor-pointer" />
               <p>Hello <strong>${userName}</strong>,</p>
               <p>Your digital card has been created successfully!</p>
-              <p>Submission ID: <strong>${submissionId}</strong></p>
+              <p>Sub link: <strong>${link}</strong></p>
               <div class="table-container">
                   <table>
                       <tr>
@@ -208,20 +208,18 @@ function sendNotificationEmail(userEmail, userName, submissionId, profile_pictur
                           <td><i style="color: orange;">Basic</i></td>
                       </tr>
                       <tr>
-                          <th>Delivery Price</th>
-                          <td>7dt all over tunisia</td>
+                          <th>Congrats on acquiring your</th>
+                          <td>Free of cost TC Webfolio</td>
                       </tr>
                       <tr>
-                          <th>Total Price</th>
-                          <td><strong style="color: rgb(233, 67, 158);">79dt</strong></td>
+                          <th>Make sure to put it in good use</th>
+                          <td><strong style="color: rgb(233, 67, 158);"><a href="https://tccards.tn/plans">Check Also</strong></td>
                       </tr>
                   </table>
               </div>
               
               <p>
-                  <a href="http://tc-card.github.io/Main/plans/basic/view-card?id=${submissionId}">
-                      View My Digital Card
-                  </a>
+                 <a href="http://tccards.tn/profile/${link}">View My webfolio</a>
               </p>
           </div>
           <div class="footer">
@@ -238,7 +236,7 @@ function sendNotificationEmail(userEmail, userName, submissionId, profile_pictur
     {
       htmlBody: htmlBody,
       name: 'Total Connect Digital Cards',
-      replyTo: 'support@totalconnect.com'
+      replyTo: 'support@tccards.tn'
     }
   );
 }

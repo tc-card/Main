@@ -154,3 +154,146 @@ function doGet(e) {
       .setHeaders(headers);
   }
 }
+// Send email notification to user
+function sendNotificationEmail(userEmail, userName, link, profile_picture) {
+  const htmlBody = `
+  <html>
+  <head>
+      <base target="_blank">
+      <style>
+          body {
+              font-family: Arial, sans-serif;
+              line-height: 1.6;
+              color: #fff;
+              background-color: #121212;
+              margin: 0;
+              padding: 0;
+          }
+          .container {
+              max-width: 600px;
+              margin: 50px auto;
+              padding: 20px;
+              background-color: #1e1e1e;
+              border-radius: 8px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+              text-align: center;
+          }
+          .header {
+              background: #2a2a2a;
+              color: white;
+              padding: 20px;
+              border-radius: 8px;
+          }
+          .content {
+              padding: 20px;
+              background: #000000;
+              border-radius: 8px;
+              margin-top: 20px;
+          }
+          .footer {
+              text-align: center;
+              padding: 20px;
+              color: #A0A0A0;
+              font-size: 12px;
+          }
+          .table-container {
+              margin-top: 20px;
+          }
+          table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-top: 10px;
+              color: white;
+          }
+          th, td {
+              padding: 10px;
+              border: 1px solid #444;
+              text-align: left;
+          }
+          th {
+              background-color: #ffffff;
+              color: #000000;
+          }
+          .w-32 { width: 8rem; }
+          .h-32 { height: 8rem; }
+          .rounded-full { border-radius: 9999px; }
+          .object-cover { object-fit: cover; }
+          .cursor-pointer { cursor: pointer; }
+          .button {
+              display: block;
+              width: 100%;
+              padding: 12px;
+              background: #2563eb;
+              color: white;
+              text-decoration: none;
+              border-radius: 5px;
+              margin-top: 15px;
+              cursor: pointer;
+              transition: background 0.3s;
+          }
+          .button:hover {
+              background-color: #1e40af;
+          }
+          a {
+              color: #2563eb;
+              font-weight: bold;
+              text-decoration: none;
+              border-bottom: 2px solid #2563eb;
+              transition: all 0.3s ease;
+          }
+          a:hover {
+              color: #1e40af;
+              border-bottom-color: #1e40af;
+          }
+      </style>
+  </head>
+  <body>
+      <div class="container">
+          <div class="header">
+              <img src="https://tccards.tn/Assets/code.png" alt="Logo" />
+              <h1>Welcome to Total Connect <br>Digital Cards</h1>
+          </div>
+          <div class="content">
+              <img src="${profile_picture}" alt="Profile Picture" class="w-32 h-32 rounded-full object-cover cursor-pointer" />
+              <p>Hello <strong>${userName}</strong>,</p>
+              <p>Your digital card has been created successfully!</p>
+              <p>Sub link: <strong>${link}</strong></p>
+              <div class="table-container">
+                  <table>
+                      <tr>
+                          <th>Plan Name</th>
+                          <td><i style="color: orange;">Basic</i></td>
+                      </tr>
+                      <tr>
+                          <th>Congrats on acquiring your</th>
+                          <td>Free of cost TC Webfolio</td>
+                      </tr>
+                      <tr>
+                          <th>Make sure to put it in good use</th>
+                          <td><strong style="color: rgb(233, 67, 158);"><a href="https://tccards.tn/plans">Check Also</strong></td>
+                      </tr>
+                  </table>
+              </div>
+              
+              <p>
+                 <a href="http://tccards.tn/profile/${link}">View My webfolio</a>
+              </p>
+          </div>
+          <div class="footer">
+              <p>© ${new Date().getFullYear()} Total Connect. All rights reserved.</p>
+          </div>
+      </div>
+  </body>
+  </html>`;
+
+  GmailApp.sendEmail(
+    userEmail,
+    'Your Digital Card is Ready! | Total Connect',
+    'Your digital card has been created successfully.',
+    {
+      htmlBody: htmlBody,
+      name: 'Total Connect Digital Cards',
+      replyTo: 'support@tccards.tn'
+    }
+  );
+}
