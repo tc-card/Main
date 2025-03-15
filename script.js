@@ -54,7 +54,7 @@
                       NFC technology streamlines professional networking, enhances brand perception, and provides a sustainable solution for modern business connectivity.
                  </div>
               `,
-          confirmButtonText: "Understand",
+          confirmButtonText: "Understood",
           background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
           color: "#fff",
           customClass: {

@@ -19,12 +19,11 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 :root {
-    --primary-color: #292436;
-    --eye-pupil-color: #1dfb;
-    --bg-color: #000;
-    --text-color: #fff;
+    --primary-color: #6d28d9;          /* Changed to purple-600 */
+    --eye-pupil-color: #000000;        /* Changed to purple-500 */
+    --bg-color: #000000;
+    --text-color: #f3f4f6;             /* Changed to gray-100 */
     --fs-heading: 36px;
     --fs-text: 26px;
     --fs-button: 18px;
@@ -68,23 +67,26 @@ body {
     text-transform: capitalize;
     font-size: var(--fs-heading);
     font-weight: 500;
-    color: var(--primary-color);
+    color: #e5e7eb;                    /* Changed to gray-200 */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .error-page__heading-description {
     margin-top: 10px;
     font-size: var(--fs-text);
     font-weight: 200;
+    color: #9ca3af;                    /* Changed to gray-400 */
 }
+
 .error-page__button {
-    color: inherit;
+    color: #e5e7eb;                    /* Changed to gray-200 */
     text-decoration: none;
     border: 1px solid var(--primary-color);
     font-size: var(--fs-button);
     font-weight: 200;
     padding: var(--button-padding);
-    border-radius: 10px; /* Rounded borders */
-    background-color: transparent;
+    border-radius: 10px;
+    background-color: rgba(109, 40, 217, 0.1); /* Added subtle purple background */
     box-shadow: 0px 7px 0px -2px var(--primary-color);
     transition: all 0.3s ease-in-out;
     text-transform: capitalize;
@@ -93,10 +95,10 @@ body {
 .error-page__button:hover {
     box-shadow: none;
     background-color: var(--primary-color);
-    color: #fff;
-    border-color: #ffffff;
+    color: #ffffff;
+    border-color: #7c3aed;             /* Changed to purple-500 */
+    transform: translateY(7px);         /* Added movement on hover */
 }
-
 
 .eyes {
     display: flex;
@@ -138,8 +140,9 @@ body {
     }
 }
 .loader {
-    color: #111827b3;
+    color: #8b5cf6;                 /* Changed to purple-400 */
     font-family: Consolas, Menlo, Monaco, monospace;
+    text-shadow: black 0 0 10px;
     font-weight: bold;
     font-size: 78px;
     opacity: 0.8;
@@ -167,8 +170,8 @@ body {
 <body class="min-h-screen text-white"
     style="background: linear-gradient(180deg, 
         #000000 0%,
-        #111827b3 50%,
-        black 100%
+        #4c1d95 50%,        /* Changed to purple-900 */
+        #000000 100%
     );">
     <main class="error-page">
         <div class="container">
