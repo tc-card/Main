@@ -256,7 +256,7 @@ function sendNotificationEmail(userEmail, userName, link, profile_picture) {
     {
       htmlBody: htmlBody,
       name: 'Total Connect Digital Cards',
-      replyTo: 'support@tccards.tn'
+      replyTo: 'info@tccards.tn'
     }
   );
 }

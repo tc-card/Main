@@ -139,20 +139,23 @@
                 <img src="https://tccards.tn//Assets/150.png" alt="profile-picture" id="profile-picture" class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer hover:ring-blue-500/50 hover:ring-4 hover:p-2 transition-all" />
                 <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
                 <input type="text" id="user-name" name="user-name" placeholder="Enter your name" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                <img src="https://app.bitly.com/s/bbt2/images/custom-domain-backhalf.png" alt="">
-                <input type="text" id="user-link" name="user-link" placeholder="Enter link Back-half" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter biography / tagline" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
             </div>
-
+            <div class="space-y-4">
+                <div class="bg-white/10 p-4 rounded border border-white/50 shadow-md">
+                    <input type="text" id="user-link" name="user-link" placeholder="Slug" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                    <p class="text-xs mt-2">URL<b> slug</b> is just the last part of the URL that serves as an identifier of the page.<br>Example :<a href="#" style="color: chartreuse;" aria-readonly="true"> https://www.biotap.link/Slug</a></p>
+                </div>
+            </div>
             <!-- Social Links Section -->
             <div id="dynamic-links" class="space-y-4">
                 <div class="bg-white/10 p-4 rounded border border-white/50 shadow-md">
-                    <label class="block text-white">Enter your social link:</label>
+                    <label class="block text-white">Enter your social links</label>
                     <ul class="space-y-2">
                         <li
                             class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
                             <i class="fa fa-link text-xl text-white mr-3"></i>
-                            <input type="url" name="social-links[]" placeholder="https://your-link.com"
+                            <input type="url" name="social-links[]" placeholder="https://domain.com/path"
                                 class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
                         </li>
                     </ul>

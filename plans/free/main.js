@@ -178,119 +178,112 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Show loading state
     Swal.fire({
-      title: "Creating Your Digital Card",
-      html: "Please wait...",
-      allowOutsideClick: false,
-      didOpen: () => Swal.showLoading(),
+        title: "Creating Your Digital Card",
+        html: "Please wait...",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading(),
     });
 
     try {
-      // Validate required fields
-      const userName = document.getElementById("user-name").value.trim();
-      const userEmail = document.querySelector('input[name="email"]').value.trim();
-      const userLink = document.getElementById("user-link").value.trim();
-      
-      //user link must have no spaces and no special characters except for - 
-      const regex = /^[a-zA-Z0-9-]*$/;
-      if (!regex.test(userLink)) {
-        throw new Error("Link must contain only letters, numbers and hyphens");
-      }
+        // Validate required fields
+        const userName = document.getElementById("user-name").value.trim();
+        const userEmail = document.querySelector('input[name="email"]').value.trim();
+        const userLink = document.getElementById("user-link").value.trim();
 
-      if (!userName || !userLink || userLink) {
-        throw new Error("Name, Email and SubLink are required");
-      }
-
-      // check if email is already used
-      const email = `${CONFIG.googleScriptUrl}?Email=${userEmail}`;
-      const retrieve = await fetch(email, { method: "GET" });
-      const answer = await retrieve.json();
-      console.log(answer);
-      if (answer.status === "success") {
-        throw new Error("there is a free account with this email already");
-      }
-
-      // check if the user link is already taken
-      const link = `${CONFIG.googleScriptUrl}?Link=${userLink}`;
-      const bravo = await fetch(link, { method: "GET" });
-      const tango = await bravo.json();
-      console.log(tango);
-      if (tango.status === "success") {
-        throw new Error("Link already taken");
-      }
-
-      // Upload profile picture to Cloudinary
-      const profilePictureFile = elements.imageInput.files[0];
-      const profilePictureUrl = profilePictureFile
-        ? await uploadToCloudinary(profilePictureFile)
-        : "";
-
-      // Prepare form data
-      const data = {
-        name: userName,
-        email: userEmail,
-        tagline: document.getElementById("user-tagline").value.trim() || "",
-        link: userLink,
-        phone: document.querySelector('input[name="phone"]').value.trim() || "",
-        address:
-          document.querySelector('input[name="address"]').value.trim() || "",
-        social_links: Array.from(document.getElementsByName("social-links[]"))
-          .map((input) => input.value.trim())
-          .filter(Boolean)
-          .join(","),
-        style:
-          document.querySelector(".style-preset.selected")?.dataset.style ||
-          "default",
-        profile_picture: profilePictureUrl,
-      };
-
-      // Submit form data
-      const queryParams = new URLSearchParams(data).toString();
-      const url = `${CONFIG.googleScriptUrl}?${queryParams}`;
-
-      const response = await fetch(url, { method: "GET" });
-      const result = await response.json();
-      console.log(result);
-
-      // Check the response
-      if (!response.ok || result.status !== "success") {
-        throw new Error(result.message || "Submission failed");
-      }
-
-      // Show success message
-      Swal.fire({
-        icon: "success",
-        title: "Success!",
-        text: "Your digital card has been created successfully!",
-        confirmButtonText: "View My Card",
-        showCancelButton: true,
-        cancelButtonText: "Create Another",
-      }).then((res) => {
-        if (res.isConfirmed) {
-          window.location.href = `https://tccards.tn/tccard.tn/profile/${link}`;
-        } else {
-          resetForm();
+        if (!userName || !userEmail || !userLink) {
+            throw new Error("Please fill in all required fields");
         }
-      });
+
+        // Upload profile picture to Cloudinary if exists
+        const profilePictureFile = elements.imageInput.files[0];
+        const profilePictureUrl = profilePictureFile
+            ? await uploadToCloudinary(profilePictureFile)
+            : "";
+
+        // Prepare form data
+        const data = {
+            name: userName,
+            email: userEmail,
+            tagline: document.getElementById("user-tagline").value.trim() || "",
+            link: userLink,
+            phone: document.querySelector('input[name="phone"]').value.trim() || "",
+            address: document.querySelector('input[name="address"]').value.trim() || "",
+            social_links: Array.from(document.querySelectorAll('input[name="social-links[]"]'))
+                .map((input) => input.value.trim())
+                .filter(Boolean)
+                .join(","),
+            style: document.querySelector(".style-preset.selected")?.dataset.style || "default",
+            profile_picture: profilePictureUrl,
+        };
+
+        console.log("Submitting data:", data);
+
+        // Submit form data
+        const queryParams = new URLSearchParams(data).toString();
+        const url = `${CONFIG.googleScriptUrl}?${queryParams}`;
+
+        const response = await fetch(url, { method: "GET" });
+        const result = await response.json();
+        console.log("Server response:", result);
+
+        // Check the response
+        if (!response.ok || result.status !== "success") {
+            throw new Error(result.message || "Submission failed");
+        }
+
+        // Show success message
+        Swal.fire({
+            icon: "success",
+            title: "Success!",
+            html: `
+                <p>Your digital card has been created successfully!</p>
+                ${profilePictureUrl ? `<img src="${profilePictureUrl}" alt="Profile" style="max-width: 100px; border-radius: 50%; margin: 10px auto;">` : ''}
+                <p><strong>Card URL:</strong> https://tccards.tn/profile/${userLink}</p>
+            `,
+            confirmButtonText: "View My Card",
+            showCancelButton: true,
+            cancelButtonText: "Create Another",
+        }).then((res) => {
+            if (res.isConfirmed) {
+                window.location.href = `https://tccards.tn/profile/${userLink}`;
+            } else {
+                resetForm();
+            }
+        });
+
     } catch (error) {
-      console.error("Submission error:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong! Please try again.",
-        footer: '<a href="https://tccards.tn/help/">Need help?</a>',
-      });
+        console.error("Submission error:", error);
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            html: `
+                <p>${error.message || "Something went wrong! Please try again."}</p>
+                <small><a href="https://tccards.tn/help/" style="color: #4e73df;">Need help?</a></small>
+            `,
+        });
     } finally {
-      elements.submitBtn.disabled = false;
+        elements.submitBtn.disabled = false;
     }
   });
 
   // Function to reset the form
   function resetForm() {
-    elements.form.reset();
-    elements.profilePicture.src = CONFIG.defaultProfileImage;
-    document
-      .querySelectorAll(".style-preset")
-      .forEach((btn) => btn.classList.remove("selected"));
-    document.body.style.background = stylePresets.minimal.background;
+      elements.form.reset();
+      // Reset profile picture
+      if (elements.profilePicture) {
+          elements.profilePicture.src = CONFIG.defaultProfileImage;
+      }
+      // Reset style selection
+      document.querySelectorAll(".style-preset").forEach((btn) => {
+          btn.classList.remove("selected");
+      });
+      // Reset background
+      if (stylePresets && stylePresets.minimal) {
+          document.body.style.background = stylePresets.minimal.background;
+      }
+      // Clear file input
+      if (elements.imageInput) {
+          elements.imageInput.value = "";
+      }
   }
 });

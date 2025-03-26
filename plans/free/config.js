@@ -1,7 +1,7 @@
 export const CONFIG = {
     maxFileSize: 5 * 1024 * 1024,
     allowedTypes: ['image/jpeg', 'image/png', 'gif'],
-    googleScriptUrl: 'YOUR_GOOGLE_APPS_SCRIPT_URL'
+    googleScriptUrl: 'https://script.google.com/macros/s/AKfycbwN-FuaqiznYMtOxP7oTYoFDhaLw-dVyU0uDSAnWJyrFUG6gZQ5p6k7ZOXtU0ZrUNgY/exec' // executed on 27/3/2025 2:44:30 PM titled "free code3"
 };
 
 export const stylePresets = {
