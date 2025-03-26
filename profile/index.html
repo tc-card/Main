@@ -13,105 +13,17 @@
     <meta property="og:image:width" content="1200">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
 </head>
-
 <body>
-    <div class="card-container">
-        <h2>Loading...</h2>
+    <div class="card-container animate__animated animate__fadeIn">
+        <h2>loading...</h2>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.body.style = "background: url(https://tccards.tn/Assets/bg.png) center fixed !important; backdrop-filter: blur(5px);background-size: 10% 10%;";
-
-            // Get link name from URL path
-            const pathSegments = window.location.pathname.split('/');
-            const link = pathSegments[pathSegments.length - 1];
-
-            if (!link) {
-                document.querySelector(".card-container").innerHTML = "<h2>No profile link provided.</h2>";
-                return;
-            }
-
-            // Create a script element for JSONP
-            const script = document.createElement("script");
-            script.src = `https://script.google.com/macros/s/AKfycbwAOoLfvtCZ6U2i2Yq6a2yw_hKfLQKwLjR8yglg0Obi01ppL5IzhpbZsEs3F4ifMa-X/exec?link=${link}&callback=handleResponse`;
-            document.body.appendChild(script);
-
-            // JSONP callback function
-            window.handleResponse = function (data) {
-                console.log("Response data:", data);
-
-                if (!data || data.status === "error") {
-                    document.querySelector(".card-container").innerHTML = `<h2>Error: ${data?.message || "Profile not found"}</h2>`;
-                    return;
-                }
-
-                if (data.Status !== "Active") {
-                    document.querySelector(".card-container").innerHTML = "<h2>This profile is inactive.</h2>";
-                    return;
-                }
-
-                // Apply background style
-                const stylePresets = {
-                    corporateGradient: "linear-gradient(145deg, rgb(9, 9, 11), rgb(24, 24, 27), rgb(9, 9, 11))",
-                    oceanGradient: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-                };
-                const selectedStyle = data['Selected Style'];
-                document.body.style.background = stylePresets[selectedStyle] || stylePresets.corporateGradient;
-
-                // Display card data
-                const container = document.querySelector(".card-container");
-                container.innerHTML = `
-                <!-- Profile Section -->
-                <div class="text-center space-y-4">
-                    <img src="${data['Profile Picture URL']}" alt="Profile Picture" class="profile-picture">
-                    <h2 class="text-3xl font-bold">${data.Name}</h2>
-                    <p class="text-gray-400">${data.Tagline}</p>
-                </div>
-
-                <!-- Social Links Section -->
-                <div class="social-links mt-8">
-                    <h3 class="text-2xl font-bold mb-4">Social Links</h3>
-                    <ul>
-                        ${(data['Social Links'] || '').split(",").map(link => {
-                    const trimmedLink = link.trim();
-                    if (!trimmedLink) return '';
-
-                    let domain = trimmedLink;
-                    try {
-                        const url = new URL(trimmedLink);
-                        domain = url.hostname.replace(/^www\./, '');
-                    } catch (e) {
-                        domain = trimmedLink;
-                    }
-
-                    return `
-                                <li>
-                                    <a href="${trimmedLink}" target="_blank" class="flex items-center gap-2">
-                                        <i class="fas fa-link"></i> ${domain}
-                                    </a>
-                                </li>
-                            `;
-                }).join("")}
-                    </ul>
-                </div>
-
-                <!-- Contact Section -->
-                <div class="contact-section mt-8">
-                    <h3 class="text-2xl font-bold mb-4">Contact Details</h3>
-                    <p><strong>Email:</strong> ${data.Email}</p>
-                    <p><strong>Phone:</strong> ${data.Phone}</p>
-                    <p><strong>Address:</strong> ${data.Address}</p>
-                </div>
-                <footer class="text-gray-400 py-6 top-my-280 text-center">
-                    <p>&copy; 2025 Total Connect. All rights reserved.</p>
-                </footer>
-                <img src="https://tccards.tn/Assets/zfooter.gif" alt="cute animation" class="mt-8">
-            `;
-            };
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
