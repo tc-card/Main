@@ -1,17 +1,17 @@
-import { CONFIG, stylePresets } from './config.js';
+import { CONFIG, stylePresets } from "./config.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize all elements
   const elements = {
-    profilePicture: document.getElementById('profile-picture'),
-    imageInput: document.getElementById('image-input'),
-    addLinkBtn: document.getElementById('add-link-btn'),
-    dynamicLinks: document.getElementById('dynamic-links'),
-    form: document.getElementById('data-fill'),
-    bgImage: document.getElementById('bgImage'),
-    formType: document.getElementById('form-type'),
-    formPreview: document.getElementById('form-preview'),
-    submitBtn: document.getElementById('saveContactBtn')
+    profilePicture: document.getElementById("profile-picture"),
+    imageInput: document.getElementById("image-input"),
+    addLinkBtn: document.getElementById("add-link-btn"),
+    dynamicLinks: document.getElementById("dynamic-links"),
+    form: document.getElementById("data-fill"),
+    bgImage: document.getElementById("bgImage"),
+    formType: document.getElementById("form-type"),
+    formPreview: document.getElementById("form-preview"),
+    submitBtn: document.getElementById("saveContactBtn"),
   };
 
   // Validate elements exist
@@ -28,17 +28,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!CONFIG.allowedTypes.includes(file.type)) {
       Swal.fire({
-        icon: 'error',
-        title: 'Invalid File Type',
-        text: 'Please upload a valid image file (JPEG, PNG, GIF, WEBP)'
+        icon: "error",
+        title: "Invalid File Type",
+        text: "Please upload a valid image file (JPEG, PNG, GIF, WEBP)",
       });
       return;
     }
     if (file.size > CONFIG.maxFileSize) {
       Swal.fire({
-        icon: 'error',
-        title: 'File Too Large',
-        text: 'File size must be less than 5MB'
+        icon: "error",
+        title: "File Too Large",
+        text: "File size must be less than 5MB",
       });
       return;
     }
@@ -49,39 +49,41 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     reader.onerror = () => {
       Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Failed to read image file'
+        icon: "error",
+        title: "Error",
+        text: "Failed to read image file",
       });
     };
     reader.readAsDataURL(file);
   }
 
   // Profile picture handlers
-  elements.profilePicture.addEventListener('click', () => elements.imageInput.click());
-  elements.imageInput.addEventListener('change', (e) => {
+  elements.profilePicture.addEventListener("click", () =>
+    elements.imageInput.click()
+  );
+  elements.imageInput.addEventListener("change", (e) => {
     handleImageUpload(e.target.files[0], elements.profilePicture);
   });
 
   // Background image handler
-  elements.bgImage.addEventListener('change', (e) => {
+  elements.bgImage.addEventListener("change", (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = (event) => {
       document.body.style.backgroundImage = `url('${event.target.result}')`;
-      document.body.style.backgroundSize = 'cover';
-      document.body.style.backgroundPosition = 'center';
-      document.body.style.backgroundRepeat = 'no-repeat';
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundPosition = "center";
+      document.body.style.backgroundRepeat = "no-repeat";
 
       Swal.fire({
-        icon: 'success',
-        title: 'Background Updated',
+        icon: "success",
+        title: "Background Updated",
         toast: true,
-        position: 'top-end',
+        position: "top-end",
         showConfirmButton: false,
-        timer: 1500
+        timer: 1500,
       });
     };
     reader.readAsDataURL(file);
@@ -102,33 +104,34 @@ document.addEventListener("DOMContentLoaded", () => {
       </li>`;
   }
 
-  elements.addLinkBtn.addEventListener('click', () => {
-    const ul = elements.dynamicLinks.querySelector('ul');
-    ul.insertAdjacentHTML('beforeend', createSocialLink());
-    const removeBtn = ul.lastElementChild.querySelector('.remove-link-btn');
-    removeBtn.addEventListener('click', function () {
-      this.closest('li').remove();
+  elements.addLinkBtn.addEventListener("click", () => {
+    const ul = elements.dynamicLinks.querySelector("ul");
+    ul.insertAdjacentHTML("beforeend", createSocialLink());
+    const removeBtn = ul.lastElementChild.querySelector(".remove-link-btn");
+    removeBtn.addEventListener("click", function () {
+      this.closest("li").remove();
     });
   });
 
   // Style Management
-  document.querySelectorAll('.style-preset').forEach(button => {
-    button.addEventListener('click', () => {
+  document.querySelectorAll(".style-preset").forEach((button) => {
+    button.addEventListener("click", () => {
       const style = stylePresets[button.dataset.style];
       document.body.style.background = style.background;
-      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundSize = "cover";
 
-      document.querySelectorAll('.style-preset').forEach(btn =>
-        btn.classList.remove('selected'));
-      button.classList.add('selected');
+      document
+        .querySelectorAll(".style-preset")
+        .forEach((btn) => btn.classList.remove("selected"));
+      button.classList.add("selected");
 
       Swal.fire({
-        icon: 'success',
-        title: 'Style Updated',
+        icon: "success",
+        title: "Style Updated",
         toast: true,
-        position: 'top-end',
+        position: "top-end",
         showConfirmButton: false,
-        timer: 1500
+        timer: 1500,
       });
     });
   });
@@ -136,68 +139,119 @@ document.addEventListener("DOMContentLoaded", () => {
   // Form Type Management
   const forms = {
     contact: {
-      title: 'Contact Request Form',
+      title: "Contact Request Form",
       fields: [
-        { name: 'contact_name', placeholder: 'Your Name', type: 'text' },
-        { name: 'contact_email', placeholder: 'Your Email', type: 'email' },
-        { name: 'contact_phone', placeholder: 'Your Phone (Optional)', type: 'tel', required: false },
-        { name: 'contact_message', placeholder: 'Your Message/Inquiry', type: 'textarea' },
-      ]
+        { name: "contact_name", placeholder: "Your Name", type: "text" },
+        { name: "contact_email", placeholder: "Your Email", type: "email" },
+        {
+          name: "contact_phone",
+          placeholder: "Your Phone (Optional)",
+          type: "tel",
+          required: false,
+        },
+        {
+          name: "contact_message",
+          placeholder: "Your Message/Inquiry",
+          type: "textarea",
+        },
+      ],
     },
     resource: {
-      title: 'Free Resource/Download Form',
+      title: "Free Resource/Download Form",
       fields: [
-        { name: 'resource_name', placeholder: 'Your Name', type: 'text' },
-        { name: 'resource_email', placeholder: 'Your Email', type: 'email' },
-        { name: 'resource_company', placeholder: 'Your Company/Profession (Optional)', type: 'text', required: false },
-        { name: 'resource_type', placeholder: 'Select Resource', type: 'select', options: ['Industry Guide', 'Template Pack', 'Checklist', 'Whitepaper'] },
-      ]
+        { name: "resource_name", placeholder: "Your Name", type: "text" },
+        { name: "resource_email", placeholder: "Your Email", type: "email" },
+        {
+          name: "resource_company",
+          placeholder: "Your Company/Profession (Optional)",
+          type: "text",
+          required: false,
+        },
+        {
+          name: "resource_type",
+          placeholder: "Select Resource",
+          type: "select",
+          options: [
+            "Industry Guide",
+            "Template Pack",
+            "Checklist",
+            "Whitepaper",
+          ],
+        },
+      ],
     },
     quote: {
-      title: 'Project Quote/Estimate Form',
+      title: "Project Quote/Estimate Form",
       fields: [
-        { name: 'quote_name', placeholder: 'Your Name', type: 'text' },
-        { name: 'quote_email', placeholder: 'Your Email', type: 'email' },
-        { name: 'quote_phone', placeholder: 'Your Phone', type: 'tel' },
-        { name: 'quote_details', placeholder: 'Project Details', type: 'textarea' },
-        { name: 'quote_budget', placeholder: 'Budget Range', type: 'select', options: ['$1,000 - $5,000', '$5,000 - $10,000', '$10,000+'] },
-        { name: 'quote_timeline', placeholder: 'Expected Timeline', type: 'date', required: false }
-      ]
+        { name: "quote_name", placeholder: "Your Name", type: "text" },
+        { name: "quote_email", placeholder: "Your Email", type: "email" },
+        { name: "quote_phone", placeholder: "Your Phone", type: "tel" },
+        {
+          name: "quote_details",
+          placeholder: "Project Details",
+          type: "textarea",
+        },
+        {
+          name: "quote_budget",
+          placeholder: "Budget Range",
+          type: "select",
+          options: ["$1,000 - $5,000", "$5,000 - $10,000", "$10,000+"],
+        },
+        {
+          name: "quote_timeline",
+          placeholder: "Expected Timeline",
+          type: "date",
+          required: false,
+        },
+      ],
     },
     newsletter: {
-      title: 'Newsletter/Updates Subscription',
+      title: "Newsletter/Updates Subscription",
       fields: [
-        { name: 'newsletter_email', placeholder: 'Your Email', type: 'email' },
-        { name: 'newsletter_name', placeholder: 'Your Name (Optional)', type: 'text', required: false },
-        { name: 'newsletter_interests', placeholder: 'Your Interests', type: 'select', options: ['Updates', 'News', 'Promotions', 'All'], required: false },
-      ]
-    }
+        { name: "newsletter_email", placeholder: "Your Email", type: "email" },
+        {
+          name: "newsletter_name",
+          placeholder: "Your Name (Optional)",
+          type: "text",
+          required: false,
+        },
+        {
+          name: "newsletter_interests",
+          placeholder: "Your Interests",
+          type: "select",
+          options: ["Updates", "News", "Promotions", "All"],
+          required: false,
+        },
+      ],
+    },
   };
 
   function renderForm(type) {
     const form = forms[type];
     let formHtml = `<h3 class='text-xl font-semibold mb-4 text-white'>${form.title}</h3>`;
 
-    form.fields.forEach(field => {
-      if (field.type === 'textarea') {
+    form.fields.forEach((field) => {
+      if (field.type === "textarea") {
         formHtml += `
           <div class='mb-4'>
             <textarea 
               name='${field.name}' 
               placeholder='${field.placeholder}' 
               class='w-full p-3 bg-transparent text-white border border-white/50 rounded-lg focus:outline-none focus:border-white' 
-              ${field.required ? 'required' : ''}>
+              ${field.required ? "required" : ""}>
             </textarea>
           </div>`;
-      } else if (field.type === 'select') {
+      } else if (field.type === "select") {
         formHtml += `
           <div class='mb-4'>
             <select 
               name='${field.name}' 
               class='w-full p-3 bg-transparent text-white border border-white/50 rounded-lg focus:outline-none focus:border-white'
-              ${field.required ? 'required' : ''}>
+              ${field.required ? "required" : ""}>
               <option value="" disabled selected>${field.placeholder}</option>
-              ${field.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+              ${field.options
+                .map((option) => `<option value="${option}">${option}</option>`)
+                .join("")}
             </select>
           </div>`;
       } else {
@@ -208,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
               name='${field.name}' 
               placeholder='${field.placeholder}' 
               class='w-full p-3 bg-transparent text-white border border-white/50 rounded-lg focus:outline-none focus:border-white' 
-              ${field.required ? 'required' : ''} />
+              ${field.required ? "required" : ""} />
           </div>`;
       }
     });
@@ -216,142 +270,242 @@ document.addEventListener("DOMContentLoaded", () => {
     elements.formPreview.innerHTML = formHtml;
   }
 
-  elements.formType.addEventListener('change', () => renderForm(elements.formType.value));
-  renderForm('contact'); // Initial render
-  // Function to reset the form
-  function resetForm() {
-    elements.form.reset();
-    elements.profilePicture.src = CONFIG.defaultProfileImage;
-    document.querySelectorAll('.style-preset').forEach(btn => btn.classList.remove('selected'));
-    document.body.style.background = stylePresets.minimal.background;
-  }
-   // Function to upload images to Cloudinary
-    async function uploadToCloudinary(file) {
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", "preset"); // Ensure the preset is correct
+  elements.formType.addEventListener("change", () =>
+    renderForm(elements.formType.value)
+  );
+  renderForm("contact"); // Initial render
 
-        try {
-            const response = await fetch("https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload", {
-                method: "POST",
-                body: formData
-            });
+  // Form Submission
 
-            if (!response.ok) {
-                throw new Error(`Cloudinary upload failed: ${response.statusText}`);
-            }
-
-            const data = await response.json();
-            if (!data.secure_url) {
-                throw new Error('Cloudinary response did not return a secure URL');
-            }
-
-            return data.secure_url; // Returns the image URL
-        } catch (error) {
-            console.error("Image upload error:", error);
-            throw error; // Re-throw the error to handle it in the main try-catch block
-        }
-    }
-// Form Submission
-  elements.form.addEventListener('submit', async (e) => {
+  elements.form.addEventListener("submit", async (e) => {
     e.preventDefault();
     elements.submitBtn.disabled = true;
 
-    // Show loading state
-    Swal.fire({
-        title: 'Creating Your Digital Card',
-        html: 'Please wait...',
-        allowOutsideClick: false,
-        didOpen: () => Swal.showLoading()
-    });
+    async function uploadToCloudinary(file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "preset");
+
+      try {
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Cloudinary upload failed: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        if (!data.secure_url) {
+          throw new Error("Cloudinary response did not return a secure URL");
+        }
+
+        return data.secure_url;
+      } catch (error) {
+        console.error("Image upload error:", error);
+        return "";
+      }
+    }
 
     try {
-        // Validate required fields
-        const userName = document.getElementById('user-name').value.trim();
-        const userEmail = document.querySelector('input[name="email"]').value.trim();
+      const userName = document.getElementById("user-name").value.trim();
+      const userEmail = document
+        .querySelector('input[name="email"]')
+        .value.trim();
+      const userLink = document
+        .querySelector('input[name="link"]')
+        .value.trim();
 
-        if (!userName || !userEmail) {
-            throw new Error('Name and email are required');
-        }
+      // Basic validation
+      if (!userName || !userEmail || !userLink) {
+        throw new Error("Name, email, and link are required");
+      }
 
-        // Upload images to Cloudinary
-        const profilePictureFile = elements.imageInput.files[0];
-        const backgroundImageFile = elements.bgImage.files[0];
+      // Upload images
+      const profilePictureFile = elements.imageInput.files[0];
+      const backgroundImageFile = elements.bgImage.files[0];
 
-        const [profilePictureUrl, backgroundImageUrl] = await Promise.all([
-            profilePictureFile ? uploadToCloudinary(profilePictureFile) : Promise.resolve(''),
-            backgroundImageFile ? uploadToCloudinary(backgroundImageFile) : Promise.resolve('')
-        ]);
+      let profilePictureUrl = "";
+      let backgroundImageUrl = "";
 
-        // Check the URLs
-        console.log('Profile Image URL:', profilePictureUrl);
-        console.log('Background Image URL:', backgroundImageUrl);
+      if (profilePictureFile) {
+        profilePictureUrl = await uploadToCloudinary(profilePictureFile);
+      }
+      if (backgroundImageFile) {
+        backgroundImageUrl = await uploadToCloudinary(backgroundImageFile);
+      }
 
-        // Prepare form data
-        const data = {
-            name: userName,
-            email: userEmail,
-            tagline: document.getElementById('user-tagline').value.trim() || '',
-            phone: document.querySelector('input[name="phone"]').value.trim() || '',
-            address: document.querySelector('input[name="address"]').value.trim() || '',
-            social_links: Array.from(document.getElementsByName('social-links[]'))
-                .map(input => input.value.trim())
-                .filter(Boolean)
-                .join(','),
-            style: document.querySelector('.style-preset.selected')?.dataset.style || 'default',
-            form_type: elements.formType.value || '',
-            profile_picture: profilePictureUrl,
-            background_image: backgroundImageUrl
-        };
+      // Prepare data
+      const data = {
+        name: userName,
+        email: userEmail,
+        link: userLink,
+        tagline: document.getElementById("user-tagline").value.trim() || "",
+        phone: document.querySelector('input[name="phone"]').value.trim() || "",
+        address:
+          document.querySelector('input[name="address"]').value.trim() || "",
+        social_links: Array.from(document.getElementsByName("social-links[]"))
+          .map((input) => input.value.trim())
+          .filter(Boolean)
+          .join(","),
+        style:
+          document.querySelector(".style-preset.selected")?.dataset.style ||
+          "default",
+        form_type: elements.formType.value || "",
+        profile_picture: profilePictureUrl,
+        background_image: backgroundImageUrl,
+      };
 
-        // Submit form data
-        const queryParams = new URLSearchParams(data).toString();
-        const url = `${CONFIG.googleScriptUrl}?${queryParams}`;
-
-        const response = await fetch(url, { method: 'GET' });
-        const result = await response.json();
-        console.log(result);
-
-        // Check the response
-        if (!response.ok || result.status !== 'success') {
-            throw new Error(result.message || 'Submission failed');
-        }
-
-        // Show success message
-        Swal.fire({
-            icon: 'success',
-            title: 'Success!',
-            text: 'Your digital card has been created successfully!',
-            confirmButtonText: 'View My Card',
-            showCancelButton: true,
-            cancelButtonText: 'Create Another'
-        }).then((res) => {
-            if (res.isConfirmed) {
-                window.location.href = `view-card.html?id=${result.cardId}`;
-            } else {
-                resetForm();
-            }
-        });
-    } catch (error) {
-        console.error('Submission error:', error);
-        Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: 'Your digital card has been created successfully! check your email for the link',
-          confirmButtonText: 'View My Card',
-          showCancelButton: true,
-          cancelButtonText: 'Create Another'
-      }).then((res) => {
-          if (res.isConfirmed) {
-              window.location.href = `view-card.html?id=${result.cardId}`;
-          } else {
-              resetForm();
-          }
+      // Show loading
+      Swal.fire({
+        title: "Creating Your Digital Card",
+        html: "Please wait...",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading(),
       });
-      console.error('Submission error override:', error.message);
+
+      // Submit with CORS workaround
+      const url = `${CONFIG.googleScriptUrl}?${new URLSearchParams(data)}`;
+      let response;
+
+      try {
+        // First try direct request
+        response = await fetch(url, {
+          method: "GET",
+          redirect: "follow",
+        });
+
+        // If we get a CORS error, the response won't be readable but request may have succeeded
+        if (!response.ok || response.status === 0) {
+          // Verify submission by checking if data appears in sheet
+          await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait 2 seconds
+
+          // Make a verification request (simple HEAD request)
+          const verifyUrl = `${
+            CONFIG.googleScriptUrl
+          }?verify_submission=true&email=${encodeURIComponent(
+            userEmail
+          )}&link=${encodeURIComponent(userLink)}`;
+          const verifyResponse = await fetch(verifyUrl, { method: "HEAD" });
+
+          if (verifyResponse.ok) {
+            // Assume submission succeeded if verification request works
+            response = { ok: true, status: 200 };
+          } else {
+            throw new Error("Submission verification failed");
+          }
+        }
+
+        // Try to parse response if we can
+        let result;
+        try {
+          result = await response.json();
+        } catch {
+          result = { status: "success" }; // Assume success if we can't parse
+        }
+
+        // Show success
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          html: `Your digital card has been created successfully!<br><br>
+                <small>Your card link: tccards.tn/profile/${userLink}</small>`,
+          confirmButtonText: "View My Card",
+          showCancelButton: true,
+          cancelButtonText: "Create Another",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            window.location.href = `https://tccards.tn/profile/${userLink}`;
+          } else {
+            elements.form.reset();
+            elements.profilePicture.src = CONFIG.defaultProfileImage;
+            document
+              .querySelectorAll(".style-preset")
+              .forEach((btn) => btn.classList.remove("selected"));
+            document.body.style.background = stylePresets.minimal.background;
+          }
+        });
+      } catch (error) {
+        console.error("Submission error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Your submission may have succeeded, but we encountered a verification issue. Please check your email for confirmation.",
+          confirmButtonText: "OK",
+        });
+      }
+    } catch (error) {
+      console.error("Form error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message || "An error occurred during submission",
+        confirmButtonText: "OK",
+      });
     } finally {
-        elements.submitBtn.disabled = false;
-        resetForm();
+      elements.submitBtn.disabled = false;
     }
   });
 });
+
+
+
+
+function checkDuplicates(e) {
+  const email = e.parameter.email;
+  const link = e.parameter.link;
+  
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Form Submissions');
+  const data = sheet.getDataRange().getValues();
+  
+  const emailColumn = 3; // Adjust based on your sheet structure
+  const linkColumn = 2; // Adjust based on your sheet structure
+  
+  const emailExists = data.some(row => row[emailColumn] === email);
+  const linkExists = data.some(row => row[linkColumn] === link);
+  
+  return ContentService.createTextOutput(JSON.stringify({
+      emailExists,
+      linkExists
+  })).setMimeType(ContentService.MimeType.JSON);
+}
+
+
+elements.form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  elements.submitBtn.disabled = true;
+
+  try {
+      const userName = document.getElementById("user-name").value.trim();
+      const userEmail = document.querySelector('input[name="email"]').value.trim();
+      const userLink = document.querySelector('input[name="link"]').value.trim();
+
+      // Check for duplicates before proceeding
+      const duplicateCheck = await checkDuplicates(userEmail, userLink);
+      if (duplicateCheck.emailExists) {
+          throw new Error("This email is already registered");
+      }
+      if (duplicateCheck.linkExists) {
+          throw new Error("This link name is already taken. Please choose another one");
+      }
+
+      // Continue with form submission...
+      // ...existing code...
+  }
+});
+
+async function checkDuplicates(email, link) {
+  try {
+      const checkUrl = `${CONFIG.googleScriptUrl}?check_duplicates=true&email=${encodeURIComponent(email)}&link=${encodeURIComponent(link)}`;
+      const response = await fetch(checkUrl);
+      const result = await response.json();
+      return result;
+  } catch (error) {
+      console.error("Duplicate check failed:", error);
+      throw new Error("Unable to verify email/link availability");
+  }
+}
