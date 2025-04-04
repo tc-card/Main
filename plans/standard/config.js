@@ -1,9 +1,9 @@
 export const CONFIG = {
   maxFileSize: 5 * 1024 * 1024, // 5MB
   allowedTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
-  googleScriptUrl: 'https://script.google.com/macros/s/AKfycbz-86OFQZ7-LmSTd3U1_1qEvx3whkZMcreLqUE-8zT4d9gJCokJefww0W1pZvwjGyTR/exec',
+  googleScriptUrl: 'https://script.google.com/macros/s/AKfycbzZDES6e6F3O01se3E2NQ-E0emWn7FFG7ovlPw7MQN5aOICyqkyvktJB71HCxL6Pp6XZQ/exec',
   maxSocialLinks: 10,
-  defaultProfileImage: '/Assets/150.png',
+  defaultProfileImage: 'https://www.tccards.tn/Assets/default.png',
 };
 
 export const stylePresets = {

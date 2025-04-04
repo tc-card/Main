@@ -280,232 +280,192 @@ document.addEventListener("DOMContentLoaded", () => {
   elements.form.addEventListener("submit", async (e) => {
     e.preventDefault();
     elements.submitBtn.disabled = true;
-
-    async function uploadToCloudinary(file) {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", "preset");
-
-      try {
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`Cloudinary upload failed: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        if (!data.secure_url) {
-          throw new Error("Cloudinary response did not return a secure URL");
-        }
-
-        return data.secure_url;
-      } catch (error) {
-        console.error("Image upload error:", error);
-        return "";
-      }
-    }
-
+  
     try {
+      // Get form values
       const userName = document.getElementById("user-name").value.trim();
-      const userEmail = document
-        .querySelector('input[name="email"]')
-        .value.trim();
-      const userLink = document
-        .querySelector('input[name="link"]')
-        .value.trim();
-
+      const userEmail = document.querySelector('input[name="email"]').value.trim();
+      const userLink = document.querySelector('input[name="link"]').value.trim();
+  
       // Basic validation
       if (!userName || !userEmail || !userLink) {
-        throw new Error("Name, email, and link are required");
+        throw new Error('Name, email, and link are required');
+      }
+  
+      // Show loading
+      Swal.fire({
+        title: 'Checking availability...',
+        html: 'Please wait while we verify your information',
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+      });
+
+      // Check for duplicates using Google Apps Script
+      async function checkDuplicates(email, link) {
+        try {
+          const echoUrl = `${CONFIG.googleScriptUrl}?check_duplicates=true&email=${encodeURIComponent(email)}&link=${encodeURIComponent(link)}`;
+          
+          const nocacheUrl = `${echoUrl}&_=${Date.now()}`;
+    
+          const response = await fetch(nocacheUrl, {
+            method: 'GET',
+            credentials: 'omit',
+            redirect: 'follow'
+          });
+      
+          // Handle the redirect manually if needed
+          const finalUrl = response.url.includes('googleusercontent.com') ? 
+            response.url : 
+            `https://script.googleusercontent.com${new URL(response.url).pathname}`;
+      
+          const finalResponse = await fetch(finalUrl, {
+            method: 'GET',
+            credentials: 'omit'
+          });
+      
+          if (!finalResponse.ok) {
+            throw new Error('Network response was not ok');
+          }
+      
+          return await finalResponse.json();
+        } catch (error) {
+          console.error("Duplicate check failed:", error);
+          throw new Error("Unable to verify email/link availability. Please try again.");
+        }
+      }
+      
+      // Check for duplicates
+      const duplicateCheck = await checkDuplicates(userEmail, userLink);
+
+      if (duplicateCheck.linkExists || duplicateCheck.emailExists) {
+        throw new Error(
+          (duplicateCheck.emailExists ? "This email is already registered. " : "") +
+          (duplicateCheck.linkExists ? "This link is already taken." : "")
+        );
+      }
+
+      async function uploadToCloudinary(file) {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "preset");
+
+          try {
+            const response = await fetch(
+              "https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload",
+              {
+                method: "POST",
+                body: formData,
+              }
+            );
+
+            if (!response.ok) {
+              throw new Error(`Cloudinary upload failed: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            if (!data.secure_url) {
+              throw new Error("Cloudinary response did not return a secure URL");
+            }
+
+            return data.secure_url;
+          } catch (error) {
+            console.error("Image upload error:", error);
+            return "";
+        }
       }
 
       // Upload images
       const profilePictureFile = elements.imageInput.files[0];
       const backgroundImageFile = elements.bgImage.files[0];
-
-      let profilePictureUrl = "";
-      let backgroundImageUrl = "";
-
+  
+      let profilePictureUrl = '';
+      let backgroundImageUrl = '';
+  
       if (profilePictureFile) {
         profilePictureUrl = await uploadToCloudinary(profilePictureFile);
+        // log that it was uploaded
+        console.log('Profile picture uploaded:', profilePictureUrl);
       }
       if (backgroundImageFile) {
         backgroundImageUrl = await uploadToCloudinary(backgroundImageFile);
+        // log that it was uploaded
+        console.log('Background image uploaded:', backgroundImageUrl);
       }
-
-      // Prepare data
+      
+      // Prepare submission data
       const data = {
         name: userName,
         email: userEmail,
         link: userLink,
-        tagline: document.getElementById("user-tagline").value.trim() || "",
-        phone: document.querySelector('input[name="phone"]').value.trim() || "",
-        address:
-          document.querySelector('input[name="address"]').value.trim() || "",
-        social_links: Array.from(document.getElementsByName("social-links[]"))
-          .map((input) => input.value.trim())
+        tagline: document.getElementById('user-tagline').value.trim() || '',
+        phone: document.querySelector('input[name="phone"]').value.trim() || '',
+        address: document.querySelector('input[name="address"]').value.trim() || '',
+        social_links: Array.from(document.getElementsByName('social-links[]'))
+          .map(input => input.value.trim())
           .filter(Boolean)
-          .join(","),
-        style:
-          document.querySelector(".style-preset.selected")?.dataset.style ||
-          "default",
-        form_type: elements.formType.value || "",
+          .join(','),
+        style: document.querySelector('.style-preset.selected')?.dataset.style || 'default',
+        form_type: elements.formType.value || '',
         profile_picture: profilePictureUrl,
-        background_image: backgroundImageUrl,
+        background_image: backgroundImageUrl
       };
-
-      // Show loading
+  
+      // Submit form
       Swal.fire({
-        title: "Creating Your Digital Card",
-        html: "Please wait...",
+        title: 'Submitting...',
+        html: 'Please wait while we create your digital card',
         allowOutsideClick: false,
-        didOpen: () => Swal.showLoading(),
-      });
-
-      // Submit with CORS workaround
-      const url = `${CONFIG.googleScriptUrl}?${new URLSearchParams(data)}`;
-      let response;
-
-      try {
-        // First try direct request
-        response = await fetch(url, {
-          method: "GET",
-          redirect: "follow",
+        didOpen: () => Swal.showLoading()
         });
-
-        // If we get a CORS error, the response won't be readable but request may have succeeded
-        if (!response.ok || response.status === 0) {
-          // Verify submission by checking if data appears in sheet
-          await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait 2 seconds
-
-          // Make a verification request (simple HEAD request)
-          const verifyUrl = `${
-            CONFIG.googleScriptUrl
-          }?verify_submission=true&email=${encodeURIComponent(
-            userEmail
-          )}&link=${encodeURIComponent(userLink)}`;
-          const verifyResponse = await fetch(verifyUrl, { method: "HEAD" });
-
-          if (verifyResponse.ok) {
-            // Assume submission succeeded if verification request works
-            response = { ok: true, status: 200 };
-          } else {
-            throw new Error("Submission verification failed");
-          }
-        }
-
-        // Try to parse response if we can
-        let result;
+      
+        let result = { status: 'success' }; // Default to success
         try {
-          result = await response.json();
-        } catch {
-          result = { status: "success" }; // Assume success if we can't parse
-        }
-
-        // Show success
-        Swal.fire({
-          icon: "success",
-          title: "Success!",
-          html: `Your digital card has been created successfully!<br><br>
-                <small>Your card link: tccards.tn/profile/${userLink}</small>`,
-          confirmButtonText: "View My Card",
-          showCancelButton: true,
-          cancelButtonText: "Create Another",
-        }).then((res) => {
-          if (res.isConfirmed) {
-            window.location.href = `https://tccards.tn/profile/${userLink}`;
-          } else {
-            elements.form.reset();
-            elements.profilePicture.src = CONFIG.defaultProfileImage;
-            document
-              .querySelectorAll(".style-preset")
-              .forEach((btn) => btn.classList.remove("selected"));
-            document.body.style.background = stylePresets.minimal.background;
+        const url = `${CONFIG.googleScriptUrl}?${new URLSearchParams(data)}`;
+        const response = await fetch(url, { method: 'GET' });
+        
+        // Only try to parse JSON if we got a response
+        if (response) {
+          const jsonResult = await response.json();
+          if (jsonResult.status === 'error') {
+          throw new Error(jsonResult.message || 'Submission failed');
           }
+        }
+        } catch (fetchError) {
+        // Ignore TypeError: Failed to fetch and continue as success
+        if (!(fetchError instanceof TypeError && fetchError.message.includes('Failed to fetch'))) {
+          throw fetchError;
+        }
+        }
+  
+        // If we got here, treat as success
+        await Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        html: `Your digital card has been created!<br><br>
+            <a href="https://tccards.tn/profile/${userLink}" target="_blank">
+            tccards.tn/profile/${userLink}
+            </a>`,
+        confirmButtonText: 'View My Card',
+        showCancelButton: true,
+        cancelButtonText: 'Close'
+        }).then((res) => {
+        if (res.isConfirmed) {
+          window.location.href = `https://tccards.tn/profile/${userLink}`;
+        } else {
+          elements.form.reset();
+        }
         });
+  
       } catch (error) {
-        console.error("Submission error:", error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Your submission may have succeeded, but we encountered a verification issue. Please check your email for confirmation.",
-          confirmButtonText: "OK",
+        console.error('Submission error:', error);
+        await Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: error.message || 'An error occurred during submission',
+        confirmButtonText: 'OK'
         });
-      }
-    } catch (error) {
-      console.error("Form error:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: error.message || "An error occurred during submission",
-        confirmButtonText: "OK",
-      });
     } finally {
       elements.submitBtn.disabled = false;
     }
   });
 });
-
-
-
-
-function checkDuplicates(e) {
-  const email = e.parameter.email;
-  const link = e.parameter.link;
-  
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Form Submissions');
-  const data = sheet.getDataRange().getValues();
-  
-  const emailColumn = 3; // Adjust based on your sheet structure
-  const linkColumn = 2; // Adjust based on your sheet structure
-  
-  const emailExists = data.some(row => row[emailColumn] === email);
-  const linkExists = data.some(row => row[linkColumn] === link);
-  
-  return ContentService.createTextOutput(JSON.stringify({
-      emailExists,
-      linkExists
-  })).setMimeType(ContentService.MimeType.JSON);
-}
-
-
-elements.form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  elements.submitBtn.disabled = true;
-
-  try {
-      const userName = document.getElementById("user-name").value.trim();
-      const userEmail = document.querySelector('input[name="email"]').value.trim();
-      const userLink = document.querySelector('input[name="link"]').value.trim();
-
-      // Check for duplicates before proceeding
-      const duplicateCheck = await checkDuplicates(userEmail, userLink);
-      if (duplicateCheck.emailExists) {
-          throw new Error("This email is already registered");
-      }
-      if (duplicateCheck.linkExists) {
-          throw new Error("This link name is already taken. Please choose another one");
-      }
-
-      // Continue with form submission...
-      // ...existing code...
-  }
-});
-
-async function checkDuplicates(email, link) {
-  try {
-      const checkUrl = `${CONFIG.googleScriptUrl}?check_duplicates=true&email=${encodeURIComponent(email)}&link=${encodeURIComponent(link)}`;
-      const response = await fetch(checkUrl);
-      const result = await response.json();
-      return result;
-  } catch (error) {
-      console.error("Duplicate check failed:", error);
-      throw new Error("Unable to verify email/link availability");
-  }
-}
