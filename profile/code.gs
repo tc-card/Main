@@ -1,27 +1,27 @@
-// Find row by link with caching and case-insensitive matching
+// Find row by link with EXACT matching (case-sensitive)
 function findRowByLink(link) {
     const cache = CacheService.getScriptCache();
-    const cachedData = cache.get(link.toLowerCase());
+    const cachedData = cache.get(link); // No toLowerCase()
     if (cachedData) return JSON.parse(cachedData);
     
-    // For additional databases
-    const spreadsheet = SpreadsheetApp.openById('DIFFERENT_SPREADSHEET_ID');
+    const spreadsheet = SpreadsheetApp.openById('1tvVAN9sQ4yNPV0om2RKb8EiejoYn8eytTOEi9k26g0E');
+    const sheet = spreadsheet.getSheets()[0]; // Added missing sheet reference
     const data = sheet.getDataRange().getValues();
     const headers = data[0];
-    const linkColumnIndex = headers.findIndex(h => h.toLowerCase() === 'link');
+    const linkColumnIndex = headers.findIndex(h => h === 'Link'); // Exact column name match
     
     if (linkColumnIndex === -1) throw new Error('Link column not found');
 
-    const cleanLink = link.trim().toLowerCase();
+    const cleanLink = link.trim(); // No toLowerCase()
     for (let i = 1; i < data.length; i++) {
-        if (String(data[i][linkColumnIndex]).trim().toLowerCase() === cleanLink) {
+        if (String(data[i][linkColumnIndex]).trim() === cleanLink) { // Exact match
             const row = data[i];
             const responseData = {};
             headers.forEach((header, index) => {
                 responseData[header] = row[index];
             });
             
-            cache.put(cleanLink, JSON.stringify(responseData), 600); // Cache for 10 minutes
+            cache.put(cleanLink, JSON.stringify(responseData), 600);
             return responseData;
         }
     }
@@ -49,7 +49,7 @@ function doGet(e) {
         }
 
         const response = {
-            status: 'Active',
+            status: data.Status || 'Active', // Use existing Status if available
             ...data
         };
 
