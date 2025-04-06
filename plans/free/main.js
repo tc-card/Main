@@ -259,7 +259,6 @@ document.addEventListener("DOMContentLoaded", () => {
           .filter(Boolean)
           .join(','),
         style: document.querySelector('.style-preset.selected')?.dataset.style || 'default',
-        form_type: elements.formType.value || '',
         profile_picture: profilePictureUrl,
       };
   

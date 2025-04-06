@@ -1,7 +1,7 @@
 export const CONFIG = {
     maxFileSize: 5 * 1024 * 1024,
     allowedTypes: ['image/jpeg', 'image/png', 'gif'],
-    googleScriptUrl: 'https://script.google.com/macros/s/AKfycbwN-FuaqiznYMtOxP7oTYoFDhaLw-dVyU0uDSAnWJyrFUG6gZQ5p6k7ZOXtU0ZrUNgY/exec' // executed on 27/3/2025 2:44:30 PM titled "free code3"
+    googleScriptUrl: 'https://script.google.com/macros/s/AKfycbzjzKyIVU2WGe4EX-muwA51nlv6pGGc1B5WVK8JYiwbau3rb_W1nANJCWaJl4MHXR11/exec' // date 2023-10-01 time 00:41am
 };
 
 export const stylePresets = {
