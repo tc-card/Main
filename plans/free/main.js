@@ -139,151 +139,186 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Function to upload images to Cloudinary
-  async function uploadToCloudinary(file) {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "preset"); // Ensure the preset is correct
-
-    try {
-      const response = await fetch(
-        "https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`Cloudinary upload failed: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      if (!data.secure_url) {
-        throw new Error("Cloudinary response did not return a secure URL");
-      }
-
-      return data.secure_url; // Returns the image URL
-    } catch (error) {
-      console.error("Image upload error:", error);
-      throw error; // Re-throw the error to handle it in the main try-catch block
-    }
-  }
-
-
-  // Form Submission
   elements.form.addEventListener("submit", async (e) => {
     e.preventDefault();
     elements.submitBtn.disabled = true;
-
-    // Show loading state
-    Swal.fire({
-        title: "Creating Your Digital Card",
-        html: "Please wait...",
-        allowOutsideClick: false,
-        didOpen: () => Swal.showLoading(),
-    });
-
+  
     try {
-        // Validate required fields
-        const userName = document.getElementById("user-name").value.trim();
-        const userEmail = document.querySelector('input[name="email"]').value.trim();
-        const userLink = document.getElementById("user-link").value.trim();
+      // Get form values
+      const userName = document.getElementById("user-name").value.trim();
+      const userEmail = document.querySelector('input[name="email"]').value.trim();
+      const userLink = document.querySelector('input[name="link"]').value.trim();
+  
+      // Basic validation
+      if (!userName || !userEmail || !userLink) {
+        throw new Error('Name, email, and link are required');
+      }
+  
+      // Show loading
+      Swal.fire({
+        title: 'Checking availability...',
+        html: 'Please wait while we verify your information',
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+      });
 
-        if (!userName || !userEmail || !userLink) {
-            throw new Error("Please fill in all required fields");
+      // Check for duplicates using Google Apps Script
+      async function checkDuplicates(email, link) {
+        try {
+          const echoUrl = `${CONFIG.googleScriptUrl}?check_duplicates=true&email=${encodeURIComponent(email)}&link=${encodeURIComponent(link)}`;
+          
+          const nocacheUrl = `${echoUrl}&_=${Date.now()}`;
+    
+          const response = await fetch(nocacheUrl, {
+            method: 'GET',
+            credentials: 'omit',
+            redirect: 'follow'
+          });
+      
+          // Handle the redirect manually if needed
+          const finalUrl = response.url.includes('googleusercontent.com') ? 
+            response.url : 
+            `https://script.googleusercontent.com${new URL(response.url).pathname}`;
+      
+          const finalResponse = await fetch(finalUrl, {
+            method: 'GET',
+            credentials: 'omit'
+          });
+      
+          if (!finalResponse.ok) {
+            throw new Error('Network response was not ok');
+          }
+      
+          return await finalResponse.json();
+        } catch (error) {
+          console.error("Duplicate check failed:", error);
+          throw new Error("Unable to verify email/link availability. Please try again.");
         }
+      }
+      
+      // Check for duplicates
+      const duplicateCheck = await checkDuplicates(userEmail, userLink);
 
-        // Upload profile picture to Cloudinary if exists
-        const profilePictureFile = elements.imageInput.files[0];
-        const profilePictureUrl = profilePictureFile
-            ? await uploadToCloudinary(profilePictureFile)
-            : "";
+      if (duplicateCheck.linkExists || duplicateCheck.emailExists) {
+        throw new Error(
+          (duplicateCheck.emailExists ? "This email is already registered. " : "") +
+          (duplicateCheck.linkExists ? "This link is already taken." : "")
+        );
+      }
 
-        // Prepare form data
-        const data = {
-            name: userName,
-            email: userEmail,
-            tagline: document.getElementById("user-tagline").value.trim() || "",
-            link: userLink,
-            phone: document.querySelector('input[name="phone"]').value.trim() || "",
-            address: document.querySelector('input[name="address"]').value.trim() || "",
-            social_links: Array.from(document.querySelectorAll('input[name="social-links[]"]'))
-                .map((input) => input.value.trim())
-                .filter(Boolean)
-                .join(","),
-            style: document.querySelector(".style-preset.selected")?.dataset.style || "default",
-            profile_picture: profilePictureUrl,
-        };
+      async function uploadToCloudinary(file) {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "preset");
 
-        console.log("Submitting data:", data);
+          try {
+            const response = await fetch(
+              "https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload",
+              {
+                method: "POST",
+                body: formData,
+              }
+            );
 
-        // Submit form data
-        const queryParams = new URLSearchParams(data).toString();
-        const url = `${CONFIG.googleScriptUrl}?${queryParams}`;
-
-        const response = await fetch(url, { method: "GET" });
-        const result = await response.json();
-        console.log("Server response:", result);
-
-        // Check the response
-        if (!response.ok || result.status !== "success") {
-            throw new Error(result.message || "Submission failed");
-        }
-
-        // Show success message
-        Swal.fire({
-            icon: "success",
-            title: "Success!",
-            html: `
-                <p>Your digital card has been created successfully!</p>
-                ${profilePictureUrl ? `<img src="${profilePictureUrl}" alt="Profile" style="max-width: 100px; border-radius: 50%; margin: 10px auto;">` : ''}
-                <p><strong>Card URL:</strong> https://tccards.tn/profile/${userLink}</p>
-            `,
-            confirmButtonText: "View My Card",
-            showCancelButton: true,
-            cancelButtonText: "Create Another",
-        }).then((res) => {
-            if (res.isConfirmed) {
-                window.location.href = `https://tccards.tn/profile/${userLink}`;
-            } else {
-                resetForm();
+            if (!response.ok) {
+              throw new Error(`Cloudinary upload failed: ${response.statusText}`);
             }
-        });
 
-    } catch (error) {
-        console.error("Submission error:", error);
-        Swal.fire({
-            icon: "error",
-            title: "Error",
-            html: `
-                <p>${error.message || "Something went wrong! Please try again."}</p>
-                <small><a href="https://tccards.tn/help/" style="color: #4e73df;">Need help?</a></small>
-            `,
+            const data = await response.json();
+            if (!data.secure_url) {
+              throw new Error("Cloudinary response did not return a secure URL");
+            }
+
+            return data.secure_url;
+          } catch (error) {
+            console.error("Image upload error:", error);
+            return "";
+        }
+      }
+
+      // Upload image
+      const profilePictureFile = elements.imageInput.files[0];
+      
+      let profilePictureUrl = '';
+      if (profilePictureFile) {
+        profilePictureUrl = await uploadToCloudinary(profilePictureFile);
+        // log that it was uploaded
+        console.log('Profile picture uploaded:', profilePictureUrl);
+      }
+      
+      // Prepare submission data
+      const data = {
+        name: userName,
+        email: userEmail,
+        link: userLink,
+        tagline: document.getElementById('user-tagline').value.trim() || '',
+        phone: document.querySelector('input[name="phone"]').value.trim() || '',
+        address: document.querySelector('input[name="address"]').value.trim() || '',
+        social_links: Array.from(document.getElementsByName('social-links[]'))
+          .map(input => input.value.trim())
+          .filter(Boolean)
+          .join(','),
+        style: document.querySelector('.style-preset.selected')?.dataset.style || 'default',
+        form_type: elements.formType.value || '',
+        profile_picture: profilePictureUrl,
+      };
+  
+      // Submit form
+      Swal.fire({
+        title: 'Submitting...',
+        html: 'Please wait while we create your digital card',
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+        });
+      
+        let result = { status: 'success' }; // Default to success
+        try {
+        const url = `${CONFIG.googleScriptUrl}?${new URLSearchParams(data)}`;
+        const response = await fetch(url, { method: 'GET' });
+        
+        // Only try to parse JSON if we got a response
+        if (response) {
+          const jsonResult = await response.json();
+          if (jsonResult.status === 'error') {
+          throw new Error(jsonResult.message || 'Submission failed');
+          }
+        }
+        } catch (fetchError) {
+        // Ignore TypeError: Failed to fetch and continue as success
+        if (!(fetchError instanceof TypeError && fetchError.message.includes('Failed to fetch'))) {
+          throw fetchError;
+        }
+        }
+  
+        // If we got here, treat as success
+        await Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        html: `Your digital card has been created!<br><br>
+            <a href="https://tccards.tn/profile/${userLink}" target="_blank">
+            tccards.tn/profile/${userLink}
+            </a>`,
+        confirmButtonText: 'View My Card',
+        showCancelButton: true,
+        cancelButtonText: 'Close'
+        }).then((res) => {
+        if (res.isConfirmed) {
+          window.location.href = `https://p.tccards.tn/profile/@${userLink}`;
+        } else {
+          elements.form.reset();
+        }
+        });
+  
+      } catch (error) {
+        console.error('Submission error:', error);
+        await Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: error.message || 'An error occurred during submission',
+        confirmButtonText: 'OK'
         });
     } finally {
-        elements.submitBtn.disabled = false;
+      elements.submitBtn.disabled = false;
     }
   });
-
-  // Function to reset the form
-  function resetForm() {
-      elements.form.reset();
-      // Reset profile picture
-      if (elements.profilePicture) {
-          elements.profilePicture.src = CONFIG.defaultProfileImage;
-      }
-      // Reset style selection
-      document.querySelectorAll(".style-preset").forEach((btn) => {
-          btn.classList.remove("selected");
-      });
-      // Reset background
-      if (stylePresets && stylePresets.minimal) {
-          document.body.style.background = stylePresets.minimal.background;
-      }
-      // Clear file input
-      if (elements.imageInput) {
-          elements.imageInput.value = "";
-      }
-  }
 });

@@ -19,7 +19,7 @@ const starterPlans = [
       "Fixed Background Only"
     ],
     colorClasses: "bg-gray-900 ring-purple-400 text-purple-400",
-    link: "/free/",
+    link: "/plans/free/",
     trial: true
   },
   {
@@ -41,7 +41,7 @@ const starterPlans = [
       "Basic Customization"
     ],
     colorClasses: "bg-gray-900 ring-green-400 text-green-400",
-    link: "/basic/",
+    link: "/plans/basic/",
   }
 ];
 
@@ -60,7 +60,7 @@ const advancedPlans = [
       "Smart Form"
     ],
     colorClasses: "bg-gray-900 ring-yellow-400 text-yellow-400",
-    link: "/standard/",
+    link: "/plans/standard/",
   },
   {
     tier: "Custom",
@@ -78,7 +78,7 @@ const advancedPlans = [
       "Remove our watermark"
     ],
     colorClasses: "bg-gray-900 ring-blue-400 text-blue-400",
-    link: "/professional/",
+    link: "/plans/professional/",
   },
   {
     tier: "Enterprise",
@@ -95,7 +95,7 @@ const advancedPlans = [
       "Custom Forms"
     ],
     colorClasses: "bg-gray-900 ring-red-400 text-red-400",
-    link: "/enterprise/",
+    link: "/plans/enterprise/",
   }
 ];
 
