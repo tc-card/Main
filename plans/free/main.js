@@ -294,15 +294,15 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: 'success',
         title: 'Success!',
         html: `Your digital card has been created!<br><br>
-            <a href="https://tccards.tn/profile/${userLink}" target="_blank">
-            tccards.tn/profile/${userLink}
+            <a href="https://p.tccards.tn/profile/#${userLink}" target="_blank">
+            p.tccards.tn/@${userLink}
             </a>`,
         confirmButtonText: 'View My Card',
         showCancelButton: true,
         cancelButtonText: 'Close'
         }).then((res) => {
         if (res.isConfirmed) {
-          window.location.href = `https://p.tccards.tn/profile/@${userLink}`;
+          window.location.href = `https://p.tccards.tn/@${userLink}`;
         } else {
           elements.form.reset();
         }
