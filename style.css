@@ -12,6 +12,16 @@ body {
     );
 }
 
+#pricing {
+    background: linear-gradient(180deg,
+        #1a1a1a 0%,
+        #2d3748 25%,
+        #4a5568 50%,
+        #2d3748 75%,
+        #1a1a1a 100%
+    );
+}
+
 header {
     position: relative;
     width: 100%;
@@ -54,3 +64,22 @@ header {
     height: 100vh;
     /* Ensures the header takes up the full viewport height */
 }
+
+  /* Card-specific gradients */
+  .free {
+    background: linear-gradient(145deg, 
+      rgba(24, 24, 27, 0.95), 
+      rgba(88, 28, 135, 0.15));
+  }
+
+  .basic {
+    background: linear-gradient(145deg, 
+      rgba(24, 24, 27, 0.95), 
+      rgba(22, 163, 74, 0.15));
+  }
+
+  .standard {
+    background: linear-gradient(145deg, 
+      rgba(24, 24, 27, 0.95), 
+      rgba(234, 179, 8, 0.15));
+  }
