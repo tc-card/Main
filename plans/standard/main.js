@@ -455,6 +455,7 @@ document.addEventListener("DOMContentLoaded", () => {
           elements.form.reset();
         }
         });
+        console.log('Form submitted successfully:', data);
   
       } catch (error) {
         console.error('Submission error:', error);

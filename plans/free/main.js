@@ -139,6 +139,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Form Submission
+
   elements.form.addEventListener("submit", async (e) => {
     e.preventDefault();
     elements.submitBtn.disabled = true;
@@ -236,14 +238,22 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      // Upload image
+      // Upload images
       const profilePictureFile = elements.imageInput.files[0];
-      
+      const backgroundImageFile = elements.bgImage.files[0];
+  
       let profilePictureUrl = '';
+      let backgroundImageUrl = '';
+  
       if (profilePictureFile) {
         profilePictureUrl = await uploadToCloudinary(profilePictureFile);
         // log that it was uploaded
         console.log('Profile picture uploaded:', profilePictureUrl);
+      }
+      if (backgroundImageFile) {
+        backgroundImageUrl = await uploadToCloudinary(backgroundImageFile);
+        // log that it was uploaded
+        console.log('Background image uploaded:', backgroundImageUrl);
       }
       
       // Prepare submission data
@@ -259,7 +269,9 @@ document.addEventListener("DOMContentLoaded", () => {
           .filter(Boolean)
           .join(','),
         style: document.querySelector('.style-preset.selected')?.dataset.style || 'default',
+        form_type: elements.formType.value || '',
         profile_picture: profilePictureUrl,
+        background_image: backgroundImageUrl
       };
   
       // Submit form
@@ -307,8 +319,11 @@ document.addEventListener("DOMContentLoaded", () => {
           elements.form.reset();
         }
         });
+        console.log('Form submitted successfully:', data);
   
       } catch (error) {
+        console.log('Full error object:', error);
+        console.log('Error response:', await error.response?.text());
         console.error('Submission error:', error);
         await Swal.fire({
         icon: 'error',
