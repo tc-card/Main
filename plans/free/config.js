@@ -1,7 +1,7 @@
 export const CONFIG = {
     maxFileSize: 5 * 1024 * 1024,
     allowedTypes: ['image/jpeg', 'image/png', 'gif'],
-    googleScriptUrl: 'https://script.google.com/macros/s/AKfycbzAXr2EFu1JOFA5C35Bm1pBGh6SuDjrRKRPBI_U9QPVqcSzCdK-c5r8d2sy3QQh94UWUQ/exec' // date 2023-10-01 time 00:54am
+    googleScriptUrl: 'https://script.google.com/macros/s/AKfycbyJU9jEA-aU74ryKfYH2_pUq6zVdlY-lZ5CZUR5M8cHbKuWmoJ1H_HlY2PZYv7CQ_U/exec' // date 2023-10-01 time 00:54am
 };
 
 export const stylePresets = {
