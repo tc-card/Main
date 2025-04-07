@@ -324,185 +324,236 @@ document.addEventListener("DOMContentLoaded", () => {
       throw error; // Re-throw the error to handle it in the main try-catch block
     }
   }
-  // Form Submission
-  elements.form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    elements.submitBtn.disabled = true;
-
-    // Show loading state
-    Swal.fire({
-      title: "Creating Your Digital Card",
-      html: "Please wait...",
-      allowOutsideClick: false,
-      didOpen: () => Swal.showLoading(),
-    });
-
-    try {
-      // Validate required fields
-      const userName = document.getElementById("user-name").value.trim();
-      const userEmail = document
-        .querySelector('input[name="email"]')
-        .value.trim();
-
-      if (!userName || !userEmail) {
-        throw new Error("Name and email are required");
-      }
-
-      // Collect selected CRM features and their settings
-      const selectedCRMFeatures = Array.from(elements.crmFeatureToggles)
-        .filter((toggle) => toggle.checked)
-        .map((toggle) => toggle.value);
-
-      const crmSettings = {};
-      selectedCRMFeatures.forEach((feature) => {
-        switch (feature) {
-          case "schedule":
-            crmSettings.schedule = {
-              businessDays: Array.from(
-                document.querySelectorAll(
-                  'button[name="business_days[]"].bg-blue-600'
-                )
-              ).map((button) => button.value),
-              businessHours: {
-                start: document.querySelector(
-                  'input[name="business_hours_start"]'
-                ).value,
-                end: document.querySelector('input[name="business_hours_end"]')
-                  .value,
-              },
-            };
-            break;
-          case "feedback":
-            crmSettings.feedback = {
-              starRating: document.querySelector(
-                'input[name="feedback_star_rating"]'
-              ).checked,
-              comments: document.querySelector(
-                'input[name="feedback_comments"]'
-              ).checked,
-              notifications: document.querySelector(
-                'input[name="feedback_notifications"]'
-              ).checked,
-            };
-            break;
-          case "messaging":
-            crmSettings.messaging = {
-              requiredFields: Array.from(
-                document.querySelectorAll(
-                  'button[name="required_fields[]"].bg-blue-600'
-                )
-              ).map((button) => button.value),
-              messageTemplate: document.querySelector(
-                'textarea[name="message_template"]'
-              ).value,
-            };
-            break;
-          case "discounts":
-            crmSettings.discounts = {
-              title: document.querySelector('input[name="discount_title"]')
-                .value,
-              code: document.querySelector('input[name="discount_code"]').value,
-              startDate: document.querySelector(
-                'input[name="discount_start_date"]'
-              ).value,
-              endDate: document.querySelector('input[name="discount_end_date"]')
-                .value,
-            };
-            break;
-          case "testimonials":
-            crmSettings.testimonials = {
-              showPhotos: document.querySelector(
-                'input[name="testimonial_show_photos"]'
-              ).checked,
-              showRatings: document.querySelector(
-                'input[name="testimonial_show_ratings"]'
-              ).checked,
-              layout: document.querySelector(
-                'select[name="testimonial_layout"]'
-              ).value,
-            };
-            break;
+ 
+    // Cloudinary Upload Function
+    async function uploadToCloudinary(file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "preset");
+  
+      try {
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+  
+        if (!response.ok) {
+          throw new Error(`Upload failed: ${response.statusText}`);
         }
-      });
-
-      // Prepare form data
-      const data = {
-        name: userName,
-        email: userEmail,
-        tagline: document.getElementById("user-tagline").value.trim() || "",
-        phone: document.querySelector('input[name="phone"]').value.trim() || "",
-        address:
-          document.querySelector('input[name="address"]').value.trim() || "",
-        social_links: Array.from(document.getElementsByName("social-links[]"))
-          .map((input) => input.value.trim())
-          .filter(Boolean)
-          .join(","),
-        style:
-          document.querySelector(".style-preset.selected")?.dataset.style ||
-          "default",
-        crm_features: selectedCRMFeatures,
-        crm_settings: crmSettings,
-        domain: elements.domainInput.value || "",
-        profile_picture: elements.profilePicture.src,
-        background_image: document.body.style.backgroundImage || "",
-      };
-
-      // Submit form data
-      const queryParams = new URLSearchParams(data).toString();
-      const url = `${CONFIG.googleScriptUrl}?${queryParams}`;
-
-      const response = await fetch(url, { method: "GET" });
-      const result = await response.json();
-      console.log(result);
-
-      // Check the response
-      if (!response.ok || result.status !== "success") {
-        throw new Error(result.message || "Submission failed");
-      }
-
-      // Show success message
-      Swal.fire({
-        icon: "success",
-        title: "Success!",
-        text: "Your digital card has been created successfully!",
-        confirmButtonText: "View My Card",
-        showCancelButton: true,
-        cancelButtonText: "Create Another",
-      }).then((res) => {
-        if (res.isConfirmed) {
-          window.location.href = `view-card.html?id=${result.cardId}`;
-        } else {
-          resetForm();
+  
+        const data = await response.json();
+        if (!data.secure_url) {
+          throw new Error("No secure URL returned");
         }
-      });
-    } catch (error) {
-      console.error("Submission error:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: error.message || "Failed to create digital card",
-        confirmButtonText: "Try Again",
-      });
-    } finally {
-      elements.submitBtn.disabled = false;
+        return data.secure_url;
+      } catch (error) {
+        console.error("Image upload error:", error);
+        throw error;
+      }
     }
-  });
-
-  // Function to reset the form
-  function resetForm() {
-    elements.form.reset();
-    elements.profilePicture.src = CONFIG.defaultProfileImage;
-    document
-      .querySelectorAll(".style-preset")
-      .forEach((btn) => btn.classList.remove("selected"));
-    document.body.style.background = stylePresets.minimal.background;
-
-    // Uncheck all CRM feature toggles
-    elements.crmFeatureToggles.forEach((toggle) => {
-      toggle.checked = false;
+  
+    // Form Submission
+    elements.form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      elements.submitBtn.disabled = true;
+  
+      try {
+        // Show loading state
+        const swalInstance = Swal.fire({
+          title: "Creating Your Digital Card",
+          html: "Step 1: Validating information...",
+          allowOutsideClick: false,
+          didOpen: () => Swal.showLoading(),
+        });
+  
+        // Get form values
+        const userName = document.getElementById("user-name").value.trim();
+        const userEmail = document.querySelector('input[name="email"]').value.trim();
+        const userLink = document.querySelector('input[name="link"]').value.trim();
+  
+        // Basic validation
+        if (!userName || !userEmail || !userLink) {
+          throw new Error('Name, email, and link are required');
+        }
+  
+        // Check link format
+        if (!/^[a-z0-9-]+$/i.test(userLink)) {
+          throw new Error('Link can only contain letters, numbers and hyphens');
+        }
+  
+        // Update loading message
+        await swalInstance.update({
+          html: "Step 2: Uploading images..."
+        });
+  
+        // Upload images to Cloudinary
+        let profilePictureUrl = CONFIG.defaultProfileImage;
+        let backgroundImageUrl = '';
+        
+        if (elements.imageInput.files[0]) {
+          profilePictureUrl = await uploadToCloudinary(elements.imageInput.files[0]);
+        }
+        
+        if (elements.bgImage.files[0]) {
+          backgroundImageUrl = await uploadToCloudinary(elements.bgImage.files[0]);
+        }
+  
+        // Update loading message
+        await swalInstance.update({
+          html: "Step 3: Configuring CRM features..."
+        });
+  
+        // Process CRM features
+        const selectedCRMFeatures = Array.from(elements.crmFeatureToggles)
+          .filter((toggle) => toggle.checked)
+          .map((toggle) => toggle.value);
+  
+        const crmSettings = {};
+        selectedCRMFeatures.forEach((feature) => {
+          switch (feature) {
+            case "schedule":
+              crmSettings.schedule = {
+                businessDays: Array.from(
+                  document.querySelectorAll('button[name="business_days[]"].bg-blue-600')
+                ).map((button) => button.value),
+                businessHours: {
+                  start: document.querySelector('input[name="business_hours_start"]').value,
+                  end: document.querySelector('input[name="business_hours_end"]').value,
+                },
+              };
+              break;
+            case "feedback":
+              crmSettings.feedback = {
+                starRating: document.querySelector('input[name="feedback_star_rating"]').checked,
+                comments: document.querySelector('input[name="feedback_comments"]').checked,
+                notifications: document.querySelector('input[name="feedback_notifications"]').checked,
+              };
+              break;
+            case "messaging":
+              crmSettings.messaging = {
+                requiredFields: Array.from(
+                  document.querySelectorAll('button[name="required_fields[]"].bg-blue-600')
+                ).map((button) => button.value),
+                messageTemplate: document.querySelector('textarea[name="message_template"]').value,
+              };
+              break;
+            case "discounts":
+              crmSettings.discounts = {
+                title: document.querySelector('input[name="discount_title"]').value,
+                code: document.querySelector('input[name="discount_code"]').value,
+                startDate: document.querySelector('input[name="discount_start_date"]').value,
+                endDate: document.querySelector('input[name="discount_end_date"]').value,
+              };
+              break;
+            case "testimonials":
+              crmSettings.testimonials = {
+                showPhotos: document.querySelector('input[name="testimonial_show_photos"]').checked,
+                showRatings: document.querySelector('input[name="testimonial_show_ratings"]').checked,
+                layout: document.querySelector('select[name="testimonial_layout"]').value,
+              };
+              break;
+          }
+        });
+  
+        // Prepare final data
+        const data = {
+          name: userName,
+          email: userEmail,
+          link: userLink,
+          tagline: document.getElementById("user-tagline").value.trim() || "",
+          phone: document.querySelector('input[name="phone"]').value.trim() || "",
+          address: document.querySelector('input[name="address"]').value.trim() || "",
+          social_links: Array.from(document.getElementsByName("social-links[]"))
+            .map((input) => input.value.trim())
+            .filter(Boolean)
+            .join(","),
+          style: document.querySelector(".style-preset.selected")?.dataset.style || "default",
+          form_type: "professional",
+          profile_picture: profilePictureUrl,
+          background_image: backgroundImageUrl,
+          crm_features: selectedCRMFeatures.join(","),
+          crm_settings: JSON.stringify(crmSettings),
+          domain: elements.domainInput.value || "",
+        };
+  
+        // Update loading message
+        await swalInstance.update({
+          html: "Step 4: Finalizing your card..."
+        });
+  
+        // Submit to Google Apps Script
+        const url = `${CONFIG.googleScriptUrl}?${new URLSearchParams(data)}`;
+        const response = await fetch(url, { method: "GET" });
+        
+        // Handle response
+        let result;
+        try {
+          result = await response.json();
+        } catch (e) {
+          // If JSON parsing fails but we got a response, assume success
+          if (response.ok) {
+            result = { status: "success" };
+          } else {
+            throw new Error("Failed to process response");
+          }
+        }
+  
+        if (!response.ok || result.status === "error") {
+          throw new Error(result.message || "Submission failed");
+        }
+  
+        // Success
+        await Swal.fire({
+          icon: "success",
+          title: "Professional Card Created!",
+          html: `Your digital business card is ready!<br><br>
+                <a href="https://p.tccards.tn/@${userLink}" target="_blank" class="font-bold">
+                  p.tccards.tn/@${userLink}
+                </a><br><br>
+                <small class="text-gray-500">CRM features may take 2-3 minutes to fully activate</small>`,
+          confirmButtonText: "View My Card",
+          showCancelButton: true,
+          cancelButtonText: "Dashboard",
+          footer: '<a href="/dashboard" class="text-blue-500 hover:underline">Go to your dashboard</a>'
+        }).then((res) => {
+          if (res.isConfirmed) {
+            window.location.href = `https://p.tccards.tn/@${userLink}`;
+          } else if (res.dismiss === Swal.DismissReason.cancel) {
+            window.location.href = '/dashboard';
+          }
+        });
+  
+      } catch (error) {
+        console.error("Submission error:", error);
+        await Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message || "Failed to create digital card",
+          confirmButtonText: "OK"
+        });
+      } finally {
+        elements.submitBtn.disabled = false;
+      }
     });
-
-    // Clear CRM settings container
-    elements.crmSettingsContainer.innerHTML = "";
-  }
+  
+    // Function to reset the form
+    function resetForm() {
+      elements.form.reset();
+      elements.profilePicture.src = CONFIG.defaultProfileImage;
+      document.querySelectorAll(".style-preset").forEach((btn) => btn.classList.remove("selected"));
+      document.body.style.background = stylePresets.minimal.background;
+  
+      // Reset CRM features
+      elements.crmFeatureToggles.forEach((toggle) => {
+        toggle.checked = false;
+      });
+      elements.crmSettingsContainer.innerHTML = "";
+      
+      // Reset file inputs
+      elements.imageInput.value = "";
+      elements.bgImage.value = "";
+    }
 });

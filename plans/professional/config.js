@@ -1,7 +1,7 @@
 export const CONFIG = {
   maxFileSize: 5 * 1024 * 1024,
   allowedTypes: ["image/jpeg", "image/png", "gif"],
-  googleScriptUrl: "YOUR_GOOGLE_APPS_SCRIPT_URL",
+  googleScriptUrl: "https://script.google.com/macros/s/AKfycbzj2yZHCu_GHPVSXszCIp7vShVAsXPNbPfUKnzacSKK1EBZmdSHeXlc1zELD9MBlt50ZQ/exec",
 };
 
 export const stylePresets = {

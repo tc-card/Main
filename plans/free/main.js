@@ -84,15 +84,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // Check if the limit of 5 links has been reached
     if (currentLinks >= 3) {
       Swal.fire({
-        icon: "error",
-        title: "Link Limit Reached",
-        text: "You can only add up to 3 social links.",
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
+      icon: "info",
+      title: "3 Links Maximum",
+      toast: true,
+      position: "top-center",
+      showConfirmButton: false,
+      timer: 2000,
+      customClass: {
+        popup: 'small-toast'
+      }
       });
-      return; // Exit the function if the limit is reached
+      return;
     }
 
     // Add a new link if the limit is not reached

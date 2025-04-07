@@ -141,16 +141,18 @@
                 <input type="text" id="user-name" name="user-name" placeholder="Enter your name" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
                 <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter biography / tagline" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
             </div>
-            <div class="space-y-4">
-                <div class="bg-white/10 p-4 rounded border border-white/50 shadow-md">
-                    <input type="text" id="user-link" name="link" required title="Only letters, numbers, and hyphens allowed" class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                    <p class="text-xs mt-2">Link<b> username</b> is just the last part of the URL that serves as an identifier of the page.<br>Example :<a href="#" style="color: chartreuse;" aria-readonly="true"> https://p.tccards.tn/@username</a></p>
+                <!-- Profile Link -->
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <span class="bg-gray-700 text-white p-3 rounded-l-lg">p.tccards.tn/@</span>
+                        <input type="text" id="user-link" name="link" required title="Only letters, numbers, and hyphens allowed"  placeholder="yourname" class="flex-1 bg-gray-900/20 text-white p-3 rounded-r-lg border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all" pattern="[a-zA-Z0-9-]+">
+                    </div>
+                    <p class="text-xs text-gray-400">This will be your permanent profile URL</p>
                 </div>
-            </div>
             <!-- Social Links Section -->
-            <div id="dynamic-links" class="space-y-4">
+            <div id="dynamic-links" class="space-y-4 w-full">
                 <div class="bg-white/10 p-4 rounded border border-white/50 shadow-md">
-                    <label class="block text-white">Enter your social links</label>
+                <label class="block text-white font-semibold mb-4">Social Links</label>
                     <ul class="space-y-2">
                         <li
                             class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
