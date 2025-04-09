@@ -156,7 +156,7 @@
                 <div class="space-y-2">
                     <div class="flex items-center">
                         <span class="bg-gray-700 text-white p-3 rounded-l-lg">p.tccards.tn/@</span>
-                        <input type="text" id="user-link" name="link" required title="Only letters, numbers, and hyphens allowed"  placeholder="yourname" class="flex-1 bg-gray-900/20 text-white p-3 rounded-r-lg border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all" pattern="[a-zA-Z0-9-]+">
+                        <input type="text" id="user-link" name="link"  title="Only letters, numbers, and hyphens allowed"  placeholder="yourname" class="flex-1 bg-gray-900/20 text-white p-3 rounded-r-lg border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all" pattern="[a-zA-Z0-9-]+">
                     </div>
                     <p class="text-xs text-gray-400">This will be your permanent profile URL</p>
                 </div>
@@ -179,66 +179,70 @@
                     Add Another Link
                 </button>
             </div>
-
-            <!-- Style Selection (Modified) -->
-            <div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
-                <label class="block text-white font-semibold mb-4">Choose Your Style</label>
-
-                <!-- Professional Gradients -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                    <button type="button" class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform" data-style="corporateGradient">
-                        <div class="h-20 rounded"
-                            style="background: linear-gradient(145deg, rgb(9, 9, 11), rgb(24, 24, 27), rgb(9, 9, 11))">
-                        </div>
-                        <p class="mt-2 text-sm">Executive</p>
-                    </button>
-
-                    <button type="button" class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform" data-style="oceanGradient">
-                        <div class="h-20 rounded"
-                            style="background: linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))">
-                        </div>
-                        <p class="mt-2 text-sm">Professional</p>
-                    </button>
-
-                </div>
-
-                <!-- Professional Solid Colors -->
-                <label class="block text-white font-semibold mb-4">Solid Colors</label>
-                <div class="grid grid-cols-4 md:grid-cols-8 gap-4 mb-6">
-                    <!-- Dark Colors -->
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="black">
-                        <div class="h-6 rounded" style="background: #09090b"></div>
-                    </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="navy">
-                        <div class="h-6 rounded" style="background: #020617"></div>
-                    </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="forest">
-                        <div class="h-6 rounded" style="background: #022c22"></div>
-                    </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="wine">
-                        <div class="h-6 rounded" style="background: #450a0a"></div>
-                    </button>
-                    <!-- Light Colors -->
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="clouds">
-                        <div class="h-6 rounded" style="background: #0ea5e9"></div>
-                    </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="Pink">
-                        <div class="h-6 rounded" style="background: #9b0055"></div>
-                    </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="SkyBlue">
-                        <div class="h-6 rounded" style="background: #2563eb"></div>
-                    </button>
-                    <button type="button" class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform" data-style="paleRed">
-                        <div class="h-6 rounded" style="background: #df4d4d7c"></div>
-                    </button>
-                </div>
-            </div>
+<!-- Style Selection (Modified) -->
+<div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
+    <label class="block text-white font-semibold mb-4">Choose Your Style</label>
+  
+    <!-- Professional Gradients -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+      <button type="button" class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform" data-style="corporateGradient">
+        <div class="h-20 rounded"
+          style="background: linear-gradient(145deg, rgb(9, 9, 11), rgb(24, 24, 27), rgb(9, 9, 11))">
+        </div>
+        <p class="mt-2 text-sm">Executive</p>
+      </button>
+  
+      <button type="button" class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform" data-style="oceanGradient">
+        <div class="h-20 rounded"
+          style="background: linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))">
+        </div>
+        <p class="mt-2 text-sm">Professional</p>
+      </button>
+    </div>
+  
+    <!-- Custom Gradient Builder -->
+    <label class="block text-white font-semibold mb-2">Custom Gradient</label>
+    <div class="grid grid-cols-3 gap-4 mb-4">
+      <div>
+        <label class="block text-sm text-gray-300 mb-1">Color 1</label>
+        <input type="color" id="gradient-color-1" value="#ff9a9e" class="w-full h-10">
+      </div>
+      <div>
+        <label class="block text-sm text-gray-300 mb-1">Color 2</label>
+        <input type="color" id="gradient-color-2" value="#fad0c4" class="w-full h-10">
+      </div>
+      <div>
+        <label class="block text-sm text-gray-300 mb-1">Color 3</label>
+        <input type="color" id="gradient-color-3" value="#fbc2eb" class="w-full h-10">
+      </div>
+    </div>
+  
+    <div class="mb-4">
+      <label class="block text-sm text-gray-300 mb-1">Direction</label>
+      <select id="gradient-direction" class="w-full bg-gray-700 text-white rounded p-2">
+        <option value="45deg">Diagonal ↗</option>
+        <option value="90deg">Horizontal →</option>
+        <option value="135deg">Diagonal ↘</option>
+        <option value="180deg">Vertical ↓</option>
+        <option value="225deg">Diagonal ↙</option>
+        <option value="270deg">Horizontal ←</option>
+        <option value="315deg">Diagonal ↖</option>
+        <option value="0deg">Vertical ↑</option>
+      </select>
+    </div>
+  
+    <!-- Apply Gradient Button -->
+    <button id="apply-custom-gradient" class="w-full mt-2 p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+      Apply Custom Gradient
+    </button>
+  </div>
+  
 
             <!-- Contact Section -->
             <div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
                 <label class="block text-white font-semibold mb-4">Contact Button Details</label>
                 <input type="email" name="email" placeholder="Email"
-                    class="w-full bg-transparent text-white p-2 rounded focus:outline-none" required />
+                    class="w-full bg-transparent text-white p-2 rounded focus:outline-none"  />
                 <hr>
                 <input type="tel" name="phone" placeholder="Phone"
                     class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />

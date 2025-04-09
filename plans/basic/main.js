@@ -62,37 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
     handleImageUpload(e.target.files[0], elements.profilePicture);
   });
 
-  // Function to upload images to Cloudinary
-  async function uploadToCloudinary(file) {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "preset"); // Ensure the preset is correct
-
-    try {
-      const response = await fetch(
-        "https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`Cloudinary upload failed: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      if (!data.secure_url) {
-        throw new Error("Cloudinary response did not return a secure URL");
-      }
-
-      return data.secure_url; // Returns the image URL
-    } catch (error) {
-      console.error("Image upload error:", error);
-      throw error; // Re-throw the error to handle it in the main try-catch block
-    }
-  }
-
   // Social Links Management
   function createSocialLink() {
     return `
@@ -146,7 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
       elements.addLinkBtn.disabled = true;
     }
   });
-
+  let currentStyleType = 'default'; // Can be 'preset', 'gradient', or 'default'
+let currentGradient = '';
   // Style Management
   document.querySelectorAll(".style-preset").forEach((button) => {
     button.addEventListener("click", () => {
@@ -158,18 +128,39 @@ document.addEventListener("DOMContentLoaded", () => {
         .querySelectorAll(".style-preset")
         .forEach((btn) => btn.classList.remove("selected"));
       button.classList.add("selected");
-
-      Swal.fire({
-        icon: "success",
-        title: "Style Updated",
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      currentStyleType = 'preset';
+      currentGradient = '';
     });
   });
 
+  // Custom Gradient Management
+  const color1Input = document.getElementById("gradient-color-1");
+  const color2Input = document.getElementById("gradient-color-2");
+  const color3Input = document.getElementById("gradient-color-3");
+  const directionInput = document.getElementById("gradient-direction");
+  const applyGradientBtn = document.getElementById("apply-custom-gradient");
+
+  applyGradientBtn?.addEventListener("click", () => {
+    const gradient = `linear-gradient(${directionInput.value}, ${color1Input.value}, ${color2Input.value}, ${color3Input.value})`;
+    document.body.style.background = gradient;
+    document.body.style.backgroundSize = "cover";
+
+    // Remove selected class from preset buttons
+    document.querySelectorAll(".style-preset").forEach(btn => btn.classList.remove("selected"));
+    currentStyleType = 'gradient';
+    currentGradient = gradient;
+  });
+  
+  // When you need to get the current style
+  function getCurrentStyle() {
+    if (currentStyleType === 'preset') {
+      return document.querySelector('.style-preset.selected')?.dataset.style || 'default';
+    } else if (currentStyleType === 'gradient') {
+      return currentGradient;
+    }
+    return 'default';
+  }
+  
   // Form Submission
 
   elements.form.addEventListener("submit", async (e) => {
