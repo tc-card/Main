@@ -283,7 +283,7 @@ let currentGradient = '';
           .map(input => input.value.trim())
           .filter(Boolean)
           .join(','),
-        style: document.querySelector('.style-preset.selected')?.dataset.style || 'default',
+        style: getCurrentStyle(),
         profile_picture: profilePictureUrl,
       };
   
