@@ -145,7 +145,7 @@ function generatePricingCard(content) {
   } else if (isDiscounted) {
     tagElement = `
       <span class="absolute -top-3 right-4 rounded-full ${colors.bg} px-3 py-1.5 text-xs font-bold text-gray-100 ring-1 ${colors.ring}">
-          60% OFF
+          30% OFF
       </span>
     `;
   }
