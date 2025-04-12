@@ -151,13 +151,23 @@
                 <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline"
                     class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
             </div>
-                <!-- Profile Link -->
+               <!-- Profile Link -->
                 <div class="space-y-2">
-                    <div class="flex items-center">
-                        <span class="bg-gray-700 text-white p-3 rounded-l-lg">p.tccards.tn/@</span>
-                        <input type="text" id="user-link" name="link" required title="Only letters, numbers, and hyphens allowed"  placeholder="yourname" class="flex-1 bg-gray-900/20 text-white p-3 rounded-r-lg border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all" pattern="[a-zA-Z0-9-]+">
-                    </div>
-                    <p class="text-xs text-gray-400">This will be your permanent profile URL</p>
+    <div class="flex items-center">
+        <span class="bg-gray-700 text-white p-3 rounded-l-lg whitespace-nowrap">p.tccards.tn/@</span>
+        <input
+            type="text"
+            id="user-link"
+            name="link"
+            required
+            title="Only letters, numbers, and hyphens allowed"
+            placeholder="yourname"
+            pattern="[a-zA-Z0-9-]+"
+            class="w-full bg-gray-900/20 text-white rounded-r-lg p-3 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all"
+        >
+    </div>
+    <p class="text-xs text-gray-400">This will be your permanent profile URL</p>
+</div>
                 </div>
             <!-- Social Links Section -->
             <div id="dynamic-links" class="space-y-4">
