@@ -12,10 +12,10 @@ const starterPlans = [
       "Contact Button"
     ],
     limitations: [
+      "No NFC Card",
       "30-Day Expiry",
       "TC Watermark",
       "Simple Designs",
-      "Ads on webfolio",
       "Fixed Background Only"
     ],
     colorClasses: "bg-gray-900 ring-purple-400 text-purple-400",
@@ -186,10 +186,15 @@ function generatePricingCard(content) {
               `).join('')}
           </ul>
           ${limitationsSection}
-          <a href="${content.link}" 
-             class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold ${colors.text} ring-1 ${colors.ring} hover:${colors.bg} hover:text-gray-100 transition-all duration-300">
-              ${isFree ? 'Start Free' : 'Get Started'}
-          </a>
+        ${isFree ? 
+          `<a href="${content.link}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold ${colors.text} ring-1 ${colors.ring} hover:${colors.bg} hover:text-gray-100 transition-all duration-300">
+            Start Free
+          </a>`
+          :
+          `<div class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-gray-500 ring-1 ring-gray-500 cursor-not-allowed">
+            Coming Soon !
+          </div>`
+        }
       </div>
   `;
 }

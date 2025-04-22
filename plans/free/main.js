@@ -157,7 +157,14 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!userName || !userEmail || !userLink) {
         throw new Error('Name, email, and link are required');
       }
-  
+      if (!CONFIG.emailRegex.test(userEmail)) {
+        throw new Error('Invalid email format');
+      }
+      if (!CONFIG.linkRegex.test(userLink)) {
+        throw new Error('Invalid url format');
+      }
+
+
       // Show loading
       Swal.fire({
         title: 'Checking availability...',
@@ -166,48 +173,28 @@ document.addEventListener("DOMContentLoaded", () => {
         didOpen: () => Swal.showLoading()
       });
 
-      // Check for duplicates using Google Apps Script
-      async function checkDuplicates(email, link) {
-        try {
-          const echoUrl = `${CONFIG.googleScriptUrl}?check_duplicates=true&email=${encodeURIComponent(email)}&link=${encodeURIComponent(link)}`;
-          
-          const nocacheUrl = `${echoUrl}&_=${Date.now()}`;
-    
-          const response = await fetch(nocacheUrl, {
-            method: 'GET',
-            credentials: 'omit',
-            redirect: 'follow'
-          });
-      
-          // Handle the redirect manually if needed
-          const finalUrl = response.url.includes('googleusercontent.com') ? 
-            response.url : 
-            `https://script.googleusercontent.com${new URL(response.url).pathname}`;
-      
-          const finalResponse = await fetch(finalUrl, {
-            method: 'GET',
-            credentials: 'omit'
-          });
-      
-          if (!finalResponse.ok) {
-            throw new Error('Network response was not ok');
-          }
-      
-          return await finalResponse.json();
-        } catch (error) {
-          console.error("Duplicate check failed:", error);
-          throw new Error("Unable to verify email/link availability. Please try again.");
+      // Check duplicates synchronously (more reliable)
+      try {
+        const checkResponse = await fetch(`${CONFIG.googleScriptUrl}?check_duplicates=true&email=${encodeURIComponent(userEmail)}&link=${encodeURIComponent(userLink)}`);
+        
+        if (!checkResponse.ok) {
+          throw new Error('Failed to verify availability');
         }
-      }
-      
-      // Check for duplicates
-      const duplicateCheck = await checkDuplicates(userEmail, userLink);
 
-      if (duplicateCheck.linkExists || duplicateCheck.emailExists) {
-        throw new Error(
-          (duplicateCheck.emailExists ? "This email is already registered. " : "") +
-          (duplicateCheck.linkExists ? "This link is already taken." : "")
-        );
+        const checkResult = await checkResponse.json();
+        
+        if (checkResult.emailExists) {
+          throw new Error('This email is already registered');
+        }
+        if (checkResult.linkExists) {
+          throw new Error('This link is already taken');
+        }
+      } catch (error) {
+        // Close loading dialog if there's an error
+        if (swalInstance.close) {
+          swalInstance.close();
+        }
+        throw error; // Re-throw to be caught by the outer try-catch
       }
 
       async function uploadToCloudinary(file) {
@@ -323,7 +310,9 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: 'error',
         title: 'Error',
         text: error.message || 'An error occurred during submission',
-        confirmButtonText: 'OK'
+        confirmButtonText: 'OK',
+        background: 'linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))',
+        color: '#fff',
         });
     } finally {
       elements.submitBtn.disabled = false;
