@@ -1,262 +1,248 @@
-// Main form submission handler
 function doGet(e) {
-  const headers = {
-    'Access-Control-Allow-Origin': '*', // Allow all origins
-    'Access-Control-Allow-Methods': 'GET', // Allow GET requests
-    'Access-Control-Allow-Headers': 'Content-Type' // Allow the Content-Type header
-  };
-
   try {
-    // Validate incoming data
-    if (!e || !e.parameter) {
-      throw new Error('Invalid request: No data received');
+    if (!e?.parameter) throw new Error('Invalid request: No data received');
+    const params = e.parameter;
+
+    // ===== (1) DUPLICATE CHECK =====
+    if (params.check_duplicates === 'true') {
+      const { emailExists, linkExists } = checkDuplicates(params.email, params.link);
+      return jsonResponse({ emailExists, linkExists });
     }
 
-    const formData = e.parameter;
-
-    // Validate required fields
-    if (!formData?.name || !formData?.email || !formData?.link) {
-      throw new Error('Name, Email, and Link are required fields');
+    // ===== (2) FORM SUBMISSION =====
+    if (!params.name || !params.email || !params.link) {
+      throw new Error('Name, email, and link are required');
     }
 
-    // Validate link format (no spaces or special characters except hyphens)
-    const linkRegex = /^[a-zA-Z0-9-]*$/;
-    if (!linkRegex.test(formData.link)) {
-      throw new Error('Link must contain only letters, numbers, and hyphens');
+    // Double-check duplicates
+    const { emailExists, linkExists } = checkDuplicates(params.email, params.link);
+    if (emailExists || linkExists) {
+      throw new Error('Email or Link already exists');
     }
 
-    // Open the spreadsheet and sheet
-    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-    const sheet = spreadsheet.getSheetByName('Form Submissions') || spreadsheet.insertSheet('Form Submissions');
+    const submissionId = submitFormData(params);
+    sendNotificationEmailAsync(submissionId, params.email, params.name, params.link, params.profilePic);
 
-    // Create headers if first submission
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow([
-        'Timestamp',
-        'Name',
-        'Tagline',
-        'Email',
-        'Phone',
-        'Address',
-        'Social Links',
-        'Selected Style',
-        'Profile Picture URL',
-        'Link', // New column for user link
-        'ID',
-        'Status'
-      ]);
-    }
-
-    // Check if email is already used
-    const emailCheck = sheet.createTextFinder(formData.email).findAll();
-    if (emailCheck.length > 0) {
-      throw new Error('There is already an account with this email');
-    }
-
-    // Check if the link is already taken
-    const linkCheck = sheet.createTextFinder(formData.link).findAll();
-    if (linkCheck.length > 0) {
-      throw new Error('Link is already taken');
-    }
-
-    // Generate submission ID
-    const submissionId = Utilities.getUuid();
-
-    // Process social links safely
-    let socialLinks = '';
-    if (formData.social_links) {
-      socialLinks = formData.social_links.split(',').join(',\n');
-    }
-
-    // Prepare row data
-    const rowData = [
-      new Date(),                    // Timestamp
-      formData.name,                 // Name
-      formData.tagline || '',        // Tagline
-      formData.email,                // Email
-      formData.phone || '',          // Phone
-      formData.address || '',        // Address
-      socialLinks,                   // Social Links
-      formData.style || 'default',   // Selected Style
-      formData.profile_picture || '', // Profile Picture URL
-      formData.link,                 // User Link
-      submissionId,                  // Submission ID
-      'Inactive'                     // Status
-    ];
-
-    // Add data to sheet
-    sheet.appendRow(rowData);
-
-    // Send email notification
-    try {
-      sendNotificationEmail(formData.email, formData.name, submissionId, formData.profile_picture);
-    } catch (emailError) {
-      console.error('Email notification failed:', emailError);
-      // Continue execution even if email fails
-    }
-
-    // Return success response with CORS headers
-    return ContentService.createTextOutput(JSON.stringify({
+    return jsonResponse({
       status: 'success',
       message: 'Form submitted successfully',
-      submissionId: submissionId,
-      cardId: submissionId
-    }))
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeaders(headers);
+      submissionId
+    });
 
   } catch (error) {
-    // Log error and return error response with CORS headers
-    console.error('Form submission error:', error);
-    return ContentService.createTextOutput(JSON.stringify({
-      status: 'error',
-      message: error.message || 'An error occurred while processing your request',
-    }))
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeaders(headers);
+    console.error('Error in doGet:', error);
+    return jsonResponse({ status: 'error', message: error.message });
   }
 }
 
-// Send email notification to user
-function sendNotificationEmail(userEmail, userName, link, profile_picture) {
-  const htmlBody = `
-  <html>
-  <head>
-      <base target="_blank">
-      <style>
-          body {
-              font-family: Arial, sans-serif;
-              line-height: 1.6;
-              color: #fff;
-              background-color: #121212;
-              margin: 0;
-              padding: 0;
-          }
-          .container {
-              max-width: 600px;
-              margin: 50px auto;
-              padding: 20px;
-              background-color: #1e1e1e;
-              border-radius: 8px;
-              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-              text-align: center;
-          }
-          .header {
-              background: #2a2a2a;
-              color: white;
-              padding: 20px;
-              border-radius: 8px;
-          }
-          .content {
-              padding: 20px;
-              background: #000000;
-              border-radius: 8px;
-              margin-top: 20px;
-          }
-          .footer {
-              text-align: center;
-              padding: 20px;
-              color: #A0A0A0;
-              font-size: 12px;
-          }
-          .table-container {
-              margin-top: 20px;
-          }
-          table {
-              width: 100%;
-              border-collapse: collapse;
-              margin-top: 10px;
-              color: white;
-          }
-          th, td {
-              padding: 10px;
-              border: 1px solid #444;
-              text-align: left;
-          }
-          th {
-              background-color: #ffffff;
-              color: #000000;
-          }
-          .w-32 { width: 8rem; }
-          .h-32 { height: 8rem; }
-          .rounded-full { border-radius: 9999px; }
-          .object-cover { object-fit: cover; }
-          .cursor-pointer { cursor: pointer; }
-          .button {
-              display: block;
-              width: 100%;
-              padding: 12px;
-              background: #2563eb;
-              color: white;
-              text-decoration: none;
-              border-radius: 5px;
-              margin-top: 15px;
-              cursor: pointer;
-              transition: background 0.3s;
-          }
-          .button:hover {
-              background-color: #1e40af;
-          }
-          a {
-              color: #2563eb;
-              font-weight: bold;
-              text-decoration: none;
-              border-bottom: 2px solid #2563eb;
-              transition: all 0.3s ease;
-          }
-          a:hover {
-              color: #1e40af;
-              border-bottom-color: #1e40af;
-          }
-      </style>
-  </head>
-  <body>
-      <div class="container">
-          <div class="header">
-              <img src="https://tccards.tn/Assets/code.png" alt="Logo" />
-              <h1>Welcome to Total Connect <br>Digital Cards</h1>
-          </div>
-          <div class="content">
-              <img src="${profile_picture}" alt="Profile Picture" class="w-32 h-32 rounded-full object-cover cursor-pointer" />
-              <p>Hello <strong>${userName}</strong>,</p>
-              <p>Your digital card has been created successfully!</p>
-              <p>Sub link: <strong>${link}</strong></p>
-              <div class="table-container">
-                  <table>
-                      <tr>
-                          <th>Plan Name</th>
-                          <td><i style="color: orange;">Basic</i></td>
-                      </tr>
-                      <tr>
-                          <th>Congrats on acquiring your</th>
-                          <td>Free of cost TC Webfolio</td>
-                      </tr>
-                      <tr>
-                          <th>Make sure to put it in good use</th>
-                          <td><strong style="color: rgb(233, 67, 158);"><a href="https://tccards.tn/plans">Check Also</strong></td>
-                      </tr>
-                  </table>
-              </div>
-              
-              <p>
-                 <a href="http://tccards.tn/profile/${link}">View My webfolio</a>
-              </p>
-          </div>
-          <div class="footer">
-              <p>© ${new Date().getFullYear()} Total Connect. All rights reserved.</p>
-          </div>
-      </div>
-  </body>
-  </html>`;
+// ===== HELPER FUNCTION =====
+function jsonResponse(data) {
+  return ContentService
+    .createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
+}
 
-  GmailApp.sendEmail(
-    userEmail,
-    'Your Digital Card is Ready! | Total Connect',
-    'Your digital card has been created successfully.',
-    {
-      htmlBody: htmlBody,
-      name: 'Total Connect Digital Cards',
-      replyTo: 'info@tccards.tn'
-    }
-  );
+// ===== (1) DUPLICATE CHECK (Cached + Optimized) =====
+function checkDuplicates(email, link) {
+  const cache = CacheService.getScriptCache();
+  const cacheKey = 'form_data_duplicates';
+  let data = JSON.parse(cache.get(cacheKey));
+
+  if (!data) {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Form');
+    if (!sheet) throw new Error('Sheet not found');
+
+    // Only read necessary columns (Email & Link)
+    const lastRow = sheet.getLastRow();
+    data = sheet.getRange(2, 3, lastRow - 1, 2).getValues(); // Columns C (Email) & D (Link)
+    cache.put(cacheKey, JSON.stringify(data), 300); // Cache for 5 mins
+  }
+
+  const emailLower = email.toLowerCase();
+  const linkLower = link.toLowerCase();
+
+  const emailExists = data.some(row => row[0]?.toLowerCase() === emailLower);
+  const linkExists = data.some(row => row[1]?.toLowerCase() === linkLower);
+
+  return { emailExists, linkExists };
+}
+
+// ===== (2) FORM SUBMISSION (Batch Write) =====
+function submitFormData(params) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Form');
+  if (!sheet) throw new Error('Sheet not found');
+
+  // Create headers if sheet is empty (optimized)
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow([
+      'Timestamp', 'Name', 'Email', 'Link', 'Tagline', 'Phone',
+      'Address', 'Social Links', 'Selected Style',
+      'Profile Picture URL', 'ID', 'Status'
+    ]);
+  }
+
+  // Prepare data in batch
+  const submissionId = Utilities.getUuid();
+  const newRow = [
+    new Date(),
+    params.name,
+    params.email,
+    params.link,
+    params.tagline || '',
+    params.phone || '',
+    params.address || '',
+    params.social_links ? params.social_links.split(',').join(',\n') : '',
+    params.style || 'default',
+    params.profilePic || '',
+    submissionId,
+    'Active'
+  ];
+
+  // Single write operation
+  sheet.appendRow(newRow);
+  CacheService.getScriptCache().remove('form_data_duplicates'); // Invalidate cache
+
+  return submissionId;
+}
+
+function sendNotificationEmailAsync(submissionId, email, name, link, profilePic) {
+  const htmlBody = createEmailBody(submissionId, name, link, profilePic); 
+    GmailApp.sendEmail(
+      email,
+      'Your Digital Card is Ready! | Total Connect',
+      'Your digital card has been created successfully.',
+      {
+        htmlBody,
+        name: 'Total Connect Digital Cards',
+        replyTo: 'info@tccards.tn'
+      }
+    );
+}
+
+function createEmailBody(name, link, profilePic) {
+  return `
+<html>
+<head>
+    <base target="_blank">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            background-color: #121212;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .content {
+            padding: 20px;
+            background: #000000;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #A0A0A0;
+            font-size: 12px;
+        }
+        .table-container {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            color: white;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #444;
+            text-align: left;
+        }
+        th {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .w-32 { width: 8rem; }
+        .h-32 { height: 8rem; }
+        .rounded-full { border-radius: 9999px; }
+        .object-cover { object-fit: cover; }
+        .cursor-pointer { cursor: pointer; }
+        a {
+            color: #2563eb;
+            font-weight: bold;
+            text-decoration: none;
+            border-bottom: 2px solid #2563eb;
+            transition: all 0.3s ease;
+        }
+        a:hover {
+            color: #1e40af;
+            border-bottom-color: #1e40af;
+        }
+        .expiry-notice {
+            color: #f87171;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <img src="${profilePic}" alt="Profile Picture" class="w-32 h-32 rounded-full object-cover cursor-pointer" />
+            <p>Hello <strong>${name}</strong>,</p>
+            <p>Your <strong>free</strong> digital card is ready to use!</p>
+            <p>Your link: <strong>@${link}</strong></p>
+            <q>Submission id: <strong>${submissionId}</strong><br><small>email us for deletion</small></q>
+            
+            
+            <div class="expiry-notice">
+                ⏳ Expires in 30 days - Upgrade anytime to keep your card active
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Plan Name</th>
+                        <td><i style="color: #10B981;">Free Trial</i></td>
+                    </tr>
+                    <tr>
+                        <th>Features</th>
+                        <td>Basic profile with social links</td>
+                    </tr>
+                    <tr>
+                        <th>Upgrade To</th>
+                        <td>
+                            <strong style="color: rgb(233, 67, 158);">Standard Plan (100dt)</strong><br>
+                            Includes NFC card + premium features
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <p>
+                <a href="https://p.tccards.tn/profile/@${link}">
+                    View My Digital Card Now
+                </a>
+            </p>
+            <p>
+                <a href="https://tccards.tn/plans/standard" style="color: #10B981; border-color: #10B981;">
+                    Upgrade to Standard Plan
+                </a>
+            </p>
+        </div>
+        <div class="footer">
+            <p>© ${new Date().getFullYear()} Total Connect. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>`;
 }

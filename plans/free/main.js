@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Reset form and image preview
       elements.form.reset();
-      elements.profilePicture.src = "/default-avatar.png"; // Reset to default image
+      elements.profilePicture.src = "https://tccards.tn/Assets/default.png"; // Reset to default image
 
     } catch (error) {
       Swal.fire({
@@ -228,6 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     } finally {
       elements.submitBtn.disabled = false;
+      elements.profilePicture.src = "https://tccards.tn/Assets/150.png"; // Reset to default image
     }
   });
 });
