@@ -135,48 +135,50 @@ document.addEventListener("DOMContentLoaded", () => {
     formData.append("upload_preset", "preset");
 
     try {
-      const res = await fetch("https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload", {
-        method: "POST",
-        body: formData,
-      });
-      const data = await res.json();
-      return data.secure_url || "";
+        const res = await fetch("https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload", {
+            method: "POST",
+            body: formData,
+        });
+        const data = await res.json();
+        return data.secure_url || "";
     } catch (error) {
-      console.error("Upload failed:", error);
-      return "";
+        console.error("Upload failed:", error);
+        return "";
     }
-  }
+}
 
-  elements.form.addEventListener("submit", async (e) => {
+elements.form.addEventListener("submit", async (e) => {
     e.preventDefault();
     elements.submitBtn.disabled = true;
     
     const swalInstance = Swal.fire({
-      title: "Submitting...",
-      text: "Please wait while we create your webfolio.",
-      background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-      color: "#fff",
-      allowOutsideClick: false,
-      didOpen: () => Swal.showLoading(),
+        title: "Submitting...",
+        text: "Please wait while we create your webfolio.",
+        background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
+        color: "#fff",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading(),
     });
   
-    
     try {
-      // Collect form data
-      const formData = {
-        name: elements.userName.value.trim(),
-        email: elements.userEmail.value.trim(),
-        link: elements.userLink.value.trim(),
-        tagline: elements.userTagline.value.trim() || "",
-        phone: elements.userPhone.value.trim() || "",
-        address: elements.userAddress.value.trim() || "",
-        social_links: Array.from(document.querySelectorAll('input[name="social-links[]"]'))
-                      .map(input => input.value.trim())
-                      .filter(Boolean)
-                      .join(","),
-        style: document.querySelector(".style-preset.selected")?.dataset.style || "default",
-        profile_picture: "",
-      };
+        // Upload profile picture first
+        const profileUrl = await uploadToCloudinary(elements.profilePicture.files[0]);
+
+        // Collect form data
+        const formData = {
+            name: elements.userName.value.trim(),
+            email: elements.userEmail.value.trim(),
+            link: elements.userLink.value.trim(),
+            tagline: elements.userTagline.value.trim() || "",
+            phone: elements.userPhone.value.trim() || "",
+            address: elements.userAddress.value.trim() || "",
+            social_links: Array.from(document.querySelectorAll('input[name="social-links[]"]'))
+                          .map(input => input.value.trim())
+                          .filter(Boolean)
+                          .join(","),
+            style: document.querySelector(".style-preset.selected")?.dataset.style || "default",
+            profile_picture: profileUrl, // Use the freshly uploaded URL
+        };
 
       // Update Swal for duplicate check
       swalInstance.update({
