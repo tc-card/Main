@@ -160,9 +160,21 @@ document.addEventListener("DOMContentLoaded", () => {
       didOpen: () => Swal.showLoading(),
     });
   
-    
     try {
-      // Collect form data
+      // First handle image upload if there's a file
+      let profilePictureUrl = '';
+      if (elements.imageInput.files[0]) {
+        swalInstance.update({
+          title: "Uploading image...",
+          text: "Processing your profile picture...",
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          didOpen: () => Swal.showLoading(),
+        });
+        profilePictureUrl = await uploadToCloudinary(elements.imageInput.files[0]);
+      }
+
+      // Then collect form data with the uploaded image URL
       const formData = {
         name: elements.userName.value.trim(),
         email: elements.userEmail.value.trim(),
@@ -175,13 +187,16 @@ document.addEventListener("DOMContentLoaded", () => {
                       .filter(Boolean)
                       .join(","),
         style: document.querySelector(".style-preset.selected")?.dataset.style || "default",
-        profile_picture: "",
+        profilePic: profilePictureUrl, // Use the URL from Cloudinary
       };
 
       // Update Swal for duplicate check
       swalInstance.update({
         title: "Checking availability...",
         text: "Verifying your information...",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => Swal.showLoading(),
       });
 
       const { emailExists, linkExists } = await checkDuplicatesDebounced(formData.email, formData.link);
