@@ -15,8 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
     userTagline: document.getElementById("user-tagline"),
     userPhone: document.querySelector('input[name="phone"]'),
     userAddress: document.querySelector('input[name="address"]'),
-    emailToggleLabel: document.getElementById('email'),
-    formEmail: document.getElementById('form-email')
   };
 
   // Validate elements exist
@@ -29,7 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== IMAGE HANDLING =====
   function handleImageUpload(file, targetElement) {
-    if (!file) return;
+    if (!file) {
+      // Reset to default image if no file is selected
+      targetElement.src = "https://tccards.tn/Assets/150.png";
+      return;
+    }
 
     if (!CONFIG.allowedTypes.includes(file.type)) {
       Swal.fire({
@@ -52,13 +54,34 @@ document.addEventListener("DOMContentLoaded", () => {
     reader.onload = (e) => {
       targetElement.src = e.target.result;
     };
+    reader.onerror = () => {
+      console.error("Error reading file");
+      targetElement.src = "https://tccards.tn/Assets/150.png"; // Reset to default image on error
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to read the image file",
+      });
+    };
     reader.readAsDataURL(file);
   }
 
   elements.profilePicture.addEventListener("click", () => elements.imageInput.click());
   elements.imageInput.addEventListener("change", (e) => {
-    handleImageUpload(e.target.files[0], elements.profilePicture);
+    const file = e.target.files?.[0]; // Safe access using optional chaining
+    handleImageUpload(file, elements.profilePicture);
   });
+
+  // In your form submission, update the image handling part:
+  if (elements.imageInput.files && elements.imageInput.files[0]) {
+    swalInstance.update({
+      title: "Uploading image...",
+      text: "Processing your profile picture...",
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      didOpen: () => Swal.showLoading(),
+    });
+  }
 
   // ===== SOCIAL LINKS MANAGEMENT =====
   function createSocialLink() {
@@ -111,41 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ===== EMAIL TOGGLE =====
-    // Email toggle functionality
-    if (elements.emailToggleLabel) {
-      elements.emailToggleLabel.addEventListener('click', function() {
-        const isChecked = this.getAttribute('data-checked') === 'true';
-        this.setAttribute('data-checked', !isChecked);
-
-        if (!isChecked) {
-          if (elements.userEmail.value) {
-            elements.formEmail.value = elements.userEmail.value;
-            elements.formEmail.disabled = true;
-          } else {
-            Swal.fire({
-              icon: 'warning',
-              title: 'No Contact Email',
-              text: 'Please fill in your contact email first',
-              confirmButtonColor: '#3B82F6',
-              background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-              color: "#fff"
-            });
-            return;
-          }
-        } else {
-          elements.formEmail.disabled = false;
-          elements.formEmail.value = '';
-        }
-      });
-  
-      // Update form email when contact email changes while toggled
-      elements.userEmail.addEventListener('input', function() {
-        if (elements.emailToggleLabel.getAttribute('data-checked') === 'true') {
-          elements.formEmail.value = this.value;
-        }
-      });
-    }
   // ===== FORM SUBMISSION =====
   let debounceTimer;
   async function checkDuplicatesDebounced(email, link) {
@@ -166,26 +154,70 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function uploadToCloudinary(file) {
-    if (!file) return "";
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "preset");
 
     try {
-      const res = await fetch("https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload", {
-        method: "POST",
-        body: formData,
-      });
-      const data = await res.json();
-      return data.secure_url || "";
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Upload failed: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      if (!data.secure_url) {
+        throw new Error("No secure URL returned");
+      }
+      return data.secure_url;
     } catch (error) {
-      console.error("Upload failed:", error);
-      return "";
+      console.error("Image upload error:", error);
+      throw error;
     }
   }
 
+// ===== FORM SUBMISSION HANDLER =====
   elements.form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    
+    // form validation
+    const email = elements.userEmail.value.trim();
+    const link = elements.userLink.value.trim();
+    const name = elements.userName.value.trim();
+
+    if (!name|| !link || !email) {
+      Swal.fire({
+        icon: "error",
+        title: "Missing Fields",
+        text: "Please fill in all required fields.",
+      });
+      return false;
+    }
+
+    if (!CONFIG.linkRegex.test(link)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Link",
+        text: "Link must be alphanumeric and between 3-20 characters.",
+      });
+      return false;
+    }
+
+    if (!CONFIG.emailRegex.test(email)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Email",
+        text: "Please enter a valid email address.",
+      });
+      return false;
+    }
+
     elements.submitBtn.disabled = true;
     
     const swalInstance = Swal.fire({
@@ -197,9 +229,21 @@ document.addEventListener("DOMContentLoaded", () => {
       didOpen: () => Swal.showLoading(),
     });
   
-    
     try {
-      // Collect form data
+      // First handle image upload if there's a file
+      let profilePictureUrl = '';
+      if (elements.imageInput.files[0]) {
+        swalInstance.update({
+          title: "Uploading image...",
+          text: "Processing your profile picture...",
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          didOpen: () => Swal.showLoading(),
+        });
+        profilePictureUrl = await uploadToCloudinary(elements.imageInput.files[0]);
+      }
+
+      // Then collect form data with the uploaded image URL
       const formData = {
         name: elements.userName.value.trim(),
         email: elements.userEmail.value.trim(),
@@ -212,14 +256,16 @@ document.addEventListener("DOMContentLoaded", () => {
                       .filter(Boolean)
                       .join(","),
         style: document.querySelector(".style-preset.selected")?.dataset.style || "default",
-        profile_picture: "",
-        form: elements.formEmail.value.trim() || "",
+        profilePic: profilePictureUrl, // Use the URL from Cloudinary
       };
 
       // Update Swal for duplicate check
       swalInstance.update({
         title: "Checking availability...",
         text: "Verifying your information...",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => Swal.showLoading(),
       });
 
       const { emailExists, linkExists } = await checkDuplicatesDebounced(formData.email, formData.link);
@@ -245,6 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
       await Swal.fire({
         icon: "success",
         title: "Success!",
+        color: "#fff",
         html: `Your webfolio is ready!<br><br>
               <a href="https://p.tccards.tn/profile/@${formData.link}" target="_blank">
                 p.tccards.tn/@${formData.link}
