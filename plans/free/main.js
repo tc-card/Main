@@ -129,40 +129,62 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function uploadToCloudinary(file) {
-    if (!file) return "";
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "preset");
 
     try {
-        const res = await fetch("https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload", {
-            method: "POST",
-            body: formData,
-        });
-        const data = await res.json();
-        return data.secure_url || "";
-    } catch (error) {
-        console.error("Upload failed:", error);
-        return "";
-    }
-}
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
-elements.form.addEventListener("submit", async (e) => {
+      if (!response.ok) {
+        throw new Error(`Upload failed: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      if (!data.secure_url) {
+        throw new Error("No secure URL returned");
+      }
+      return data.secure_url;
+    } catch (error) {
+      console.error("Image upload error:", error);
+      throw error;
+    }
+  }
+
+  elements.form.addEventListener("submit", async (e) => {
     e.preventDefault();
     elements.submitBtn.disabled = true;
     
     const swalInstance = Swal.fire({
-        title: "Submitting...",
-        text: "Please wait while we create your webfolio.",
-        background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-        color: "#fff",
-        allowOutsideClick: false,
-        didOpen: () => Swal.showLoading(),
+      title: "Submitting...",
+      text: "Please wait while we create your webfolio.",
+      background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
+      color: "#fff",
+      allowOutsideClick: false,
+      didOpen: () => Swal.showLoading(),
     });
   
-    
     try {
-      // Collect form data
+      // First handle image upload if there's a file
+      let profilePictureUrl = '';
+      if (elements.imageInput.files[0]) {
+        swalInstance.update({
+          title: "Uploading image...",
+          text: "Processing your profile picture...",
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          didOpen: () => Swal.showLoading(),
+        });
+        profilePictureUrl = await uploadToCloudinary(elements.imageInput.files[0]);
+      }
+
+      // Then collect form data with the uploaded image URL
       const formData = {
         name: elements.userName.value.trim(),
         email: elements.userEmail.value.trim(),
@@ -175,7 +197,7 @@ elements.form.addEventListener("submit", async (e) => {
                       .filter(Boolean)
                       .join(","),
         style: document.querySelector(".style-preset.selected")?.dataset.style || "default",
-        profile_picture: "",
+        profilePic: profilePictureUrl, // Use the URL from Cloudinary
       };
 
       // Update Swal for duplicate check
