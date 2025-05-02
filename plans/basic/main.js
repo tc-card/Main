@@ -26,6 +26,48 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
   }
+  
+  // ===== EMAIL TOGGLE =====
+  const emailCheckbox = document.getElementById('email');
+  
+  if (!emailCheckbox) {
+    console.warn('Email checkbox element not found');
+    return;
+  }
+
+  if (emailCheckbox) {
+    emailCheckbox.addEventListener('change', function() {
+      if (!elements.userEmail.value && this.checked) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Email Required',
+          text: 'Please fill in your email first',
+          background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
+          color: "#fff"
+        });
+        this.checked = false;
+        return;
+      }
+
+      const label = this.closest('label');
+      if (this.checked) {
+        label.classList.add('bg-blue-600');
+        label.classList.remove('bg-gray-700');
+      } else {
+        label.classList.remove('bg-blue-600');
+        label.classList.add('bg-gray-700');
+      }
+
+      elements.formEmail.value = this.checked ? elements.userEmail.value : '';
+      elements.formEmail.disabled = this.checked;
+    });
+
+    elements.userEmail.addEventListener('input', function() {
+      if (emailCheckbox.checked) {
+        elements.formEmail.value = this.value;
+      }
+    });
+  }
 
   // ===== IMAGE HANDLING =====
   function handleImageUpload(file, targetElement) {
@@ -135,46 +177,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (style) document.body.style.background = style.background;
     });
   });
-
-
-  // ===== EMAIL TOGGLE =====
-  const emailCheckbox = document.getElementById('email');
-  const emailLabel = document.querySelector('label[for="email"]');
-
-  // change label text and styling based on checkbox state
-  if (emailCheckbox) {
-    emailCheckbox.addEventListener('change', function() {
-      if (!elements.userEmail.value && this.checked) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Email Required',
-          text: 'Please fill in your email first',
-          background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-          color: "#fff"
-        });
-        this.checked = false;
-        return;
-      }
-
-      const label = this.closest('label');
-      if (this.checked) {
-        label.classList.add('bg-blue-600');
-        label.classList.remove('bg-gray-700');
-      } else {
-        label.classList.remove('bg-blue-600');
-        label.classList.add('bg-gray-700');
-      }
-
-      elements.formEmail.value = this.checked ? elements.userEmail.value : '';
-      elements.formEmail.disabled = this.checked;
-    });
-
-    elements.userEmail.addEventListener('input', function() {
-      if (emailCheckbox.checked) {
-        elements.formEmail.value = this.value;
-      }
-    });
-  }
 
   // ===== FORM SUBMISSION =====
   let debounceTimer;
