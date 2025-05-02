@@ -27,7 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== IMAGE HANDLING =====
   function handleImageUpload(file, targetElement) {
-    if (!file) return;
+    if (!file) {
+      // Reset to default image if no file is selected
+      targetElement.src = "https://tccards.tn/Assets/150.png";
+      return;
+    }
 
     if (!CONFIG.allowedTypes.includes(file.type)) {
       Swal.fire({
@@ -50,13 +54,34 @@ document.addEventListener("DOMContentLoaded", () => {
     reader.onload = (e) => {
       targetElement.src = e.target.result;
     };
+    reader.onerror = () => {
+      console.error("Error reading file");
+      targetElement.src = "https://tccards.tn/Assets/150.png"; // Reset to default image on error
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to read the image file",
+      });
+    };
     reader.readAsDataURL(file);
   }
 
   elements.profilePicture.addEventListener("click", () => elements.imageInput.click());
   elements.imageInput.addEventListener("change", (e) => {
-    handleImageUpload(e.target.files[0], elements.profilePicture);
+    const file = e.target.files?.[0]; // Safe access using optional chaining
+    handleImageUpload(file, elements.profilePicture);
   });
+
+  // In your form submission, update the image handling part:
+  if (elements.imageInput.files && elements.imageInput.files[0]) {
+    swalInstance.update({
+      title: "Uploading image...",
+      text: "Processing your profile picture...",
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      didOpen: () => Swal.showLoading(),
+    });
+  }
 
   // ===== SOCIAL LINKS MANAGEMENT =====
   function createSocialLink() {
@@ -157,8 +182,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+// ===== FORM SUBMISSION HANDLER =====
   elements.form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    
+    // form validation
+    const email = elements.userEmail.value.trim();
+    const link = elements.userLink.value.trim();
+    const name = elements.userName.value.trim();
+
+    if (!name|| !link || !email) {
+      Swal.fire({
+        icon: "error",
+        title: "Missing Fields",
+        text: "Please fill in all required fields.",
+      });
+      return false;
+    }
+
+    if (!CONFIG.linkRegex.test(link)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Link",
+        text: "Link must be alphanumeric and between 3-20 characters.",
+      });
+      return false;
+    }
+
+    if (!CONFIG.emailRegex.test(email)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Email",
+        text: "Please enter a valid email address.",
+      });
+      return false;
+    }
+
     elements.submitBtn.disabled = true;
     
     const swalInstance = Swal.fire({
@@ -232,6 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
       await Swal.fire({
         icon: "success",
         title: "Success!",
+        color: "#fff",
         html: `Your webfolio is ready!<br><br>
               <a href="https://p.tccards.tn/profile/@${formData.link}" target="_blank">
                 p.tccards.tn/@${formData.link}

@@ -63,15 +63,14 @@
             <div class="text-center space-y-4 text-white">
                 <div class="relative w-32 h-32 mx-auto">
                     <div class="absolute inset-0 rounded-full animate-spin border-4 border-transparent border-t-blue-500 pointer-events-none"></div>
-                    <img src="https://tccards.tn//Assets/150.png" 
+                    <img src="https://tccards.tn/Assets/150.png" 
                          alt="profile-picture" 
                          id="profile-picture"
                          class="relative z-10 w-32 h-32 rounded-full object-cover mx-auto cursor-pointer hover:ring-blue-500/50 hover:ring-4 hover:p-2 transition-all" />
-                </div>
-                <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
-                <!-- click the TC to pic a picture -->
-                <label for="image-input" class="cursor-pointer text-sm text-gray-400">Click tc add picture</label>
-                <h3 class="text-lg font-semibold">Profile Details</h3>
+                  </div>
+                  <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
+                  <label for="image-input" class="cursor-pointer text-sm text-gray-400">Click to add picture</label>
+                  <h3 class="text-lg font-semibold">Profile Details</h3>
                 <input type="text" id="user-name" name="user-name" placeholder="Enter your name"
                     class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
                 <input type="text" id="user-tagline" name="user-tagline" placeholder="write something"
@@ -82,9 +81,12 @@
                 <div class="flex items-center">
                     <span class="bg-gray-700 text-white p-3 rounded-l-lg whitespace-nowrap">p.tccards.tn/@</span>
                     <input type="text" id="user-link" name="link" required
-                        title="Only letters, numbers, and hyphens allowed" placeholder="yourname"
-                        pattern="[a-zA-Z0-9-]+"
-                        class="w-full bg-gray-900/20 text-white rounded-r-lg p-3 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all">
+                        title="Only letters, numbers, and hyphens allowed" placeholder="your-username"
+                        aria-label="Profile Link"
+                        pattern="^[a-zA-Z][a-zA-Z0-9-]*$"
+                        title="Username must start with a letter and can only contain letters, numbers, and hyphens"
+                        class="w-full bg-gray-900/20 text-white rounded-r-lg p-3 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all"
+                        required>
                 </div>
                 <p class="text-xs text-gray-400">This will be your permanent profile URL</p>
             </div>
