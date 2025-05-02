@@ -1,7 +1,7 @@
 export const CONFIG = {
     maxFileSize: 5 * 1024 * 1024,
     allowedTypes: ['image/jpeg', 'image/png', 'image/gif'],
-    googleScriptUrl: 'https://script.google.com/macros/s/AKfycbxLyRvrkj67iSfM4cEoOx1pATftv1PGvtTNHzOyZ4Ss6UGLUGBohqqlBCxVSANY6ftp/exec', // date 2025-5-2 time 11:04am
+    googleScriptUrl: 'https://script.google.com/macros/s/AKfycbwRTk9piejR2vIv6iHM0RKswUgBIKRdiRNU1DYx1YGIF8UnqjeOV8HO5HmvbbDuUa2o/exec', // date 2025-5-2 time 11:04am
     emailRegex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
     linkRegex: /^[a-zA-Z][a-zA-Z0-9-]{2,14}$/, // 3-15 chars total: 1 letter + 2-14 more chars
 };
