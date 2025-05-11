@@ -41,55 +41,241 @@
 </head>
 
 <body
-  class="flex flex-col justify-center items-center bg-black text-white font-nunito overflow-y-scroll overflow-x-hidden">
-  <header class="relative isolate px-6 pt-14 lg:px-8" id="home">
-    <!-- Video Background -->
-    <div class="video-background">
-      <video class="w-full h-full sm:h-1/2 object-cover" autoplay muted loop playsinline preload="auto"
-        poster="Assets/TC-cards.mp4">
-        <source src="https://tccards.tn/Assets/TC-cards.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-    <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-      <div class="text-center">
-        <h1 class="text-5xl font-semibold tracking-tight text-gray-100 sm:text-7xl">
-          Your Brand. Your Identity. Your NFC Card.
-        </h1>
-        <p class="mt-8 text-lg text-gray-400 sm:text-xl">
-          Welcome to a new era of connection! Imagine effortlessly sharing your story, your brand, and your passion with
-          just a tap. Our platform is crafted with you in mind, making it easier than ever to create, manage, and share
-          your digital identity. Embrace the future with our eco-friendly, innovative NFC technology and leave a lasting
-          impression wherever you go.
-        </p>
-        <div class="mt-10 flex items-center justify-center gap-x-6 text-2xl">
+  class="fade-in flex flex-col justify-center items-center bg-black text-white font-nunito overflow-y-scroll overflow-x-hidden">
+  <nav
+    class="fixed top-4 left-2 right-2 z-50 mx-auto max-w-7xl w-[95%] rounded-2xl backdrop-blur-xl bg-black/40 border border-gray-700/50 shadow-lg">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <!-- Logo with enhanced hover effect -->
+        <a href="#home"
+          class="flex items-center group rounded-lg hover:bg-gray-800/70 backdrop-filter hover:backdrop-blur-lg transition-colors duration-200">
+          <img src="https://tccards.tn/Assets/150.png" alt="Logo" class="h-10 w-10 rounded-full">
+        </a>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center space-x-6" role="navigation" aria-label="Main navigation">
+          <a href="#features"
+            class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">
+            Features
+            <span
+              class="absolute bottom-0 left-0 right-0 mx-auto w-0 h-0.5 bg-[#3ABEF9] transition-all duration-300 group-hover:w-1/2"></span>
+          </a>
           <a href="#Pricing"
-            class="text-sm font-semibold text-gray-100 rounded-md border border-white hover:border-white transition-all duration-300 px-4 py-2">
-            "Tap. Connect. Impress." <span aria-hidden="true">→</span>
+            class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">
+            Pricing
+            <span
+              class="absolute bottom-0 left-0 right-0 mx-auto w-0 h-0.5 bg-[#3ABEF9] transition-all duration-300 group-hover:w-1/2"></span>
+          </a>
+          <a href="#how-it-works"
+            class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">
+            How It Works
+            <span
+              class="absolute bottom-0 left-0 right-0 mx-auto w-0 h-0.5 bg-[#3ABEF9] transition-all duration-300 group-hover:w-1/2"></span>
+          </a>
+          <a href="#faq"
+            class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">
+            FAQ
+            <span
+              class="absolute bottom-0 left-0 right-0 mx-auto w-0 h-0.5 bg-[#3ABEF9] transition-all duration-300 group-hover:w-1/2"></span>
+          </a>
+          <a href="#get-started"
+            class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all duration-300 text-white h-10 px-4 rounded-lg hover:from-border-dark hover:to-border-light hover:shadow-lg hover:shadow-light-blue border-2 border-gray-700">
+            Get Started
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-arrow-right ml-2">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-button"
+          class="md:hidden p-2 rounded-full hover:bg-gray-800/50 backdrop-filter hover:backdrop-blur-lg transition-colors duration-200 text-gray-300 hover:text-white"
+          aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-menu">
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation (hidden by default) -->
+      <div id="mobile-menu"
+        class="hidden md:hidden pb-4 mt-2 mx-2 rounded-xl bg-gray-900/90 backdrop-blur-xl border border-gray-700/50 shadow-inner p-2"
+        role="navigation" aria-label="Mobile navigation">
+        <div class="flex flex-col gap-3">
+          <a href="#features"
+            class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70 backdrop-filter hover:backdrop-blur-lg flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-zap">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            Features
+          </a>
+          <a href="#Pricing"
+            class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70 backdrop-filter hover:backdrop-blur-lg flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-tag">
+              <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"></path>
+              <path d="M7 7h.01"></path>
+            </svg>
+            Pricing
+          </a>
+          <a href="#how-it-works"
+            class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70 backdrop-filter hover:backdrop-blur-lg flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-cog">
+              <path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"></path>
+              <path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
+              <path d="M12 2v2"></path>
+              <path d="M12 22v-2"></path>
+              <path d="m17 20.66-1-1.73"></path>
+              <path d="M11 10.27 7 3.34"></path>
+              <path d="m20.66 17-1.73-1"></path>
+              <path d="m3.34 7 1.73 1"></path>
+              <path d="m14 12 8.97 5.7"></path>
+              <path d="m3.34 17 1.73-1"></path>
+              <path d="m20.66 7-1.73 1"></path>
+            </svg>
+            How It Works
+          </a>
+          <a href="#faq"
+            class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70 backdrop-filter hover:backdrop-blur-lg flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-help-circle">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <path d="M12 17h.01"></path>
+            </svg>
+            FAQ
+          </a>
+          <a href="#get-started" class="mt-2">
+            <button
+              class="w-full inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all duration-300 text-white h-10 rounded-full hover:from-[#050C9C] hover:to-[#3572EF] hover:shadow-lg hover:shadow-[#3ABEF9] border border-white">
+              Get Started
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-arrow-right">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </button>
           </a>
         </div>
       </div>
     </div>
-  </header>
+  </nav>
+  <br><br>
+<header class="relative isolate px-6 lg:px-8 overflow-hidden" id="home">
+
+  <!-- Pulsing Gradient Shape -->
+  <svg class="absolute left-1/4 top-1/2 w-[40rem] opacity-20 animate-[pulse_10s_ease-in-out_infinite]" viewBox="0 0 600 600" fill="none">
+    <path fill="url(#bg3)" fill-opacity=".3"
+      d="M300,150 Q450,150 450,300 Q450,450 300,450 Q150,450 150,300 Q150,150 300,150 Z">
+      <animate attributeName="d" 
+        values="M300,150 Q450,150 450,300 Q450,450 300,450 Q150,450 150,300 Q150,150 300,150 Z;
+                M300,100 Q500,100 500,300 Q500,500 300,500 Q100,500 100,300 Q100,100 300,100 Z;
+                M300,150 Q450,150 450,300 Q450,450 300,450 Q150,450 150,300 Q150,150 300,150 Z"
+        dur="15s" repeatCount="indefinite" />
+    </path>
+    <defs>
+      <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#3ABEF9">
+          <animate attributeName="stop-color" values="#3ABEF9;#3572EF;#3ABEF9" dur="7s" repeatCount="indefinite" />
+        </stop>
+        <stop offset="100%" stop-color="#3572EF">
+          <animate attributeName="stop-color" values="#3572EF;#3ABEF9;#3572EF" dur="7s" repeatCount="indefinite" />
+        </stop>
+      </linearGradient>
+    </defs>
+  </svg>
+</div>
+
+  <!-- Video Background -->
+  <div class="video-background relative z-10">
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black/60 z-10"></div>
+
+    <!-- Video -->
+    <video class="hidden md:block w-full h-[80vh] object-cover" autoplay muted loop playsinline preload="auto"
+      poster="Assets/TC-cards.mp4">
+      <source src="https://tccards.tn/Assets/TC-cards.mp4" type="video/mp4">
+    </video>
+
+    <!-- Content -->
+    <div class="absolute inset-0 z-20 flex items-center justify-center">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        
+        <!-- Tag -->
+        <div class="inline-flex items-center gap-2 bg-gray-900 px-3 py-1 rounded-full text-sm text-yellow-400 font-medium mb-4">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-100 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-red-400"></span>
+          </span>
+          Virtual Entrepreneurial Ecosystem
+        </div>
+
+        <!-- Main Heading -->
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold bg-gradient-to-br from-blue-100 via-blue-400 to-blue-600 bg-clip-text text-transparent mb-6 leading-tight tracking-tight drop-shadow-md">
+          Tap. Connect. <span class="text-[#00ffff] drop-shadow-[0_0_8px_#00ffff]">Be Remembered.</span>
+        </h1>
+
+        <!-- Subtext -->
+        <p class="text-lg sm:text-xl lg:text-2xl text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed drop-shadow-sm">
+          No paper. No handoffs. Just one smooth tap — and they’ve got you. <br class="hidden sm:block" />
+          This isn’t a business card. It’s your first impression — evolved.
+        </p>
+
+        <!-- CTA -->
+        <div class="flex gap-4 justify-center">
+          <a href="#Pricing"
+            class="px-8 py-4 border-2 border-white text-white text-white rounded-xl font-semibold hover:bg-[#32acd8] transition-all">
+            Get Yours Now →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
 
   <div class="container mx-auto mt-8 text-white" id="features">
     <div class="w-8/12 md:w-10/12 mx-auto">
-      <div class="carousel max-w-6xl grid md:grid-cols-2 gap-8 items-center justify-center" style="width: 100%;">
-        <div class="p-2 min-h-48 min-w-48">
-          <img
-            src="https://www.gstatic.com/identity/boq/accountsettingsmobile/contacts_card_scene_316x112_30b26c263ec7d6c2839b403059092259.png"
-            alt="Image 1" class="w-full h-64 object-contain">
+      <center>
+        <div class="carousel max-w-6xl grid md:grid-cols-2 gap-8 items-center justify-center" style="width: 100%;">
+          <div class="p-2 min-h-48 min-w-48">
+            <img
+              src="https://www.gstatic.com/identity/boq/accountsettingsmobile/contacts_card_scene_316x112_30b26c263ec7d6c2839b403059092259.png"
+              alt="Image 1" class="w-full h-64 object-contain">
+          </div>
+          <div class="p-2 min-h-48 min-w-48">
+            <img
+              src="https://www.gstatic.com/identity/boq/accountsettingsmobile/aboutme_scene_316x112_371ea487b68d0298cc54522403223de1.png"
+              alt="Image 2" class="w-full h-64 object-contain">
+          </div>
+          <div class="p-2 min-h-48 min-w-48">
+            <img
+              src="https://www.gstatic.com/identity/boq/accountsettingsmobile/dataandpersonalization_scene_data_from_apps_and_services_360x128_877863d7f505d4450e595dcb69ccfb28.png"
+              alt="Image 3" class="w-full h-64 object-contain">
+          </div>
+          <div class="p-2 min-h-48 min-w-48">
+            <img
+              src="https://www.gstatic.com/identity/boq/accountsettingsmobile/profile_scene_visible_360x128_18500c161aac04e9279fbb234b7de818.png"
+              alt="Image 4" class="w-full h-64 object-contain">
+          </div>
         </div>
-        <div class="p-2 min-h-48 min-w-48">
-          <img src="https://www.gstatic.com/identity/boq/accountsettingsmobile/aboutme_scene_316x112_371ea487b68d0298cc54522403223de1.png" alt="Image 2" class="w-full h-64 object-contain">
-        </div>
-        <div class="p-2 min-h-48 min-w-48">
-          <img src="https://www.gstatic.com/identity/boq/accountsettingsmobile/dataandpersonalization_scene_data_from_apps_and_services_360x128_877863d7f505d4450e595dcb69ccfb28.png" alt="Image 3" class="w-full h-64 object-contain">
-        </div>
-        <div class="p-2 min-h-48 min-w-48">
-          <img src="https://www.gstatic.com/identity/boq/accountsettingsmobile/profile_scene_visible_360x128_18500c161aac04e9279fbb234b7de818.png" alt="Image 4" class="w-full h-64 object-contain">
-        </div>
-      </div>
+      </center>
+
       <div class="mx-auto max-w-8xl py-24 sm:px-6 sm:py-32 lg:px-8" id="why">
         <h2 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
           "Ditch Paper Business Cards. Go Digital Today!"
@@ -103,7 +289,7 @@
         </p>
         <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
           <a href="plans/"
-            class="rounded-md px-3.5 py-2.5 text-sm font-semibold text-gray-100 border border-white/50 shadow-sm hover:bg-gray-800">
+            class="rounded-md px-3.5 py-2.5 text-sm font-semibold text-gray-100 border border-white shadow-sm hover:bg-gray-800">
             Get Started
           </a>
 
@@ -165,11 +351,71 @@
         </div>
       </div>
 
+
+      <!-- How It Works Section -->
+      <section id="how-it-works" class="py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+          <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">How Total Connect Works</h2>
+            <p class="text-xl text-blue-600  max-w-2xl mx-auto">
+              Simple three-step process to modern networking
+            </p>
+          </div>
+
+          <div class="max-w-3xl mx-auto space-y-8">
+            <!-- Step 1 -->
+            <div class="flex gap-6">
+              <div
+                class="flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center text-xl font-bold">
+                1
+              </div>
+              <div>
+                <h3 class="text-2xl font-semibold mb-2">Create Your Digital Profile</h3>
+                <p class="text-gray-400">
+                  Set up your profile with contact details, social links, portfolio, and anything else you'd share on a
+                  business card.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex gap-6">
+              <div
+                class="flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center text-xl font-bold">
+                2
+              </div>
+              <div>
+                <h3 class="text-2xl font-semibold mb-2">Receive Your NFC Card</h3>
+                <p class="text-gray-400">
+                  We'll ship your premium NFC card that's pre-programmed with your unique digital profile link.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex gap-6">
+              <div
+                class="flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center text-xl font-bold">
+                3
+              </div>
+              <div>
+                <h3 class="text-2xl font-semibold mb-2">Tap to Connect</h3>
+                <p class="text-gray-400">
+                  Simply tap your card to a smartphone to instantly share your information - no app needed for the
+                  recipient.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <div class="max-w-7xl mx-auto px-4 py-12" id="Pricing">
         <div class="flex flex-col items-center">
-          <img src="https://www.gstatic.com/identity/boq/accountsettingsmobile/family_createfamily_large_250307_316x112_f9503fcb7d9c17b775c20b665d1d3401.png" alt="✨✨✨"
-            class="mb-4 w-1/2 h-auto object-contain">
-          <h2 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl text-center">Join the Digital Revolution</h2>
+          <img
+            src="https://www.gstatic.com/identity/boq/accountsettingsmobile/family_createfamily_large_250307_316x112_f9503fcb7d9c17b775c20b665d1d3401.png"
+            alt="✨✨✨" class="mb-4 w-1/2 h-auto object-contain">
+          <h2 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl text-center">Join the Digital
+            Revolution</h2>
           <div class="my-8"></div>
         </div>
         <div class="mx-auto max-w-4xl text-center">
@@ -178,10 +424,10 @@
             Start small with our Free plan or unlock more features as you grow. No hidden fees.
           </p>
         </div>
-      
+
         <div class="grid gap-8 md:grid-cols-3 y-16 mt-8">
           <!-- Free Plan -->
-          <div class="rounded-xl bg-gray-900 p-6 border border-purple-400/50 hover:border-purple-400 transition-all">
+          <div class="rounded-xl bg-gray-900 p-6 border border-purple-400 hover:border-purple-400 transition-all">
             <div class="text-center mb-6">
               <h3 class="text-2xl font-bold text-purple-400 mb-2">Free</h3>
               <p class="text-4xl font-bold text-white">0 TND</p>
@@ -192,19 +438,25 @@
               <ul class="space-y-3 text-gray-300">
                 <li class="flex items-start">
                   <svg class="h-5 w-5 text-purple-400 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd"
+                      d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                      clip-rule="evenodd" />
                   </svg>
                   Testing the platform
                 </li>
                 <li class="flex items-start">
                   <svg class="h-5 w-5 text-purple-400 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd"
+                      d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                      clip-rule="evenodd" />
                   </svg>
                   Simple link sharing
                 </li>
                 <li class="flex items-start">
                   <svg class="h-5 w-5 text-purple-400 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd"
+                      d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                      clip-rule="evenodd" />
                   </svg>
                   Basic online presence
                 </li>
@@ -213,13 +465,15 @@
                 <p class="text-sm text-gray-400">Includes our watermark and 30 days expiry</p>
               </div>
             </div>
-            <a href="/plans/free/" class="mt-6 block w-full text-center bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-lg transition">
+            <a href="/plans/free/"
+              class="mt-6 block w-full text-center bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-lg transition">
               Get Started
             </a>
           </div>
-      
+
           <!-- Basic Plan -->
-          <div class="rounded-xl bg-gray-900 p-6 border border-green-400/50 hover:border-green-400 transition-all transform hover:scale-[1.02]">
+          <div
+            class="rounded-xl bg-gray-900 p-6 border border-green-400 hover:border-green-400 transition-all transform hover:scale-[1.02]">
             <div class="text-center mb-6">
               <h3 class="text-2xl font-bold text-green-400 mb-2">Basic</h3>
               <p class="text-4xl font-bold text-white">49 TND</p>
@@ -230,19 +484,25 @@
               <ul class="space-y-3 text-gray-300">
                 <li class="flex items-start">
                   <svg class="h-5 w-5 text-green-400 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd"
+                      d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                      clip-rule="evenodd" />
                   </svg>
                   Freelancers & solopreneurs
                 </li>
                 <li class="flex items-start">
                   <svg class="h-5 w-5 text-green-400 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd"
+                      d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                      clip-rule="evenodd" />
                   </svg>
                   Small business owners
                 </li>
                 <li class="flex items-start">
                   <svg class="h-5 w-5 text-green-400 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd"
+                      d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                      clip-rule="evenodd" />
                   </svg>
                   Networking professionals
                 </li>
@@ -251,11 +511,12 @@
                 <p class="text-sm text-gray-400">Includes 1 NFC card and basic features</p>
               </div>
             </div>
-            <a href="/plans/basic/" class="mt-6 block w-full text-center bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg transition">
+            <a href="/plans/basic/"
+              class="mt-6 block w-full text-center bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg transition">
               Choose Basic
             </a>
           </div>
-      
+
           <!-- Standard Plan -->
           <div class="rounded-xl bg-gray-900 p-6 border border-yellow-400/50 hover:border-yellow-400 transition-all">
             <div class="text-center mb-6">
@@ -268,19 +529,25 @@
               <ul class="space-y-3 text-gray-300">
                 <li class="flex items-start">
                   <svg class="h-5 w-5 text-yellow-400 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd"
+                      d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                      clip-rule="evenodd" />
                   </svg>
                   Growing businesses
                 </li>
                 <li class="flex items-start">
                   <svg class="h-5 w-5 text-yellow-400 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd"
+                      d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                      clip-rule="evenodd" />
                   </svg>
                   Teams needing multiple cards
                 </li>
                 <li class="flex items-start">
                   <svg class="h-5 w-5 text-yellow-400 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd"
+                      d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                      clip-rule="evenodd" />
                   </svg>
                   Brand-conscious professionals
                 </li>
@@ -289,37 +556,169 @@
                 <p class="text-sm text-gray-400">Includes 5 NFC cards and premium features</p>
               </div>
             </div>
-            <a href="/plans/standard/" class="mt-6 block w-full text-center bg-yellow-600 hover:bg-yellow-700 text-white py-3 px-4 rounded-lg transition">
+            <a href="/plans/standard/"
+              class="mt-6 block w-full text-center bg-yellow-600 hover:bg-yellow-700 text-white py-3 px-4 rounded-lg transition">
               Choose Standard
             </a>
           </div>
         </div>
-      
+
         <div class="mt-16 text-center">
           <p class="text-gray-400">Need custom solutions or more than 5 NFC cards?</p>
-          <a href="/contact" class="mt-2 inline-flex items-center text-sm font-medium text-yellow-500 hover:text-yellow-400">
+          <a href="/contact"
+            class="mt-2 inline-flex items-center text-sm font-medium text-yellow-500 hover:text-yellow-400 p-2 hover:border-2 rounded-lg hover:border-white">
             Contact us for enterprise options
             <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              <path fill-rule="evenodd"
+                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                clip-rule="evenodd" />
             </svg>
           </a>
         </div>
       </div>
 
 
-      <div class="mt-10 flex items-center justify-center gap-x-6">
-        <a href="plans/"
-          class="rounded-md px-3.5 py-2.5 text-xl font-semibold text-gray-100 border border-white/50 shadow-sm hover:bg-gray-700">
-          More Plans...
-        </a>
-      </div>
-      <!-- End of the Form -->
-      <footer class="text-gray-400 py-6 top-my-280 text-center">
-        <p>&copy; 2025 Total Connect. All rights reserved.</p>
-      </footer>
     </div>
+
+    <section class=" relative py-16 bg-gradient-to-br from-black via-gray-900 to-black ring-8 p-6 rounded-lg">
+      <div class="max-w-7xl mx-auto p-4 ">
+        <div class="text-center">
+          <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
+            Ready to modernize your networking?
+          </h2>
+          <p class="mt-4 text-lg text-gray-300">
+            Join thousands of professionals who have already made the switch to digital business cards.
+          </p>
+          <div class="mt-8 flex justify-center">
+            <div class="inline-flex rounded-md shadow">
+              <a href="plans/"
+                class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white hover:bg-gray-700/50">
+                Get Started Today
+                <svg class="ml-2 -mr-1 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <!-- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16" id="faq">
+        <h2 class="text-3xl font-semibold text-center text-white mb-8">Frequently Asked Questions</h2>
+        <div class="space-y-6">
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold text-white">What is an NFC card?</h3>
+            <p class="mt-2 text-gray-400">An NFC card is a contactless smart card that uses Near Field Communication technology to share information with compatible devices.</p>
+          </div>
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold text-white">How does the NFC card work?</h3>
+            <p class="mt-2 text-gray-400">Simply tap your NFC card against a smartphone or NFC-enabled device to instantly share your digital profile.</p>
+          </div>
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold text-white">Is it secure?</h3>
+            <p class="mt-2 text-gray-400">Yes, our platform uses encryption and secure protocols to protect your data and privacy.</p>
+          </div>
+        </div>
+        <div class="mt-8 text-center">
+          <a href="/contact" class="mt-2 inline-flex items-center text-sm font-medium text-yellow-500 hover:text-yellow-400 p-2 hover:border-2 rounded-lg hover:border-white">
+            Privacy Policy | Terms of Service
+            <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </div> -->
+    <br><br><br><br>
   </div>
-  <img src="https://tccards.tn/Assets/zfooter.gif" alt="cute animation" class="mt-8">
+  <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <!-- Company Info -->
+        <div class="space-y-4">
+          <img src="Assets/150.png" alt="Total Connect Logo" class="h-8">
+          <p class="text-gray-400 text-sm">Transforming networking through innovative NFC technology and digital
+            solutions.</p>
+          <div class="flex space-x-4">
+            <a href="https://www.facebook.com/tccards.tn"
+              class="text-gray-400 hover:text-white transition-colors p-2 rounded rounded-lg w-10 h-10 text-center rounded rounded-lg w-10 h-10">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/tccards.tn/"
+              class="text-gray-400 hover:text-white transition-colors p-2 rounded rounded-lg w-10 h-10 text-center rounded rounded-lg w-10 h-10">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/company/tccards/"
+              class="text-gray-400 hover:text-white transition-colors p-2 rounded rounded-lg w-10 h-10 text-center rounded rounded-lg w-10 h-10">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Products -->
+        <div>
+          <h3 class="text-white font-semibold mb-4">Products</h3>
+          <ul class="space-y-2">
+            <li><a href="#features"
+                class="text-sm text-gray-500 hover:text-white  p-2 hover:border-2 rounded-lg hover:border-white">NFC
+                Cards</a></li>
+            <li><a href="#Pricing"
+                class="text-sm text-gray-500 hover:text-white  p-2 hover:border-2 rounded-lg hover:border-white">Digital
+                Profiles</a></li>
+            <li><a href="#features"
+                class="text-sm text-gray-500 hover:text-white  p-2 hover:border-2 rounded-lg hover:border-white">Enterprise
+                Solutions</a></li>
+            <li><a href="#Pricing"
+                class="text-sm text-gray-500 hover:text-white  p-2 hover:border-2 rounded-lg hover:border-white">Enterprise
+                Solutions</a></li>
+          </ul>
+        </div>
+        <!-- Support -->
+        <div>
+          <h3 class="text-white font-semibold mb-4">Support</h3>
+          <ul class="space-y-2">
+            <li><a href="#home"
+                class="text-sm text-gray-500 hover:text-white  p-2 hover:border-2 rounded-lg hover:border-white">Help
+                Center</a></li>
+            <li><a href="#home"
+                class="text-sm text-gray-500 hover:text-white  p-2 hover:border-2 rounded-lg hover:border-white">Contact
+                Us</a></li>
+            <li><a href="#home"
+                class="text-sm text-gray-500 hover:text-white  p-2 hover:border-2 rounded-lg hover:border-white">Privacy
+                Policy</a></li>
+            <li><a href="#home"
+                class="text-sm text-gray-500 hover:text-white  p-2 hover:border-2 rounded-lg hover:border-white">Terms
+                of Service</a></li>
+          </ul>
+        </div>
+        <!-- Contact -->
+        <div>
+          <h3 class="text-white font-semibold mb-4">Company</h3>
+          <ul class="space-y-2">
+            <li><a href="#home"
+                class="text-sm text-gray-500 hover:text-white  p-2 hover:border-2 rounded-lg hover:border-white">About
+                Us</a></li>
+            <li><a href="#home"
+                class="text-sm text-gray-500 hover:text-white  p-2 hover:border-2 rounded-lg hover:border-white">Careers</a>
+            </li>
+            <li><a href="#home"
+                class="text-sm text-gray-500 hover:text-white  p-2 hover:border-2 rounded-lg hover:border-white">Blog</a>
+            </li>
+            <li><a href="#home"
+                class="text-sm text-gray-500 hover:text-white  p-2 hover:border-2 rounded-lg hover:border-white">Press</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 text-center border-t border-gray-800 pt-6">
+        <p class="text-gray-500 text-sm">&copy; 2025 Total Connect. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
   <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

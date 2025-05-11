@@ -83,3 +83,80 @@ header {
       rgba(24, 24, 27, 0.95), 
       rgba(234, 179, 8, 0.15));
   }
+
+/* Navigation Color Palette */
+
+/* Background Colors */
+.bg-black\/40 {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.bg-gray-900\/90 {
+  background-color: rgba(17, 24, 39, 0.9);  /* Background for mobile menu */
+}
+
+.bg-white\/10 {
+  background-color: rgba(255, 255, 255, 0.1);  /* Hover state for nav items */
+}
+
+.bg-gray-800\/50 {
+  background-color: rgba(31, 41, 55, 0.5);  /* Mobile menu button hover */
+}
+
+.bg-gray-800\/70 {
+  background-color: rgba(31, 41, 55, 0.7);  /* Mobile menu item hover */
+}
+
+/* Border Colors */
+.border-gray-700\/50 {
+  border-color: rgba(55, 65, 81, 0.5);  /* Border for navigation and mobile menu */
+}
+
+.border-white\/10 {
+  border-color: rgba(255, 255, 255, 0.1);  /* Button border */
+}
+
+/* Text Colors */
+.text-gray-300 {
+  color: rgb(209, 213, 219);  /* Default text color for nav items */
+}
+
+.text-white {
+  color: rgb(255, 255, 255);  /* Button text and hover states */
+}
+
+.hover\:text-\[\#3ABEF9\]:hover {
+  color: #3ABEF9;  /* Text hover color for nav items */
+}
+
+
+/* Accent Colors */
+.bg-\[\#3ABEF9\] {
+  background-color: #3ABEF9;  /* Underline accent color for nav items */
+}
+.bg-\[\#3ABEF9\]:hover {
+  background-color: #3ABEF9;  /* Background color for nav items on hover */
+}
+
+/* Color Palette Summary */
+:root {
+  /* Primary Colors */
+  --primary-blue: #3ABEF9;
+  --primary-dark-blue: #3572EF;
+  
+  /* Neutral Colors */
+  --text-light: rgb(209, 213, 219);  /* text-gray-300 */
+  --text-white: rgb(255, 255, 255);
+  
+  /* Background Colors */
+  --bg-dark-transparent: rgba(0, 0, 0, 0.4);
+  --bg-hover-light: rgba(255, 255, 255, 0.1);
+  --bg-hover-dark: rgba(31, 41, 55, 0.7);
+  
+  /* Border Colors */
+  --border-dark: rgba(55, 65, 81, 0.5);
+  --border-light: rgba(255, 255, 255, 0.1);
+}
