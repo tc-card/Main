@@ -64,7 +64,7 @@ const advancedPlans = [
   },
   {
     tier: "Custom",
-    price: "379+ TND",
+    price: "179+ TND",
     description: "Tailored solutions for professionals and growing businesses.",
     features: [
       "10+ NFC Cards",

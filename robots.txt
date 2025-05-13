@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+Allow: /help/
+Allow: /plans/
+
+# Plan details pages
+Allow: /plans/basic/
+Allow: /plans/enterprise/
+Allow: /plans/free/
+Allow: /plans/professional/
+Allow: /plans/standard/
+
+# Block assets folders from crawling to save crawl budget
+Disallow: /Assets/
+
+# Block config.js files in plan directories
+Disallow: /plans/basic/config.js
+Disallow: /plans/enterprise/config.js
+Disallow: /plans/free/config.js
+Disallow: /plans/professional/config.js
+Disallow: /plans/standard/config.js
+
+# Tell search engines where to find your sitemap
+Sitemap: https://www.tccards.tn.com/sitemap.xml

@@ -24,47 +24,29 @@
               ]
           });
       });
-
       
-document.querySelector('#learn-more').addEventListener('click', WhyNFC);
-    function WhyNFC() {
-        Swal.fire({
-          icon: "info",
-          title: "Understanding NFC Technology",
-          html: `<div style='text-align:left; line-height:1.6;'>
-                      <strong>What is NFC?</strong><br>
-                      Near Field Communication (NFC) is a secure wireless technology that enables seamless data exchange between devices in close proximity.
-                  <br><hr><br>
-                      <strong>How does it work?</strong><br>
-                      Using advanced RFID technology, NFC creates a secure connection between compatible devices, allowing instant data transfer without physical contact.
-                  <br><hr><br>
-                      <strong>Where is it used?</strong><br>
-                      NFC powers many modern conveniences including:
-                      • Digital payments
-                      • Access control systems
-                      • Business networking
-                      • Smart device integration
-                  <br><hr><br>
-                      <strong>Why choose NFC?</strong><br>
-                      • Instant connectivity
-                      • Enhanced security
-                      • Universal compatibility
-                      • Future-proof technology
-                  <br><hr><br>
-                      <strong>Business Benefits</strong><br>
-                      NFC technology streamlines professional networking, enhances brand perception, and provides a sustainable solution for modern business connectivity.
-                 </div>
-              `,
-          confirmButtonText: "Understood",
-          background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-          color: "#fff",
-          customClass: {
-            container: 'custom-swal-container',
-            popup: 'custom-swal-popup',
-            content: 'custom-swal-content'
-          }
-        });
-};
+document.querySelectorAll('.faq-button').forEach(button => {
+  button.addEventListener('click', () => {
+    const answer = button.nextElementSibling;
+    const arrow = button.querySelector('svg');
+    
+    // Toggle answer visibility
+    answer.classList.toggle('hidden');
+    
+    // Rotate arrow
+    arrow.style.transform = answer.classList.contains('hidden') 
+      ? 'rotate(0deg)' 
+      : 'rotate(180deg)';
+    
+    // Close other answers
+    document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
+      if (otherAnswer !== answer && !otherAnswer.classList.contains('hidden')) {
+        otherAnswer.classList.add('hidden');
+        otherAnswer.previousElementSibling.querySelector('svg').style.transform = 'rotate(0deg)';
+      }
+    });
+  });
+});
 
 
   // Mobile menu toggle functionality
@@ -133,7 +115,7 @@ fadeInElements.forEach((element) => {
 // Fade in on page load
 window.addEventListener('load', () => {
     fadeInElements.forEach((element) => {
-        element.style.transition = 'opacity 1.5s ease-in-out';
+        element.style.transition = 'opacity 0.5s ease-in-out';
         element.style.opacity = 1;
     });
 });
@@ -153,6 +135,6 @@ document.querySelectorAll('a[href^="http"]' || 'a[href^="/"]').forEach(link => {
         // Navigate after animation completes
         setTimeout(() => {
             window.location.href = href;
-        }, 800);
+        }, 300);
     });
 });
