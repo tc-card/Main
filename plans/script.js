@@ -48,7 +48,7 @@ const starterPlans = [
 const advancedPlans = [
   {
     tier: "Standard",
-    price: "100 TND",
+    price: "159 TND",
     description: "Essential features to enhance your business presence.",
     features: [
       "5 NFC Cards",

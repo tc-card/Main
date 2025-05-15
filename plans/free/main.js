@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: "error",
         title: "Invalid File Type",
         text: "Please upload a valid image file (JPEG, PNG, GIF)",
+        toast: true,
+        position: "top-center",
       });
       return;
     }
@@ -46,6 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: "error",
         title: "File Too Large",
         text: "File size must be less than 5MB",
+        toast: true,
+        position: "top-center",
       });
       return;
     }
@@ -88,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return `
       <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20 relative group">
           <i class="fa fa-link text-xl text-white mr-3"></i>
-          <input type="url" name="social-links[]" placeholder="https://example.com/mylink" 
+          <input type="url" name="social-links[]" placeholder="https://domain.com/path" 
               class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
           <button type="button" class="remove-link-btn absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -106,6 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
       Swal.fire({
         icon: "info",
         title: "3 Links Maximum",
+        background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
+        color: "#fff",
         toast: true,
         position: "top-center",
         showConfirmButton: false,
@@ -196,6 +202,8 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: "error",
         title: "Missing Fields",
         text: "Please fill in all required fields.",
+        toast: true,
+        position: "top-center",
       });
       return false;
     }
@@ -205,6 +213,8 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: "error",
         title: "Invalid Link",
         text: "Link must be alphanumeric and between 3-20 characters.",
+        toast: true,
+        position: "top-center",
       });
       return false;
     }
@@ -277,6 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
       swalInstance.update({
         title: "Uploading...",
         text: "Crafting your webfolio...",
+        didOpen: () => Swal.showLoading(),
       });
 
       if (elements.imageInput.files[0]) {
@@ -294,11 +305,13 @@ document.addEventListener("DOMContentLoaded", () => {
         color: "#fff",
         html: `Your webfolio is ready!<br><br>
               <a href="https://p.tccards.tn/profile/@${formData.link}" target="_blank">
-                p.tccards.tn/@${formData.link}
+                @${formData.link}
               </a>`,
-        confirmButtonText: "View My Webfolio",
         background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-      });
+        confirmButtonText: "View My Webfolio"
+        }).then(() => {
+          window.location.href = `https://card.tccards.tn/profile/@${formData.link}`;
+        });
 
       // Reset form and image preview
       elements.form.reset();

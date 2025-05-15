@@ -1,28 +1,27 @@
 export const CONFIG = {
-  maxFileSize: 5 * 1024 * 1024, // 5MB
-  allowedTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
-  googleScriptUrl: 'https://script.google.com/macros/s/AKfycbyRFJP9mTfijbmkUBfOrzniHY1xYHo29u7fxLIZ_8krUIs0h_iFR90nObs7wM49Wn0DmA/exec',
-  maxSocialLinks: 10,
-  defaultProfileImage: 'https://www.tccards.tn/Assets/default.png',
+  maxFileSize: 5 * 1024 * 1024,
+  allowedTypes: ["image/jpeg", "image/png", "image/gif"],
+  googleScriptUrl: "https://script.google.com/macros/s/AKfycbzXkyhl6-jGudfQtUVFXNYTymW7NygihNdEGGf0Xegve9R7fJbvkX5ZUlNDZWjaOnXZ/exec", // date 2025-5-2 time 11:04am
+  emailRegex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  linkRegex: /^[a-zA-Z][a-zA-Z0-9-]{2,14}$/, // 3-15 chars total: 1 letter + 2-14 more chars
 };
 
 export const stylePresets = {
-  // Dark Professional Colors
-  minimal: { background: '#18181b' },
-  black: { background: '#09090b' },
-  navy: { background: '#020617' },
-  forest: { background: '#022c22' },
-  wine: { background: '#450a0a' },
-
-  // Lighter color themes
-  clouds: { background: '#0ea5e9' },
-  Pink: { background: '#9b0055' },
-  SkyBlue: { background: '#2563eb' },
-  paleRed: { background: '#f00f4d' },
-
   // Professional Gradients
-  corporateGradient: { background: 'linear-gradient(145deg, rgb(9, 9, 11), rgb(24, 24, 27), rgb(9, 9, 11))' },
-  oceanGradient: { background: 'linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))' },
-  forestGradient: { background: 'linear-gradient(145deg, rgb(2, 44, 34), rgb(6, 78, 59), rgb(2, 44, 34))' },
-  burgundyGradient: { background: 'linear-gradient(145deg, rgb(69, 10, 10), rgb(127, 29, 29), rgb(69, 10, 10))' }
+  corporateGradient: {
+    background:
+      "linear-gradient(145deg, rgb(9, 9, 11), rgb(24, 24, 27), rgb(9, 9, 11))",
+  },
+  oceanGradient: {
+    background:
+      "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
+  },
+  forestGradient: {
+    background:
+      "linear-gradient(145deg, rgb(2, 44, 34), rgb(6, 78, 59), rgb(2, 44, 34))",
+  },
+  burgundyGradient: {
+    background:
+      "linear-gradient(145deg, rgb(69, 10, 10), rgb(127, 29, 29), rgb(69, 10, 10))",
+  },
 };

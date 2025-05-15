@@ -48,7 +48,36 @@
                 background: rgba(17, 24, 39, 0.7);
                 backdrop-filter: blur(10px);
             }
+        }        
+        .flex.items-center label {
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.3s ease;
         }
+
+        .flex.items-center label[data-checked="true"] {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hide the actual checkbox */
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        /* Add a custom checkbox indicator using ::after */
+        .flex.items-center label::after {
+            content: '✓';
+            position: absolute;
+            right: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .flex.items-center label[data-checked="true"]::after {
+            opacity: 1;
+        }
+
     </style>
 </head>
 
@@ -72,10 +101,18 @@
                     <div>
                         <h2 class="text-3xl font-bold">Standard Plan</h2>
                         <p class="text-gray-400 mt-2">Essential features for business</p>
+                        <p class="text-sm text-gray-400 mt-1">Yearly Subscription</p>
                     </div>
                     <div class="text-right">
-                        <p class="text-4xl font-bold text-yellow-400">159 TND</p>
-                        <p class="text-sm text-gray-400">One-time payment</p>
+                        <div class="flex flex-col items-end">
+                            <div class="flex flex-col items-end">
+                                <span class="text-sm line-through text-gray-500 block">150 TND</span>
+                                <p class="text-4xl font-bold text-yellow-400">100 TND</p>
+                            </div>
+                            <span class="inline-block bg-yellow-400/20 text-yellow-400 px-2 py-1 rounded-full text-sm font-medium">
+                                Save 33%
+                            </span>
+                        </div>
                     </div>
                 </div>
 
@@ -138,46 +175,47 @@
         </div>
     </div>
 
+    
     <section id="start" class="flex-grow flex justify-center items-center flex-col space-y-6 w-full max-w-4xl px-4 mx-auto mb-24">
-        <h2 class="text-3xl font-bold text-center text-white py-16">Create Your Digital Card</h2>
+        <h2 class="text-3xl font-bold text-center text-white py-16">Design Your Digital Profile</h2>
         <form method="POST" id="data-fill" class="space-y-6 w-full lg:w-8/12 rounded-xl shadow-xl p-8">
             <!-- Profile Section -->
             <div class="text-center space-y-4 text-white">
-                <img src="https://tc-card.github.io/Main//Assets/150.png" alt="profile-picture" id="profile-picture"
-                    class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer hover:ring-blue-500/50 hover:ring-4 hover:p-2 transition-all" />
-                <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
+                <div class="relative w-32 h-32 mx-auto">
+                    <div class="absolute inset-0 rounded-full animate-spin border-4 border-transparent border-t-blue-500 pointer-events-none"></div>
+                    <img src="https://tccards.tn/Assets/150.png" 
+                         alt="profile-picture" 
+                         id="profile-picture"
+                         class="relative z-10 w-32 h-32 rounded-full object-cover mx-auto cursor-pointer hover:ring-blue-500/50 hover:ring-4 hover:p-2 transition-all" />
+                  </div>
+                  <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
+                  <label for="image-input" class="cursor-pointer text-sm text-gray-400">Click to add picture</label>
+                  <h3 class="text-lg font-semibold">Profile Details</h3>
                 <input type="text" id="user-name" name="user-name" placeholder="Enter your name"
                     class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                <input type="text" id="user-tagline" name="user-tagline" placeholder="Enter a tagline"
+                <input type="text" id="user-tagline" name="user-tagline" placeholder="write something"
                     class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
             </div>
-               <!-- Profile Link -->
-                <div class="space-y-2">
-    <div class="flex items-center">
-        <span class="bg-gray-700 text-white p-3 rounded-l-lg whitespace-nowrap">p.tccards.tn/@</span>
-        <input
-            type="text"
-            id="user-link"
-            name="link"
-            required
-            title="Only letters, numbers, and hyphens allowed"
-            placeholder="yourname"
-            pattern="[a-zA-Z0-9-]+"
-            class="w-full bg-gray-900/20 text-white rounded-r-lg p-3 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all"
-        >
-    </div>
-    <p class="text-xs text-gray-400">This will be your permanent profile URL</p>
-</div>
+            <!-- Profile Link -->
+            <div class="space-y-2">
+                <div class="flex items-center">
+                    <span class="bg-gray-700 text-white p-3 rounded-l-lg whitespace-nowrap">p.tccards.tn/@</span>
+                    <input type="text" id="user-link" name="link" required
+                        title="Only letters, numbers, and hyphens allowed" placeholder="yourname"
+                        pattern="[a-zA-Z0-9-]+"
+                        class="w-full bg-gray-900/20 text-white rounded-r-lg p-3 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all">
                 </div>
+                <p class="text-xs text-gray-400">This will be your permanent profile URL</p>
+            </div>
             <!-- Social Links Section -->
-            <div id="dynamic-links" class="space-y-4">
+            <div id="dynamic-links" class="space-y-4 w-full">
                 <div class="bg-white/10 p-4 rounded border border-white/50 shadow-md">
-                    <label class="block text-white">Enter your social link:</label>
+                    <label class="block text-white font-semibold mb-4">Social Links</label>
                     <ul class="space-y-2">
                         <li
                             class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
                             <i class="fa fa-link text-xl text-white mr-3"></i>
-                            <input type="url" name="social-links[]" placeholder="https://your-link.com"
+                            <input type="url" name="social-links[]" placeholder="https://domain.com/path"
                                 class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
                         </li>
                     </ul>
@@ -192,6 +230,7 @@
             <!-- Style Selection (Modified) -->
             <div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
                 <label class="block text-white font-semibold mb-4">Choose Your Style</label>
+
 
                 <!-- Professional Gradients -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
@@ -230,56 +269,7 @@
                         </div>
                         <p class="mt-2 text-sm">Leadership</p>
                     </button>
-                </div>
-
-                <!-- Professional Solid Colors -->
-                <label class="block text-white font-semibold mb-4">Solid Colors</label>
-                <div class="grid grid-cols-4 md:grid-cols-8 gap-4 mb-6">
-                    <!-- Dark Colors -->
-                    <button type="button"
-                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
-                        data-style="black">
-                        <div class="h-6 rounded" style="background: #09090b"></div>
-                    </button>
-                    <button type="button"
-                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
-                        data-style="navy">
-                        <div class="h-6 rounded" style="background: #020617"></div>
-                    </button>
-                    <button type="button"
-                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
-                        data-style="forest">
-                        <div class="h-6 rounded" style="background: #022c22"></div>
-                    </button>
-                    <button type="button"
-                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
-                        data-style="wine">
-                        <div class="h-6 rounded" style="background: #450a0a"></div>
-                    </button>
-                    <!-- Light Colors -->
-                    <button type="button"
-                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
-                        data-style="clouds">
-                        <div class="h-6 rounded" style="background: #0ea5e9"></div>
-                    </button>
-                    <button type="button"
-                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
-                        data-style="Pink">
-                        <div class="h-6 rounded" style="background: #9b0055"></div>
-                    </button>
-                    <button type="button"
-                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
-                        data-style="SkyBlue">
-                        <div class="h-6 rounded" style="background: #2563eb"></div>
-                    </button>
-                    <button type="button"
-                        class="style-preset p-2 rounded-lg border hover:scale-105 transition-transform"
-                        data-style="paleRed">
-                        <div class="h-6 rounded" style="background: #df4d4d7c"></div>
-                    </button>
-                </div>
-
-                <!-- Custom Background -->
+                </div> <!-- Custom Background -->
                 <div class="space-y-4">
                     <label class="block text-white font-semibold mb-4">Upload Background Image</label>
                     <div class="relative">
@@ -303,16 +293,17 @@
                     <option style="background-color: rgba(2, 20, 70, 0.788);"  value="quote">Project Quote/Estimate Form</option>
                     <option style="background-color: rgba(2, 20, 70, 0.788);"  value="newsletter">Newsletter/Updates Subscription</option>
                 </select>
-<p class="text-xs mt-2 color-red-400"><b class="color-white">The forms are not for you to fill </b>: this is the preview of what you'll have in your profile for the visitors!</p>
+                <p class="text-xs mt-2 color-red-400"><b class="color-white">The forms are not for you to fill </b>: this is the preview of what you'll have in your profile for the visitors!</p>
                 <div id="form-preview" class="mt-4">
                     <!-- Form will be dynamically generated here -->
                 </div>
             </div>
+
             <!-- Contact Section -->
             <div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
                 <label class="block text-white font-semibold mb-4">Contact Button Details</label>
                 <input type="email" name="email" placeholder="Email"
-                    class="w-full bg-transparent text-white p-2 rounded focus:outline-none" required />
+                    class="w-full bg-transparent text-white p-2 rounded focus:outline-none"  />
                 <hr>
                 <input type="tel" name="phone" placeholder="Phone"
                     class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
@@ -321,14 +312,27 @@
                     class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
                 <p class="text-xs mt-2"><b>Name, Picture, Tagline </b>: will automatically be added!</p>
             </div>
+            
+            <!-- custom form email input or check for same email as contact -->
+
+            <div class="space-y-2">
+                <div class="flex items-center">
+                    <label class="flex items-center bg-gray-700 text-white p-3 rounded-l-lg whitespace-nowrap pointer-cursor  hover:ring-blue-500/50 hover:ring-4">
+                        <i class="fa fa-envelope mr-2"></i> Same Email
+                        <input type="checkbox" id="email" class="mr-2">
+                    </label>
+                    <input type="email" id="form-email" name="form-mail" required placeholder="Your Form email" class="w-full bg-gray-900/20 text-white rounded-r-lg p-3 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all" required>
+                </div>
+                <p class="text-xs text-gray-400">This will be your permanent contact receiver</p>
+            </div>
+
             <!-- Submit Button (Enhanced) -->
             <button id="saveContactBtn" type="submit"
-                class="w-full md:w-auto mx-auto block text-center bg-blue-500 hover:bg-blue-600 text-white py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                class="w-full md:w-auto mx-auto block text-center bg-blue-500 hover:bg-blue-600 text-white py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" disabled>
                 Create Your Digital Card
             </button>
         </form>
     </section>
-
     <footer class="text-gray-400 py-6 text-center">
         <p>&copy; 2024 Total Connect. All rights reserved.</p>
     </footer>
