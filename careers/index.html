@@ -3,9 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Careers - Total Connect</title>
+    <meta name="description" content="Join the Total Connect team. Explore career opportunities in our innovative tech company.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: radial-gradient(ellipse at top left, rgba(29, 78, 216, 0.15) 0%, transparent 50%), 
+                        radial-gradient(ellipse at bottom right, rgba(124, 58, 237, 0.15) 0%, transparent 50%), 
+                        linear-gradient(to bottom, #0f172a, #020617);
+        }
+        
+        .highlight-box {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+        }
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fade-in 0.5s ease-out forwards;
+        }
+    </style>
 </head>
-<body>
-    
+<body class="min-h-screen gradient-bg text-gray-100">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <header class="text-center mb-16 animate-fade-in">
+            <div class="flex justify-center mb-8">
+                <div class="relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-blue-400 transform hover:scale-105 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-400/20 via-purple-500/20 to-transparent"></div>
+                </div>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 hover:from-purple-500 hover:to-blue-400 transition-all duration-500">
+                Join Our Team
+            </h1>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                Help us build the future of digital connectivity and shape tomorrow's technology
+            </p>
+        </header>
+
+        <div class="space-y-10">
+            <section class="bg-gray-800/50 backdrop-blur-sm highlight-box p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-gray-800/30">
+                <h2 class="text-3xl font-semibold mb-8 text-blue-400 flex items-center">
+                    <span class="mr-3">Current Openings</span>
+                    <div class="h-px flex-grow bg-gradient-to-r from-blue-400/30 to-transparent"></div>
+                </h2>
+                <div id="jobs-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 py-6">
+                    <!-- Jobs will be dynamically inserted here -->
+                </div>
+            </section>
+
+            <section class="bg-gradient-to-b from-gray-900 to-gray-800 backdrop-blur-sm p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-gray-800/30 highlight-box">
+              <h2 class="text-3xl font-semibold mb-8 text-blue-400 flex items-center">
+                  <span class="mr-3">Why Join Us?</span>
+                  <div class="h-px flex-grow bg-gradient-to-r from-blue-400/30 to-transparent"></div>
+              </h2>
+              <div class="text-gray-300 space-y-6 text-lg leading-relaxed">
+                  <p>We’re not just replacing business cards — we’re redefining what it means to connect in the digital age.</p>
+                  <p>At <strong>Total Connect</strong>, we build tools that make first impressions effortless, sustainable, and unforgettable. With <strong>tccards.tn</strong>, we’re leading a movement toward a paperless, smart networking experience that feels as seamless as it is impactful.</p>
+                  <p>We believe the future of professional connection should be fast, flexible, and eco-conscious. That’s why we’re crafting a culture that values innovation, purpose, and bold ideas.</p>
+                  <p>If you're passionate about tech that solves real problems — and you want to build a future that matters — <strong>we want to work with you.</strong></p>
+              </div>
+          </section>
+          
+        </div>
+    </div>
+    <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400">
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <!-- Company Info -->
+          <div class="space-y-4">
+            <img src="/Assets/150.png" alt="Total Connect Logo" class="h-8 mx-auto md:mx-0">
+            <p class="text-gray-400 text-sm">
+              <b>No handing over. No paper shuffle.</b> <br>
+              You tap. They get everything. You’re done. <br>
+            </p>
+            <p class="text-gray-400 text-sm md:hidden">
+              tccards.tn is the future of networking. <br>
+              tccards.tn turns your card into a moment <br>— smooth, smart, unforgettable — <br>
+              No more printing costs. No more outdated info.
+            </p>
+            <p class="text-gray-400 text-sm md:hidden">
+              Your card is a tap away from their phone. <br>
+              Just one tap, and your presence lives in their pocket.
+              You don’t give your card away — you leave a mark. <br>
+              <hr>
+              <br>
+              <strong>Be remembered, not handed off.</strong>
+            </p>
+            <div class="flex space-x-4 justify-center md:justify-start">
+              <a href="https://www.facebook.com/tccards.tn" title="facebook"
+                class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="https://www.instagram.com/tccards.tn/" title="Instagram"
+                class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://www.linkedin.com/company/tccards/" title="LinkedIn"
+                class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+  
+          <!-- Products -->
+          <div>
+            <h3 class="text-white font-semibold mb-4">Products</h3>
+            <ul class="space-y-2">
+              <li><a href="/plans"
+                  class="text-sm text-gray-500 hover:text-white  p-2 ">Plans
+                </a></li>
+              <li><a href="#Pricing"
+                  class="text-sm text-gray-500 hover:text-white  p-2 ">Events
+                  Solutions</a></li>
+              <li><a href="/plans/enterprise/"
+                  class="text-sm text-gray-500 hover:text-white  p-2 ">Enterprise
+                  Solutions</a></li>
+            </ul>
+          </div>
+          <!-- Support -->
+          <div>
+            <h3 class="text-white font-semibold mb-4">Support</h3>
+            <ul class="space-y-2">
+              <li><a href="/help"
+                  class="text-sm text-gray-500 hover:text-white  p-2 ">Help
+                  Center</a></li>
+              <li><a href="https://edit.tccards.tn"
+                  class="text-sm text-gray-500 hover:text-white  p-2 ">Edit
+                  Profile</a></li>
+              <li><a href="/privacy&ploicy"
+                  class="text-sm text-gray-500 hover:text-white  p-2 ">Privacy
+                  Policy</a></li>
+              <li><a href="/terms&services"
+                  class="text-sm text-gray-500 hover:text-white  p-2 ">Terms
+                  of Service</a></li>
+            </ul>
+          </div>
+          <!-- Contact -->
+          <div>
+            <h3 class="text-white font-semibold mb-4">Company</h3>
+            <ul class="space-y-2">
+              <li><a href="#home"
+                  class="text-sm text-gray-500 hover:text-white  p-2 ">About
+                  Us</a></li>
+              <li><a href="/careers"
+                  class="text-sm text-gray-500 hover:text-white  p-2 ">Careers</a>
+              </li>
+              <li><a href="#home"
+                  class="text-sm text-gray-500 hover:text-white  p-2 ">Blog</a>
+              </li>
+              <li><a href="#home"
+                  class="text-sm text-gray-500 hover:text-white  p-2 ">Press</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-8 text-center border-t border-gray-800 pt-6">
+          <p class="text-gray-500 text-sm">&copy; 2025 Total Connect. All rights reserved.</p>
+        </div>
+      </div>
+      </footer>
+    <script src="careers.js"></script>
 </body>
 </html>
