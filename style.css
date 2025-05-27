@@ -4,21 +4,21 @@ html {
 }
 body {
     background: linear-gradient(180deg, 
-        #000000 20%,
-        #0d121d 25%,
-        #000000 45%,
-        #0d121d 75%,
+        #000000 15%,
+        #0f172a 25%,
+        #041d61c9 45%,
+        #0f172a 75%,
         #000000 100%
     );
 }
 
 #pricing {
     background: linear-gradient(180deg,
-        #1a1a1a 0%,
-        #2d3748 25%,
-        #4a5568 50%,
-        #2d3748 75%,
-        #1a1a1a 100%
+        #020617 0%,
+        #101f49c7 25%,
+        #12276b 50%,
+        #0a1c4ed3 75%,
+        #020617 100%
     );
 }
 
@@ -132,6 +132,35 @@ header {
   color: #3ABEF9;  /* Text hover color for nav items */
 }
 
+.contact-link {
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.contact-link:hover {
+  color: var(--secondary-color);
+}
+
+.contact-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: yellow;
+  transition: width 0.3s ease;
+}
+
+.contact-link:hover::after {
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 /* Accent Colors */
 .bg-\[\#3ABEF9\] {

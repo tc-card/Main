@@ -103,38 +103,47 @@ document.querySelectorAll('.faq-button').forEach(button => {
       `;
     }
   });
-
 // smooth landing animation on page loading/opening
 const fadeInElements = document.querySelectorAll('.fade-in');
+const FADE_IN_DURATION = '0.5s';
+const FADE_OUT_DURATION = '0.3s';
+const TRANSITION_TIMING = 'ease-in-out';
+const NAVIGATION_DELAY = 500;
 
-// Initial setup
-fadeInElements.forEach((element) => {
-    element.style.opacity = 0;
+// Initial setup - hide elements before animation
+fadeInElements.forEach(element => {
+    element.style.opacity = '0';
+    element.style.transition = `opacity ${FADE_IN_DURATION} ${TRANSITION_TIMING}`;
 });
 
-// Fade in on page load
-window.addEventListener('load', () => {
-    fadeInElements.forEach((element) => {
-        element.style.transition = 'opacity 0.5s ease-in-out';
-        element.style.opacity = 1;
-    });
-});
-
-// Fade out when clicking external links
-document.querySelectorAll('a[href^="http"]' || 'a[href^="/"]').forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const href = link.getAttribute('href');
-        
-        // Fade out all elements
-        fadeInElements.forEach((element) => {
-            element.style.transition = 'opacity 0.8s ease-in-out';
-            element.style.opacity = 0;
+// Fade in elements when DOM is ready 
+document.addEventListener('DOMContentLoaded', () => {
+    requestAnimationFrame(() => {
+        fadeInElements.forEach(element => {
+            element.style.opacity = '1';
         });
-
-        // Navigate after animation completes
-        setTimeout(() => {
-            window.location.href = href;
-        }, 300);
     });
+});
+
+// Handle link transitions
+document.addEventListener('click', e => {
+    const link = e.target.closest('a');
+    if (!link) return;
+
+    // Check if link is external or internal route
+    const href = link.getAttribute('href');
+    if (!href.startsWith('http') && !href.startsWith('/')) return;
+
+    e.preventDefault();
+
+    // Fade out smoothly
+    fadeInElements.forEach(element => {
+        element.style.transition = `opacity ${FADE_OUT_DURATION} ${TRANSITION_TIMING}`;
+        element.style.opacity = '0';
+    });
+
+    // Navigate after fade completes
+    setTimeout(() => {
+        window.location.href = href;
+    }, NAVIGATION_DELAY);
 });

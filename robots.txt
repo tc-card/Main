@@ -7,7 +7,6 @@ Allow: /plans/
 Allow: /plans/basic/
 Allow: /plans/enterprise/
 Allow: /plans/free/
-Allow: /plans/professional/
 Allow: /plans/standard/
 
 # Block assets folders from crawling to save crawl budget

@@ -15,8 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     userTagline: document.getElementById("user-tagline"),
     userPhone: document.querySelector('input[name="phone"]'),
     userAddress: document.querySelector('input[name="address"]'),
-    emailToggleLabel: document.querySelector('.flex.items-center label'),
-    formEmail: document.getElementById('form-email')
+    referralCode: document.getElementById("referral-code"),
   };
 
   // Validate elements exist
@@ -26,50 +25,19 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
   }
-  
-  // ===== EMAIL TOGGLE =====
-  const emailCheckbox = document.getElementById('email');
-  
-  if (!emailCheckbox) {
-    console.warn('Email checkbox element not found');
-    return;
+
+  // ===== REFERRAL CODE =====
+  if (elements.referralCode) {
+    elements.referralCode.addEventListener("input", () => {
+      const code = elements.referralCode.value.trim();
+      if (code) {
+        const email = document.querySelector('input[name="email"]').value.trim();
+        if (parseInt(code) < 5 || CONFIG.emailRegex.test(email)) {
+          elements.referralCode.classList.add("valid");
+        }
+      }
+    })
   }
-
-  if (emailCheckbox) {
-    emailCheckbox.addEventListener('change', function() {
-      if (!elements.userEmail.value && this.checked) {
-        Swal.fire({
-          icon: 'warning',
-          text: 'Please fill in your email first',
-          toast: true,
-          position: "top-center",
-          background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-          color: "#fff"
-        });
-        this.checked = false;
-        return;
-      }
-
-      const label = this.closest('label');
-      if (this.checked) {
-        label.classList.add('bg-blue-600');
-        label.classList.remove('bg-gray-700');
-      } else {
-        label.classList.remove('bg-blue-600');
-        label.classList.add('bg-gray-700');
-      }
-
-      elements.formEmail.value = this.checked ? elements.userEmail.value : '';
-      elements.formEmail.disabled = this.checked;
-    });
-
-    elements.userEmail.addEventListener('input', function() {
-      if (emailCheckbox.checked) {
-        elements.formEmail.value = this.value;
-      }
-    });
-  }
-
   // ===== IMAGE HANDLING =====
   function handleImageUpload(file, targetElement) {
     if (!file) {
@@ -302,7 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       .join(","),
         style: document.querySelector(".style-preset.selected")?.dataset.style || "default",
         profilePic: profilePictureUrl, // Use the URL from Cloudinary
-        formEmail: elements.formEmail.value.trim() || "",
+        formEmail: elements.referralCode.value.trim() || "",
       };
 
       // Update Swal for duplicate check
