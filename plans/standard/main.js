@@ -385,143 +385,146 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 // ===== FORM SUBMISSION HANDLER =====
-  elements.form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    
-    // form validation
-    const email = elements.userEmail.value.trim();
-    const link = elements.userLink.value.trim();
-    const name = elements.userName.value.trim();
-
-    if (!name|| !link || !email) {
-      Swal.fire({
-        icon: "error",
-        title: "Missing Fields",
-        text: "Please fill in all required fields.",
-      });
-      return false;
-    }
-
-    if (!CONFIG.linkRegex.test(link)) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Link",
-        text: "Link must be alphanumeric and between 3-20 characters.",
-      });
-      return false;
-    }
-
-    if (!CONFIG.emailRegex.test(email)) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Email",
-        text: "Please enter a valid email address.",
-      });
-      return false;
-    }
-
-    elements.submitBtn.disabled = true;
-    
-    const swalInstance = Swal.fire({
-      title: "Submitting...",
-      text: "Please wait while we create your webfolio.",
-      background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-      color: "#fff",
-      allowOutsideClick: false,
-      didOpen: () => Swal.showLoading(),
-    });
+elements.form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  console.log("Form submission started"); // Debug log
   
-    try {
-      // First handle image upload if there's a file
-      let profilePictureUrl = '';
+  // Clear previous errors
+  const errorContainer = document.getElementById('form-errors');
+  errorContainer.classList.add('hidden');
+  errorContainer.innerHTML = '';
+  
+  // Validate form
+  const errors = [];
+  const email = elements.userEmail.value.trim();
+  const link = elements.userLink.value.trim();
+  const name = elements.userName.value.trim();
+  const formEmail = elements.formEmail.value.trim();
+
+  if (!name) errors.push("Name is required");
+  if (!link) errors.push("Profile link is required");
+  if (!email) errors.push("Email is required");
+  if (!formEmail) errors.push("Form email is required");
+  
+  if (!CONFIG.linkRegex.test(link)) {
+      errors.push("Profile link must be 3-15 characters (letters, numbers, hyphens)");
+  }
+  
+  if (!CONFIG.emailRegex.test(email)) {
+      errors.push("Please enter a valid email address");
+  }
+  
+  if (!CONFIG.emailRegex.test(formEmail)) {
+      errors.push("Please enter a valid form email address");
+  }
+
+  // Show errors if any
+  if (errors.length > 0) {
+      errorContainer.innerHTML = errors.map(err => `<p>• ${err}</p>`).join('');
+      errorContainer.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+  }
+
+  // Show loading state
+  elements.submitBtn.disabled = true;
+  document.getElementById('submit-text').classList.add('hidden');
+  document.getElementById('submit-spinner').classList.remove('hidden');
+
+  try {
+      console.log("Starting form processing"); // Debug log
+      
+      // Handle image upload if exists
+      let profilePictureUrl = "https://tccards.tn/Assets/150.png";
       if (elements.imageInput.files[0]) {
-        swalInstance.update({
-          title: "Uploading image...",
-          text: "Processing your profile picture...",
-          allowOutsideClick: false,
-          showConfirmButton: false,
-          didOpen: () => Swal.showLoading(),
-        });
-        profilePictureUrl = await uploadToCloudinary(elements.imageInput.files[0]);
+          console.log("Uploading profile image"); // Debug log
+          profilePictureUrl = await uploadToCloudinary(elements.imageInput.files[0]);
       }
 
-      // Then collect form data with the uploaded image URL
+      // Prepare form data
       const formData = {
-        name: elements.userName.value.trim(),
-        email: elements.userEmail.value.trim(),
-        link: elements.userLink.value.trim(),
-        tagline: elements.userTagline.value.trim() || "",
-        phone: elements.userPhone.value.trim() || "",
-        address: elements.userAddress.value.trim() || "",
-        social_links: Array.from(document.querySelectorAll('input[name="social-links[]"]'))
-                      .map(input => input.value.trim())
-                      .filter(Boolean)
-                      .join(","),
-        style: document.querySelector(".style-preset.selected")?.dataset.style || "default",
-        profilePic: profilePictureUrl, // Use the URL from Cloudinary
-        formEmail: elements.formEmail.value.trim() || "",
+          name,
+          email,
+          link,
+          formEmail,
+          tagline: elements.userTagline.value.trim() || "",
+          phone: elements.userPhone.value.trim() || "",
+          address: elements.userAddress.value.trim() || "",
+          social_links: Array.from(document.querySelectorAll('input[name="social-links[]"]'))
+                          .map(input => input.value.trim())
+                          .filter(Boolean)
+                          .join(","),
+          style: document.querySelector(".style-preset.selected")?.dataset.style || "default",
+          profilePic: profilePictureUrl
       };
 
-      // Update Swal for duplicate check
-      swalInstance.update({
-        title: "Checking availability...",
-        text: "Verifying your information...",
-        allowOutsideClick: false,
-        showConfirmButton: false,
-        didOpen: () => Swal.showLoading(),
-      });
+      console.log("Form data prepared:", formData); // Debug log
 
-      const { emailExists, linkExists } = await checkDuplicatesDebounced(formData.email, formData.link);
-      if (emailExists || linkExists) {
-        throw new Error(emailExists ? "Email already registered" : "Link already taken");
-      }
-
-      // Update Swal for upload
-      swalInstance.update({
-        title: "Uploading...",
-        text: "Crafting your webfolio...",
-        allowOutsideClick: false,
-        showConfirmButton: false,
-        didOpen: () => Swal.showLoading(),
-      });
-
-      if (elements.imageInput.files[0]) {
-        formData.profile_picture = await uploadToCloudinary(elements.imageInput.files[0]);
-      }
-
-      // Submit to GAS
+      // Submit to backend
       const response = await fetch(`${CONFIG.googleScriptUrl}?${new URLSearchParams(formData)}`);
-      if (!response.ok) throw new Error("Submission failed. Please try again.");
+      
+      if (!response.ok) {
+          throw new Error(await response.text() || "Submission failed");
+      }
 
-      // Success
+      console.log("Submission successful"); // Debug log
+      
+      // Show success message
       await Swal.fire({
-        icon: "success",
-        title: "Success!",
-        color: "#fff",
-        html: `Your webfolio is ready!<br><br>
-              <a href="https://card.tccards.tn/profile/@${formData.link}" target="_blank">
-                card.tccards.tn/@${formData.link}
-              </a>`,
-        background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-        confirmButtonText: "View My Webfolio"
-        }).then(() => {
-          window.location.href = `https://card.tccards.tn/profile/@${formData.link}`;
-        });
-
-      // Reset form and image preview
-      elements.form.reset();
-      elements.profilePicture.src = "https://tccards.tn/Assets/default.png"; // Reset to default image
-
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: error.message,
-        background: "linear-gradient(145deg, rgb(23, 7, 2), rgb(37, 42, 15), rgb(23, 2, 4))",
+          icon: "success",
+          title: "Success!",
+          html: `Your digital card has been created!<br><br>
+                <a href="https://card.tccards.tn/profile/@${link}" 
+                   target="_blank"
+                   class="text-blue-300 underline">
+                   card.tccards.tn/@${link}
+                </a>`,
+          background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
+          confirmButtonText: "View My Card",
+          confirmButtonColor: "#3b82f6"
       });
-    } finally {
+
+      // Redirect to the new profile
+      window.location.href = `https://card.tccards.tn/profile/@${link}`;
+
+  } catch (error) {
+      console.error("Submission error:", error); // Debug log
+      
+      // Show error message
+      Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message || "Failed to create your digital card. Please try again.",
+          background: "linear-gradient(145deg, rgb(23, 7, 2), rgb(37, 42, 15), rgb(23, 2, 4))",
+          confirmButtonColor: "#3b82f6"
+      });
+      
+  } finally {
+      // Reset loading state
       elements.submitBtn.disabled = false;
-      elements.profilePicture.src = "https://tccards.tn/Assets/150.png"; // Reset to default image
-    }
-  });
+      document.getElementById('submit-text').classList.remove('hidden');
+      document.getElementById('submit-spinner').classList.add('hidden');
+  }
+});
+
+// Add real-time validation
+function validateForm() {
+  const isValid = elements.userName.value.trim() && 
+                 elements.userLink.value.trim() && 
+                 elements.userEmail.value.trim() && 
+                 elements.formEmail.value.trim() &&
+                 CONFIG.linkRegex.test(elements.userLink.value.trim()) &&
+                 CONFIG.emailRegex.test(elements.userEmail.value.trim()) &&
+                 CONFIG.emailRegex.test(elements.formEmail.value.trim());
+  
+  elements.submitBtn.disabled = !isValid;
+}
+
+// Add event listeners for real-time validation
+[elements.userName, elements.userLink, elements.userEmail, elements.formEmail].forEach(el => {
+  el.addEventListener('input', validateForm);
+});
+
+// Initial validation
+validateForm();
 });

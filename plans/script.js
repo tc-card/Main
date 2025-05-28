@@ -62,24 +62,24 @@ const advancedPlans = [
     colorClasses: "bg-gray-900 ring-yellow-400 text-yellow-400",
     link: "/plans/standard/",
   },
-  {
-    tier: "Custom",
-    price: "179+ TND",
-    description: "Tailored solutions for professionals and growing businesses.",
-    features: [
-      "10+ NFC Cards",
-      "Fully customizable webfolio",
-      "Priority support",
-      "SLA guarantee",
-      "Custom branding",
-      "Custom Domain",
-      "Integration with CRM tools",
-      "Advanced Contact Form",
-      "Remove our watermark"
-    ],
-    colorClasses: "bg-gray-900 ring-blue-400 text-blue-400",
-    link: "/plans/professional/",
-  },
+  // {
+  //   tier: "Custom",
+  //   price: "179+ TND",
+  //   description: "Tailored solutions for professionals and growing businesses.",
+  //   features: [
+  //     "10+ NFC Cards",
+  //     "Fully customizable webfolio",
+  //     "Priority support",
+  //     "SLA guarantee",
+  //     "Custom branding",
+  //     "Custom Domain",
+  //     "Integration with CRM tools",
+  //     "Advanced Contact Form",
+  //     "Remove our watermark"
+  //   ],
+  //   colorClasses: "bg-gray-900 ring-blue-400 text-blue-400",
+  //   link: "/plans/professional/",
+  // },
   {
     tier: "Enterprise",
     price: "Custom Pricing",
@@ -223,4 +223,50 @@ renderPricingCards();
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Initializing pricing cards...');
   
+});
+
+
+// smooth landing animation on page loading/opening
+const fadeInElements = document.querySelectorAll('.fade-in');
+const FADE_IN_DURATION = '0.5s';
+const FADE_OUT_DURATION = '0.3s';
+const TRANSITION_TIMING = 'ease-in-out';
+const NAVIGATION_DELAY = 500;
+
+// Initial setup - hide elements before animation
+fadeInElements.forEach(element => {
+    element.style.opacity = '0';
+    element.style.transition = `opacity ${FADE_IN_DURATION} ${TRANSITION_TIMING}`;
+});
+
+// Fade in elements when DOM is ready 
+document.addEventListener('DOMContentLoaded', () => {
+    requestAnimationFrame(() => {
+        fadeInElements.forEach(element => {
+            element.style.opacity = '1';
+        });
+    });
+});
+
+// Handle link transitions
+document.addEventListener('click', e => {
+    const link = e.target.closest('a');
+    if (!link) return;
+
+    // Check if link is external or internal route
+    const href = link.getAttribute('href');
+    if (!href.startsWith('http') && !href.startsWith('/')) return;
+
+    e.preventDefault();
+
+    // Fade out smoothly
+    fadeInElements.forEach(element => {
+        element.style.transition = `opacity ${FADE_OUT_DURATION} ${TRANSITION_TIMING}`;
+        element.style.opacity = '0';
+    });
+
+    // Navigate after fade completes
+    setTimeout(() => {
+        window.location.href = href;
+    }, NAVIGATION_DELAY);
 });
