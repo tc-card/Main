@@ -32,12 +32,10 @@ const starterPlans = [
       "6 media links",
       "Email support",
       "QR code sharing",
-      "Contact Form",
       "Contact Button"
     ],
     limitations: [
       "TC Watermark",
-      "Limited Templates",
       "Basic Customization"
     ],
     colorClasses: "bg-gray-900 ring-green-400 text-green-400",
@@ -48,16 +46,16 @@ const starterPlans = [
 const advancedPlans = [
   {
     tier: "Standard",
-    price: "159 TND",
+    price: "80 TND",
     description: "Essential features to enhance your business presence.",
     features: [
       "5 NFC Cards",
-      "More customizable webfolio",
+      "Customizable Card",
       "Unlimited media links",
       "Email support",
       "Custom branding",
       "Remove our watermark",
-      "Smart Form"
+      "Analytics Dashboard"
     ],
     colorClasses: "bg-gray-900 ring-yellow-400 text-yellow-400",
     link: "/plans/standard/",
@@ -138,14 +136,14 @@ function generatePricingCard(content) {
   
   if (isFree) {
     tagElement = `
-      <span class="absolute -top-3 left-4 rounded-full ${colors.bg} px-3 py-1.5 text-xs font-bold text-yellow-400">
+      <span class="absolute -top-3 left-4 rounded-full bg-gray-900 px-3 py-1.5 text-xs font-bold text-blue-400 ring-2">
          Start Free
       </span>
     `;
   } else if (isDiscounted) {
     tagElement = `
-      <span class="absolute -top-3 right-4 rounded-full ${colors.bg} px-3 py-1.5 text-xs font-bold text-gray-100 ring-1 ${colors.ring}">
-          30% OFF
+      <span class="absolute -top-3 right-4 rounded-full bg-gray-900 px-3 py-1.5 text-xs font-bold text-gray-100 ring-1 ${colors.ring}">
+          24% OFF
       </span>
     `;
   }

@@ -3,238 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Plan - Total Connect NFC</title>
-    <meta name="description" content="Enterprise-grade NFC card solutions with unlimited cards, dedicated support, and custom integrations.">
-    <meta name="image" content="https://tccards.tn/Assets/4.png">
-    <meta property="og:image" content="https://tccards.tn/Assets/4.png">
-    <link rel="icon" href="https://tccards.tn/Assets/150.png" type="image/x-icon">
-    <meta property="og:image:width" content="1200">
+    <title>Enterprise Solutions | Total Connect NFC</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #2f81f7;
+            --dark: #0d1117;
+            --light: #f0f6fc;
+        }
+        body {
+            background: url(https://tccards.tn/Assets/bg.png) repeat center fixed !important;
+            backdrop-filter: blur(5px);
+            background-size: 150% 150%;
+            color: var(--light);
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+        }
         html {
             scroll-behavior: smooth;
         }
-
-        h3 {
-            overflow: hidden;
-            max-height: 430px;
+        .feature-card {
+            background: rgba(22, 27, 34, 0.8);
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(10px);
         }
-
-        @layer utilities {
-            .perspective-container {
-                perspective: 1000px;
-                transform-style: preserve-3d;
-            }
-
-            @keyframes skew-scroll {
-                0% {
-                    transform:translateZ(0) translateY(0);
-                }
- /* 100 rotateX(20deg) rotateZ(-20deg) skewX(20deg) || 0 rotateX(20deg) rotateZ(-20deg) skewX(20deg)  */
-                100% {
-                    transform:translateZ(0) translateY(-33%);
-                }
-            }
-
-            .animate-skew-scroll {
-                animation: skew-scroll 15s linear infinite !important;
-            }
-
-            .glass-effect {
-                background: rgba(17, 24, 39, 0.7);
-                backdrop-filter: blur(10px);
-            }
+        .feature-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(47, 129, 247, 0.1);
+        }
+        .form-input {
+            transition: all 0.2s ease;
+        }
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(47, 129, 247, 0.2);
         }
     </style>
 </head>
-
-<body class="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white justify-center items-center">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-        <!-- Hero Section -->
-        <div class="text-center mb-16 space-y-4">
-            <h1 class="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-pink-600">
-                Enterprise-Grade Digital Identity Solutions
-            </h1>
-            <p class="text-xl text-gray-400">Transform your organization's networking with advanced NFC technology</p>
-        </div>
-
-        <!-- Main Content Grid -->
-        <div class="grid lg:grid-cols-2 gap-12 items-start">
-            <!-- Pricing Card -->
-            <div class="glass-effect rounded-2xl p-8 border border-gray-800 shadow-2xl hover:border-red-400/50 transition-all">
-                <!-- Price Header -->
-                <div class="flex justify-between items-start mb-8">
-                    <div>
-                        <h2 class="text-3xl font-bold">Enterprise Suite</h2>
-                        <p class="text-gray-400 mt-2">Customized for your organization</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-2xl font-bold text-red-400">Custom Solution</p>
-                        <p class="text-sm text-gray-400">Tailored pricing</p>
-                    </div>
-                </div>
-
-                <!-- Features List -->
-                <div class="bg-black/40 rounded-xl p-6 mb-8">
-                    <h3 class="font-semibold text-red-400 mb-4">Enterprise Features:</h3>
-                    <ul class="space-y-3 text-gray-300">
-                        <li class="flex items-center gap-2">
-                            <i class="fas fa-check-circle text-green-400"></i>
-                            Bulk NFC Card Management
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fas fa-check-circle text-green-400"></i>
-                            Advanced Analytics Dashboard
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fas fa-check-circle text-green-400"></i>
-                            Custom API Integration
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fas fa-check-circle text-green-400"></i>
-                            White-Label Solutions
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fas fa-check-circle text-green-400"></i>
-                            24/7 Priority Support
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fas fa-check-circle text-green-400"></i>
-                            Custom Card Designs
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- CTA Buttons -->
-                <div class="space-y-4">
-                    <a href="mailto:enterprise@tccards.tn" class="block w-full py-4 bg-gradient-to-r from-purple-500 to-fuchsia-600 hover:from-purple-600 hover:to-fuchsia-700 text-white font-bold rounded-xl text-center transition-all transform hover:scale-[1.02]">
-                        Contact Enterprise Team
-                    </a>
-                    <a href="#demo" class="block w-full py-4 border border-gray-600 hover:border-purple-500 text-white font-bold rounded-xl text-center transition-all">
-                        Request Demo
-                    </a>
-                </div>
+<body class="max-w-5xl mx-auto px-6 py-12">
+    <main class="space-y-16">
+        <section class="text-center">
+            <div class="inline-block px-4 py-2 rounded-full bg-blue-900/20 text-blue-400 mb-6 text-sm font-medium tracking-wide">
+                ENTERPRISE SOLUTIONS
             </div>
+            <h1 class="text-5xl font-bold mb-6 leading-tight">Custom Enterprise<br>NFC Solutions</h1>
+            <p class="text-xl text-[#8b949e] max-w-2xl mx-auto mb-8">Tailored solutions designed for enterprises with advanced security, scalability, and integration requirements.</p>
+            <div class="text-2xl font-semibold text-blue-400">Contact us for custom pricing</div>
+        </section>
 
-            <!-- Benefits Section -->
-            <div class="space-y-6">
-                <div class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl">
-                    <h3 class="text-2xl font-bold mb-4 text-red-400">Enterprise-Grade Solutions</h3>
-                    <p class="text-gray-300 leading-relaxed">
-                        Streamline your organization's networking with our comprehensive digital identity platform. Perfect for large teams, events, and corporate environments.
-                    </p>
-                </div>
-
-                <div class="grid gap-6">
-                    <div class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-red-400/30 transition-all">
-                        <i class="fas fa-shield-alt text-3xl text-red-400 mb-4"></i>
-                        <h4 class="text-xl font-semibold mb-2">Advanced Security</h4>
-                        <p class="text-gray-400">Enterprise-grade encryption and data protection</p>
-                    </div>
-
-                    <div class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-red-400/30 transition-all">
-                        <i class="fas fa-chart-line text-3xl text-red-400 mb-4"></i>
-                        <h4 class="text-xl font-semibold mb-2">Analytics & Insights</h4>
-                        <p class="text-gray-400">Comprehensive data analytics and reporting</p>
-                    </div>
-
-                    <div class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-red-400/30 transition-all">
-                        <i class="fas fa-users-cog text-3xl text-red-400 mb-4"></i>
-                        <h4 class="text-xl font-semibold mb-2">Team Management</h4>
-                        <p class="text-gray-400">Centralized control for large organizations</p>
-                    </div>
-                </div>
+        <section class="grid md:grid-cols-3 gap-8">
+            <div class="feature-card p-8 flex flex-col">
+                <i class="fas fa-shield-alt text-3xl text-[#2f81f7] mb-6"></i>
+                <h3 class="text-xl font-semibold mb-3">Enterprise Security</h3>
+                <p class="text-[#8b949e] flex-grow">Advanced encryption, access controls, and compliance features tailored to your security requirements.</p>
             </div>
-        </div>
-    </div>
-<!-- Add this after the main content grid and before the contact form -->
-<section class="max-w-6xl mx-auto px-4 py-16">
-    <h2 class="text-3xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-pink-600">
-        Perfect For
-    </h2>
-    <div class="grid md:grid-cols-3 gap-8">
-        <!-- Startups -->
-        <div class="glass-effect p-6 rounded-xl border border-gray-800 hover:border-red-400/30 transition-all">
-            <i class="fas fa-rocket text-3xl text-red-400 mb-4"></i>
-            <h3 class="text-xl font-bold mb-3">Growing Startups</h3>
-            <ul class="space-y-2 text-gray-400">
-                <li>• Scalable team management</li>
-                <li>• Quick onboarding</li>
-                <li>• Integration with startup tools</li>
-                <li>• Growth analytics</li>
-            </ul>
-        </div>
+            <div class="feature-card p-8 flex flex-col">
+                <i class="fas fa-users-cog text-3xl text-[#2f81f7] mb-6"></i>
+                <h3 class="text-xl font-semibold mb-3">Team Management</h3>
+                <p class="text-[#8b949e] flex-grow">Centralized administration with role-based access control and team management tools.</p>
+            </div>
+            <div class="feature-card p-8 flex flex-col">
+                <i class="fas fa-chart-line text-3xl text-[#2f81f7] mb-6"></i>
+                <h3 class="text-xl font-semibold mb-3">Analytics</h3>
+                <p class="text-[#8b949e] flex-grow">Comprehensive usage statistics and custom reporting for data-driven decision making.</p>
+            </div>
+        </section>
 
-        <!-- Enterprise -->
-        <div class="glass-effect p-6 rounded-xl border border-gray-800 hover:border-red-400/30 transition-all">
-            <i class="fas fa-building text-3xl text-red-400 mb-4"></i>
-            <h3 class="text-xl font-bold mb-3">Large Enterprises</h3>
-            <ul class="space-y-2 text-gray-400">
-                <li>• Department management</li>
-                <li>• Enterprise security</li>
-                <li>• Custom branding</li>
-                <li>• Global deployment</li>
-            </ul>
-        </div>
+        <section class="grid md:grid-cols-2 gap-8">
+            <div class="feature-card p-8">
+                <h2 class="text-2xl font-bold mb-6 pb-4 border-b border-[#30363d]">Core Features</h2>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
+                        <div>
+                            <span class="font-medium">Unlimited NFC Cards</span>
+                            <p class="text-sm text-[#8b949e] mt-1">Scale to thousands of users with no per-card fees</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
+                        <div>
+                            <span class="font-medium">Custom Webfolio Design</span>
+                            <p class="text-sm text-[#8b949e] mt-1">Tailored to match your brand identity</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
+                        <div>
+                            <span class="font-medium">Dedicated Account Manager</span>
+                            <p class="text-sm text-[#8b949e] mt-1">Single point of contact for all your needs</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
+                        <div>
+                            <span class="font-medium">Priority Support</span>
+                            <p class="text-sm text-[#8b949e] mt-1">24/7 support with 1-hour response SLA</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="feature-card p-8">
+                <h2 class="text-2xl font-bold mb-6 pb-4 border-b border-[#30363d]">Advanced Features</h2>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
+                        <div>
+                            <span class="font-medium">SLA Guarantee</span>
+                            <p class="text-sm text-[#8b949e] mt-1">99.99% uptime with financial backing</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
+                        <div>
+                            <span class="font-medium">Custom Integrations</span>
+                            <p class="text-sm text-[#8b949e] mt-1">API access and custom workflow automation</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
+                        <div>
+                            <span class="font-medium">Custom Domain</span>
+                            <p class="text-sm text-[#8b949e] mt-1">Branded URLs for all your NFC links</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
+                        <div>
+                            <span class="font-medium">Custom Forms</span>
+                            <p class="text-sm text-[#8b949e] mt-1">Collect data directly through your NFC taps</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
 
-        <!-- Events -->
-        <div class="glass-effect p-6 rounded-xl border border-gray-800 hover:border-red-400/30 transition-all">
-            <i class="fas fa-calendar-alt text-3xl text-red-400 mb-4"></i>
-            <h3 class="text-xl font-bold mb-3">Event Organizers</h3>
-            <ul class="space-y-2 text-gray-400">
-                <li>• Bulk card deployment</li>
-                <li>• Event analytics</li>
-                <li>• Attendee tracking</li>
-                <li>• Event-specific branding</li>
-            </ul>
-        </div>
-    </div>
-</section>
-    <!-- Contact Form Section -->
-    <section id="demo" class="max-w-4xl mx-auto px-4 py-16">
-        <div class="glass-effect rounded-2xl p-8 border border-gray-800">
-            <h2 class="text-3xl font-bold text-center mb-8">Request Enterprise Demo</h2>
-            <form class="space-y-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-400 mb-2">Company Name</label>
-                        <input type="text" class="w-full bg-black/30 border border-gray-700 rounded-lg px-4 py-2">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-400 mb-2">Team Size</label>
-                        <select class="w-full bg-black/30 border border-gray-700 rounded-lg px-4 py-2">
-                            <option>10-50</option>
-                            <option>50-100</option>
-                            <option>101-500</option>
-                            <option>501-1000</option>
-                            <option>1000+</option>
-                        </select>
-                    </div>
+        <section class="feature-card p-8">
+            <h2 class="text-2xl font-bold mb-6 pb-4 border-b border-[#30363d]">Request Enterprise Consultation</h2>
+            <form class="space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-[#8b949e] mb-2">Company Name</label>
+                    <input type="text" class="form-input w-full bg-[#0d1117] border border-[#30363d] rounded px-4 py-3" placeholder="Your organization" required>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-400 mb-2">Business Email</label>
-                    <input type="email" class="w-full bg-black/30 border border-gray-700 rounded-lg px-4 py-2">
+                    <label class="block text-sm font-medium text-[#8b949e] mb-2">Business Email</label>
+                    <input type="email" class="form-input w-full bg-[#0d1117] border border-[#30363d] rounded px-4 py-3" placeholder="contact@yourcompany.com" required>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-400 mb-2">Message</label>
-                    <textarea rows="4" class="w-full bg-black/30 border border-gray-700 rounded-lg px-4 py-2"></textarea>
+                    <label class="block text-sm font-medium text-[#8b949e] mb-2">Estimated Number of Cards Needed</label>
+                    <select class="form-input w-full bg-[#0d1117] border border-[#30363d] rounded px-4 py-3">
+                        <option value="">Select an option</option>
+                        <option value="100-500">100-500</option>
+                        <option value="500-1000">500-1,000</option>
+                        <option value="1000+">1,000+</option>
+                        <option value="custom">Custom Quantity</option>
+                    </select>
                 </div>
-                <button type="submit" class="w-full py-4 bg-gradient-to-r from-purple-500 to-fuchsia-600 hover:from-purple-600 hover:to-fuchsia-700 text-white font-bold rounded-xl transition-all transform hover:scale-[1.02]">
-                    Submit Request
+                <div>
+                    <label class="block text-sm font-medium text-[#8b949e] mb-2">Additional Requirements</label>
+                    <textarea class="form-input w-full bg-[#0d1117] border border-[#30363d] rounded px-4 py-3" rows="3" placeholder="Tell us about your specific needs"></textarea>
+                </div>
+                <button type="submit" class="w-full py-3 bg-[#2f81f7] text-white font-medium rounded hover:bg-[#1c6beb] transition-colors">
+                    Contact Enterprise Team
                 </button>
             </form>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <footer class="text-gray-400 py-6 text-center">
-        <p>&copy; 2024 Total Connect. All rights reserved.</p>
+    <footer class="mt-16 text-center text-[#8b949e] text-sm">
+        <p>&copy; 2024 Total Connect NFC. All rights reserved.</p>
     </footer>
-    <center>
-        <img src="https://tccards.tn//Assets/zfooter.gif" alt="cute animation" class="mt-8 center">
-    </center>
 
     <script src="script.js"></script>
-
 </body>
 </html>

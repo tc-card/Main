@@ -9,16 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
     dynamicLinks: document.getElementById("dynamic-links"),
     form: document.getElementById("data-fill"),
     submitBtn: document.getElementById("saveContactBtn"),
-    formType: document.getElementById("form-type"),
-    formPreview: document.getElementById("form-preview"),
     userName: document.getElementById("user-name"),
     userEmail: document.querySelector('input[name="email"]'),
     userLink: document.querySelector('input[name="link"]'),
     userTagline: document.getElementById("user-tagline"),
     userPhone: document.querySelector('input[name="phone"]'),
     userAddress: document.querySelector('input[name="address"]'),
-    emailToggleLabel: document.querySelector('.flex.items-center label'),
-    formEmail: document.getElementById('form-email')
+    referralCode: document.getElementById("referral-code"),
   };
 
   // Validate elements exist
@@ -28,51 +25,19 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
   }
-  
-  // ===== EMAIL TOGGLE =====
-  const emailCheckbox = document.getElementById('email');
-  
-  if (!emailCheckbox) {
-    console.warn('Email checkbox element not found');
-    return;
+
+  // ===== REFERRAL CODE =====
+  if (elements.referralCode) {
+    elements.referralCode.addEventListener("input", () => {
+      const code = elements.referralCode.value.trim();
+      if (code) {
+        const email = document.querySelector('input[name="email"]').value.trim();
+        if (parseInt(code) < 5 || CONFIG.emailRegex.test(email)) {
+          elements.referralCode.classList.add("valid");
+        }
+      }
+    })
   }
-
-  if (emailCheckbox) {
-    emailCheckbox.addEventListener('change', function() {
-      if (!elements.userEmail.value && this.checked) {
-        Swal.fire({
-          icon: 'warning',
-          text: 'Please fill in your email first',
-          toast: true,
-          position: "top-center",
-          background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-          color: "#fff"
-        });
-        this.checked = false;
-        return;
-      }
-
-
-      const label = this.closest('label');
-      if (this.checked) {
-        label.classList.add('bg-blue-600');
-        label.classList.remove('bg-gray-700');
-      } else {
-        label.classList.remove('bg-blue-600');
-        label.classList.add('bg-gray-700');
-      }
-
-      elements.formEmail.value = this.checked ? elements.userEmail.value : '';
-      elements.formEmail.disabled = this.checked;
-    });
-
-    elements.userEmail.addEventListener('input', function() {
-      if (emailCheckbox.checked) {
-        elements.formEmail.value = this.value;
-      }
-    });
-  }
-
   // ===== IMAGE HANDLING =====
   function handleImageUpload(file, targetElement) {
     if (!file) {
@@ -150,32 +115,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const ul = elements.dynamicLinks.querySelector("ul");
     const currentLinks = ul.querySelectorAll("li").length;
 
-    if (currentLinks === 6) {
+    if (currentLinks >= 6) {
       Swal.fire({
         icon: "info",
-        title: "Getting social, aren't we?",
-        text: "You've got quite a collection of links!",
-        background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-        color: "#fff",
+        title: "6 Links Maximum",
         toast: true,
         position: "top-center",
         showConfirmButton: false,
-        timer: 10000,
+        timer: 2000,
         customClass: { popup: 'small-toast' }
       });
-    } else if (currentLinks === 10) {
-      Swal.fire({
-        icon: "warning",
-        title: "Social Media Superstar!",
-        text: "You must be really popular with all these links!",
-        background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-        color: "#fff",
-        toast: true,
-        position: "top-center",
-        showConfirmButton: false,
-        timer: 3000,
-        customClass: { popup: 'small-toast' }
-      });
+      return;
     }
 
     ul.insertAdjacentHTML("beforeend", createSocialLink());
@@ -184,145 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-    // Form Type Management
-  const forms = {
-    contact: {
-      title: "Contact Request Form",
-      fields: [
-        { name: "contact_name", placeholder: "Your Name", type: "text" },
-        { name: "contact_email", placeholder: "Your Email", type: "email" },
-        {
-          name: "contact_phone",
-          placeholder: "Your Phone (Optional)",
-          type: "tel",
-          required: false,
-        },
-        {
-          name: "contact_message",
-          placeholder: "Your Message/Inquiry",
-          type: "textarea",
-        },
-      ],
-    },
-    resource: {
-      title: "Free Resource/Download Form",
-      fields: [
-        { name: "resource_name", placeholder: "Your Name", type: "text" },
-        { name: "resource_email", placeholder: "Your Email", type: "email" },
-        {
-          name: "resource_company",
-          placeholder: "Your Company/Profession (Optional)",
-          type: "text",
-          required: false,
-        },
-        {
-          name: "resource_type",
-          placeholder: "Select Resource",
-          type: "select",
-          options: [
-            "Industry Guide",
-            "Template Pack",
-            "Checklist",
-            "Whitepaper",
-          ],
-        },
-      ],
-    },
-    quote: {
-      title: "Project Quote/Estimate Form",
-      fields: [
-        { name: "quote_name", placeholder: "Your Name", type: "text" },
-        { name: "quote_email", placeholder: "Your Email", type: "email" },
-        { name: "quote_phone", placeholder: "Your Phone", type: "tel" },
-        {
-          name: "quote_details",
-          placeholder: "Project Details",
-          type: "textarea",
-        },
-        {
-          name: "quote_budget",
-          placeholder: "Budget Range",
-          type: "select",
-          options: ["$1,000 - $5,000", "$5,000 - $10,000", "$10,000+"],
-        },
-        {
-          name: "quote_timeline",
-          placeholder: "Expected Timeline",
-          type: "date",
-          required: false,
-        },
-      ],
-    },
-    newsletter: {
-      title: "Newsletter/Updates Subscription",
-      fields: [
-        { name: "newsletter_email", placeholder: "Your Email", type: "email" },
-        {
-          name: "newsletter_name",
-          placeholder: "Your Name (Optional)",
-          type: "text",
-          required: false,
-        },
-        {
-          name: "newsletter_interests",
-          placeholder: "Your Interests",
-          type: "select",
-          options: ["Updates", "News", "Promotions", "All"],
-          required: false,
-        },
-      ],
-    },
-  };
-
-  function renderForm(type) {
-    const form = forms[type];
-    let formHtml = `<h3 class='text-xl font-semibold mb-4 text-white'>${form.title}</h3>`;
-
-    form.fields.forEach((field) => {
-      if (field.type === "textarea") {
-        formHtml += `
-          <div class='mb-4'>
-            <textarea 
-              name='${field.name}' 
-              placeholder='${field.placeholder}' 
-              class='w-full p-3 bg-transparent text-white border border-white/50 rounded-lg focus:outline-none focus:border-white' 
-              ${field.required ? "required" : ""}>
-            </textarea>
-          </div>`;
-      } else if (field.type === "select") {
-        formHtml += `
-          <div class='mb-4'>
-            <select 
-              name='${field.name}' 
-              class='w-full p-3 bg-transparent text-white border border-white/50 rounded-lg focus:outline-none focus:border-white'
-              ${field.required ? "required" : ""}>
-              <option value="" disabled selected>${field.placeholder}</option>
-              ${field.options
-                .map((option) => `<option value="${option}">${option}</option>`)
-                .join("")}
-            </select>
-          </div>`;
-      } else {
-        formHtml += `
-          <div class='mb-4'>
-            <input 
-              type='${field.type}' 
-              name='${field.name}' 
-              placeholder='${field.placeholder}' 
-              class='w-full p-3 bg-transparent text-white border border-white/50 rounded-lg focus:outline-none focus:border-white' 
-              ${field.required ? "required" : ""} />
-          </div>`;
-      }
-    });
-
-    elements.formPreview.innerHTML = formHtml;
-  }
-
-  elements.formType.addEventListener("change", () =>
-    renderForm(elements.formType.value)
-  );
-  renderForm("contact"); // Initial render
-  
   // ===== STYLE PRESETS ===== (Single implementation)
   document.querySelectorAll(".style-preset").forEach((button) => {
     button.addEventListener("click", (e) => {
@@ -385,146 +196,143 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 // ===== FORM SUBMISSION HANDLER =====
-elements.form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  console.log("Form submission started"); // Debug log
-  
-  // Clear previous errors
-  const errorContainer = document.getElementById('form-errors');
-  errorContainer.classList.add('hidden');
-  errorContainer.innerHTML = '';
-  
-  // Validate form
-  const errors = [];
-  const email = elements.userEmail.value.trim();
-  const link = elements.userLink.value.trim();
-  const name = elements.userName.value.trim();
-  const formEmail = elements.formEmail.value.trim();
+  elements.form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    // form validation
+    const email = elements.userEmail.value.trim();
+    const link = elements.userLink.value.trim();
+    const name = elements.userName.value.trim();
 
-  if (!name) errors.push("Name is required");
-  if (!link) errors.push("Profile link is required");
-  if (!email) errors.push("Email is required");
-  if (!formEmail) errors.push("Form email is required");
-  
-  if (!CONFIG.linkRegex.test(link)) {
-      errors.push("Profile link must be 3-15 characters (letters, numbers, hyphens)");
-  }
-  
-  if (!CONFIG.emailRegex.test(email)) {
-      errors.push("Please enter a valid email address");
-  }
-  
-  if (!CONFIG.emailRegex.test(formEmail)) {
-      errors.push("Please enter a valid form email address");
-  }
+    if (!name|| !link || !email) {
+      Swal.fire({
+        icon: "error",
+        title: "Missing Fields",
+        text: "Please fill in all required fields.",
+      });
+      return false;
+    }
 
-  // Show errors if any
-  if (errors.length > 0) {
-      errorContainer.innerHTML = errors.map(err => `<p>• ${err}</p>`).join('');
-      errorContainer.classList.remove('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-  }
+    if (!CONFIG.linkRegex.test(link)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Link",
+        text: "Link must be alphanumeric and between 3-20 characters.",
+      });
+      return false;
+    }
 
-  // Show loading state
-  elements.submitBtn.disabled = true;
-  document.getElementById('submit-text').classList.add('hidden');
-  document.getElementById('submit-spinner').classList.remove('hidden');
+    if (!CONFIG.emailRegex.test(email)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Email",
+        text: "Please enter a valid email address.",
+      });
+      return false;
+    }
 
-  try {
-      console.log("Starting form processing"); // Debug log
-      
-      // Handle image upload if exists
-      let profilePictureUrl = "https://tccards.tn/Assets/150.png";
+    elements.submitBtn.disabled = true;
+    
+    const swalInstance = Swal.fire({
+      title: "Submitting...",
+      text: "Please wait while we create your webfolio.",
+      background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
+      color: "#fff",
+      allowOutsideClick: false,
+      didOpen: () => Swal.showLoading(),
+    });
+  
+    try {
+      // First handle image upload if there's a file
+      let profilePictureUrl = '';
       if (elements.imageInput.files[0]) {
-          console.log("Uploading profile image"); // Debug log
-          profilePictureUrl = await uploadToCloudinary(elements.imageInput.files[0]);
+        swalInstance.update({
+          title: "Uploading image...",
+          text: "Processing your profile picture...",
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          didOpen: () => Swal.showLoading(),
+        });
+        profilePictureUrl = await uploadToCloudinary(elements.imageInput.files[0]);
       }
 
-      // Prepare form data
+      // Then collect form data with the uploaded image URL
       const formData = {
-          name,
-          email,
-          link,
-          formEmail,
-          tagline: elements.userTagline.value.trim() || "",
-          phone: elements.userPhone.value.trim() || "",
-          address: elements.userAddress.value.trim() || "",
-          social_links: Array.from(document.querySelectorAll('input[name="social-links[]"]'))
-                          .map(input => input.value.trim())
-                          .filter(Boolean)
-                          .join(","),
-          style: document.querySelector(".style-preset.selected")?.dataset.style || "default",
-          profilePic: profilePictureUrl
+        name: elements.userName.value.trim(),
+        email: elements.userEmail.value.trim(),
+        link: elements.userLink.value.trim(),
+        tagline: elements.userTagline.value.trim() || "",
+        phone: elements.userPhone.value.trim() || "",
+        address: elements.userAddress.value.trim() || "",
+        social_links: Array.from(document.querySelectorAll('input[name="social-links[]"]'))
+                      .map(input => input.value.trim())
+                      .filter(Boolean)
+                      .join(","),
+        style: document.querySelector(".style-preset.selected")?.dataset.style || "default",
+        profilePic: profilePictureUrl, // Use the URL from Cloudinary
+        formEmail: elements.referralCode.value.trim() || "",
       };
 
-      console.log("Form data prepared:", formData); // Debug log
+      // Update Swal for duplicate check
+      swalInstance.update({
+        title: "Checking availability...",
+        text: "Verifying your information...",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => Swal.showLoading(),
+      });
 
-      // Submit to backend
-      const response = await fetch(`${CONFIG.googleScriptUrl}?${new URLSearchParams(formData)}`);
-      
-      if (!response.ok) {
-          throw new Error(await response.text() || "Submission failed");
+      const { emailExists, linkExists } = await checkDuplicatesDebounced(formData.email, formData.link);
+      if (emailExists || linkExists) {
+        throw new Error(emailExists ? "Email already registered" : "Link already taken");
       }
 
-      console.log("Submission successful"); // Debug log
-      
-      // Show success message
+      // Update Swal for upload
+      swalInstance.update({
+        title: "Uploading...",
+        text: "Crafting your webfolio...",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => Swal.showLoading(),
+      });
+
+      if (elements.imageInput.files[0]) {
+        formData.profile_picture = await uploadToCloudinary(elements.imageInput.files[0]);
+      }
+
+      // Submit to GAS
+      const response = await fetch(`${CONFIG.googleScriptUrl}?${new URLSearchParams(formData)}`);
+      if (!response.ok) throw new Error("Submission failed. Please try again.");
+
+      // Success
       await Swal.fire({
-          icon: "success",
-          title: "Success!",
-          html: `Your digital card has been created!<br><br>
-                <a href="https://card.tccards.tn/profile/@${link}" 
-                   target="_blank"
-                   class="text-blue-300 underline">
-                   card.tccards.tn/@${link}
-                </a>`,
-          background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-          confirmButtonText: "View My Card",
-          confirmButtonColor: "#3b82f6"
-      });
+        icon: "success",
+        title: "Success!",
+        color: "#fff",
+        html: `Your webfolio is ready!<br><br>
+              <a href="https://card.tccards.tn/profile/@${formData.link}" target="_blank">
+                card.tccards.tn/@${formData.link}
+              </a>`,
+        background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
+        confirmButtonText: "View My Webfolio"
+        }).then(() => {
+          window.location.href = `https://card.tccards.tn/profile/@${formData.link}`;
+        });
 
-      // Redirect to the new profile
-      window.location.href = `https://card.tccards.tn/profile/@${link}`;
+      // Reset form and image preview
+      elements.form.reset();
+      elements.profilePicture.src = "https://tccards.tn/Assets/default.png"; // Reset to default image
 
-  } catch (error) {
-      console.error("Submission error:", error); // Debug log
-      
-      // Show error message
+    } catch (error) {
       Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: error.message || "Failed to create your digital card. Please try again.",
-          background: "linear-gradient(145deg, rgb(23, 7, 2), rgb(37, 42, 15), rgb(23, 2, 4))",
-          confirmButtonColor: "#3b82f6"
+        icon: "error",
+        title: "Error",
+        text: error.message,
+        background: "linear-gradient(145deg, rgb(23, 7, 2), rgb(37, 42, 15), rgb(23, 2, 4))",
       });
-      
-  } finally {
-      // Reset loading state
+    } finally {
       elements.submitBtn.disabled = false;
-      document.getElementById('submit-text').classList.remove('hidden');
-      document.getElementById('submit-spinner').classList.add('hidden');
-  }
-});
-
-// Add real-time validation
-function validateForm() {
-  const isValid = elements.userName.value.trim() && 
-                 elements.userLink.value.trim() && 
-                 elements.userEmail.value.trim() && 
-                 elements.formEmail.value.trim() &&
-                 CONFIG.linkRegex.test(elements.userLink.value.trim()) &&
-                 CONFIG.emailRegex.test(elements.userEmail.value.trim()) &&
-                 CONFIG.emailRegex.test(elements.formEmail.value.trim());
-  
-  elements.submitBtn.disabled = !isValid;
-}
-
-// Add event listeners for real-time validation
-[elements.userName, elements.userLink, elements.userEmail, elements.formEmail].forEach(el => {
-  el.addEventListener('input', validateForm);
-});
-
-// Initial validation
-validateForm();
+      elements.profilePicture.src = "https://tccards.tn/Assets/150.png"; // Reset to default image
+    }
+  });
 });

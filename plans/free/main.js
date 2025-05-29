@@ -304,13 +304,13 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "Success!",
         color: "#fff",
         html: `Your webfolio is ready!<br><br>
-              <a href="https://p.tccards.tn/profile/@${formData.link}" target="_blank">
+              <a href="https://at.tccards.tn/profile/@${formData.link}" target="_blank">
                 @${formData.link}
               </a>`,
         background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
         confirmButtonText: "View My Webfolio"
         }).then(() => {
-          window.location.href = `https://card.tccards.tn/profile/@${formData.link}`;
+          window.location.href = `https://at.tccards.tn/profile/@${formData.link}`;
         });
 
       // Reset form and image preview

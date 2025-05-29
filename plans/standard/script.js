@@ -1,13 +1,11 @@
 // Constants
 const FEATURES = [
     { id: '1', text: '5 NFC Cards', icon: 'fa-credit-card' },
-    { id: '2', text: 'More Customizable webfolio', icon: 'fa-globe' },
+    { id: '2', text: 'Customizable Card', icon: 'paint-brush' },
     { id: '3', text: 'Unlimited media links', icon: 'fa-link' },
     { id: '4', text: 'Email support', icon: 'fa-envelope' },
-    { id: '5', text: 'Custom branding', icon: 'fa-paint-brush' },
     { id: '6', text: 'Remove our watermark', icon: 'fa-check-circle' },
-    { id: '7', text: 'Contact Form', icon: 'fa-envelope-open-text' },
-    { id: '8', text: 'Secure data sharing', icon: 'fa-lock' }
+    { id: '8', text: 'Analytics Dashboard', icon: 'fa-chart-line' }
 ];
 
 // Create feature card using document fragment for better performance
@@ -15,9 +13,9 @@ const createFeatureCard = (feature) => {
     const template = document.createElement('template');
     template.innerHTML = `
         <div class="flex items-center space-x-3 rounded-lg border border-gray-800 px-4 py-3
-                    shadow-md transition-all hover:border-green-500/30 hover:bg-gray-900/50
+                    shadow-md transition-all hover:border-yellow-500/30 hover:bg-gray-900/50
                     backdrop-blur">
-            <i class="fas ${feature.icon} text-green-400"></i>
+            <i class="fas ${feature.icon} text-yellow-400"></i>
             <p class="text-gray-300">${feature.text}</p>
         </div>
     `.trim();
