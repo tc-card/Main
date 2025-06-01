@@ -1,242 +1,404 @@
-// Main form submission handler
+const REFERRAL_CODES = [
+  {
+    code: "WE10T",
+    validFrom: "2025-01-01",
+    validTo: "2026-12-31",
+    discountValue: "10% OFF"
+  }
+];
+
 function doGet(e) {
-  const headers = {
-    'Access-Control-Allow-Origin': '*', // Allow all origins
-    'Access-Control-Allow-Methods': 'GET', // Allow GET requests
-    'Access-Control-Allow-Headers': 'Content-Type' // Allow the Content-Type header
-  };
-
   try {
-    // Validate incoming data
-    if (!e || !e.parameter) {
-      throw new Error('Invalid request: No data received');
+    if (!e?.parameter) throw new Error('Invalid request: No data received');
+    const params = e.parameter;
+
+    // Referral code validation endpoint
+    if (params.check_referral === 'true') {
+      const { codeExists, codeDetails } = checkReferralCode(params.code);
+      return jsonResponse({ codeExists, codeDetails });
     }
 
-    const formData = e.parameter;
-
-    // Validate required fields
-    if (!formData?.name || !formData?.email) {
-      throw new Error('Name and email are required fields');
+    // Form submission endpoint
+    if (!params.name || !params.email || !params.link) {
+      throw new Error('Name, email, and link are required');
     }
 
-    // Open the spreadsheet and sheet
-    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-    const sheet = spreadsheet.getSheetByName('Form Submissions') || spreadsheet.insertSheet('Form Submissions');
-
-    // Create headers if first submission
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow([
-        'Timestamp',
-        'Name',
-        'Tagline',
-        'Email',
-        'Phone',
-        'Address',
-        'Social Links',
-        'Selected Style',
-        'Profile Picture URL',
-        'ID',
-        'Status'
-      ]);
+    // Validate referral code if provided
+    if (params.referralCode) {
+      const { codeExists } = checkReferralCode(params.referralCode);
+      if (!codeExists) {
+        throw new Error('Invalid referral code');
+      }
     }
 
-    // Generate submission ID
-    const submissionId = Utilities.getUuid();
-
-    // Process social links safely
-    let socialLinks = '';
-    if (formData.social_links) {
-      socialLinks = formData.social_links.split(',').join(',\n');
-    }
-
-    // Prepare row data
-    const rowData = [
-      new Date(),                    // Timestamp
-      formData.name,                 // Name
-      formData.tagline || '',        // Tagline
-      formData.email,                // Email
-      formData.phone || '',          // Phone
-      formData.address || '',        // Address
-      socialLinks,                   // Social Links
-      formData.style || 'default',    // Selected Style
-      formData.profile_picture || '',  // Profile Picture URL
-      submissionId,                   // Submission ID
-      'Inactive'                        // Status
-    ];
-
-    // Add data to sheet
-    sheet.appendRow(rowData);
-
-    // Send email notification
-    try {
-      sendNotificationEmail(formData.email, formData.name, submissionId, formData.profile_picture);
-    } catch (emailError) {
-      console.error('Email notification failed:', emailError);
-      // Continue execution even if email fails
-    }
-
-    // Return success response with CORS headers
-    return ContentService.createTextOutput(JSON.stringify({
+    const submissionId = submitFormData(params);
+    return jsonResponse({
       status: 'success',
       message: 'Form submitted successfully',
-      submissionId: submissionId,
-      cardId: submissionId
-    }))
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeaders(headers);
+      submissionId
+    });
 
   } catch (error) {
-    // Log error and return error response with CORS headers
-    console.error('Form submission error:', error);
-    return ContentService.createTextOutput(JSON.stringify({
-      status: 'error',
-      message: error.message || 'An error occurred while processing your request',
-    }))
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeaders(headers);
+    console.error('Error in doGet:', error);
+    return jsonResponse({ status: 'error', message: error.message });
   }
 }
 
-// Send email notification to user
-function sendNotificationEmail(userEmail, userName, link, profile_picture) {
-  const htmlBody = `
-  <html>
-  <head>
-      <base target="_blank">
-      <style>
-          body {
-              font-family: Arial, sans-serif;
-              line-height: 1.6;
-              color: #fff;
-              background-color: #121212;
-              margin: 0;
-              padding: 0;
-          }
-          .container {
-              max-width: 600px;
-              margin: 50px auto;
-              padding: 20px;
-              background-color: #1e1e1e;
-              border-radius: 8px;
-              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-              text-align: center;
-          }
-          .header {
-              background: #2a2a2a;
-              color: white;
-              padding: 20px;
-              border-radius: 8px;
-          }
-          .content {
-              padding: 20px;
-              background: #000000;
-              border-radius: 8px;
-              margin-top: 20px;
-          }
-          .footer {
-              text-align: center;
-              padding: 20px;
-              color: #A0A0A0;
-              font-size: 12px;
-          }
-          .table-container {
-              margin-top: 20px;
-          }
-          table {
-              width: 100%;
-              border-collapse: collapse;
-              margin-top: 10px;
-              color: white;
-          }
-          th, td {
-              padding: 10px;
-              border: 1px solid #444;
-              text-align: left;
-          }
-          th {
-              background-color: #ffffff;
-              color: #000000;
-          }
-          .w-32 { width: 8rem; }
-          .h-32 { height: 8rem; }
-          .rounded-full { border-radius: 9999px; }
-          .object-cover { object-fit: cover; }
-          .cursor-pointer { cursor: pointer; }
-          .button {
-              display: block;
-              width: 100%;
-              padding: 12px;
-              background: #2563eb;
-              color: white;
-              text-decoration: none;
-              border-radius: 5px;
-              margin-top: 15px;
-              cursor: pointer;
-              transition: background 0.3s;
-          }
-          .button:hover {
-              background-color: #1e40af;
-          }
-          a {
-              color: #2563eb;
-              font-weight: bold;
-              text-decoration: none;
-              border-bottom: 2px solid #2563eb;
-              transition: all 0.3s ease;
-          }
-          a:hover {
-              color: #1e40af;
-              border-bottom-color: #1e40af;
-          }
-      </style>
-  </head>
-  <body>
-      <div class="container">
-          <div class="header">
-              <img src="https://tccards.tn/Assets/code.png" alt="Logo" />
-              <h1>Welcome to Total Connect <br>Digital Cards</h1>
-          </div>
-          <div class="content">
-              <img src="${profile_picture}" alt="Profile Picture" class="w-32 h-32 rounded-full object-cover cursor-pointer" />
-              <p>Hello <strong>${userName}</strong>,</p>
-              <p>Your digital card has been created successfully!</p>
-              <p>Sub link: <strong>${link}</strong></p>
-              <div class="table-container">
-                  <table>
-                      <tr>
-                          <th>Plan Name</th>
-                          <td><i style="color: orange;">Basic</i></td>
-                      </tr>
-                      <tr>
-                          <th>Congrats on acquiring your</th>
-                          <td>Free of cost TC Webfolio</td>
-                      </tr>
-                      <tr>
-                          <th>Make sure to put it in good use</th>
-                          <td><strong style="color: rgb(233, 67, 158);"><a href="https://tccards.tn/plans">Check Also</strong></td>
-                      </tr>
-                  </table>
-              </div>
-              
-              <p>
-                 <a href="http://tccards.tn/profile/${link}">View My webfolio</a>
-              </p>
-          </div>
-          <div class="footer">
-              <p>© ${new Date().getFullYear()} Total Connect. All rights reserved.</p>
-          </div>
-      </div>
-  </body>
-  </html>`;
+function checkReferralCode(code) {
+  const codeUpper = code.toUpperCase();
+  const foundCode = REFERRAL_CODES.find(c => c.code.toUpperCase() === codeUpper);
 
-  GmailApp.sendEmail(
-    userEmail,
-    'Your Digital Card is Ready! | Total Connect',
-    'Your digital card has been created successfully.',
-    {
-      htmlBody: htmlBody,
-      name: 'Total Connect Digital Cards',
-      replyTo: 'support@tccards.tn'
+  if (foundCode) {
+    const now = new Date();
+    const validFrom = new Date(foundCode.validFrom);
+    const validTo = new Date(foundCode.validTo);
+    
+    if (now < validFrom || now > validTo) {
+      return { codeExists: false, codeDetails: null };
     }
-  );
+    
+    return { codeExists: true, codeDetails: foundCode };
+  }
+
+  return { codeExists: false, codeDetails: null };
+}
+
+// ===== HELPER FUNCTION =====
+function jsonResponse(data) {
+  return ContentService
+    .createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ===== (1) DUPLICATE CHECK (Cached + Optimized) =====
+function checkDuplicates(email, link) {
+  const cache = CacheService.getScriptCache();
+  const cacheKey = 'form_data_duplicates';
+  let data = JSON.parse(cache.get(cacheKey));
+
+  if (!data) {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Form');
+    if (!sheet) throw new Error('Sheet not found');
+
+    // Only read necessary columns (Email & Link)
+    const lastRow = sheet.getLastRow();
+    data = sheet.getRange(2, 3, lastRow - 1, 2).getValues(); // Columns C (Email) & D (Link)
+    cache.put(cacheKey, JSON.stringify(data), 300); // Cache for 5 mins
+  }
+
+  const emailLower = email.toLowerCase();
+  const linkLower = link.toLowerCase();
+
+  const emailExists = data.some(row => row[0]?.toLowerCase() === emailLower);
+  const linkExists = data.some(row => row[1]?.toLowerCase() === linkLower);
+
+  return { emailExists, linkExists };
+}
+
+// ===== (2) FORM SUBMISSION (Batch Write) =====
+function submitFormData(params) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Form');
+  if (!sheet) throw new Error('Sheet not found');
+
+  // Create headers if sheet is empty (optimized)
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow([
+      'Timestamp', 'Name', 'Email', 'Link', 'Tagline', 'Phone',
+      'Address', 'Social Links', 'Selected Style',
+      'Profile Picture URL', 'Form', 'ID', 'Status'
+    ]);
+  }
+
+  // Prepare data in batch
+  const submissionId = Utilities.getUuid();
+  const newRow = [
+    new Date(),
+    params.name,
+    params.email,
+    params.link,
+    params.tagline || '',
+    params.phone || '',
+    params.address || '',
+    params.social_links ? params.social_links.split(',').join(',\n') : '',
+    params.style || 'default',
+    params.profilePic || '',
+    params.formEmail || '',
+    submissionId,
+    'Inactive'
+  ];
+
+  // Single write operation
+  sheet.appendRow(newRow);
+  CacheService.getScriptCache().remove('form_data_duplicates'); // Invalidate cache
+
+  return submissionId;
+}
+
+function sendNotificationEmailAsync(email, name, link, profilePic) {
+  const htmlBody = createEmailBody(name, link, profilePic); 
+    GmailApp.sendEmail(
+      email,
+      'Your Digital Card is Ready! | Total Connect',
+      'Your digital card has been created successfully.',
+      {
+        htmlBody,
+        name: 'Total Connect Digital Cards',
+        replyTo: 'info@tccards.tn'
+      }
+    );
+}
+
+function createEmailBody(name, link, profilePic) {
+  return `
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Digital Card is Ready!</title>
+    <style type="text/css">
+        /* Client-specific styles */
+        body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+        img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+        
+        /* Reset styles */
+        body { margin: 0 !important; padding: 0 !important; width: 100% !important; }
+        
+        /* iOS BLUE LINKS */
+        a[x-apple-data-detectors] {
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
+        
+        /* Main styles */
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #333333;
+            background-color: #f7f7f7;
+            line-height: 1.5;
+        }
+        
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        
+        .header {
+            background-color: #6e48aa;
+            background: linear-gradient(to right, #6e48aa, #9d50bb);
+            padding: 30px 20px;
+            text-align: center;
+            color: #ffffff;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            margin: 10px 0 0;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            margin: -50px auto 20px;
+            display: block;
+            background-color: #ffffff;
+        }
+        
+        .content {
+            padding: 20px 30px 30px;
+        }
+        
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .welcome-text p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        
+        .highlight {
+            color: #6e48aa;
+            font-weight: 600;
+        }
+        
+        .card-link {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #6e48aa;
+        }
+        
+        .notice-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #6e48aa;
+            padding: 15px;
+            margin: 25px 0;
+            font-size: 14px;
+        }
+        
+        .notice-box p {
+            margin: 8px 0;
+        }
+        
+        .notice-icon {
+            color: #6e48aa;
+            margin-right: 8px;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #6e48aa;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            margin: 10px 5px;
+            text-align: center;
+        }
+        
+        .button.secondary {
+            background-color: #4CAF50;
+        }
+        
+        .button.danger {
+            background-color: #e74c3c;
+        }
+        
+        .footer {
+            background-color: #2d2d2d;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        .footer a {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+        
+        .social-icons {
+            margin: 15px 0;
+        }
+        
+        .social-icon {
+            display: inline-block;
+            margin: 0 8px;
+            color: #ffffff;
+        }
+        
+        @media screen and (max-width: 600px) {
+            .email-container {
+                width: 100% !important;
+            }
+            .content {
+                padding: 20px 15px !important;
+            }
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0;">
+    <!-- Email container -->
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="600" style="margin: auto;" class="email-container">
+        <!-- Header -->
+        <tr>
+            <td class="header">
+                <h1>Your Digital Card is Ready! 🎉</h1>
+                <p>Connect with style and simplicity</p>
+            </td>
+        </tr>
+        
+        <!-- Profile image -->
+        <tr>
+            <td align="center" style="padding: 0;">
+                <img src="${profilePic}" alt="Profile Picture" width="100" style="height: auto; display: block;" class="profile-image" />
+            </td>
+        </tr>
+        
+        <!-- Content -->
+        <tr>
+            <td class="content">
+                <div class="welcome-text">
+                    <p>Hello <span class="highlight">${name}</span>,</p>
+                    <p>Your <span class="highlight">basic</span> digital card has been created and is ready to use!</p>
+                </div>
+                
+                <div class="card-link">
+                    Your tag: <span class="highlight">@${link}</span>
+                </div>
+                
+                <div class="notice-box">
+                    <p><span class="notice-icon">⏳</span> No expiry date - Your card is active as long as the data is present</p>
+                    <p><span class="notice-icon">ℹ️</span> Your Digital Profile is currently inactive and will be activated after payment</p>
+                </div>
+                
+                <table width="100%" cellpadding="0" cellspacing="0" style="margin: 25px 0; border-collapse: collapse;">
+                    <tr>
+                        <th style="text-align: left; padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: 600;">Plan Name</th>
+                        <td style="text-align: right; padding: 10px; border-bottom: 1px solid #e0e0e0; color: #6e48aa; font-weight: 600;">Basic</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: 600;">Features</th>
+                        <td style="text-align: right; padding: 10px; border-bottom: 1px solid #e0e0e0;">
+                            <p style="margin: 5px 0;">• Basic Digital Profile</p>
+                            <p style="margin: 5px 0;">• 1 NFC Card</p>
+                            <p style="margin: 5px 0;">• +3 Media links (6 total)</p>
+                            <p style="margin: 5px 0;">• Basic Email Contact Form</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: 600;">Upgrade To</th>
+                        <td style="text-align: right; padding: 10px; border-bottom: 1px solid #e0e0e0;">
+                            <a href="https://tccards.tn/plans/standard" style="color: #e67e22; text-decoration: none; font-weight: 600;">Standard Plan</a>
+                            <p style="margin: 5px 0; font-size: 12px; color: #777;">Includes 5 NFC cards + premium features</p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <div style="text-align: center; margin: 25px 0;">
+                    <a href="https://edit.tccards.tn/" class="button secondary" style="background-color: #4CAF50;">Edit My Profile</a>
+                    <a href="https://card.tccards.tn/termination" class="button danger" style="background-color: #e74c3c;">Delete My Data</a>
+                </div>
+            </td>
+        </tr>
+        
+        <!-- Footer -->
+        <tr>
+            <td class="footer">
+                <div class="social-icons">
+                    <a href="https://facebook.com" class="social-icon">Facebook</a> | 
+                    <a href="https://twitter.com" class="social-icon">Twitter</a> | 
+                    <a href="https://instagram.com" class="social-icon">Instagram</a> | 
+                    <a href="https://linkedin.com" class="social-icon">LinkedIn</a>
+                </div>
+                <p>© ${new Date().getFullYear()} Total Connect. All rights reserved.</p>
+                <p><a href="https://tccards.tn/privacy">Privacy Policy</a> | <a href="https://tccards.tn/terms">Terms of Service</a></p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+`;
 }

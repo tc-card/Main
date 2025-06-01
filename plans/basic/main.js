@@ -20,24 +20,72 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Validate elements exist
   for (const [key, element] of Object.entries(elements)) {
-    if (!element && key !== "stylePresets") { // stylePresets is optional
+    if (!element && key !== "stylePresets") {
+      // stylePresets is optional
       console.error(`Element '${key}' not found`);
       return;
     }
   }
-
-  // ===== REFERRAL CODE =====
+  // ===== REFERRAL CODE VALIDATION =====
   if (elements.referralCode) {
-    elements.referralCode.addEventListener("input", () => {
-      const code = elements.referralCode.value.trim();
-      if (code) {
-        const email = document.querySelector('input[name="email"]').value.trim();
-        if (parseInt(code) < 5 || CONFIG.emailRegex.test(email)) {
-          elements.referralCode.classList.add("valid");
-        }
+    let debounceTimer;
+
+    elements.referralCode.addEventListener("input", async () => {
+      clearTimeout(debounceTimer);
+      const code = elements.referralCode.value.trim().toUpperCase();
+
+      // Clear previous states
+      elements.referralCode.classList.remove("valid", "invalid");
+      document.getElementById("ticket").textContent = "";
+      // Show loading indicator while validating
+      document.getElementById("ticket").innerHTML =
+        '<i class="fas fa-spinner fa-spin"></i>  Validating...';
+      document.getElementById("ticket").style.color =
+        "#FFEE0E";
+      if (code.length === 5) {
+        debounceTimer = setTimeout(async () => {
+          try {
+            const response = await fetch(
+              `${
+                CONFIG.googleScriptUrl
+              }?check_referral=true&code=${encodeURIComponent(code)}`
+            );
+            const result = await response.json();
+
+            if (result.codeExists) {
+              elements.referralCode.classList.add("valid");
+              document.getElementById(
+                "ticket"
+              ).textContent = `✓ Valid you get ${result.codeDetails.discountValue}`;
+              document.getElementById(
+                "ticket"
+              ).style.color = "#10B981";
+            } else {
+              elements.referralCode.classList.add("invalid");
+              document.getElementById(
+                "ticket"
+              ).textContent = "✗ Invalid code";
+              document.getElementById(
+                "ticket"
+              ).style.color = "#EF4444";
+            }
+          } catch (error) {
+            console.error("Validation error:", error);
+            document.getElementById("ticket").textContent =
+              "Error validating code";
+            document.getElementById("ticket").style.color =
+              "#F59E0B";
+          }
+        }, 500);
       }
-    })
+    });
+
+    // Force uppercase input
+    elements.referralCode.addEventListener("keyup", () => {
+      elements.referralCode.value = elements.referralCode.value.toUpperCase();
+    });
   }
+
   // ===== IMAGE HANDLING =====
   function handleImageUpload(file, targetElement) {
     if (!file) {
@@ -79,7 +127,9 @@ document.addEventListener("DOMContentLoaded", () => {
     reader.readAsDataURL(file);
   }
 
-  elements.profilePicture.addEventListener("click", () => elements.imageInput.click());
+  elements.profilePicture.addEventListener("click", () =>
+    elements.imageInput.click()
+  );
   elements.imageInput.addEventListener("change", (e) => {
     const file = e.target.files?.[0]; // Safe access using optional chaining
     handleImageUpload(file, elements.profilePicture);
@@ -123,24 +173,28 @@ document.addEventListener("DOMContentLoaded", () => {
         position: "top-center",
         showConfirmButton: false,
         timer: 2000,
-        customClass: { popup: 'small-toast' }
+        customClass: { popup: "small-toast" },
       });
       return;
     }
 
     ul.insertAdjacentHTML("beforeend", createSocialLink());
-    ul.lastElementChild.querySelector(".remove-link-btn").addEventListener("click", function() {
-      this.closest("li").remove();
-    });
+    ul.lastElementChild
+      .querySelector(".remove-link-btn")
+      .addEventListener("click", function () {
+        this.closest("li").remove();
+      });
   });
 
   // ===== STYLE PRESETS ===== (Single implementation)
   document.querySelectorAll(".style-preset").forEach((button) => {
     button.addEventListener("click", (e) => {
       e.preventDefault();
-      document.querySelectorAll(".style-preset").forEach(btn => btn.classList.remove("selected"));
+      document
+        .querySelectorAll(".style-preset")
+        .forEach((btn) => btn.classList.remove("selected"));
       button.classList.add("selected");
-      
+
       // Optional: Apply style preview
       const style = stylePresets[button.dataset.style];
       if (style) document.body.style.background = style.background;
@@ -155,7 +209,11 @@ document.addEventListener("DOMContentLoaded", () => {
       debounceTimer = setTimeout(async () => {
         try {
           const res = await fetch(
-            `${CONFIG.googleScriptUrl}?check_duplicates=true&email=${encodeURIComponent(email)}&link=${encodeURIComponent(link)}`
+            `${
+              CONFIG.googleScriptUrl
+            }?check_duplicates=true&email=${encodeURIComponent(
+              email
+            )}&link=${encodeURIComponent(link)}`
           );
           resolve(await res.json());
         } catch (error) {
@@ -195,16 +253,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-// ===== FORM SUBMISSION HANDLER =====
+  // ===== FORM SUBMISSION HANDLER =====
   elements.form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    
+
     // form validation
     const email = elements.userEmail.value.trim();
     const link = elements.userLink.value.trim();
     const name = elements.userName.value.trim();
 
-    if (!name|| !link || !email) {
+    if (!name || !link || !email) {
       Swal.fire({
         icon: "error",
         title: "Missing Fields",
@@ -232,19 +290,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     elements.submitBtn.disabled = true;
-    
+
     const swalInstance = Swal.fire({
       title: "Submitting...",
       text: "Please wait while we create your webfolio.",
-      background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
+      background:
+        "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
       color: "#fff",
       allowOutsideClick: false,
       didOpen: () => Swal.showLoading(),
     });
-  
+
     try {
       // First handle image upload if there's a file
-      let profilePictureUrl = '';
+      let profilePictureUrl = "";
       if (elements.imageInput.files[0]) {
         swalInstance.update({
           title: "Uploading image...",
@@ -253,7 +312,9 @@ document.addEventListener("DOMContentLoaded", () => {
           showConfirmButton: false,
           didOpen: () => Swal.showLoading(),
         });
-        profilePictureUrl = await uploadToCloudinary(elements.imageInput.files[0]);
+        profilePictureUrl = await uploadToCloudinary(
+          elements.imageInput.files[0]
+        );
       }
 
       // Then collect form data with the uploaded image URL
@@ -264,13 +325,17 @@ document.addEventListener("DOMContentLoaded", () => {
         tagline: elements.userTagline.value.trim() || "",
         phone: elements.userPhone.value.trim() || "",
         address: elements.userAddress.value.trim() || "",
-        social_links: Array.from(document.querySelectorAll('input[name="social-links[]"]'))
-                      .map(input => input.value.trim())
-                      .filter(Boolean)
-                      .join(","),
-        style: document.querySelector(".style-preset.selected")?.dataset.style || "default",
+        social_links: Array.from(
+          document.querySelectorAll('input[name="social-links[]"]')
+        )
+          .map((input) => input.value.trim())
+          .filter(Boolean)
+          .join(","),
+        style:
+          document.querySelector(".style-preset.selected")?.dataset.style ||
+          "default",
         profilePic: profilePictureUrl, // Use the URL from Cloudinary
-        formEmail: elements.referralCode.value.trim() || "",
+        referralCode: elements.referralCode.value.trim() || "",
       };
 
       // Update Swal for duplicate check
@@ -282,9 +347,14 @@ document.addEventListener("DOMContentLoaded", () => {
         didOpen: () => Swal.showLoading(),
       });
 
-      const { emailExists, linkExists } = await checkDuplicatesDebounced(formData.email, formData.link);
+      const { emailExists, linkExists } = await checkDuplicatesDebounced(
+        formData.email,
+        formData.link
+      );
       if (emailExists || linkExists) {
-        throw new Error(emailExists ? "Email already registered" : "Link already taken");
+        throw new Error(
+          emailExists ? "Email already registered" : "Link already taken"
+        );
       }
 
       // Update Swal for upload
@@ -297,11 +367,15 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (elements.imageInput.files[0]) {
-        formData.profile_picture = await uploadToCloudinary(elements.imageInput.files[0]);
+        formData.profile_picture = await uploadToCloudinary(
+          elements.imageInput.files[0]
+        );
       }
 
       // Submit to GAS
-      const response = await fetch(`${CONFIG.googleScriptUrl}?${new URLSearchParams(formData)}`);
+      const response = await fetch(
+        `${CONFIG.googleScriptUrl}?${new URLSearchParams(formData)}`
+      );
       if (!response.ok) throw new Error("Submission failed. Please try again.");
 
       // Success
@@ -313,22 +387,23 @@ document.addEventListener("DOMContentLoaded", () => {
               <a href="https://card.tccards.tn/profile/@${formData.link}" target="_blank">
                 card.tccards.tn/@${formData.link}
               </a>`,
-        background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-        confirmButtonText: "View My Webfolio"
-        }).then(() => {
-          window.location.href = `https://card.tccards.tn/profile/@${formData.link}`;
-        });
+        background:
+          "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
+        confirmButtonText: "View My Webfolio",
+      }).then(() => {
+        window.location.href = `https://card.tccards.tn/profile/@${formData.link}`;
+      });
 
       // Reset form and image preview
       elements.form.reset();
       elements.profilePicture.src = "https://tccards.tn/Assets/default.png"; // Reset to default image
-
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Error",
         text: error.message,
-        background: "linear-gradient(145deg, rgb(23, 7, 2), rgb(37, 42, 15), rgb(23, 2, 4))",
+        background:
+          "linear-gradient(145deg, rgb(23, 7, 2), rgb(37, 42, 15), rgb(23, 2, 4))",
       });
     } finally {
       elements.submitBtn.disabled = false;

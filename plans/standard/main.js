@@ -25,19 +25,66 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
   }
-
-  // ===== REFERRAL CODE =====
+  // ===== REFERRAL CODE VALIDATION =====
   if (elements.referralCode) {
-    elements.referralCode.addEventListener("input", () => {
-      const code = elements.referralCode.value.trim();
-      if (code) {
-        const email = document.querySelector('input[name="email"]').value.trim();
-        if (parseInt(code) < 5 || CONFIG.emailRegex.test(email)) {
-          elements.referralCode.classList.add("valid");
-        }
+    let debounceTimer;
+
+    elements.referralCode.addEventListener("input", async () => {
+      clearTimeout(debounceTimer);
+      const code = elements.referralCode.value.trim().toUpperCase();
+
+      // Clear previous states
+      elements.referralCode.classList.remove("valid", "invalid");
+      document.getElementById("ticket").textContent = "";
+      // Show loading indicator while validating
+      document.getElementById("ticket").innerHTML =
+        '<i class="fas fa-spinner fa-spin"></i>  Validating...';
+      document.getElementById("ticket").style.color =
+        "#FFEE0E";
+      if (code.length === 5) {
+        debounceTimer = setTimeout(async () => {
+          try {
+            const response = await fetch(
+              `${
+                CONFIG.googleScriptUrl
+              }?check_referral=true&code=${encodeURIComponent(code)}`
+            );
+            const result = await response.json();
+
+            if (result.codeExists) {
+              elements.referralCode.classList.add("valid");
+              document.getElementById(
+                "ticket"
+              ).textContent = `✓ Valid you get ${result.codeDetails.discountValue}`;
+              document.getElementById(
+                "ticket"
+              ).style.color = "#10B981";
+            } else {
+              elements.referralCode.classList.add("invalid");
+              document.getElementById(
+                "ticket"
+              ).textContent = "✗ Invalid code";
+              document.getElementById(
+                "ticket"
+              ).style.color = "#EF4444";
+            }
+          } catch (error) {
+            console.error("Validation error:", error);
+            document.getElementById("ticket").textContent =
+              "Error validating code";
+            document.getElementById("ticket").style.color =
+              "#F59E0B";
+          }
+        }, 500);
       }
-    })
+    });
+
+    // Force uppercase input
+    elements.referralCode.addEventListener("keyup", () => {
+      elements.referralCode.value = elements.referralCode.value.toUpperCase();
+    });
   }
+
   // ===== IMAGE HANDLING =====
   function handleImageUpload(file, targetElement) {
     if (!file) {
@@ -270,7 +317,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       .join(","),
         style: document.querySelector(".style-preset.selected")?.dataset.style || "default",
         profilePic: profilePictureUrl, // Use the URL from Cloudinary
-        formEmail: elements.referralCode.value.trim() || "",
+        referralCode: elements.referralCode.value.trim() || "",
       };
 
       // Update Swal for duplicate check
