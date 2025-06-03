@@ -55,10 +55,10 @@ document.addEventListener("DOMContentLoaded", () => {
               elements.referralCode.classList.add("valid");
               document.getElementById(
                 "ticket"
-              ).textContent = `✓ Valid you get ${result.codeDetails.discountValue}`;
+              ).textContent = `✓ Valid ${result.codeDetails.discountValue}`;
               document.getElementById(
                 "ticket"
-              ).style.color = "#10B981";
+              ).style.color = "#F5B9EB";
             } else {
               elements.referralCode.classList.add("invalid");
               document.getElementById(
