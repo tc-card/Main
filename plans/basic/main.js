@@ -261,7 +261,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = elements.userEmail.value.trim();
     const link = elements.userLink.value.trim();
     const name = elements.userName.value.trim();
-
+    const referralCode = elements.referralCode.value.trim();
+    
     if (!name || !link || !email) {
       Swal.fire({
         icon: "error",

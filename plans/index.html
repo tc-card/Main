@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html class="scroll-smooth" lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#AA0009">
     <meta name="google-adsense-account" content="ca-pub-9620521782073478">
-    <title>TC Cards | Plans</title>
-    <meta name="image" content="https://tccards.tn/Assets/4.png">
-    <meta property="og:image" content="https://tccards.tn/Assets/4.png">
-    <link rel="icon" href="https://tccards.tn/Assets/150.png" type="image/x-icon">
-    <meta property="og:image:width" content="1200">
     <meta name="description" content="Create, manage, and share digital business cards using NFC technology. Eco-friendly, cost-effective, and modern networking solutions.">
-    <meta name="image" content="https://tccards.tn/Assets/4.png">
     <meta property="og:image" content="https://tccards.tn/Assets/4.png">
     <meta property="og:image:width" content="1200">
-
-    <link rel="icon" href="https://tccards.tn//Assets/150.png" type="image/x-icon">
+    
+    <title>tccards Plans</title>
+    <link rel="icon" href="https://tccards.tn/Assets/150.png" type="image/x-icon">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" as="style">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <script>
-      renderPricingCards();
-    </script>
+
     <style>
+        :root {
+            --card-bg-opacity: 0.95;
+            --card-hover-opacity: 0.98;
+        }
+
         html {
             scroll-behavior: smooth;
         }
+
 
         body {
             background: url(https://tccards.tn/Assets/bg.png) repeat center fixed !important;
@@ -34,122 +38,77 @@
             background-size: 150% 150%;
             background-color: black;
         }
-        .loader {
-          width: 48px;
-          height: 48px;
-          margin: auto;
-          position: relative;
-        }
-        .loader:before {
-            content: '';
-            width: 48px;
-            height: 5px;
-            background: #0099ff;
-            opacity: 5;
-            position: absolute;
-            top: 60px;
-            left: 0;
-            border-radius: 50%;
-            animation: shadow 0.5s linear infinite;
-          }
-          .loader:after {
-            content: '';
-            width: 100%;
-            height: 100%;
-            background: #1f3058;
-            animation: bxSpin 0.5s linear infinite;
-            position: absolute;
-            top: 0;
-            left: 0;
-            border-radius: 4px;
-          }
-        @keyframes bxSpin {
-          17% {
-            border-bottom-right-radius: 3px;
-          }
-          25% {
-            transform: translateY(9px) rotate(22.5deg);
-          }
-          50% {
-            transform: translateY(18px) scale(1, .9) rotate(45deg);
-            border-bottom-right-radius: 40px;
-          }
-          75% {
-            transform: translateY(9px) rotate(67.5deg);
-          }
-          100% {
-            transform: translateY(0) rotate(90deg);
-          }
-        }
-
-        @keyframes shadow {
-          0%, 100% {
-            transform: scale(1, 1);
-          }
-          50% {
-            transform: scale(1.2, 1);
-          }
-        }
         .pricing-card {
-          background: rgba(24, 24, 27, 0.95);
-          backdrop-filter: blur(8px);
-          box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          transition: all 0.3s ease;
+            background: rgba(24, 24, 27, var(--card-bg-opacity));
+            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 32px rgb(0 0 0 / 37%);
+            border: 1px solid rgb(255 255 255 / 10%);
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
         }
 
         .pricing-card:hover {
-          transform: scale(1.05);
-          background: rgba(24, 24, 27, 0.98);
-          box-shadow: 0 8px 42px 0 rgba(0, 0, 0, 0.45);
+            transform: scale(1.05);
+            background: rgba(24, 24, 27, var(--card-hover-opacity));
+            box-shadow: 0 8px 42px rgb(0 0 0 / 45%);
         }
 
-        /* Card-specific gradients */
         .pricing-card.free {
-          background: linear-gradient(145deg, 
-            #18181bf2, 
-            #581c8726);
+            background: linear-gradient(145deg, #18181bf2, #581c8726);
         }
 
         .pricing-card.basic {
-          background: linear-gradient(145deg, 
-            #18181bf2, 
-            #16a34a26);
+            background: linear-gradient(145deg, #18181bf2, #16a34a26);
         }
 
         .pricing-card.standard {
-          background: linear-gradient(145deg, 
-            #18181bf2, 
-            #eab30826);
+            background: linear-gradient(145deg, #18181bf2, #eab30826);
+        }
+
+        .back-button {
+            position: sticky;
+            top: 1rem;
+            left: 1rem;
+            z-index: 9999;
+        }
+
+        @media (min-width: 768px) {
+            .back-button {
+                position: fixed;
+                top: 2rem;
+                left: 2.5rem;
+            }
         }
     </style>
 </head>
 
-<body class="fade-in bg-black flex flex-col justify-center items-center text-white font-nunito overflow-y-scroll overflow-x-hidden">
-  <a href="https://tccards.tn/" data-tooltip="Back to Home"
-  class="sticky top-4 left-4 md:fixed md:top-8 md:left-10 flex items-center justify-center w-20 h-10 rounded-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 text-white hover:text-yellow-500 hover:border-yellow-500 transition-all duration-300" style="z-index: +9999;">
-   <i class="fas fa-arrow-left"> BACK</i>
-</a>
-    <div class="relative px-8 price-hover w-8/11 lg:w-8/12 mx-auto py-24" id="Pricing">
-  
-            <div class="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-yellow-600 via-gray-800 to-green-900 opacity-30"
-                style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
-            </div>
+<body class="fade-in bg-black justify-center items-center text-white font-nunito">
+    <a href="https://tccards.tn/" 
+       aria-label="Back to Home"
+       class="back-button flex items-center justify-center w-20 h-10 rounded-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 text-white hover:text-yellow-500 hover:border-yellow-500 transition-all duration-300">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i> BACK
+    </a>
 
-        <center>
-            <img src="https://tccards.tn/Assets/150.png" alt="Total Connect Logo" >
-        </center>
-
-        <div class="mx-auto max-w-4xl text-center">
-            <h2 class="text-base font-semibold text-yellow-500 uppercase">More than a Business card</h2>
-            <p class="mt-2 text-5xl font-semibold tracking-tight text-gray-200 sm:text-6xl">Find Your Perfect
-                Plan</p>
+    <main class=" w-8/11 lg:w-8/12 mx-auto py-24" id="pricing">
+        <!-- Background gradient -->
+        <div class="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-yellow-600 via-gray-800 to-green-900 opacity-30"
+             style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
         </div>
 
-        <p class="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-gray-400 sm:text-xl">
-            Explore our tailored plans to create a professional online presence with NFC technology and
-            full-featured contact websites.
-        </p>
+        <header class="text-center mb-12 px-8">
+            <img src="https://tccards.tn/Assets/150.png" alt="Total Connect Logo" class="mx-auto mb-8">
+            <div class="mx-auto max-w-4xl">
+                <h1 class="text-base font-semibold text-yellow-500 uppercase">More than a Business card</h1>
+                <p class="mt-2 text-5xl font-semibold tracking-tight text-gray-200 sm:text-6xl">Find Your Perfect Plan</p>
+                <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-gray-400">
+                    Smart NFC cards that make every connection count. 
+                    <span class="text-yellow-500">One tap</span> shares your complete professional profile. 
+                    Modern networking made simple.
+                </p>
+            </div>
+        </header>
+
+        <section class="mx-auto px-4 sm:px-6 lg:px-8 py-12" style="min-width:350px">
+            
 
         <!-- Pricing Cards Container -->
         <div class=" mx-auto px-4 sm:px-6 lg:px-8 py-12" style="min-width:350px">
@@ -181,9 +140,10 @@
           
           <div id="advanced-plans" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
       </div>
-    </div>
-        <span class="loader"></span><br><br><br>
-        <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400">
+    </section>
+    </main>
+
+     <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400">
 
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -278,10 +238,15 @@
             </div>
           </div>
           </footer>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="script.js"></script>
-    <script src="/script.js"></script>
+    <!-- Scripts -->
+    <script type="module">
+        // Initialize pricing cards
+        window.addEventListener('DOMContentLoaded', (event) => {
+            renderPricingCards();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/jquery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <script src="script.js" defer></script>
 </body>
-
 </html>

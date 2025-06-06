@@ -60,24 +60,6 @@ const advancedPlans = [
     colorClasses: "bg-gray-900 ring-yellow-400 text-yellow-400",
     link: "/plans/standard/",
   },
-  // {
-  //   tier: "Custom",
-  //   price: "179+ TND",
-  //   description: "Tailored solutions for professionals and growing businesses.",
-  //   features: [
-  //     "10+ NFC Cards",
-  //     "Fully customizable webfolio",
-  //     "Priority support",
-  //     "SLA guarantee",
-  //     "Custom branding",
-  //     "Custom Domain",
-  //     "Integration with CRM tools",
-  //     "Advanced Contact Form",
-  //     "Remove our watermark"
-  //   ],
-  //   colorClasses: "bg-gray-900 ring-blue-400 text-blue-400",
-  //   link: "/plans/professional/",
-  // },
   {
     tier: "Enterprise",
     price: "Custom Pricing",
@@ -102,17 +84,19 @@ const colorMapping = {
   Free: {
     text: "text-purple-400",
     ring: "ring-purple-400",
-    bg: "bg-green-800",
+    bg: "bg-blue-800",
   },
   Basic: {
     text: "text-green-400",
     ring: "ring-green-400",
-    bg: "bg-red-400",
+    bg: "bg-green-400",
+    ttext: "hover:text-black"
   },
   Standard: {
     text: "text-yellow-400",
     ring: "ring-yellow-400",
-    bg: "bg-red-400",
+    bg: "bg-yellow-400",
+    ttext: "hover:text-black"
   },
   Custom: {
     text: "text-blue-400",
@@ -189,8 +173,8 @@ function generatePricingCard(content) {
             Start Free
           </a>`
           :
-          `<div class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-gray-500 ring-1 ring-gray-500 cursor-not-allowed">
-            Coming Soon !
+          `<div class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-gray-500 ring-1 ring-gray-500 cursor-pointer ${colors.text} hover:${colors.bg} ${colors.ttext} transition-all duration-300">
+            Get ${content.tier} Plan
           </div>`
         }
       </div>
