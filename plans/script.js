@@ -173,9 +173,9 @@ function generatePricingCard(content) {
             Start Free
           </a>`
           :
-          `<div class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-gray-500 ring-1 ring-gray-500 cursor-pointer ${colors.text} hover:${colors.bg} ${colors.ttext} transition-all duration-300">
+          `<a href="${content.link}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-gray-500 ring-1 ring-gray-500 cursor-pointer ${colors.text} hover:${colors.bg} ${colors.ttext} transition-all duration-300">
             Get ${content.tier} Plan
-          </div>`
+          </a>`
         }
       </div>
   `;
