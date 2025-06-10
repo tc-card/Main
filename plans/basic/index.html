@@ -49,19 +49,119 @@
                 backdrop-filter: blur(10px);
             }
         }
+        body {
+            background-image: url('/Assets/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
         #ticket {
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
     </style>
 </head>
 
-<body class="min-h-screen bg-gray-900 text-gray-100 text-white justify-center items-center">
+<body class="min-h-screen text-gray-100 text-white justify-center items-center">
     <a href="https://tccards.tn/plans/" data-tooltip="Back to Home"
         class="sticky top-4 left-4 md:fixed md:top-8 md:left-10 flex items-center justify-center w-20 h-10 rounded-full bg-gray-800/50 backdrop-blur-sm border border-white-700 text-white hover:text-blue-500 hover:border-blue-500 transition-all duration-300"
         style="z-index: +9999;">
         <i class="fas fa-arrow-left"> BACK</i>
     </a>
+    <!-- Main -->
+    <div class="max-w-6xl mx-auto px-4 py-16">
+        <!-- Hero Section -->
+        <div class="text-center mb-16 space-y-4">
+            <h1 class="text-5xl font-bold bg-clip-text text-transparent bg-green-400">
+                Start Your Digital Journey
+            </h1>
+            <p class="text-xl text-gray-400">Transform your networking experience with our Basic NFC Card Plan</p>
+        </div>
 
+        <!-- Main Content Grid -->
+        <div class="grid lg:grid-cols-2 gap-12 items-start">
+            <!-- Pricing Card -->
+            <div
+                class="glass-effect rounded-2xl p-8 border border-gray-800 shadow-2xl hover:border-green-400/50 transition-all">
+                <!-- Price Header -->
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold">Basic Plan</h2>
+                        <p class="text-gray-400 mt-2">Perfect for starters</p>
+                    </div>
+                    <div class="flex flex-col items-end">
+                        <div class="flex flex-col items-end">
+                            <span class="text-sm line-through text-gray-500 block">65 TND</span>
+                            <p class="text-4xl font-bold text-green-400">49 TND</p>
+                        </div>
+                        <span
+                            class="inline-block bg-green-400/20 text-green-400 px-2 py-1 rounded-full text-sm font-medium">
+                            Save 24%
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Features Scroll -->
+                <div class="bg-black/40 rounded-xl p-6 mb-8">
+                    <h3 class="font-semibold text-green-400 flex items-center gap-2 mb-4">
+                        <i class="fas fa-star"></i>
+                        What's Included:
+                        <div class="mx-auto grid h-[100%] w-[100%] animate-skew-scroll grid-cols-1 gap-5 sm:w-[600px] sm:grid-cols-2"
+                            style="mask-composite: intersect; -webkit-mask-composite: intersect; mask-image: 
+                                linear-gradient(to right, transparent, black 5rem),
+                                linear-gradient(to left, transparent, black 5rem),
+                                linear-gradient(to bottom, transparent, black 5rem),
+                                linear-gradient(to top, transparent, black 5rem);
+                            ">
+                        </div>
+                    </h3>
+                </div>
+
+                <!-- CTA Button -->
+                <a href="#start">
+                    <button
+                        class="w-full py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold rounded-xl transition-all transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-lg">Get
+                        Started Now
+                    </button></a>
+            </div>
+
+            <!-- Benefits Section -->
+            <div class="space-y-6">
+                <div class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl">
+                    <h3 class="text-2xl font-bold mb-4 text-green-400">Why Choose Basic Plan?</h3>
+                    <p class="text-gray-300 leading-relaxed text-lg">
+                        Perfect for individuals and small businesses starting with NFC technology. Get everything you
+                        need to establish your digital presence.
+                    </p>
+                </div>
+
+                <div class="grid gap-6">
+                    <div
+                        class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-green-400/30 transition-all">
+                        <i class="fas fa-bolt text-3xl text-green-400 mb-4"></i>
+                        <h4 class="text-xl font-semibold mb-2">Instant Setup</h4>
+                        <p class="text-gray-400">Get your digital presence up and running in minutes</p>
+                    </div>
+
+                    <div
+                        class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-green-400/30 transition-all">
+                        <i class="fas fa-sync text-3xl text-green-400 mb-4"></i>
+                        <h4 class="text-xl font-semibold mb-2">Easy Updates</h4>
+                        <p class="text-gray-400">Email us to update your information anytime, anywhere</p>
+                    </div>
+
+                    <div
+                        class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-green-400/30 transition-all">
+                        <i class="fas fa-shield-alt text-3xl text-green-400 mb-4"></i>
+                        <h4 class="text-xl font-semibold mb-2">Secure Sharing</h4>
+                        <p class="text-gray-400">Share your details securely with NFC technology</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form -->
+     
     <section id="start"
         class="flex-grow flex justify-center items-center flex-col space-y-6 w-full max-w-4xl px-4 mx-auto mb-24">
         <h2 class="text-3xl font-bold text-center text-white py-16">Design Your Digital Profile</h2>
@@ -168,6 +268,7 @@
                 <p id="referral-validation-message" class="text-xs"></p>
                 <p class="text-xs text-gray-400">Enter your 5-character referral code</p>
             </div>
+
             <!-- Submit Button (Enhanced) -->
             <button id="saveContactBtn" type="submit"
                 class="w-full md:w-auto mx-auto block text-center bg-blue-500 hover:bg-blue-600 text-white py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
@@ -175,98 +276,7 @@
             </button>
         </form>
     </section>
-    <div class="max-w-6xl mx-auto px-4 py-16">
-        <!-- Hero Section -->
-        <div class="text-center mb-16 space-y-4">
-            <h1 class="text-5xl font-bold bg-clip-text text-transparent bg-green-400">
-                Start Your Digital Journey
-            </h1>
-            <p class="text-xl text-gray-400">Transform your networking experience with our Basic NFC Card Plan</p>
-        </div>
-
-        <!-- Main Content Grid -->
-        <div class="grid lg:grid-cols-2 gap-12 items-start">
-            <!-- Pricing Card -->
-            <div
-                class="glass-effect rounded-2xl p-8 border border-gray-800 shadow-2xl hover:border-green-400/50 transition-all">
-                <!-- Price Header -->
-                <div class="flex justify-between items-start mb-8">
-                    <div>
-                        <h2 class="text-3xl font-bold">Basic Plan</h2>
-                        <p class="text-gray-400 mt-2">Perfect for starters</p>
-                    </div>
-                    <div class="flex flex-col items-end">
-                        <div class="flex flex-col items-end">
-                            <span class="text-sm line-through text-gray-500 block">65 TND</span>
-                            <p class="text-4xl font-bold text-green-400">49 TND</p>
-                        </div>
-                        <span
-                            class="inline-block bg-green-400/20 text-green-400 px-2 py-1 rounded-full text-sm font-medium">
-                            Save 24%
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Features Scroll -->
-                <div class="bg-black/40 rounded-xl p-6 mb-8">
-                    <h3 class="font-semibold text-green-400 flex items-center gap-2 mb-4">
-                        <i class="fas fa-star"></i>
-                        What's Included:
-                        <div class="mx-auto grid h-[100%] w-[100%] animate-skew-scroll grid-cols-1 gap-5 sm:w-[600px] sm:grid-cols-2"
-                            style="mask-composite: intersect; -webkit-mask-composite: intersect; mask-image: 
-                                linear-gradient(to right, transparent, black 5rem),
-                                linear-gradient(to left, transparent, black 5rem),
-                                linear-gradient(to bottom, transparent, black 5rem),
-                                linear-gradient(to top, transparent, black 5rem);
-                            ">
-                        </div>
-                    </h3>
-                </div>
-
-                <!-- CTA Button -->
-                <a href="#start">
-                    <button
-                        class="w-full py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold rounded-xl transition-all transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-lg">Get
-                        Started Now
-                    </button></a>
-            </div>
-
-            <!-- Benefits Section -->
-            <div class="space-y-6">
-                <div class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl">
-                    <h3 class="text-2xl font-bold mb-4 text-green-400">Why Choose Basic Plan?</h3>
-                    <p class="text-gray-300 leading-relaxed text-lg">
-                        Perfect for individuals and small businesses starting with NFC technology. Get everything you
-                        need to establish your digital presence.
-                    </p>
-                </div>
-
-                <div class="grid gap-6">
-                    <div
-                        class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-green-400/30 transition-all">
-                        <i class="fas fa-bolt text-3xl text-green-400 mb-4"></i>
-                        <h4 class="text-xl font-semibold mb-2">Instant Setup</h4>
-                        <p class="text-gray-400">Get your digital presence up and running in minutes</p>
-                    </div>
-
-                    <div
-                        class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-green-400/30 transition-all">
-                        <i class="fas fa-sync text-3xl text-green-400 mb-4"></i>
-                        <h4 class="text-xl font-semibold mb-2">Easy Updates</h4>
-                        <p class="text-gray-400">Email us to update your information anytime, anywhere</p>
-                    </div>
-
-                    <div
-                        class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-green-400/30 transition-all">
-                        <i class="fas fa-shield-alt text-3xl text-green-400 mb-4"></i>
-                        <h4 class="text-xl font-semibold mb-2">Secure Sharing</h4>
-                        <p class="text-gray-400">Share your details securely with NFC technology</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
     <footer class="text-gray-400 py-6 text-center">
         <p>&copy; 2024 Total Connect. All rights reserved.</p>
     </footer>
