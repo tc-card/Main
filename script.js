@@ -103,30 +103,37 @@ document.querySelectorAll('.faq-button').forEach(button => {
       `;
     }
   });
-// smooth landing animation on page loading/opening
-const fadeInElements = document.querySelectorAll('.fade-in');
-const FADE_IN_DURATION = '0.5s';
-const FADE_OUT_DURATION = '0.3s';
-const TRANSITION_TIMING = 'ease-in-out';
-const NAVIGATION_DELAY = 500;
+  // smooth landing animation on page loading/opening
+  const fadeInElements = document.querySelectorAll('.fade-in');
+  const FADE_IN_DURATION = '0.5s';
+  const FADE_OUT_DURATION = '0.3s';
+  const TRANSITION_TIMING = 'ease-in-out';
+  const NAVIGATION_DELAY = 500;
 
-// Initial setup - hide elements before animation
-fadeInElements.forEach(element => {
+  // Initial setup - hide elements before animation
+  fadeInElements.forEach(element => {
     element.style.opacity = '0';
     element.style.transition = `opacity ${FADE_IN_DURATION} ${TRANSITION_TIMING}`;
-});
+  });
 
-// Fade in elements when DOM is ready 
-document.addEventListener('DOMContentLoaded', () => {
+  // Fade in elements when DOM is ready or when returning from another page
+  function fadeInContent() {
     requestAnimationFrame(() => {
-        fadeInElements.forEach(element => {
-            element.style.opacity = '1';
-        });
+      fadeInElements.forEach(element => {
+        element.style.opacity = '1';
+      });
     });
-});
+  }
 
-// Handle link transitions
-document.addEventListener('click', e => {
+  document.addEventListener('DOMContentLoaded', fadeInContent);
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      fadeInContent(); // Handle back/forward navigation
+    }
+  });
+
+  // Handle link transitions
+  document.addEventListener('click', e => {
     const link = e.target.closest('a');
     if (!link) return;
 
@@ -138,12 +145,12 @@ document.addEventListener('click', e => {
 
     // Fade out smoothly
     fadeInElements.forEach(element => {
-        element.style.transition = `opacity ${FADE_OUT_DURATION} ${TRANSITION_TIMING}`;
-        element.style.opacity = '0';
+      element.style.transition = `opacity ${FADE_OUT_DURATION} ${TRANSITION_TIMING}`;
+      element.style.opacity = '0';
     });
 
     // Navigate after fade completes
     setTimeout(() => {
-        window.location.href = href;
+      window.location.href = href;
     }, NAVIGATION_DELAY);
-});
+  });
