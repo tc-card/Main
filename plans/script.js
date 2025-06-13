@@ -32,11 +32,12 @@ const starterPlans = [
       "6 media links",
       "Email support",
       "QR code sharing",
+      "Editing dashboard",
       "Contact Button"
     ],
     limitations: [
-      "TC Watermark",
-      "Basic Customization"
+      "Customizable Card",
+      "No Analytics Dashboard",
     ],
     colorClasses: "bg-gray-900 ring-green-400 text-green-400",
     link: "/plans/basic/",
@@ -113,6 +114,8 @@ const colorMapping = {
 function generatePricingCard(content) {
   const colors = colorMapping[content.tier];
   const isFree = content.tier === "Free";
+  const isStandard = content.tier === "Standard";
+  const isEnterprise = content.tier === "Enterprise";
   const isDiscounted = content.tier === "Basic" || content.tier === "Standard";
   
   const specialStyles = isFree ? 'border-dashed' : '';
@@ -149,6 +152,21 @@ function generatePricingCard(content) {
       </div>
   ` : '';
 
+  let buttonHtml = '';
+  if (isFree) {
+    buttonHtml = `<a href="${content.link}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold ${colors.text} ring-1 ${colors.ring} hover:${colors.bg} hover:text-gray-100 transition-all duration-300">
+      Start Free
+    </a>`;
+  } else if (isStandard) {
+    buttonHtml = `<a disabled class="mt-8 cursor-not-allowed opacity-60 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-gray-500 ring-1 ring-gray-500 cursor-pointer ${colors.text} hover:${colors.bg} ${colors.ttext} transition-all duration-300">
+      Coming Soon!
+    </a>`;
+  } else {
+    buttonHtml = `<a href="${content.link}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-gray-500 ring-1 ring-gray-500 cursor-pointer ${colors.text} hover:${colors.bg} ${colors.ttext} transition-all duration-300">
+      Get ${content.tier} Plan
+    </a>`;
+  }
+
   return `
     <div style="min-width:300px" class="hover:scale-105 transform transition-all duration-300 relative pricing-card ${content.tier.toLowerCase()} rounded-3xl p-4 ring-1 ${colors.ring} ${specialStyles}">
         ${tagElement}
@@ -168,15 +186,7 @@ function generatePricingCard(content) {
               `).join('')}
           </ul>
           ${limitationsSection}
-        ${isFree ? 
-          `<a href="${content.link}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold ${colors.text} ring-1 ${colors.ring} hover:${colors.bg} hover:text-gray-100 transition-all duration-300">
-            Start Free
-          </a>`
-          :
-          `<a href="${content.link}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-gray-500 ring-1 ring-gray-500 cursor-pointer ${colors.text} hover:${colors.bg} ${colors.ttext} transition-all duration-300">
-            Get ${content.tier} Plan
-          </a>`
-        }
+        ${buttonHtml}
       </div>
   `;
 }

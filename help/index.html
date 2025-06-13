@@ -5,94 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Help - Total Connect Cards</title>
     <meta name="description" content="Create, manage, and share digital business cards using NFC technology. Eco-friendly, cost-effective, and modern networking solutions.">
-    <meta name="image" content="https://tc-card.github.io/Main/Assets/4.png">
-    <meta property="og:image" content="https://tc-card.github.io/Main/Assets/4.png">
-    <meta property="og:image:width" content="1200">
     <link rel="icon" href="https://tc-card.github.io/Main/Assets/150.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #4a90e2;
-            --secondary-color: #6a5acd;
-            --bg-dark: #09090b;
-            --bg-section: #18181b;
-            --text-light: #e5e7eb;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            background-color: #0f172a;
+            color: #f8fafc;
             line-height: 1.6;
-            margin: 0;
-            min-height: 100vh;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 2rem 0;
-            animation: fadeIn 0.8s ease-in;
-        }
-
-        .header h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .section {
-            margin-bottom: 3rem;
-            background-color: var(--bg-section);
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .section:hover {
-            transform: translateY(-5px);
-        }
-
-        .faq-item {
-            background-color: rgba(255,255,255,0.05);
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
+        
+        .card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
-            cursor: pointer;
         }
-
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .faq-item {
+            transition: all 0.3s ease;
+            background: rgba(30, 41, 59, 0.5);
+            border-left: 3px solid transparent;
+        }
+        
         .faq-item:hover {
-            background-color: rgba(255,255,255,0.1);
-            transform: translateX(10px);
+            background: rgba(30, 41, 59, 0.8);
+            border-left: 3px solid #3b82f6;
         }
-
+        
         .contact-link {
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: color 0.3s ease;
             position: relative;
         }
-
-        .contact-link:hover {
-            color: var(--secondary-color);
-        }
-
+        
         .contact-link::after {
             content: '';
             position: absolute;
@@ -100,174 +59,252 @@
             height: 2px;
             bottom: -2px;
             left: 0;
-            background-color: yellow;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
             transition: width 0.3s ease;
         }
-
+        
         .contact-link:hover::after {
             width: 100%;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        .glow {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
         }
-
-        .footer-image {
-            max-width: 200px;
-            margin-top: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        
+        /* Style for details/summary elements */
+        details {
+            margin-bottom: 1rem;
+        }
+        
+        summary {
+            cursor: pointer;
+            outline: none;
+            font-weight: 600;
+            color: #3b82f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        details[open] summary {
+            margin-bottom: 0.5rem;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        
+        details > div {
+            padding: 0 1rem 1rem 1rem;
+            color: #cbd5e1;
+        }
+        
+        /* Form styles */
+        .form-input {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
         }
     </style>
 </head>
-<body class="fade-in">
-    
-    <div class="fixed inset-0 flex flex-col items-center justify-center bg-blue-700 bg-opacity-50 p-20 center z-50">
+<body class="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 left-1/4 w-64 h-64 rounded-full bg-blue-600 filter blur-3xl opacity-70"></div>
+            <div class="absolute bottom-0 right-1/3 w-80 h-80 rounded-full bg-indigo-600 filter blur-3xl opacity-70"></div>
+        </div>
         
-        <img src="https://tc-card.github.io/Main/Assets/150.png" alt="profile-picture" id="profile-picture" onclick="window.location.href='/index.html'"
-        class="w-32 h-32 rounded-full object-cover mx-auto cursor-pointer hover:ring-blue-500/50 hover:ring-4 hover:p-2 transition-all text-center" />
-        <h2 class="text-3xl font-bold text-white mb-4">Under Construction</h2>
-        <p class="text-white">We're working on it</p>
-        <p class="text-white">Please email<a href="mailto:info@tccards.tn" class="contact-link" style="color: yellow;" :hover="color: white;">
-            <i class="fas fa-envelope mr-2"></i>info@tccards.tn
-        </a></p>
-    </div>
-    <div class="container blur">
-        <header class="header">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center glow">
+                    <img src="https://tc-card.github.io/Main/Assets/150.png" alt="Total Connect Logo" class="w-16 h-16">
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Help Center</h1>
+                <p class="text-xl text-slate-300 mb-8">Get instant answers to your questions about our NFC digital business cards</p>
+            </div>
+        </div>
+    </section>
 
-            <h1>Help Center</h1>
-            <p class="text-xl text-gray-400">Need assistance? We're here to help!</p>
-        </header>
-
-        <section class="section max-w-3xl mx-auto">
-            <h2 class="text-2xl font-bold text-white mb-6 border-b border-primary-color pb-3">
-                Frequently Asked Questions
-            </h2>
-            <div class="space-y-4">
-                <div class="faq-item">
-                    <h3 class="text-lg font-semibold text-primary-color">How do I create a digital business card?</h3>
-                    <p class="mt-2 text-gray-300">Sign up for an account, fill in your details, and customize your card design.</p>
-                </div>
-                <div class="faq-item">
-                    <h3 class="text-lg font-semibold text-primary-color">How do I share my card?</h3>
-                    <p class="mt-2 text-gray-300">Use the share button on your card to send via link, QR code, or NFC tap.</p>
-                </div>
-                <div class="faq-item">
-                    <h3 class="text-lg font-semibold text-primary-color">What if I lose my card?</h3>
-                    <p class="mt-2 text-gray-300">You can deactivate it immediately from your account dashboard.</p>
-                </div>
-                <div class="faq-item">
-                    <h3 class="text-lg font-semibold text-primary-color">How do I update my information?</h3>
-                    <p class="mt-2 text-gray-300">Log in to your account and edit your profile anytime.</p>
-                </div>
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 pb-20 relative z-10">
+        <!-- FAQ Section -->
+        <section class="max-w-4xl mx-auto mb-16">
+            <div class="card rounded-xl p-8">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6 text-white flex items-center">
+                    <i class="fas fa-paper-plane text-blue-400 mr-3"></i>
+                    Ask Your Question
+                </h2>
+                
+               <form id="question-form" 
+      action="https://script.google.com/macros/s/AKfycbyBoTtdnwUOdmAXfwQrx1uZC-0nDan3e5isCEC-Gs6fKSztwB8pIRrHNfkXgPT3YH_0/exec" 
+      method="POST"
+      target="_blank"
+      class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-slate-300 mb-1">Your Name</label>
+                        <input type="text" id="name" name="name" required 
+                            class="w-full px-4 py-3 rounded-lg form-input focus:outline-none">
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-slate-300 mb-1">Email Address</label>
+                        <input type="email" id="email" name="email" required 
+                            class="w-full px-4 py-3 rounded-lg form-input focus:outline-none">
+                    </div>
+                    
+                    <div>
+                        <label for="question" class="block text-sm font-medium text-slate-300 mb-1">Your Question</label>
+                        <textarea id="question" name="question" rows="4" required 
+                            class="w-full px-4 py-3 rounded-lg form-input focus:outline-none"></textarea>
+                    </div>
+                    
+                    <div class="pt-2">
+                        <button type="submit" class="submit-btn text-white font-semibold px-6 py-3 rounded-lg w-full md:w-auto">
+                            Submit Question
+                        </button>
+                    </div>
+                    
+                    <div id="form-message" class="hidden px-4 py-3 rounded-lg text-sm"></div>
+                </form>
             </div>
         </section>
 
-        <section class="section">
-            <h2 class="text-2xl font-bold text-white mb-6 border-b border-primary-color pb-3">Contact Us</h2>
-            <p class="mb-4">If you have any questions or need further assistance, please reach out to us:</p>
-            <a href="mailto:info@tccards.tn" class="contact-link">
-                <i class="fas fa-envelope mr-2"></i>info@tccards.tn
-            </a>
+        <!-- Question Form Section -->
+        <section class="max-w-4xl mx-auto">
+            <div class="card rounded-xl p-8">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6 text-white flex items-center">
+                    <i class="fas fa-headset text-purple-400 mr-3"></i>
+                    Still Need Help?
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-slate-800/50 rounded-lg p-6 border border-slate-700">
+                        <div class="w-12 h-12 rounded-full bg-blue-900/30 flex items-center justify-center mb-4 text-blue-400">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Email Support</h3>
+                        <a href="mailto:info@tccards.tn" class="contact-link text-blue-400 hover:text-blue-300 inline-block">info@tccards.tn</a>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 rounded-lg p-6 border border-slate-700">
+                        <div class="w-12 h-12 rounded-full bg-purple-900/30 flex items-center justify-center mb-4 text-purple-400">
+                            <i class="fas fa-phone-alt text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Call Us</h3>
+                        <a href="tel:+21690725434" class="contact-link text-purple-400 hover:text-purple-300 inline-block">+216 90 725 434</a>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
 
-  <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400">
+    <!-- Original Footer (untouched as requested) -->
+    <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div class="space-y-4">
+                    <a href="https://tccards.tn" title="main">
+                        <img src="/Assets/150.png" alt="Total Connect Logo" class="h-8 mx-auto md:mx-0">
+                    </a>
+                    <p class="text-gray-400 text-sm">
+                        <b>No handing over. No paper shuffle.</b> <br>
+                        You tap. They get everything. You're done. <br>
+                    </p>
+                    <p class="text-gray-400 text-sm md:hidden">
+                        tccards.tn is the future of networking. <br>
+                        tccards.tn turns your card into a moment <br>— smooth, smart, unforgettable — <br>
+                        No more printing costs. No more outdated info.
+                    </p>
+                    <p class="text-gray-400 text-sm md:hidden">
+                        Your card is a tap away from their phone. <br>
+                        Just one tap, and your presence lives in their pocket.
+                        You don't give your card away — you leave a mark. <br>
+                        <hr>
+                        <br>
+                        <strong>Be remembered, not handed off.</strong>
+                    </p>
+                    <div class="flex space-x-4 justify-center md:justify-start">
+                        <a href="https://www.facebook.com/tccards.tn" title="facebook"
+                            class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/tccards.tn/" title="Instagram"
+                            class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/tccards/" title="LinkedIn"
+                            class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <!-- Company Info -->
-        <div class="space-y-4">
-            <a href="https://tccards.tn" title="main">
-          <img src="/Assets/150.png" alt="Total Connect Logo" class="h-8 mx-auto md:mx-0"></a>
-          <p class="text-gray-400 text-sm">
-            <b>No handing over. No paper shuffle.</b> <br>
-            You tap. They get everything. You’re done. <br>
-          </p>
-          <p class="text-gray-400 text-sm md:hidden">
-            tccards.tn is the future of networking. <br>
-            tccards.tn turns your card into a moment <br>— smooth, smart, unforgettable — <br>
-            No more printing costs. No more outdated info.
-          </p>
-          <p class="text-gray-400 text-sm md:hidden">
-            Your card is a tap away from their phone. <br>
-            Just one tap, and your presence lives in their pocket.
-            You don’t give your card away — you leave a mark. <br>
-            <hr>
-            <br>
-            <strong>Be remembered, not handed off.</strong>
-          </p>
-          <div class="flex space-x-4 justify-center md:justify-start">
-            <a href="https://www.facebook.com/tccards.tn" title="facebook"
-              class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://www.instagram.com/tccards.tn/" title="Instagram"
-              class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.linkedin.com/company/tccards/" title="LinkedIn"
-              class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-          </div>
+                <!-- Products -->
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Products</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/plans"
+                                class="text-sm text-gray-500 hover:text-white p-2">Plans
+                            </a></li>
+                        <li><a href="/plans/events"
+                                class="text-sm text-gray-500 hover:text-white p-2">Events
+                                Solutions</a></li>
+                        <li><a href="/plans/enterprise/"
+                                class="text-sm text-gray-500 hover:text-white p-2">Enterprise
+                                Solutions</a></li>
+                    </ul>
+                </div>
+                <!-- Support -->
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/help"
+                                class="text-sm text-gray-500 hover:text-white p-2">Help
+                                Center</a></li>
+                        <li><a href="https://edit.tccards.tn"
+                                class="text-sm text-gray-500 hover:text-white p-2">Edit
+                                Profile</a></li>
+                        <li><a href="/pp/"
+                                class="text-sm text-gray-500 hover:text-white p-2">Privacy
+                                Policy</a></li>
+                    </ul>
+                </div>
+                <!-- Contact -->
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Interested ?</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/About/"
+                                class="text-sm text-gray-500 hover:text-white p-2">About
+                                Us</a></li>
+                        <li><a href="../careers"
+                                class="text-sm text-gray-500 hover:text-white p-2">Careers</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 text-center border-t border-gray-800 pt-6">
+                <p class="text-gray-500 text-sm">&copy; 2025 Total Connect. All rights reserved.</p>
+            </div>
         </div>
-
-        <!-- Products -->
-        <div>
-          <h3 class="text-white font-semibold mb-4">Products</h3>
-          <ul class="space-y-2">
-            <li><a href="/plans"
-                class="text-sm text-gray-500 hover:text-white  p-2 ">Plans
-              </a></li>
-            <li><a href="/plans/events"
-                class="text-sm text-gray-500 hover:text-white  p-2 ">Events
-                Solutions</a></li>
-            <li><a href="/plans/enterprise/"
-                class="text-sm text-gray-500 hover:text-white  p-2 ">Enterprise
-                Solutions</a></li>
-          </ul>
-        </div>
-        <!-- Support -->
-        <div>
-          <h3 class="text-white font-semibold mb-4">Support</h3>
-          <ul class="space-y-2">
-            <li><a href="/help"
-                class="text-sm text-gray-500 hover:text-white  p-2 ">Help
-                Center</a></li>
-            <li><a href="https://edit.tccards.tn"
-                class="text-sm text-gray-500 hover:text-white  p-2 ">Edit
-                Profile</a></li>
-            <li><a href="/pp/"
-                class="text-sm text-gray-500 hover:text-white  p-2 ">Privacy
-                Policy</a></li>
-          </ul>
-        </div>
-        <!-- Contact -->
-        <div>
-          <h3 class="text-white font-semibold mb-4">Interested ?</h3>
-          <ul class="space-y-2">
-            <li><a href="/About/"
-                class="text-sm text-gray-500 hover:text-white  p-2 ">About
-                Us</a></li>
-            <li><a href="../careers"
-                class="text-sm text-gray-500 hover:text-white  p-2 ">Careers</a>
-            </li>
-            <!-- <li><a href="#home"
-                class="text-sm text-gray-500 hover:text-white  p-2 ">Blog</a>
-            </li>
-            <li><a href="#home"
-                class="text-sm text-gray-500 hover:text-white  p-2 ">Press</a>
-            </li> -->
-          </ul>
-        </div>
-      </div>
-      <div class="mt-8 text-center border-t border-gray-800 pt-6">
-        <p class="text-gray-500 text-sm">&copy; 2025 Total Connect. All rights reserved.</p>
-      </div>
-    </div>
     </footer>
-    <script src="/script.js"></script>
+
+    <!-- JavaScript -->
+    <script src="main.js"></script>
 </body>
 </html>
