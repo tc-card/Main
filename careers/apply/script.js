@@ -157,7 +157,7 @@ function renderForm(job) {
         formData.append('jobTitle', '${job.title}');
 
         try {
-            const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
+            const response = await fetch('https://script.google.com/macros/s/AKfycbzTW1cbCSWlPz_moGUlzqUgbVxpWmngiDJYxnkD_kgyDOpJbCMnaoG7f8cZW-SB3wIR/exec', {
                 method: 'POST',
                 body: formData
             });

@@ -3,198 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 Error Page</title>
-    <meta name="description" content="Create, manage, and share digital business cards using NFC technology. Eco-friendly, cost-effective, and modern networking solutions.">
-    <!-- meta name for img -->
-    <meta name="image" content="https://totalkonnect.github.io/Main/Assets/150.png">
-    <meta property="og:image" content="https://totalkonnect.github.io/Main/Assets/150.png">
+    <title>404 - Page Not Found</title>
+    <meta name="description" content="Page not found - Total Connect">
     <link rel="icon" href="https://totalkonnect.github.io/Main/Assets/150.png" type="image/x-icon">
-    <meta property="og:image:width" content="1200">
-    
-<style>
-@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@200;500&display=swap");
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-:root {
-    --primary-color: #6d28d9;          /* Changed to purple-600 */
-    --eye-pupil-color: #000000;        /* Changed to purple-500 */
-    --bg-color: #000000;
-    --text-color: #f3f4f6;             /* Changed to gray-100 */
-    --fs-heading: 36px;
-    --fs-text: 26px;
-    --fs-button: 18px;
-    --fs-icon: 30px;
-    --pupil-size: 30px;
-    --eye-size: 80px;
-    --button-padding: 15px 30px;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-@media only screen and (max-width: 567px) {
-    :root {
-        --fs-heading: 30px;
-        --fs-text: 22px;
-        --fs-button: 16px;
-        --fs-icon: 24px;
-        --button-padding: 12px 24px;
-    }
-}
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #13131A 0%, #1C1C28 100%);
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            overflow: hidden;
+        }
 
-body {
-    display: flex;
-    min-height: 100vh;
-    color: var(--text-color);
-    font-family: "Fira Sans", sans-serif;
-    background: linear-gradient(180deg, 
-        #000000 0%,
-        #4c1d95 50%,
-        #000000 100%
-    );
-}
+        .container {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    row-gap: 30px;
-    text-align: center;
-}
+        .glitch {
+            font-size: 8rem;
+            font-weight: bold;
+            position: relative;
+            animation: glitch 2s infinite;
+            text-shadow: 
+                2px 2px #ff00ff,
+                -2px -2px #00ffff;
+        }
 
-.error-page {
-    margin: auto;
-}
-
-.error-page__heading-title {
-    text-transform: capitalize;
-    font-size: var(--fs-heading);
-    font-weight: 500;
-    color: #e5e7eb;                    /* Changed to gray-200 */
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-
-.error-page__heading-description {
-    margin-top: 10px;
-    font-size: var(--fs-text);
-    font-weight: 200;
-    color: #9ca3af;                    /* Changed to gray-400 */
-}
-
-.error-page__button {
-    color: #e5e7eb;                    /* Changed to gray-200 */
-    text-decoration: none;
-    border: 1px solid var(--primary-color);
-    font-size: var(--fs-button);
-    font-weight: 200;
-    padding: var(--button-padding);
-    border-radius: 10px;
-    background-color: rgba(109, 40, 217, 0.1); /* Added subtle purple background */
-    box-shadow: 0px 7px 0px -2px var(--primary-color);
-    transition: all 0.3s ease-in-out;
-    text-transform: capitalize;
-}
-
-.error-page__button:hover {
-    box-shadow: none;
-    background-color: var(--primary-color);
-    color: #ffffff;
-    border-color: #7c3aed;             /* Changed to purple-500 */
-    transform: translateY(7px);         /* Added movement on hover */
-}
-
-.eyes {
-    display: flex;
-    justify-content: center;
-    gap: 2px;
-}
-
-.eye {
-    width: var(--eye-size);
-    height: var(--eye-size);
-    background-color: white;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-}
-
-.eye__pupil {
-    width: var(--pupil-size);
-    height: var(--pupil-size);
-    background-color: var(--eye-pupil-color);
-    border-radius: 50%;
-    animation: movePupil 2s infinite ease-in-out;
-    transform-origin: center center;
-}
-
-@keyframes movePupil {
-    0%,
-    100% {
-        transform: translate(0, 0);
-    }
-    25% {
-        transform: translate(-10px, -10px);
-    }
-    50% {
-        transform: translate(10px, 10px);
-    }
-    75% {
-        transform: translate(-10px, 10px);
-    }
-}
-.loader {
-    color: #8b5cf6;                 /* Changed to purple-400 */
-    font-family: Consolas, Menlo, Monaco, monospace;
-    text-shadow: black 0 0 10px;
-    font-weight: bold;
-    font-size: 78px;
-    opacity: 0.8;
-  }
-  .loader:before {
-    content: "{";
-    display: inline-block;
-    animation: pulse 0.4s alternate infinite ease-in-out;
-  }
-  .loader:after {
-    content: "}";
-    display: inline-block;
-    animation: pulse 0.4s 0.3s alternate infinite ease-in-out;
-  }
-
-  @keyframes pulse {
-    to {
-      transform: scale(0.8);
-      opacity: 0.5;
-    }
-    }
-    @keyframes fadeIn { 
-        0% {
+        .message {
+            font-size: 1.5rem;
+            margin: 2rem 0;
             opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards 0.5s;
         }
-        100% {
-            opacity: 1;
+
+        .btn-home {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
         }
-    }
-</style>
-<body class="min-h-screen text-white">
-    <main class="error-page">
-        <div class="container">
-            <div class="eyes">
-                <div class="eye">
-                    <div class="eye__pupil eye__pupil--left"></div>
-                </div>
-                <div class="eye">
-                    <div class="eye__pupil eye__pupil--right"></div>
-                </div>
-            </div>
-  <span class="loader"></span>
-            <div class="error-page__heading">
-                <h1 class="error-page__heading-title">Looks like you're lost</h1>
-                <p class="error-page__heading-description">404 error</p>
-            </div>
-            <a class="error-page__button" href="/" aria-label="back to home" title="back to home">Back to Home</a>
-        </div>
-    </main>
+
+        .btn-home:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.05;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6/NOqAAAACHRSTlMABzqAuOD//+SlZu8AAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAoSURBVDjLY2AYBaNgFIyCUTAKRsEoGAWjYBSMglEwCkbBKBgFwwYAAE5IOf8JD0eaAAAAAElFTkSuQmCC');
+        }
+    </style>
+</head>
+<body>
+    <div class="noise"></div>
+    <div class="container">
+        <div class="glitch">404</div>
+        <div class="message">Oops! The page you're looking for doesn't exist.</div>
+        <a href="/" class="btn-home">Return Home</a>
+    </div>
+
+    <script>
+        // Create particle effect
+        document.body.insertAdjacentHTML('beforeend', '<canvas class="particles"></canvas>');
+        const canvas = document.querySelector('.particles');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        for(let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2,
+                speedX: Math.random() * 2 - 1,
+                speedY: Math.random() * 2 - 1
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                ctx.fillStyle = 'rgba(255,255,255,0.5)';
+                ctx.fillRect(particle.x, particle.y, particle.size, particle.size);
+                
+                particle.x += particle.speedX;
+                particle.y += particle.speedY;
+                
+                if(particle.x > canvas.width) particle.x = 0;
+                if(particle.x < 0) particle.x = canvas.width;
+                if(particle.y > canvas.height) particle.y = 0;
+                if(particle.y < 0) particle.y = canvas.height;
+            });
+            
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
 </body>
 </html>
