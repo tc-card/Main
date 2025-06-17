@@ -31,7 +31,7 @@ const starterPlans = [
       "Pre-designed webfolio",
       "6 media links",
       "Email support",
-      "QR code sharing",
+      "QR code emailing",
       "Editing dashboard",
       "Contact Button"
     ],
