@@ -211,14 +211,12 @@ document.addEventListener("DOMContentLoaded", () => {
           const res = await fetch(
             `${
               CONFIG.googleScriptUrl
-            }?check_duplicates=true&email=${encodeURIComponent(
-              email
-            )}&link=${encodeURIComponent(link)}`
+            }?check_duplicates=true&email=${encodeURIComponent(email)}&link=${encodeURIComponent(link)}`
           );
           resolve(await res.json());
         } catch (error) {
           console.error("Duplicate check failed:", error);
-          resolve({ emailExists: false, linkExists: false });
+          resolve({ emailExists: true, linkExists: true });
         }
       }, 500);
     });
