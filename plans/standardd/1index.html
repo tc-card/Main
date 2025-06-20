@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standard Plan</title>
+    <meta name="description"
+        content="Create, manage, and share digital business cards using NFC technology. Eco-friendly, cost-effective, and modern networking solutions.">
+    <!-- meta name for img -->
+    <meta name="image" content="https://tc-card.github.io/Main/Assets/4.png">
+    <meta property="og:image" content="https://tc-card.github.io/Main/Assets/4.png">
+    <link rel="icon" href="https://tc-card.github.io/Main/Assets/150.png" type="image/x-icon">
+    <meta property="og:image:width" content="1200">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        h3 {
+            overflow: hidden;
+            max-height: 430px;
+        }
+
+        body {
+            background-image: url('/Assets/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        @layer utilities {
+            .perspective-container {
+                perspective: 1000px;
+                transform-style: preserve-3d;
+            }
+
+            @keyframes skew-scroll {
+                0% {
+                    transform: translateZ(0) translateY(0);
+                }
+
+                100% {
+                    transform: translateZ(0) translateY(-33%);
+                }
+            }
+
+            .animate-skew-scroll {
+                animation: skew-scroll 15s linear infinite;
+            }
+
+            .glass-effect {
+                background: rgba(17, 24, 39, 0.7);
+                backdrop-filter: blur(10px);
+            }
+        }
+
+        #ticket {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen text-white justify-center items-center">
+    <a href="https://tccards.tn/plans/" data-tooltip="Back to Home"
+        class="sticky top-4 left-4 md:fixed md:top-8 md:left-10 flex items-center justify-center w-20 h-10 rounded-full bg-gray-800/50 backdrop-blur-sm border border-white-700 text-white hover:text-yellow-500 hover:border-blue-500 transition-all duration-300"
+        style="z-index: +9999;">
+        <i class="fas fa-arrow-left"> BACK</i>
+    </a>
+    <!-- Main -->
+    <div class="max-w-6xl mx-auto px-4 py-16">
+        <!-- Hero Section -->
+        <div class="text-center mb-16 space-y-4">
+            <h1 class="text-5xl font-bold bg-clip-text text-transparent bg-yellow-400">
+                Enhance Your Digital Presence
+            </h1>
+            <p class="text-xl text-gray-400">Take your networking to the next level with our Standard NFC Card Plan</p>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid lg:grid-cols-2 gap-12 items-start">
+            <!-- Pricing Card -->
+            <div
+                class="glass-effect rounded-2xl p-8 border border-gray-800 shadow-2xl hover:border-yellow-400/50 transition-all">
+                <!-- Price Header -->
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold">Standard Plan</h2>
+                        <p class="text-gray-400 mt-2">Essential features for business</p>
+                        <p class="text-sm text-gray-400 mt-1">Yearly Subscription</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="flex flex-col items-end">
+                            <div class="flex flex-col items-end">
+                                <span class="text-sm line-through text-gray-500 block">100 TND</span>
+                                <p class="text-4xl font-bold text-yellow-400">80 TND</p>
+                            </div>
+                            <span
+                                class="inline-block bg-yellow-400/20 text-yellow-400 px-2 py-1 rounded-full text-sm font-medium">
+                                Save 24%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Scroll -->
+                <div class="bg-black/40 rounded-xl p-6 mb-8">
+                    <h3 class="font-semibold text-yellow-400 flex items-center gap-2 mb-4">
+                        <i class="fas fa-star"></i>
+                        What's Included:
+                        <div class="mx-auto grid h-[100%] w-[100%] animate-skew-scroll grid-cols-1 gap-5 sm:w-[600px] sm:grid-cols-2"
+                            style="mask-composite: intersect; -webkit-mask-composite: intersect; mask-image: 
+                            linear-gradient(to right, transparent, black 5rem),
+                            linear-gradient(to left, transparent, black 5rem),
+                            linear-gradient(to bottom, transparent, black 5rem),
+                            linear-gradient(to top, transparent, black 5rem);
+                        ">
+                        </div>
+                    </h3>
+                </div>
+
+                <!-- CTA Button -->
+                <a href="#start">
+                    <button
+                        class="w-full py-4 bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-white font-bold rounded-xl transition-all transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-lg">
+                        Get Started Now
+                    </button></a>
+            </div>
+
+            <!-- Benefits Section -->
+            <div class="space-y-6">
+                <div class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl">
+                    <h3 class="text-2xl font-bold mb-4 text-yellow-400">Why Choose Standard Plan?</h3>
+                    <p class="text-gray-300 leading-relaxed text-lg">
+                        Essential features to enhance your business presence with custom branding options and multiple
+                        NFC cards for your team.
+                    </p>
+                </div>
+
+                <div class="grid gap-6">
+                    <div
+                        class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-yellow-400/30 transition-all">
+                        <i class="fas fa-paint-brush text-3xl text-yellow-400 mb-4"></i>
+                        <h4 class="text-xl font-semibold mb-2">Custom Branding</h4>
+                        <p class="text-gray-400">Personalize your digital presence with your brand identity</p>
+                    </div>
+
+                    <div
+                        class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-yellow-400/30 transition-all">
+                        <i class="fas fa-users text-3xl text-yellow-400 mb-4"></i>
+                        <h4 class="text-xl font-semibold mb-2">Team Ready</h4>
+                        <p class="text-gray-400">5 NFC cards perfect for small teams</p>
+                    </div>
+
+                    <div
+                        class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-yellow-400/30 transition-all">
+                        <i class="fas fa-chart-line text-3xl text-yellow-400 mb-4"></i>
+                        <h4 class="text-xl font-semibold mb-2">Analytics Dashboard</h4>
+                        <p class="text-gray-400">Track visitor engagement and profile performance per card</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form -->
+    <section id="start"
+        class="flex-grow flex justify-center items-center flex-col space-y-6 w-full max-w-4xl px-4 mx-auto mb-24">
+        <h2 class="text-3xl font-bold text-center text-white py-16">Design Your Digital Profile</h2>
+        <form method="POST" id="data-fill" class="space-y-6 w-full lg:w-8/12 rounded-xl shadow-xl p-8">
+            <!-- Profile Section -->
+            <div class="text-center space-y-4 text-white">
+                <div class="relative w-32 h-32 mx-auto">
+                    <div
+                        class="absolute inset-0 rounded-full animate-spin border-4 border-transparent border-t-blue-500 pointer-events-none">
+                    </div>
+                    <img src="https://tccards.tn/Assets/150.png" alt="profile-picture" id="profile-picture"
+                        class="relative z-10 w-32 h-32 rounded-full object-cover mx-auto cursor-pointer hover:ring-blue-500/50 hover:ring-4 hover:p-2 transition-all" />
+                </div>
+                <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
+                <label for="image-input" class="cursor-pointer text-sm text-gray-400">Click to add picture</label>
+                <h3 class="text-lg font-semibold">Profile Details</h3>
+                <input type="text" id="user-name" name="user-name" placeholder="Enter your name"
+                    class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                <input type="text" id="user-tagline" name="user-tagline" placeholder="write something"
+                    class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+            </div>
+            <!-- Profile Link -->
+            <div class="space-y-2">
+                <div class="flex items-center">
+                    <span class="bg-gray-700 text-white p-3 rounded-l-lg whitespace-nowrap">link.tccards.tn/@</span>
+                    <input type="text" id="user-link" name="link" required
+                        title="Only letters, numbers, and hyphens allowed" placeholder="yourname"
+                        pattern="[a-zA-Z0-9-]+"
+                        class="w-full bg-gray-900/20 text-white rounded-r-lg p-3 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all">
+                </div>
+                <p class="text-xs text-gray-400">This will be your permanent profile URL</p>
+            </div>
+            <!-- Social Links Section -->
+            <div id="dynamic-links" class="space-y-4 w-full">
+                <div class="bg-white/10 p-4 rounded border border-white/50 shadow-md">
+                    <label class="block text-white font-semibold mb-4">Social Links</label>
+                    <ul class="space-y-2">
+                        <li
+                            class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
+                            <i class="fa fa-link text-xl text-white mr-3"></i>
+                            <input type="url" name="social-links[]" placeholder="https://domain.com/path"
+                                class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                        </li>
+                    </ul>
+                </div>
+                <button type="button" id="add-link-btn"
+                    class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl">
+                    <i class="fa fa-plus text-sm"></i>
+                    Add Another Link
+                </button>
+            </div>
+
+            <!-- Style Selection (Modified) -->
+            <div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
+                <label class="block text-white font-semibold mb-4">Choose Your Style</label>
+
+                <!-- Professional Gradients -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                    <button type="button"
+                        class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform"
+                        data-style="corporateGradient">
+                        <div class="h-20 rounded"
+                            style="background: linear-gradient(145deg, rgb(9, 9, 11), rgb(24, 24, 27), rgb(9, 9, 11))">
+                        </div>
+                        <p class="mt-2 text-sm">Executive</p>
+                    </button>
+
+                    <button type="button"
+                        class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform"
+                        data-style="oceanGradient">
+                        <div class="h-20 rounded"
+                            style="background: linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))">
+                        </div>
+                        <p class="mt-2 text-sm">Professional</p>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
+                <label class="block text-white font-semibold mb-4">Contact Button Details</label>
+                <input type="email" name="email" placeholder="Email"
+                    class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                <hr>
+                <input type="tel" name="phone" placeholder="Phone"
+                    class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                <hr>
+                <input type="text" name="address" placeholder="Address"
+                    class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+                <p class="text-xs mt-2"><b>Name, Picture, Tagline </b>: will automatically be added!</p>
+            </div>
+
+            <!-- custom form email input or check for same email as contact -->
+            <div class="space-y-2">
+                <div class="flex items-center">
+                    <label id="ticket"
+                        class="flex items-center bg-gray-700 text-white p-3 rounded-l-lg whitespace-nowrap pointer-cursor hover:ring-blue-500/50 hover:ring-4">
+                        <i class="fa fa-ticket mr-2"> </i>Referral Code
+                    </label>
+                    <input type="text" id="referral-code" name="referral-code" placeholder="Enter 5-character code"
+                        pattern="[A-Za-z0-9]{5}" maxlength="5"
+                        class="w-full bg-gray-900/20 text-white rounded-r-lg p-3 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all uppercase">
+                </div>
+                <p id="referral-validation-message" class="text-xs"></p>
+                <p class="text-xs text-gray-400">Enter your 5-character referral code</p>
+            </div>
+
+            <!-- Submit Button (Enhanced) -->
+            <button id="saveContactBtn" type="submit"
+                class="w-full md:w-auto mx-auto block text-center bg-blue-500 hover:bg-blue-600 text-white py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Create Your Digital Card
+            </button>
+        </form>
+    </section>
+
+    <footer class="text-gray-400 py-6 text-center">
+        <p>&copy; 2024 Total Connect. All rights reserved.</p>
+    </footer>
+    <center>
+        <img src="https://tc-card.github.io/Main//Assets/zfooter.gif" alt="cute animation" class="mt-8 center">
+    </center>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="config.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>

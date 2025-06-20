@@ -140,8 +140,8 @@ function renderForm(job) {
           placeholder="Tell us why you're the perfect fit for this role..."></textarea>
       </div>
 
-      <button type="submit" 
-        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 transform hover:scale-[1.02]">
+      <button type="submit" title="Notice: This form is not functional and is for demonstration purposes only."
+        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 transform disabled:opacity-50 disabled:cursor-not-allowed">
         Submit Application
       </button>
     </form>
