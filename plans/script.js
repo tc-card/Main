@@ -24,7 +24,7 @@ const starterPlans = [
   },
   {
     tier: "Basic",
-    price: "49 TND",
+    price: "65 TND",
     description: "Perfect for individuals and small businesses starting with NFC technology.",
     features: [
       "1 NFC Card",
@@ -200,13 +200,24 @@ function renderPricingCards() {
       return;
   }
 
-  // Render starter plans
-  starterContainer.innerHTML = starterPlans
-      .map(plan => generatePricingCard(plan))
-      .join('');
 
-  // Render advanced plans
-  advancedContainer.innerHTML = advancedPlans
+  // // Render advanced plans as "Coming Soon"
+  // advancedContainer.innerHTML = `
+  //   <div class="flex flex-col items-center justify-center h-full py-16">
+  //     <span class="text-4xl font-bold text-yellow-400 mb-4">🚧</span>
+  //     <h2 class="text-2xl font-semibold text-gray-200 mb-2">Coming Soon</h2>
+  //     <p class="text-gray-400 text-center max-w-md">
+  //       Advanced plans are on the way! Stay tuned for more powerful features and options tailored for your business needs.
+  //     </p>
+  //   </div>
+  // `;
+  // // Render advanced plans
+  // advancedContainer.innerHTML = advancedPlans
+  //     .map(plan => generatePricingCard(plan))
+  //     .join(''); 
+  // 
+ // Render starter plans
+  starterContainer.innerHTML = starterPlans
       .map(plan => generatePricingCard(plan))
       .join('');
 };
