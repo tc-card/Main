@@ -14,7 +14,24 @@ function doGet(e) {
 
     const formData = e.parameter;
 
-    // Validate required fields
+    // Handle different request types
+    if (formData.check_duplicates) {
+      return checkDuplicates(formData.email, formData.link, headers);
+    }
+
+    if (formData.check_referral) {
+      return checkReferralCode(formData.code, headers);
+    }
+
+    if (formData.track_analytics) {
+      return trackAnalytics(formData, headers);
+    }
+
+    if (formData.get_analytics) {
+      return getAnalytics(formData.id, headers);
+    }
+
+    // Validate required fields (form submission)
     if (!formData?.name || !formData?.email) {
       throw new Error('Name and email are required fields');
     }
@@ -35,12 +52,16 @@ function doGet(e) {
         'Social Links',
         'Selected Style',
         'Form Type',
-        'Profile Picture URL', // New column for profile picture URL
-        'Background Image URL', // New column for background image URL
+        'Profile Picture URL',
+        'Background Image URL',
         'ID',
-        'Status'
+        'Status',
+        'Link'
       ]);
     }
+
+    // Initialize Analytics sheet if it doesn't exist
+    initializeAnalyticsSheet(spreadsheet);
 
     // Generate submission ID
     const submissionId = Utilities.getUuid();
@@ -61,11 +82,12 @@ function doGet(e) {
       formData.address || '',        // Address
       socialLinks,                   // Social Links
       formData.style || 'default',    // Selected Style
-      formData.form_type || '',       // Form Type
-      formData.profile_picture || '',  // Profile Picture URL
+      formData.form_type || 'standard',       // Form Type
+      formData.profilePic || '',  // Profile Picture URL
       formData.background_image || '',  // Background Image URL
       submissionId,                   // Submission ID
-      'Innactive'                        // Status
+      'Active',                        // Status
+      formData.link || ''             // Link
     ];
 
     // Add data to sheet
@@ -207,8 +229,13 @@ function sendNotificationEmail(userEmail, userName, submissionId, profile_pictur
                   </table>
               </div>
               <p>
-                  <a href="http://tccards.tn/plans/standard/view-card?id=${submissionId}">
+                  <a href="http://tccards.tn/plans/standardd/view-card?id=${submissionId}">
                       View My Digital Card
+                  </a>
+              </p>
+              <p style="margin-top: 15px;">
+                  <a href="http://tccards.tn/plans/standardd/dashboard.html?id=${submissionId}">
+                      View Analytics Dashboard
                   </a>
               </p>
           </div>
@@ -296,5 +323,180 @@ function doGet(e) {
       return ContentService.createTextOutput(JSON.stringify(errorResponse))
         .setMimeType(ContentService.MimeType.JSON);
     }
+  }
+}
+
+// Helper function to check for duplicate emails and links
+function checkDuplicates(email, link, headers) {
+  try {
+    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = spreadsheet.getSheetByName('Form Submissions');
+    
+    if (!sheet || sheet.getLastRow() <= 1) {
+      return ContentService.createTextOutput(JSON.stringify({
+        emailExists: false,
+        linkExists: false
+      }))
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeaders(headers);
+    }
+
+    const data = sheet.getDataRange().getValues();
+    const emailExists = data.some((row, index) => index > 0 && row[3] === email);
+    const linkExists = data.some((row, index) => index > 0 && row[13] === link);
+
+    return ContentService.createTextOutput(JSON.stringify({
+      emailExists: emailExists,
+      linkExists: linkExists
+    }))
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeaders(headers);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'error',
+      message: error.message
+    }))
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeaders(headers);
+  }
+}
+
+// Helper function to check referral codes
+function checkReferralCode(code, headers) {
+  try {
+    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = spreadsheet.getSheetByName('Referral Codes');
+    
+    if (!sheet) {
+      return ContentService.createTextOutput(JSON.stringify({
+        codeExists: false
+      }))
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeaders(headers);
+    }
+
+    const data = sheet.getDataRange().getValues();
+    const codeRow = data.find((row, index) => index > 0 && row[0] === code);
+
+    if (codeRow) {
+      return ContentService.createTextOutput(JSON.stringify({
+        codeExists: true,
+        codeDetails: {
+          discountValue: codeRow[1] || '10% OFF',
+          validUntil: codeRow[2] || 'Valid'
+        }
+      }))
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeaders(headers);
+    }
+
+    return ContentService.createTextOutput(JSON.stringify({
+      codeExists: false
+    }))
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeaders(headers);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'error',
+      message: error.message
+    }))
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeaders(headers);
+  }
+}
+
+// Initialize Analytics sheet
+function initializeAnalyticsSheet(spreadsheet) {
+  let analyticsSheet = spreadsheet.getSheetByName('Analytics');
+  
+  if (!analyticsSheet) {
+    analyticsSheet = spreadsheet.insertSheet('Analytics');
+    analyticsSheet.appendRow([
+      'Timestamp',
+      'User ID',
+      'Event Type',
+      'Event Data',
+      'IP Address',
+      'User Agent'
+    ]);
+  }
+}
+
+// Track analytics events
+function trackAnalytics(data, headers) {
+  try {
+    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    let analyticsSheet = spreadsheet.getSheetByName('Analytics');
+    
+    if (!analyticsSheet) {
+      initializeAnalyticsSheet(spreadsheet);
+      analyticsSheet = spreadsheet.getSheetByName('Analytics');
+    }
+
+    analyticsSheet.appendRow([
+      new Date(),
+      data.userId || 'unknown',
+      data.eventType || 'view',
+      data.eventData || '',
+      data.ipAddress || '',
+      data.userAgent || ''
+    ]);
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'success',
+      message: 'Analytics tracked'
+    }))
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeaders(headers);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'error',
+      message: error.message
+    }))
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeaders(headers);
+  }
+}
+
+// Get analytics for a user
+function getAnalytics(userId, headers) {
+  try {
+    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    const analyticsSheet = spreadsheet.getSheetByName('Analytics');
+    
+    if (!analyticsSheet) {
+      return ContentService.createTextOutput(JSON.stringify({
+        totalViews: 0,
+        totalClicks: 0,
+        contactSaves: 0,
+        recentActivity: []
+      }))
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeaders(headers);
+    }
+
+    const data = analyticsSheet.getDataRange().getValues();
+    const userEvents = data.filter((row, index) => index > 0 && row[1] === userId);
+
+    const totalViews = userEvents.filter(row => row[2] === 'view').length;
+    const totalClicks = userEvents.filter(row => row[2] === 'click').length;
+    const contactSaves = userEvents.filter(row => row[2] === 'save').length;
+
+    return ContentService.createTextOutput(JSON.stringify({
+      totalViews: totalViews,
+      totalClicks: totalClicks,
+      contactSaves: contactSaves,
+      engagementRate: totalViews > 0 ? ((totalClicks + contactSaves) / totalViews * 100).toFixed(1) : 0,
+      recentActivity: userEvents.slice(-10).reverse()
+    }))
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeaders(headers);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'error',
+      message: error.message
+    }))
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeaders(headers);
   }
 }
