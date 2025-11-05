@@ -157,20 +157,19 @@ document.querySelectorAll('.faq-button').forEach(button => {
 
   // Floating CTA button show/hide on scroll
   const floatingCTA = document.getElementById('floating-cta');
-  let lastScrollY = window.scrollY;
   
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    const heroHeight = document.querySelector('.header-wrapper')?.offsetHeight || 800;
-    
-    // Show floating CTA after scrolling past hero section
-    if (scrollY > heroHeight * 0.7) {
-      floatingCTA.style.opacity = '1';
-      floatingCTA.style.transform = 'translateY(0)';
-    } else {
-      floatingCTA.style.opacity = '0';
-      floatingCTA.style.transform = 'translateY(20px)';
-    }
-    
-    lastScrollY = scrollY;
-  });
+  if (floatingCTA) {
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const heroHeight = document.querySelector('.header-wrapper')?.offsetHeight || 800;
+      
+      // Show floating CTA after scrolling past hero section
+      if (scrollY > heroHeight * 0.7) {
+        floatingCTA.style.opacity = '1';
+        floatingCTA.style.transform = 'translateY(0)';
+      } else {
+        floatingCTA.style.opacity = '0';
+        floatingCTA.style.transform = 'translateY(20px)';
+      }
+    });
+  }
