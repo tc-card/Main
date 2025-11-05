@@ -16,15 +16,59 @@ document.addEventListener("DOMContentLoaded", () => {
     userPhone: document.querySelector('input[name="phone"]'),
     userAddress: document.querySelector('input[name="address"]'),
     referralCode: document.getElementById("referral-code"),
+    progressBar: document.getElementById("progress-bar"),
+    progressText: document.getElementById("progress-text"),
   };
 
   // Validate elements exist
   for (const [key, element] of Object.entries(elements)) {
-    if (!element && key !== "stylePresets") { // stylePresets is optional
+    if (!element && key !== "stylePresets" && key !== "progressBar" && key !== "progressText") { 
       console.error(`Element '${key}' not found`);
       return;
     }
   }
+
+  // ===== PROGRESS TRACKING =====
+  function updateProgress() {
+    let completedSteps = 0;
+    const totalSteps = 4;
+    
+    // Step 1: Profile info (name is required)
+    if (elements.userName.value.trim()) completedSteps++;
+    
+    // Step 2: Custom URL
+    if (elements.userLink.value.trim()) completedSteps++;
+    
+    // Step 3: At least one social link
+    const socialLinks = document.querySelectorAll('input[name="social-links[]"]');
+    if (Array.from(socialLinks).some(input => input.value.trim())) completedSteps++;
+    
+    // Step 4: Contact info (email is required)
+    if (elements.userEmail.value.trim()) completedSteps++;
+    
+    const percentage = (completedSteps / totalSteps) * 100;
+    if (elements.progressBar) {
+      elements.progressBar.style.width = `${percentage}%`;
+    }
+    if (elements.progressText) {
+      elements.progressText.textContent = `Step ${completedSteps} of ${totalSteps}`;
+    }
+  }
+
+  // Add listeners to track progress
+  [elements.userName, elements.userLink, elements.userEmail].forEach(el => {
+    if (el) {
+      el.addEventListener('input', updateProgress);
+    }
+  });
+
+  // Track social links progress
+  elements.form.addEventListener('input', (e) => {
+    if (e.target.name === 'social-links[]') {
+      updateProgress();
+    }
+  });
+  
   // ===== REFERRAL CODE VALIDATION =====
   if (elements.referralCode) {
     let debounceTimer;
@@ -146,10 +190,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===== SOCIAL LINKS MANAGEMENT =====
   function createSocialLink() {
     return `
-      <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20 relative group">
-          <i class="fa fa-link text-xl text-white mr-3"></i>
-          <input type="url" name="social-links[]" placeholder="https://domain.com/path" 
-              class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
+      <li class="flex items-center bg-gray-900/50 p-3 rounded-lg shadow-md border border-gray-600 hover:border-yellow-500/50 hover:bg-gray-900/70 transition-all relative group">
+          <i class="fa fa-link text-xl text-yellow-400 mr-3"></i>
+          <input type="url" name="social-links[]" placeholder="https://example.com/yourprofile" 
+              class="w-full bg-transparent text-white p-2 rounded focus:outline-none placeholder-gray-500" />
           <button type="button" class="remove-link-btn absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -181,16 +225,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ===== STYLE PRESETS ===== (Single implementation)
+  // ===== STYLE PRESETS ===== 
   document.querySelectorAll(".style-preset").forEach((button) => {
     button.addEventListener("click", (e) => {
       e.preventDefault();
-      document.querySelectorAll(".style-preset").forEach(btn => btn.classList.remove("selected"));
-      button.classList.add("selected");
+      document.querySelectorAll(".style-preset").forEach(btn => {
+        btn.classList.remove("selected", "border-yellow-500");
+        btn.classList.add("border-gray-600");
+      });
+      button.classList.add("selected", "border-yellow-500");
+      button.classList.remove("border-gray-600");
       
-      // Optional: Apply style preview
-      const style = stylePresets[button.dataset.style];
-      if (style) document.body.style.background = style.background;
+      // Update progress when style is selected
+      updateProgress();
     });
   });
 
