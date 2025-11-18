@@ -100,3 +100,23 @@ document.querySelectorAll('.faq-button').forEach(button => {
       window.location.href = href;
     }, NAVIGATION_DELAY);
   });
+
+  // Floating CTA button show/hide on scroll
+  const floatingCTA = document.getElementById('floating-cta');
+  const DEFAULT_HERO_HEIGHT = 800; // Fallback height if hero element not found
+  
+  if (floatingCTA) {
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const heroHeight = document.querySelector('.header-wrapper')?.offsetHeight || DEFAULT_HERO_HEIGHT;
+      
+      // Show floating CTA after scrolling past 70% of hero section
+      if (scrollY > heroHeight * 0.7) {
+        floatingCTA.style.opacity = '1';
+        floatingCTA.style.transform = 'translateY(0)';
+      } else {
+        floatingCTA.style.opacity = '0';
+        floatingCTA.style.transform = 'translateY(20px)';
+      }
+    });
+  }
