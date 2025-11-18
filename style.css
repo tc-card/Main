@@ -32,14 +32,6 @@ body {
     --border-light: rgba(255, 255, 255, 0.1);
 }
 
-/* Layout Components */
-.header-wrapper {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    overflow: hidden;
-    background: var(--bg-dark-transparent);
-}
 
 .header-content {
     position: relative;
@@ -49,37 +41,8 @@ body {
     align-items: center;
     justify-content: center;
     padding: 4rem 1.5rem;
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0.1) 50%,
-        rgba(7, 7, 7, 0.1) 80%,
-        rgba(0, 0, 0, 0.89) 85%,
-        rgb(0, 0, 0) 90%,
-        rgb(0, 0, 0) 100%
-    );
 }
 
-/* 3D Viewer Component */
-spline-viewer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.9;
-}
-
-/* Media Queries */
-@media (max-width: 768px) {
-    spline-viewer {
-        height: 100vh;
-        opacity: 0.7;
-    }
-}
 
 /* Navigation Styles */
 .bg-black\/40 {

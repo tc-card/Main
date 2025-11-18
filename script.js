@@ -49,60 +49,6 @@ document.querySelectorAll('.faq-button').forEach(button => {
 });
 
 
-  // Mobile menu toggle functionality
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-
-  mobileMenuButton.addEventListener('click', () => {
-    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-    mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-    mobileMenu.classList.toggle('hidden');
-    
-    // Change icon based on state
-    const menuIcon = mobileMenuButton.querySelector('svg');
-    if (!isExpanded) {
-      menuIcon.innerHTML = `
-        <path d="M18 6 6 18"></path>
-        <path d="m6 6 12 12"></path>
-      `;
-    } else {
-      menuIcon.innerHTML = `
-        <line x1="4" x2="20" y1="12" y2="12"></line>
-        <line x1="4" x2="20" y1="6" y2="6"></line>
-        <line x1="4" x2="20" y1="18" y2="18"></line>
-      `;
-    }
-  });
-
-  // Close mobile menu when clicking on a link
-  document.querySelectorAll('#mobile-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
-      mobileMenuButton.setAttribute('aria-expanded', 'false');
-      // Reset icon to hamburger
-      const menuIcon = mobileMenuButton.querySelector('svg');
-      menuIcon.innerHTML = `
-        <line x1="4" x2="20" y1="12" y2="12"></line>
-        <line x1="4" x2="20" y1="6" y2="6"></line>
-        <line x1="4" x2="20" y1="18" y2="18"></line>
-      `;
-    });
-  });
-
-  // Handle escape key to close menu
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
-      mobileMenu.classList.add('hidden');
-      mobileMenuButton.setAttribute('aria-expanded', 'false');
-      // Reset icon to hamburger
-      const menuIcon = mobileMenuButton.querySelector('svg');
-      menuIcon.innerHTML = `
-        <line x1="4" x2="20" y1="12" y2="12"></line>
-        <line x1="4" x2="20" y1="6" y2="6"></line>
-        <line x1="4" x2="20" y1="18" y2="18"></line>
-      `;
-    }
-  });
   // smooth landing animation on page loading/opening
   const fadeInElements = document.querySelectorAll('.fade-in');
   const FADE_IN_DURATION = '0.5s';
