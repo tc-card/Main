@@ -49,37 +49,84 @@ document.querySelectorAll('.faq-button').forEach(button => {
 });
 
 
-  // smooth landing animation on page loading/opening
-  const fadeInElements = document.querySelectorAll('.fade-in');
-  const FADE_IN_DURATION = '0.5s';
-  const FADE_OUT_DURATION = '0.3s';
-  const TRANSITION_TIMING = 'ease-in-out';
-  const NAVIGATION_DELAY = 500;
+  // Mobile menu toggle functionality
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
 
-  // Initial setup - hide elements before animation
-  fadeInElements.forEach(element => {
-    element.style.opacity = '0';
-    element.style.transition = `opacity ${FADE_IN_DURATION} ${TRANSITION_TIMING}`;
-  });
-
-  // Fade in elements when DOM is ready or when returning from another page
-  function fadeInContent() {
-    requestAnimationFrame(() => {
-      fadeInElements.forEach(element => {
-        element.style.opacity = '1';
-      });
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', fadeInContent);
-  window.addEventListener('pageshow', (event) => {
-    if (event.persisted) {
-      fadeInContent(); // Handle back/forward navigation
+  mobileMenuButton.addEventListener('click', () => {
+    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+    mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+    mobileMenu.classList.toggle('hidden');
+    
+    // Change icon based on state
+    const menuIcon = mobileMenuButton.querySelector('svg');
+    if (!isExpanded) {
+      menuIcon.innerHTML = `
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      `;
+    } else {
+      menuIcon.innerHTML = `
+        <line x1="4" x2="20" y1="12" y2="12"></line>
+        <line x1="4" x2="20" y1="6" y2="6"></line>
+        <line x1="4" x2="20" y1="18" y2="18"></line>
+      `;
     }
   });
 
-  // Handle link transitions
-  document.addEventListener('click', e => {
+  // Close mobile menu when clicking on a link
+  document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      mobileMenuButton.setAttribute('aria-expanded', 'false');
+      // Reset icon to hamburger
+      const menuIcon = mobileMenuButton.querySelector('svg');
+      menuIcon.innerHTML = `
+        <line x1="4" x2="20" y1="12" y2="12"></line>
+        <line x1="4" x2="20" y1="6" y2="6"></line>
+        <line x1="4" x2="20" y1="18" y2="18"></line>
+      `;
+    });
+  });
+
+  // Handle escape key to close menu
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+      mobileMenu.classList.add('hidden');
+      mobileMenuButton.setAttribute('aria-expanded', 'false');
+      // Reset icon to hamburger
+      const menuIcon = mobileMenuButton.querySelector('svg');
+      menuIcon.innerHTML = `
+        <line x1="4" x2="20" y1="12" y2="12"></line>
+        <line x1="4" x2="20" y1="6" y2="6"></line>
+        <line x1="4" x2="20" y1="18" y2="18"></line>
+      `;
+    }
+  });
+// smooth landing animation on page loading/opening
+const fadeInElements = document.querySelectorAll('.fade-in');
+const FADE_IN_DURATION = '0.5s';
+const FADE_OUT_DURATION = '0.3s';
+const TRANSITION_TIMING = 'ease-in-out';
+const NAVIGATION_DELAY = 500;
+
+// Initial setup - hide elements before animation
+fadeInElements.forEach(element => {
+    element.style.opacity = '0';
+    element.style.transition = `opacity ${FADE_IN_DURATION} ${TRANSITION_TIMING}`;
+});
+
+// Fade in elements when DOM is ready 
+document.addEventListener('DOMContentLoaded', () => {
+    requestAnimationFrame(() => {
+        fadeInElements.forEach(element => {
+            element.style.opacity = '1';
+        });
+    });
+});
+
+// Handle link transitions
+document.addEventListener('click', e => {
     const link = e.target.closest('a');
     if (!link) return;
 
@@ -91,32 +138,12 @@ document.querySelectorAll('.faq-button').forEach(button => {
 
     // Fade out smoothly
     fadeInElements.forEach(element => {
-      element.style.transition = `opacity ${FADE_OUT_DURATION} ${TRANSITION_TIMING}`;
-      element.style.opacity = '0';
+        element.style.transition = `opacity ${FADE_OUT_DURATION} ${TRANSITION_TIMING}`;
+        element.style.opacity = '0';
     });
 
     // Navigate after fade completes
     setTimeout(() => {
-      window.location.href = href;
+        window.location.href = href;
     }, NAVIGATION_DELAY);
-  });
-
-  // Floating CTA button show/hide on scroll
-  const floatingCTA = document.getElementById('floating-cta');
-  const DEFAULT_HERO_HEIGHT = 800; // Fallback height if hero element not found
-  
-  if (floatingCTA) {
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      const heroHeight = document.querySelector('.header-wrapper')?.offsetHeight || DEFAULT_HERO_HEIGHT;
-      
-      // Show floating CTA after scrolling past 70% of hero section
-      if (scrollY > heroHeight * 0.7) {
-        floatingCTA.style.opacity = '1';
-        floatingCTA.style.transform = 'translateY(0)';
-      } else {
-        floatingCTA.style.opacity = '0';
-        floatingCTA.style.transform = 'translateY(20px)';
-      }
-    });
-  }
+});
