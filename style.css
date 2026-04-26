@@ -1,15 +1,27 @@
 /* Base Styles */
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: smooth;    position: relative;
+    z-index: 2;
+    background-clip: blur(8px);
+     -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
 }
 
 body {
-    background: linear-gradient(180deg, 
-        #000000d7 15%,
-        #021342c9 45%,
-        #0f172a 75%,
-        #000000 100%
-    );
+  background: 
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.8) 25%,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 0) 80%,
+      rgba(0, 0, 0, 0.7) 90%,
+      rgba(0, 0, 0, 1) 100%
+    ),
+    url(https://tccards.tn/Assets/bg.png) repeat center fixed;
+  background-color: #000;
+  color: #e5e7eb;
+  min-height: 100vh;
 }
 
 /* Color Variables */
@@ -40,7 +52,6 @@ body {
     overflow: hidden;
     background: var(--bg-dark-transparent);
 }
-
 .header-content {
     position: relative;
     z-index: 2;
@@ -51,26 +62,14 @@ body {
     padding: 4rem 1.5rem;
     background: linear-gradient(
         to bottom,
-        rgba(0, 0, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0.1) 50%,
-        rgba(7, 7, 7, 0.1) 80%,
-        rgba(0, 0, 0, 0.89) 85%,
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.3) 20%,
+        rgba(0, 0, 0, 1) 70%,
+        rgba(0, 0, 0, 2) 80%,
+        rgba(0, 0, 0, 3) 85%,
         rgb(0, 0, 0) 90%,
         rgb(0, 0, 0) 100%
-    );
-}
-
-/* 3D Viewer Component */
-spline-viewer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.9;
+    ) !important;
 }
 
 /* Media Queries */
@@ -94,17 +93,6 @@ spline-viewer {
 .bg-white\/10 { background-color: var(--bg-hover-light); }
 .bg-gray-800\/50 { background-color: rgba(31, 41, 55, 0.5); }
 .bg-gray-800\/70 { background-color: var(--bg-hover-dark); }
-
-/* Section Specific Styles */
-#pricing {
-    background: linear-gradient(180deg,
-        #020617 0%,
-        #101f49c7 25%,
-        #12276b 50%,
-        #0a1c4ed3 75%,
-        #020617 100%
-    );
-}
 
 /* Card Styles */
 .free {
