@@ -24,7 +24,7 @@ const starterPlans = [
   },
   {
     tier: "Basic",
-    price: "65 TND",
+    price: "35 TND",
     description: "Perfect for individuals and small businesses starting with NFC technology.",
     features: [
       "1 NFC Card",
@@ -130,7 +130,7 @@ function generatePricingCard(content) {
   } else if (isDiscounted) {
     tagElement = `
       <span class="absolute -top-3 right-4 rounded-full bg-gray-900 px-3 py-1.5 text-xs font-bold text-gray-100 ring-1 ${colors.ring}">
-          24% OFF
+          10% OFF
       </span>
     `;
   }
