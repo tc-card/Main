@@ -32,7 +32,6 @@
             scroll-behavior: smooth;
         }
 
-
         body {
             background: url(https://tccards.tn/Assets/bg.png) repeat center fixed !important;
             backdrop-filter: blur(5px);
@@ -84,7 +83,7 @@
         .price-original {
             text-decoration: line-through;
             font-size: 1.25rem;
-            opacity: 0.5;
+            opacity: 0.6;
             margin-left: 0.5rem;
             font-weight: 400;
         }
@@ -118,15 +117,12 @@
         </header>
 
         <section class="mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
-            <!-- Pricing Cards Container -->
             <div class=" mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <!-- Starter Plans Section -->
                 <div class="text-center mb-16">
                     <h2 class="text-3xl font-bold text-yellow-500 mb-4">Get Started</h2>
                     <p class="text-gray-300">Begin your digital journey with our starter plans</p>
                 </div>
-
                 <div class=" gap-8 mb-24">
                     <div id="starter-plans" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
                 </div>
@@ -136,7 +132,6 @@
                     <h2 class="text-3xl font-bold text-yellow-500 mb-4">Scale Your Business</h2>
                     <p class="text-gray-300">Professional solutions for growing businesses</p>
                 </div>
-
                 <div class=" gap-8 mb-24">
                     <div id="advanced-plans" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
                 </div>
@@ -225,15 +220,240 @@
             </div>
         </div>
     </footer>
-    <!-- Scripts -->
-    <script type="module">
-        // Initialize pricing cards
-        window.addEventListener('DOMContentLoaded', (event) => {
-            renderPricingCards();
+
+    <!-- Inline scripts with all pricing data and rendering logic -->
+    <script>
+        // ----- Pricing Data -----
+        const starterPlans = [
+            {
+                tier: "Free",
+                price: "0 TND",
+                description: "Perfect for individuals starting their digital journey.",
+                features: [
+                    "Pre-designed webfolio",
+                    "3 media links",
+                    "Mobile-friendly design",
+                    "Share via Custom Link",
+                    "Contact Button"
+                ],
+                limitations: [
+                    "No NFC Card",
+                    "30-Day Expiry",
+                    "TC Watermark",
+                    "Simple Designs",
+                    "Fixed Background Only"
+                ],
+                colorClasses: "bg-gray-900 ring-purple-400 text-purple-400",
+                link: "/plans/free/",
+                trial: true
+            },
+            {
+                tier: "Basic",
+                price: "31.5 TND",          // discounted price
+                originalPrice: "35 TND",    // original price to show crossed out
+                description: "Perfect for individuals and small businesses starting with NFC technology.",
+                features: [
+                    "1 NFC Card",
+                    "Pre-designed webfolio",
+                    "6 media links",
+                    "Email support",
+                    "QR code emailing",
+                    "Editing dashboard",
+                    "Contact Button"
+                ],
+                limitations: [
+                    "Customizable Card",
+                    "No Analytics Dashboard",
+                ],
+                colorClasses: "bg-gray-900 ring-green-400 text-green-400",
+                link: "/plans/basic/",
+            }
+        ];
+
+        const advancedPlans = [
+            {
+                tier: "Standard",
+                price: "80 TND",
+                description: "Essential features to enhance your business presence.",
+                features: [
+                    "5 NFC Cards",
+                    "Customizable Card",
+                    "Unlimited media links",
+                    "Email support",
+                    "Custom branding",
+                    "Remove our watermark",
+                    "Analytics Dashboard"
+                ],
+                colorClasses: "bg-gray-900 ring-yellow-400 text-yellow-400",
+                link: "/plans/standard/",
+            },
+            {
+                tier: "Enterprise",
+                price: "Custom Pricing",
+                description: "Tailored solutions for enterprises with advanced needs.",
+                features: [
+                    "Unlimited NFC Cards",
+                    "Custom webfolio design",
+                    "Dedicated account manager",
+                    "Priority support",
+                    "SLA guarantee",
+                    "Custom integrations",
+                    "Custom Domain",
+                    "Custom Forms"
+                ],
+                colorClasses: "bg-gray-900 ring-red-400 text-red-400",
+                link: "/plans/enterprise/",
+            }
+        ];
+
+        // ----- Color mapping -----
+        const colorMapping = {
+            Free: {
+                text: "text-purple-400",
+                ring: "ring-purple-400",
+                bg: "bg-blue-800",
+            },
+            Basic: {
+                text: "text-green-400",
+                ring: "ring-green-400",
+                bg: "bg-green-400",
+                ttext: "hover:text-black"
+            },
+            Standard: {
+                text: "text-yellow-400",
+                ring: "ring-yellow-400",
+                bg: "bg-yellow-400",
+                ttext: "hover:text-black"
+            },
+            Custom: {
+                text: "text-blue-400",
+                ring: "ring-blue-400",
+                bg: "bg-gray-800",
+            },
+            Enterprise: {
+                text: "text-red-400",
+                ring: "ring-red-400",
+                bg: "bg-gray-800",
+            }
+        };
+
+        // ----- Card generator -----
+        function generatePricingCard(content) {
+            const colors = colorMapping[content.tier];
+            const isFree = content.tier === "Free";
+            const isStandard = content.tier === "Standard";
+            const isEnterprise = content.tier === "Enterprise";
+            const isDiscounted = content.tier === "Basic" || content.tier === "Standard";
+
+            const specialStyles = isFree ? 'border-dashed' : '';
+            let tagElement = '';
+
+            if (isFree) {
+                tagElement = `
+                    <span class="absolute -top-3 left-4 rounded-full bg-gray-900 px-3 py-1.5 text-xs font-bold text-blue-400 ring-2">
+                        Start Free
+                    </span>
+                `;
+            } else if (isDiscounted) {
+                tagElement = `
+                    <span class="absolute -top-3 right-4 rounded-full bg-gray-900 px-3 py-1.5 text-xs font-bold text-gray-100 ring-1 ${colors.ring}">
+                        10% OFF
+                    </span>
+                `;
+            }
+
+            // Build price display with optional original price strikethrough
+            let priceHtml = `<span class="text-5xl font-semibold ${colors.text}">${content.price}</span>`;
+            if (content.originalPrice) {
+                priceHtml += `<span class="price-original text-gray-400">${content.originalPrice}</span>`;
+            }
+
+            const limitationsSection = content.limitations ? `
+                <div class="mt-6 pt-4 border-t border-gray-700">
+                    <p class="text-sm text-gray-400 mb-2">Limitations:</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        ${content.limitations.map(limit => `
+                            <li class="flex items-center">
+                                <svg class="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd"/>
+                                </svg>
+                                ${limit}
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            ` : '';
+
+            let buttonHtml = '';
+            if (isFree) {
+                buttonHtml = `<a href="${content.link}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold ${colors.text} ring-1 ${colors.ring} hover:${colors.bg} hover:text-gray-100 transition-all duration-300">
+                    Start Free
+                </a>`;
+            } else if (isStandard) {
+                buttonHtml = `<a disabled class="mt-8 cursor-not-allowed opacity-60 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-gray-500 ring-1 ring-gray-500 cursor-pointer ${colors.text} hover:${colors.bg} ${colors.ttext} transition-all duration-300">
+                    Coming Soon!
+                </a>`;
+            } else {
+                buttonHtml = `<a href="${content.link}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-gray-500 ring-1 ring-gray-500 cursor-pointer ${colors.text} hover:${colors.bg} ${colors.ttext} transition-all duration-300">
+                    Get ${content.tier} Plan
+                </a>`;
+            }
+
+            return `
+                <div style="min-width:300px" class="hover:scale-105 transform transition-all duration-300 relative pricing-card ${content.tier.toLowerCase()} rounded-3xl p-4 ring-1 ${colors.ring} ${specialStyles}">
+                    ${tagElement}
+                    <h3 class="text-base font-semibold ${colors.text}">${content.tier}</h3>
+                    <p class="mt-4 flex items-baseline gap-x-2">
+                        ${priceHtml}
+                    </p>
+                    <p class="mt-6 text-base text-gray-300">${content.description}</p>
+                    <ul class="mt-8 space-y-3 text-sm text-gray-300">
+                        ${content.features.map(feature => `
+                            <li class="flex gap-x-3">
+                                <svg class="h-6 w-5 flex-shrink-0 ${colors.text}" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                                </svg>
+                                ${feature}
+                            </li>
+                        `).join('')}
+                    </ul>
+                    ${limitationsSection}
+                    ${buttonHtml}
+                </div>
+            `;
+        }
+
+        // ----- Render function -----
+        function renderPricingCards() {
+            const starterContainer = document.getElementById('starter-plans');
+            const advancedContainer = document.getElementById('advanced-plans');
+
+            if (!starterContainer || !advancedContainer) {
+                console.error('Container elements not found');
+                return;
+            }
+
+            starterContainer.innerHTML = starterPlans
+                .map(plan => generatePricingCard(plan))
+                .join('');
+
+            advancedContainer.innerHTML = advancedPlans
+                .map(plan => generatePricingCard(plan))
+                .join('');
+        }
+
+        // ----- Event listeners: initial load + bfcache restore -----
+        window.addEventListener('DOMContentLoaded', renderPricingCards);
+        window.addEventListener('pageshow', function(event) {
+            // If the page is being restored from the bfcache, re-render to avoid blank content
+            if (event.persisted) {
+                renderPricingCards();
+            }
         });
     </script>
+
+    <!-- Additional libraries (jQuery, SweetAlert2) – loaded for possible future use -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/jquery.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
-    <script src="script.js" defer></script>
 </body>
 </html>
