@@ -2,458 +2,655 @@
 <!DOCTYPE html>
 <html class="scroll-smooth" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#AA0009">
-    <meta name="google-adsense-account" content="ca-pub-9620521782073478">
-    <meta name="description" content=" revolutionize professional networking by replacing traditional paper business cards with sustainable, interactive digital alternatives.">
-    <meta property="og:image" content="https://tccards.tn/Assets/4.png">
-    <meta property="og:image:width" content="1200">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#AA0009">
+  <meta name="google-adsense-account" content="ca-pub-9620521782073478">
+  <meta name="description" content=" revolutionize professional networking by replacing traditional paper business cards with sustainable, interactive digital alternatives.">
+  <meta property="og:image" content="https://tccards.tn/Assets/4.png">
+  <meta property="og:image:width" content="1200">
 
-    <title>tccards Plans</title>
-    <link rel="icon" href="https://tccards.tn/Assets/150.png" type="image/x-icon">
+  <title>tccards Plans</title>
+  <link rel="icon" href="https://tccards.tn/Assets/150.png" type="image/x-icon">
 
-    <!-- Preload critical resources -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" as="style">
+  <!-- Preload critical resources -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" as="style">
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-    <style>
-        :root {
-            --card-bg-opacity: 0.95;
-            --card-hover-opacity: 0.98;
-        }
+  <style>
+    :root {
+      --card-bg-opacity: 0.95;
+      --card-hover-opacity: 0.98;
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        body {
-            background: url(https://tccards.tn/Assets/bg.png) repeat center fixed !important;
-            backdrop-filter: blur(5px);
-            background-size: 150% 150%;
-            background-color: black;
-        }
-        .pricing-card {
-            background: rgba(24, 24, 27, var(--card-bg-opacity));
-            backdrop-filter: blur(8px);
-            box-shadow: 0 8px 32px rgb(0 0 0 / 37%);
-            border: 1px solid rgb(255 255 255 / 10%);
-            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-        }
+    body {
+      background: url(https://tccards.tn/Assets/bg.png) repeat center fixed !important;
+      backdrop-filter: blur(5px);
+      background-size: 150% 150%;
+      background-color: black;
+    }
+    .pricing-card {
+      background: rgba(24, 24, 27, var(--card-bg-opacity));
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 32px rgb(0 0 0 / 37%);
+      border: 1px solid rgb(255 255 255 / 10%);
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        .pricing-card:hover {
-            transform: scale(1.05);
-            background: rgba(24, 24, 27, var(--card-hover-opacity));
-            box-shadow: 0 8px 42px rgb(0 0 0 / 45%);
-        }
+    .pricing-card:hover {
+      transform: scale(1.05);
+      background: rgba(24, 24, 27, var(--card-hover-opacity));
+      box-shadow: 0 8px 42px rgb(0 0 0 / 45%);
+    }
 
-        .pricing-card.free {
-            background: linear-gradient(145deg, #18181bf2, #581c8726);
-        }
+    .pricing-card.free {
+      background: linear-gradient(145deg, #18181bf2, #581c8726);
+    }
 
-        .pricing-card.basic {
-            background: linear-gradient(145deg, #18181bf2, #16a34a26);
-        }
+    .pricing-card.basic {
+      background: linear-gradient(145deg, #18181bf2, #16a34a26);
+    }
 
-        .pricing-card.standard {
-            background: linear-gradient(145deg, #18181bf2, #eab30826);
-        }
+    .pricing-card.standard {
+      background: linear-gradient(145deg, #18181bf2, #eab30826);
+    }
 
-        .back-button {
-            position: sticky;
-            top: 1rem;
-            left: 1rem;
-            z-index: 9999;
-        }
+    /* Price strikethrough style */
+    .price-original {
+      text-decoration: line-through;
+      font-size: 1.25rem;
+      opacity: 0.6;
+      margin-left: 0.5rem;
+      font-weight: 400;
+    }
 
-        @media (min-width: 768px) {
-            .back-button {
-                position: fixed;
-                top: 2rem;
-                left: 2.5rem;
-            }
-        }
+    /* ─── NAVIGATION ─── */
+    .nav-container {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      right: 1rem;
+      z-index: 9999;
+      max-width: 80rem;
+      margin: 0 auto;
+      width: calc(100% - 2rem);
+      border-radius: 1rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      transition: background 0.3s ease;
+    }
+    .nav-container.scrolled {
+      background: rgba(0, 0, 0, 0.75);
+    }
+    @media (min-width: 768px) {
+      .nav-container {
+        left: 2rem;
+        right: 2rem;
+        width: auto;
+      }
+    }
 
-        /* Price strikethrough style */
-        .price-original {
-            text-decoration: line-through;
-            font-size: 1.25rem;
-            opacity: 0.6;
-            margin-left: 0.5rem;
-            font-weight: 400;
-        }
-    </style>
+    .nav-link {
+      position: relative;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.5);
+      transition: color 0.3s ease;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+    }
+    .nav-link:hover {
+      color: #3ABEF9;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .nav-link.active {
+      color: #3ABEF9;
+    }
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 2px;
+      background: #3ABEF9;
+      border-radius: 2px;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0 1.25rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+    .nav-cta:hover {
+      border-color: #3ABEF9;
+      box-shadow: 0 0 20px rgba(58, 190, 249, 0.15);
+      background: rgba(58, 190, 249, 0.05);
+    }
+    .nav-cta svg {
+      margin-left: 0.5rem;
+    }
+
+    /* Mobile menu */
+    #mobile-menu {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 0.75rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    #mobile-menu a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.6);
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    #mobile-menu a:hover {
+      color: #3ABEF9;
+      background: rgba(58, 190, 249, 0.08);
+    }
+    #mobile-menu a.active {
+      color: #3ABEF9;
+    }
+    #mobile-menu .mobile-cta {
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+      justify-content: center;
+      margin-top: 0.5rem;
+      color: #fff;
+    }
+    #mobile-menu .mobile-cta:hover {
+      border-color: #3ABEF9;
+      background: rgba(58, 190, 249, 0.08);
+    }
+
+    /* Mobile menu button */
+    #mobile-menu-button {
+      padding: 0.5rem;
+      border-radius: 9999px;
+      color: rgba(255, 255, 255, 0.5);
+      transition: all 0.2s ease;
+    }
+    #mobile-menu-button:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+  </style>
 </head>
 
 <body class="fade-in bg-black justify-center items-center text-white font-nunito">
-    <a href="https://tccards.tn/"
-       aria-label="Back to Home"
-       class="back-button flex items-center justify-center w-20 h-10 rounded-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 text-white hover:text-yellow-500 hover:border-yellow-500 transition-all duration-300">
-        <i class="fas fa-arrow-left" aria-hidden="true"></i> BACK
-    </a>
 
-    <main class=" w-8/11 lg:w-8/12 mx-auto py-24" id="pricing">
-        <!-- Background gradient -->
-        <div class="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-yellow-600 via-gray-800 to-green-900 opacity-30"
-             style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+  <!-- ─── MAIN NAVIGATION ─── -->
+  <nav class="nav-container" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-3 md:py-4">
+        <!-- Logo -->
+        <a href="https://tccards.tn" class="flex items-center group rounded-lg hover:bg-gray-800/50 transition-colors duration-200 p-1">
+          <img src="https://tccards.tn/Assets/150.png" alt="tccards logo" class="h-9 w-9 md:h-10 md:w-10 rounded-full">
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <a href="https://tccards.tn/#faq" class="nav-link">FAQ</a>
+          <a href="https://tccards.tn/help/" class="nav-link">Support</a>
+          <a href="https://edit.tccards.tn" class="nav-link">Edit Profile</a>
+          <a href="/plans/free/" target="_blank" class="nav-cta">
+            Get Started
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
         </div>
 
-        <header class="text-center mb-12 px-8">
-            <img src="https://tccards.tn/Assets/150.png" alt="Total Connect Logo" class="mx-auto mb-8">
-            <div class="mx-auto max-w-4xl">
-                <h1 class="text-base font-semibold text-yellow-500 uppercase">More than a Business card</h1>
-                <p class="mt-2 text-5xl font-semibold tracking-tight text-gray-200 sm:text-6xl">Find Your Perfect Plan</p>
-                <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-gray-400">
-                    Smart NFC cards that make every connection count.
-                    <span class="text-yellow-500">One tap</span> shares your complete professional profile.
-                    Modern networking made simple.
-                </p>
-            </div>
-        </header>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
 
-        <section class="mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class=" mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <!-- Starter Plans Section -->
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold text-yellow-500 mb-4">Get Started</h2>
-                    <p class="text-gray-300">Begin your digital journey with our starter plans</p>
-                </div>
-                <div class=" gap-8 mb-24">
-                    <div id="starter-plans" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
-                </div>
-
-                <!-- Advanced Plans Section -->
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold text-yellow-500 mb-4">Scale Your Business</h2>
-                    <p class="text-gray-300">Professional solutions for growing businesses</p>
-                </div>
-                <div class=" gap-8 mb-24">
-                    <div id="advanced-plans" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400"
-            style="background-image: url(https://tccards.tn/Assets/footer-gradient.webp);">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <!-- Company Info -->
-                <div class="space-y-4">
-                    <a href="https://tccards.tn" title="main">
-                        <img src="/Assets/150.png" alt="Total Connect Logo" class="h-8 mx-auto md:mx-0"></a>
-                    <p class="text-gray-400 text-sm">
-                        <b>No handing over. No paper shuffle.</b> <br>
-                        You tap. They get everything. You're done. <br>
-                    </p>
-                    <p class="text-gray-400 text-sm md:hidden">
-                        tccards.tn is the future of networking. <br>
-                        tccards.tn turns your card into a moment <br>— smooth, smart, unforgettable — <br>
-                        No more printing costs. No more outdated info.
-                    </p>
-                    <p class="text-gray-400 text-sm md:hidden">
-                        Your card is a tap away from their phone. <br>
-                        Just one tap, and your presence lives in their pocket.
-                        You don't give your card away — you leave a mark. <br>
-                        <hr>
-                        <br>
-                        <strong>Be remembered, not handed off.</strong>
-                    </p>
-                    <div class="flex space-x-4 justify-center md:justify-start">
-                        <a href="https://www.facebook.com/tccards.tn" title="facebook"
-                           class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.instagram.com/tccards.tn/" title="Instagram"
-                           class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/company/tccards/" title="LinkedIn"
-                           class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Products -->
-                <div>
-                    <h3 class="text-white font-semibold mb-4">Products</h3>
-                    <ul class="space-y-2">
-                        <li><a href="/plans" class="text-sm text-gray-500 hover:text-white  p-2 ">Plans
-                            </a></li>
-                        <li><a href="/plans/events" class="text-sm text-gray-500 hover:text-white  p-2 ">Events
-                                Solutions</a></li>
-                        <li><a href="/plans/enterprise/" class="text-sm text-gray-500 hover:text-white  p-2 ">Enterprise
-                                Solutions</a></li>
-                    </ul>
-                </div>
-                <!-- Support -->
-                <div>
-                    <h3 class="text-white font-semibold mb-4">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="/help" class="text-sm text-gray-500 hover:text-white  p-2 ">Help
-                                Center</a></li>
-                        <li><a href="https://edit.tccards.tn" class="text-sm text-gray-500 hover:text-white  p-2 ">Edit
-                                Profile</a></li>
-                        <li><a href="/pp/" class="text-sm text-gray-500 hover:text-white  p-2 ">Privacy
-                                Policy</a></li>
-                    </ul>
-                </div>
-                <!-- Contact -->
-                <div>
-                    <h3 class="text-white font-semibold mb-4">Interested ?</h3>
-                    <ul class="space-y-2">
-                        <li><a href="/About/" class="text-sm text-gray-500 hover:text-white  p-2 ">About
-                                Us</a></li>
-                        <li><a href="/" class="text-sm text-gray-500 hover:text-white  p-2 ">Careers</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mt-8 text-center border-t border-gray-800 pt-6">
-                <p class="text-gray-500 text-sm">&copy; 2026 Total Connect. All rights reserved.</p>
-            </div>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden pb-4 mt-2 mx-2">
+        <div class="flex flex-col gap-1 p-2">
+          <a href="https://tccards.tn/#faq"><i class="fas fa-question-circle w-5 text-center"></i> FAQ</a>
+          <a href="https://tccards.tn/help/"><i class="fas fa-life-ring w-5 text-center"></i> Support</a>
+          <a href="https://edit.tccards.tn"><i class="fas fa-edit w-5 text-center"></i> Edit Profile</a>
+          <a href="#pricing" class="mobile-cta">
+            Get Started
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
         </div>
-    </footer>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Inline scripts with all pricing data and rendering logic -->
-    <script>
-        // ----- Pricing Data -----
-        const starterPlans = [
-            {
-                tier: "Free",
-                price: "0 TND",
-                description: "Perfect for individuals starting their digital journey.",
-                features: [
-                    "Pre-designed webfolio",
-                    "3 media links",
-                    "Mobile-friendly design",
-                    "Share via Custom Link",
-                    "Contact Button"
-                ],
-                limitations: [
-                    "No NFC Card",
-                    "30-Day Expiry",
-                    "TC Watermark",
-                    "Simple Designs",
-                    "Fixed Background Only"
-                ],
-                colorClasses: "bg-gray-900 ring-purple-400 text-purple-400",
-                link: "/plans/free/",
-                trial: true
-            },
-            {
-                tier: "Basic",
-                price: "31.5 TND",          // discounted price
-                originalPrice: "35 TND",    // original price to show crossed out
-                description: "Perfect for individuals and small businesses starting with NFC technology.",
-                features: [
-                    "1 NFC Card",
-                    "Pre-designed webfolio",
-                    "6 media links",
-                    "Email support",
-                    "QR code emailing",
-                    "Editing dashboard",
-                    "Contact Button"
-                ],
-                limitations: [
-                    "Customizable Card",
-                    "No Analytics Dashboard",
-                ],
-                colorClasses: "bg-gray-900 ring-green-400 text-green-400",
-                link: "/plans/basic/",
-            }
-        ];
+  <main class="w-8/11 lg:w-8/12 mx-auto py-24" style="padding-top: 8rem;">
+    <!-- Background gradient -->
+    <div class="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-yellow-600 via-gray-800 to-green-900 opacity-30" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+    </div>
 
-        const advancedPlans = [
-            {
-                tier: "Standard",
-                price: "80 TND",
-                description: "Essential features to enhance your business presence.",
-                features: [
-                    "5 NFC Cards",
-                    "Customizable Card",
-                    "Unlimited media links",
-                    "Email support",
-                    "Custom branding",
-                    "Remove our watermark",
-                    "Analytics Dashboard"
-                ],
-                colorClasses: "bg-gray-900 ring-yellow-400 text-yellow-400",
-                link: "/plans/standard/",
-            },
-            {
-                tier: "Enterprise",
-                price: "Custom Pricing",
-                description: "Tailored solutions for enterprises with advanced needs.",
-                features: [
-                    "Unlimited NFC Cards",
-                    "Custom webfolio design",
-                    "Dedicated account manager",
-                    "Priority support",
-                    "SLA guarantee",
-                    "Custom integrations",
-                    "Custom Domain",
-                    "Custom Forms"
-                ],
-                colorClasses: "bg-gray-900 ring-red-400 text-red-400",
-                link: "/plans/enterprise/",
-            }
-        ];
+    <header class="text-center mb-12 px-8">
+      <img src="https://tccards.tn/Assets/150.png" alt="Total Connect Logo" class="mx-auto mb-8">
+      <div class="mx-auto max-w-4xl">
+        <h1 class="text-base font-semibold text-yellow-500 uppercase">More than a Business card</h1>
+        <p class="mt-2 text-5xl font-semibold tracking-tight text-gray-200 sm:text-6xl">Find Your Perfect Plan</p>
+        <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-gray-400">
+          Smart NFC cards that make every connection count.
+          <span class="text-yellow-500">One tap</span> shares your complete professional profile.
+          Modern networking made simple.
+        </p>
+      </div>
+    </header>
 
-        // ----- Color mapping -----
-        const colorMapping = {
-            Free: {
-                text: "text-purple-400",
-                ring: "ring-purple-400",
-                bg: "bg-blue-800",
-            },
-            Basic: {
-                text: "text-green-400",
-                ring: "ring-green-400",
-                bg: "bg-green-400",
-                ttext: "hover:text-black"
-            },
-            Standard: {
-                text: "text-yellow-400",
-                ring: "ring-yellow-400",
-                bg: "bg-yellow-400",
-                ttext: "hover:text-black"
-            },
-            Custom: {
-                text: "text-blue-400",
-                ring: "ring-blue-400",
-                bg: "bg-gray-800",
-            },
-            Enterprise: {
-                text: "text-red-400",
-                ring: "ring-red-400",
-                bg: "bg-gray-800",
-            }
-        };
+    <section class="mx-auto px-4 sm:px-6 lg:px-8 py-12" id="pricing">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Starter Plans Section -->
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-yellow-500 mb-4">Get Started</h2>
+          <p class="text-gray-300">Begin your digital journey with our starter plans</p>
+        </div>
+        <div class="gap-8 mb-24">
+          <div id="starter-plans" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+        </div>
 
-        // ----- Card generator -----
-        function generatePricingCard(content) {
-            const colors = colorMapping[content.tier];
-            const isFree = content.tier === "Free";
-            const isStandard = content.tier === "Standard";
-            const isEnterprise = content.tier === "Enterprise";
-            const isDiscounted = content.tier === "Basic" || content.tier === "Standard";
+        <!-- Advanced Plans Section -->
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-yellow-500 mb-4">Scale Your Business</h2>
+          <p class="text-gray-300">Professional solutions for growing businesses</p>
+        </div>
+        <div class="gap-8 mb-24">
+          <div id="advanced-plans" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-            const specialStyles = isFree ? 'border-dashed' : '';
-            let tagElement = '';
+  <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400" style="background-image: url(https://tccards.tn/Assets/footer-gradient.webp);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <!-- Company Info -->
+        <div class="space-y-4">
+          <a href="https://tccards.tn" title="main">
+            <img src="/Assets/150.png" alt="Total Connect Logo" class="h-8 mx-auto md:mx-0"></a>
+          <p class="text-gray-400 text-sm">
+            <b>No handing over. No paper shuffle.</b> <br>
+            You tap. They get everything. You're done. <br>
+          </p>
+          <p class="text-gray-400 text-sm md:hidden">
+            tccards.tn is the future of networking. <br>
+            tccards.tn turns your card into a moment <br>— smooth, smart, unforgettable — <br>
+            No more printing costs. No more outdated info.
+          </p>
+          <p class="text-gray-400 text-sm md:hidden">
+            Your card is a tap away from their phone. <br>
+            Just one tap, and your presence lives in their pocket.
+            You don't give your card away — you leave a mark. <br>
+            <hr>
+            <br>
+            <strong>Be remembered, not handed off.</strong>
+          </p>
+          <div class="flex space-x-4 justify-center md:justify-start">
+            <a href="https://www.facebook.com/tccards.tn" title="facebook" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/tccards.tn/" title="Instagram" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/company/tccards/" title="LinkedIn" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+        </div>
 
-            if (isFree) {
-                tagElement = `
-                    <span class="absolute -top-3 left-4 rounded-full bg-gray-900 px-3 py-1.5 text-xs font-bold text-blue-400 ring-2">
-                        Start Free
-                    </span>
-                `;
-            } else if (isDiscounted) {
-                tagElement = `
-                    <span class="absolute -top-3 right-4 rounded-full bg-gray-900 px-3 py-1.5 text-xs font-bold text-gray-100 ring-1 ${colors.ring}">
-                        10% OFF
-                    </span>
-                `;
-            }
+        <!-- Products -->
+        <div>
+          <h3 class="text-white font-semibold mb-4">Products</h3>
+          <ul class="space-y-2">
+            <li><a href="/plans" class="text-sm text-gray-500 hover:text-white p-2">Plans</a></li>
+            <li><a href="/plans/events" class="text-sm text-gray-500 hover:text-white p-2">Events Solutions</a></li>
+            <li><a href="/plans/enterprise/" class="text-sm text-gray-500 hover:text-white p-2">Enterprise Solutions</a></li>
+          </ul>
+        </div>
+        <!-- Support -->
+        <div>
+          <h3 class="text-white font-semibold mb-4">Support</h3>
+          <ul class="space-y-2">
+            <li><a href="/help" class="text-sm text-gray-500 hover:text-white p-2">Help Center</a></li>
+            <li><a href="https://edit.tccards.tn" class="text-sm text-gray-500 hover:text-white p-2">Edit Profile</a></li>
+            <li><a href="/pp/" class="text-sm text-gray-500 hover:text-white p-2">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <!-- Contact -->
+        <div>
+          <h3 class="text-white font-semibold mb-4">Interested ?</h3>
+          <ul class="space-y-2">
+            <li><a href="/About/" class="text-sm text-gray-500 hover:text-white p-2">About Us</a></li>
+            <li><a href="/" class="text-sm text-gray-500 hover:text-white p-2">Careers</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 text-center border-t border-gray-800 pt-6">
+        <p class="text-gray-500 text-sm">&copy; 2026 Total Connect. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
-            // Build price display with optional original price strikethrough
-            let priceHtml = `<span class="text-5xl font-semibold ${colors.text}">${content.price}</span>`;
-            if (content.originalPrice) {
-                priceHtml += `<span class="price-original text-gray-400">${content.originalPrice}</span>`;
-            }
+  <!-- ─── Pricing Cards Script ─── -->
+  <script>
+    // ----- Pricing Data -----
+    const starterPlans = [{
+      tier: "Free",
+      price: "0 TND",
+      description: "Perfect for individuals starting their digital journey.",
+      features: [
+        "Pre-designed webfolio",
+        "3 media links",
+        "Mobile-friendly design",
+        "Share via Custom Link",
+        "Contact Button"
+      ],
+      limitations: [
+        "No NFC Card",
+        "30-Day Expiry",
+        "TC Watermark",
+        "Simple Designs",
+        "Fixed Background Only"
+      ],
+      colorClasses: "bg-gray-900 ring-purple-400 text-purple-400",
+      link: "/plans/free/",
+      trial: true
+    }, {
+      tier: "Basic",
+      price: "31.5 TND",
+      originalPrice: "35 TND",
+      description: "Perfect for individuals and small businesses starting with NFC technology.",
+      features: [
+        "1 NFC Card",
+        "Pre-designed webfolio",
+        "6 media links",
+        "Email support",
+        "QR code emailing",
+        "Editing dashboard",
+        "Contact Button"
+      ],
+      limitations: [
+        "Customizable Card",
+        "No Analytics Dashboard",
+      ],
+      colorClasses: "bg-gray-900 ring-green-400 text-green-400",
+      link: "/plans/basic/",
+    }];
 
-            const limitationsSection = content.limitations ? `
-                <div class="mt-6 pt-4 border-t border-gray-700">
-                    <p class="text-sm text-gray-400 mb-2">Limitations:</p>
-                    <ul class="space-y-2 text-sm text-gray-500">
-                        ${content.limitations.map(limit => `
-                            <li class="flex items-center">
-                                <svg class="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd"/>
-                                </svg>
-                                ${limit}
-                            </li>
-                        `).join('')}
-                    </ul>
-                </div>
-            ` : '';
+    const advancedPlans = [{
+      tier: "Standard",
+      price: "80 TND",
+      description: "Essential features to enhance your business presence.",
+      features: [
+        "5 NFC Cards",
+        "Customizable Card",
+        "Unlimited media links",
+        "Email support",
+        "Custom branding",
+        "Remove our watermark",
+        "Analytics Dashboard"
+      ],
+      colorClasses: "bg-gray-900 ring-yellow-400 text-yellow-400",
+      link: "/plans/standard/",
+    }, {
+      tier: "Enterprise",
+      price: "Custom Pricing",
+      description: "Tailored solutions for enterprises with advanced needs.",
+      features: [
+        "Unlimited NFC Cards",
+        "Custom webfolio design",
+        "Dedicated account manager",
+        "Priority support",
+        "SLA guarantee",
+        "Custom integrations",
+        "Custom Domain",
+        "Custom Forms"
+      ],
+      colorClasses: "bg-gray-900 ring-red-400 text-red-400",
+      link: "/plans/enterprise/",
+    }];
 
-            let buttonHtml = '';
-            if (isFree) {
-                buttonHtml = `<a href="${content.link}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold ${colors.text} ring-1 ${colors.ring} hover:${colors.bg} hover:text-gray-100 transition-all duration-300">
-                    Start Free
-                </a>`;
-            } else if (isStandard) {
-                buttonHtml = `<a disabled class="mt-8 cursor-not-allowed opacity-60 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-gray-500 ring-1 ring-gray-500 cursor-pointer ${colors.text} hover:${colors.bg} ${colors.ttext} transition-all duration-300">
-                    Coming Soon!
-                </a>`;
-            } else {
-                buttonHtml = `<a href="${content.link}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-gray-500 ring-1 ring-gray-500 cursor-pointer ${colors.text} hover:${colors.bg} ${colors.ttext} transition-all duration-300">
-                    Get ${content.tier} Plan
-                </a>`;
-            }
+    // ----- Color mapping -----
+    const colorMapping = {
+      Free: { text: "text-purple-400", ring: "ring-purple-400", bg: "bg-blue-800" },
+      Basic: { text: "text-green-400", ring: "ring-green-400", bg: "bg-green-400", ttext: "hover:text-black" },
+      Standard: { text: "text-yellow-400", ring: "ring-yellow-400", bg: "bg-yellow-400", ttext: "hover:text-black" },
+      Custom: { text: "text-blue-400", ring: "ring-blue-400", bg: "bg-gray-800" },
+      Enterprise: { text: "text-red-400", ring: "ring-red-400", bg: "bg-gray-800" }
+    };
 
-            return `
-                <div style="min-width:300px" class="hover:scale-105 transform transition-all duration-300 relative pricing-card ${content.tier.toLowerCase()} rounded-3xl p-4 ring-1 ${colors.ring} ${specialStyles}">
-                    ${tagElement}
-                    <h3 class="text-base font-semibold ${colors.text}">${content.tier}</h3>
-                    <p class="mt-4 flex items-baseline gap-x-2">
-                        ${priceHtml}
-                    </p>
-                    <p class="mt-6 text-base text-gray-300">${content.description}</p>
-                    <ul class="mt-8 space-y-3 text-sm text-gray-300">
-                        ${content.features.map(feature => `
-                            <li class="flex gap-x-3">
-                                <svg class="h-6 w-5 flex-shrink-0 ${colors.text}" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
-                                </svg>
-                                ${feature}
-                            </li>
-                        `).join('')}
-                    </ul>
-                    ${limitationsSection}
-                    ${buttonHtml}
-                </div>
+    // ----- Card generator -----
+    function generatePricingCard(content) {
+      const colors = colorMapping[content.tier];
+      const isFree = content.tier === "Free";
+      const isStandard = content.tier === "Standard";
+      const isEnterprise = content.tier === "Enterprise";
+    //   const isDiscounted = content.tier === "Basic";
+
+      const specialStyles = isFree ? 'border-dashed' : '';
+      let tagElement = '';
+
+      if (isFree) {
+        tagElement = `
+          <span class="absolute -top-3 left-4 rounded-full bg-gray-900 px-3 py-1.5 text-xs font-bold text-blue-400 ring-2">
+            Start Free
+          </span>
+        `;
+      } else if (isDiscounted) {
+        tagElement = `
+          <span class="absolute -top-3 right-4 rounded-full bg-gray-900 px-3 py-1.5 text-xs font-bold text-gray-100 ring-1 ${colors.ring}">
+            10% OFF
+          </span>
+        `;
+      }
+
+      let priceHtml = `<span class="text-5xl font-semibold ${colors.text}">${content.price}</span>`;
+      if (content.originalPrice) {
+        priceHtml += `<span class="price-original text-gray-400">${content.originalPrice}</span>`;
+      }
+
+      const limitationsSection = content.limitations ? `
+        <div class="mt-6 pt-4 border-t border-gray-700">
+          <p class="text-sm text-gray-400 mb-2">Limitations:</p>
+          <ul class="space-y-2 text-sm text-gray-500">
+            ${content.limitations.map(limit => `
+              <li class="flex items-center">
+                <svg class="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd"/>
+                </svg>
+                ${limit}
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      ` : '';
+
+      let buttonHtml = '';
+      if (isFree) {
+        buttonHtml = `<a href="${content.link}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold ${colors.text} ring-1 ${colors.ring} hover:${colors.bg} hover:text-gray-100 transition-all duration-300">
+          Start Free
+        </a>`;
+      } else if (isStandard) {
+        buttonHtml = `<a disabled class="mt-8 cursor-not-allowed opacity-60 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-gray-500 ring-1 ring-gray-500 cursor-pointer ${colors.text} hover:${colors.bg} ${colors.ttext} transition-all duration-300">
+          Coming Soon!
+        </a>`;
+      } else {
+        buttonHtml = `<a href="${content.link}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-gray-500 ring-1 ring-gray-500 cursor-pointer ${colors.text} hover:${colors.bg} ${colors.ttext} transition-all duration-300">
+          Get ${content.tier} Plan
+        </a>`;
+      }
+
+      return `
+        <div style="min-width:300px" class="hover:scale-105 transform transition-all duration-300 relative pricing-card ${content.tier.toLowerCase()} rounded-3xl p-4 ring-1 ${colors.ring} ${specialStyles}">
+          ${tagElement}
+          <h3 class="text-base font-semibold ${colors.text}">${content.tier}</h3>
+          <p class="mt-4 flex items-baseline gap-x-2">
+            ${priceHtml}
+          </p>
+          <p class="mt-6 text-base text-gray-300">${content.description}</p>
+          <ul class="mt-8 space-y-3 text-sm text-gray-300">
+            ${content.features.map(feature => `
+              <li class="flex gap-x-3">
+                <svg class="h-6 w-5 flex-shrink-0 ${colors.text}" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                </svg>
+                ${feature}
+              </li>
+            `).join('')}
+          </ul>
+          ${limitationsSection}
+          ${buttonHtml}
+        </div>
+      `;
+    }
+
+    function renderPricingCards() {
+      const starterContainer = document.getElementById('starter-plans');
+      const advancedContainer = document.getElementById('advanced-plans');
+      if (!starterContainer || !advancedContainer) {
+        console.error('Container elements not found');
+        return;
+      }
+      starterContainer.innerHTML = starterPlans.map(plan => generatePricingCard(plan)).join('');
+      advancedContainer.innerHTML = advancedPlans.map(plan => generatePricingCard(plan)).join('');
+    }
+
+    window.addEventListener('DOMContentLoaded', renderPricingCards);
+    window.addEventListener('pageshow', function(event) {
+      if (event.persisted) renderPricingCards();
+    });
+  </script>
+
+  <!-- ─── NAV SCRIPT (scroll-to-close + scrolled state) ─── -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const nav = document.getElementById('mainNav');
+      const menuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      let scrollTimeout;
+
+      // ── Scrolled state ──
+      function updateNavScrolled() {
+        if (window.scrollY > 20) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+      }
+      window.addEventListener('scroll', updateNavScrolled, { passive: true });
+      updateNavScrolled();
+
+      // ── Mobile menu toggle ──
+      if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+          menuButton.setAttribute('aria-expanded', !isExpanded);
+          mobileMenu.classList.toggle('hidden');
+
+          // Toggle icon
+          const icon = menuButton.querySelector('svg');
+          if (!isExpanded) {
+            icon.innerHTML = `
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
             `;
-        }
-
-        // ----- Render function -----
-        function renderPricingCards() {
-            const starterContainer = document.getElementById('starter-plans');
-            const advancedContainer = document.getElementById('advanced-plans');
-
-            if (!starterContainer || !advancedContainer) {
-                console.error('Container elements not found');
-                return;
-            }
-
-            starterContainer.innerHTML = starterPlans
-                .map(plan => generatePricingCard(plan))
-                .join('');
-
-            advancedContainer.innerHTML = advancedPlans
-                .map(plan => generatePricingCard(plan))
-                .join('');
-        }
-
-        // ----- Event listeners: initial load + bfcache restore -----
-        window.addEventListener('DOMContentLoaded', renderPricingCards);
-        window.addEventListener('pageshow', function(event) {
-            // If the page is being restored from the bfcache, re-render to avoid blank content
-            if (event.persisted) {
-                renderPricingCards();
-            }
+          } else {
+            icon.innerHTML = `
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            `;
+          }
         });
-    </script>
 
-    <!-- Additional libraries (jQuery, SweetAlert2) – loaded for possible future use -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/jquery.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+        // ── Close mobile menu on scroll ──
+        window.addEventListener('scroll', function() {
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            menuButton.setAttribute('aria-expanded', 'false');
+            const icon = menuButton.querySelector('svg');
+            icon.innerHTML = `
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            `;
+          }
+        }, { passive: true });
+
+        // ── Close on Escape key ──
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            menuButton.setAttribute('aria-expanded', 'false');
+            const icon = menuButton.querySelector('svg');
+            icon.innerHTML = `
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            `;
+          }
+        });
+
+        // ── Close on link click ──
+        mobileMenu.querySelectorAll('a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            mobileMenu.classList.add('hidden');
+            menuButton.setAttribute('aria-expanded', 'false');
+            const icon = menuButton.querySelector('svg');
+            icon.innerHTML = `
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            `;
+          });
+        });
+      }
+    });
+  </script>
+
+  <!-- Additional libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/jquery.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 </body>
 </html>

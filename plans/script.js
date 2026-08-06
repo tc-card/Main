@@ -116,7 +116,7 @@ function generatePricingCard(content) {
   const isFree = content.tier === "Free";
   const isStandard = content.tier === "Standard";
   const isEnterprise = content.tier === "Enterprise";
-  const isDiscounted = content.tier === "Basic" || content.tier === "Standard";
+  // const isDiscounted = content.tier === "Basic" || content.tier === "Standard";
   
   const specialStyles = isFree ? 'border-dashed' : '';
   let tagElement = '';

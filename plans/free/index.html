@@ -2,311 +2,1183 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Plan</title>
-    <meta name="description"
-        content="Start your digital journey with our Free digital business card. No credit card required, perfect for trying out digital networking solutions.">
-    <meta name="image" content="https://tccards.tn/Assets/4.png">
-    <meta property="og:image" content="https://tccards.tn/Assets/4.png">
-    <link rel="icon" href="https://tccards.tn/Assets/150.png" type="image/x-icon">
-    <meta property="og:image:width" content="1200">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Plan – tccards</title>
+  <meta name="description" content="Start your digital journey with our Free digital business card. No credit card required, perfect for trying out digital networking solutions." />
+  <link rel="icon" href="https://tccards.tn/Assets/150.png" type="image/x-icon" />
 
-        h3 {
-            overflow: hidden;
-            max-height: 430px;
-        }
-        body {
-            background-image: url('/Assets/background.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-        @layer utilities {
-            .perspective-container {
-                perspective: 1000px;
-                transform-style: preserve-3d;
-            }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
 
-            @keyframes skew-scroll {
-                0% {
-                    transform: translateZ(0) translateY(0);
-                }
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
-                100% {
-                    transform: translateZ(0) translateY(-33%);
-                }
-            }
+  <style>
+    /* ── base ── */
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #0a0a0f;
+      color: #f1f5f9;
+      min-height: 100vh;
+    }
 
-            .animate-skew-scroll {
-                animation: skew-scroll 12s linear infinite;
-            }
+    /* ── shared utilities ── */
+    .ring-spin {
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      border-top-color: #8b5cf6;
+      animation: spin 1.8s linear infinite;
+      pointer-events: none;
+      opacity: 0.25;
+    }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
-            .glass-effect {
-                background: rgba(17, 24, 39, 0.7);
-                backdrop-filter: blur(10px);
-            }
-        }
-    </style>
-    </style>
+    .handle-prefix {
+      background: rgba(255, 255, 255, 0.03);
+      color: rgba(255, 255, 255, 0.25);
+      font-size: 0.8rem;
+      padding: 0.9rem 1rem;
+      border-radius: 0.75rem 0 0 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-right: none;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    .handle-input {
+      border-radius: 0 0.75rem 0.75rem 0;
+      border-left: none;
+    }
+
+    .profile-pic-wrapper {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .remove-link-btn {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    li:hover .remove-link-btn {
+      opacity: 1;
+    }
+
+    .validation-message {
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .validation-message.valid {
+      color: #34d399;
+    }
+    .validation-message.invalid {
+      color: #ef4444;
+    }
+    .validation-message .fa-spinner {
+      color: #fbbf24;
+    }
+
+    /* ── style presets ── */
+    .style-preset {
+      cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: 1rem;
+      padding: 0.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      transition: all 0.25s ease;
+    }
+    .style-preset:hover {
+      transform: translateY(-2px);
+      border-color: rgba(139, 92, 246, 0.25);
+    }
+    .style-preset.selected {
+      border-color: #8b5cf6;
+      background: rgba(139, 92, 246, 0.06);
+      box-shadow: 0 0 30px rgba(139, 92, 246, 0.08);
+    }
+    .style-preset .preview-box {
+      height: 56px;
+      border-radius: 0.75rem;
+      transition: all 0.3s ease;
+    }
+
+    /* ── HERO ── */
+    .hero-app-section {
+      position: relative;
+      z-index: 2;
+      width: min(100%, 1120px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, .85fr);
+      gap: 80px;
+      align-items: center;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    .hero-app-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: rgba(139, 92, 246, 0.10);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      color: #a78bfa;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+    }
+    .hero-app-title {
+      margin: 0 0 12px;
+      font-size: clamp(36px, 5.5vw, 64px);
+      line-height: .98;
+      font-weight: 900;
+      letter-spacing: -.06em;
+      color: #ffffff;
+    }
+    .hero-app-title span {
+      background: linear-gradient(90deg, #a78bfa, #34d399);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-app-text {
+      margin: 0 0 22px;
+      max-width: 520px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .7);
+    }
+    .hero-app-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .hero-app-store {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all .25s ease;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      color: #fff;
+      box-shadow: 0 12px 32px rgba(139, 92, 246, 0.2);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+    }
+    .hero-app-store:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(139, 92, 246, 0.3);
+    }
+    .hero-app-store-icon {
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 12px;
+    }
+    .hero-app-demo-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all .25s ease;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .08);
+      color: #fff;
+      backdrop-filter: blur(12px);
+    }
+    .hero-app-demo-button:hover {
+      background: rgba(255, 255, 255, .08);
+      transform: translateY(-2px);
+    }
+    .hero-app-features {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 520px;
+    }
+    .hero-app-feature {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid rgba(255, 255, 255, .05);
+    }
+    .hero-app-feature strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 17px;
+      line-height: 1.1;
+      font-weight: 800;
+      color: #fff;
+    }
+    .hero-app-feature span {
+      display: block;
+      font-size: 11px;
+      line-height: 1.4;
+      font-weight: 500;
+      color: rgba(255, 255, 255, .45);
+    }
+    .hero-app-visual {
+      position: relative;
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-app-phone {
+      position: absolute;
+      width: 250px;
+      min-height: 460px;
+      padding: 14px;
+      border-radius: 36px;
+      background: #14141f;
+      border: 1px solid rgba(255, 255, 255, .08);
+      box-shadow: 0 40px 80px rgba(0, 0, 0, .5);
+      transition: transform 0.3s ease;
+    }
+    .hero-app-phone-primary {
+      right: 80px;
+      top: 0;
+      z-index: 3;
+      transform: rotate(3deg);
+    }
+    .hero-app-phone-secondary {
+      right: -10px;
+      top: 44px;
+      z-index: 2;
+      opacity: .6;
+      transform: rotate(-6deg) scale(.90);
+    }
+    .hero-app-phone-screen {
+      min-height: 432px;
+      border-radius: 24px;
+      background: radial-gradient(circle at 20% 18%, rgba(139, 92, 246, 0.06), transparent 40%),
+        linear-gradient(180deg, #1a1a2e, #0a0a0f);
+      border: 1px solid rgba(255, 255, 255, .04);
+      padding: 18px 14px 14px;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone-loader .skeleton-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      flex-shrink: 0;
+      margin: 0 auto 10px;
+    }
+    .phone-loader .skeleton-line {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      margin-bottom: 7px;
+    }
+    .phone-loader .skeleton-line.w-2\/3 {
+      width: 66%;
+    }
+    .phone-loader .skeleton-line.w-1\/2 {
+      width: 50%;
+    }
+    .phone-loader .skeleton-line.w-full {
+      width: 100%;
+    }
+    .phone-loader .skeleton-button {
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      margin-top: 5px;
+    }
+    .phone-loader .skeleton-button.glow {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(52, 211, 153, 0.06));
+      border-color: rgba(139, 92, 246, 0.08);
+    }
+    .phone-loader .skeleton-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.03);
+      margin: 10px 0 8px;
+    }
+    .phone-loader .skeleton-dots {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .phone-loader .skeleton-dots span {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .hero-app-floating-badge {
+      position: absolute;
+      left: 0;
+      bottom: 36px;
+      z-index: 4;
+      width: 190px;
+      padding: 12px 16px;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, .06);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, .4);
+    }
+    .hero-app-floating-badge strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 800;
+      color: #f1f5f9;
+      margin-bottom: 2px;
+    }
+    .hero-app-floating-badge span {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      color: #94a3b8;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-app-section {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        padding: 1.5rem;
+      }
+      .hero-app-visual {
+        max-width: 440px;
+        width: 100%;
+        margin: 0 auto;
+        min-height: 420px;
+      }
+      .hero-app-phone-primary {
+        right: 50px;
+        top: 0;
+      }
+      .hero-app-phone-secondary {
+        right: -16px;
+        top: 36px;
+      }
+    }
+    @media (max-width: 768px) {
+      .hero-app-section {
+        padding: 1rem;
+        gap: 20px;
+      }
+      .hero-app-title {
+        font-size: 32px;
+      }
+      .hero-app-text {
+        font-size: 15px;
+      }
+      .hero-app-features {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+      }
+      .hero-app-feature {
+        padding: 10px 12px;
+      }
+      .hero-app-feature strong {
+        font-size: 15px;
+      }
+      .hero-app-visual {
+        min-height: 380px;
+        max-width: 380px;
+      }
+      .hero-app-phone {
+        width: 210px;
+        min-height: 380px;
+        padding: 12px;
+        border-radius: 30px;
+      }
+      .hero-app-phone-screen {
+        min-height: 356px;
+        padding: 14px 12px 12px;
+        border-radius: 20px;
+      }
+      .hero-app-phone-primary {
+        right: 40px;
+        top: 0;
+      }
+      .hero-app-phone-secondary {
+        right: -12px;
+        top: 28px;
+      }
+      .phone-loader .skeleton-avatar {
+        width: 44px;
+        height: 44px;
+      }
+      .hero-app-floating-badge {
+        width: 160px;
+        padding: 10px 14px;
+        bottom: 20px;
+        left: 4px;
+      }
+      .hero-app-floating-badge strong {
+        font-size: 13px;
+      }
+      .hero-app-floating-badge span {
+        font-size: 10px;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero-app-title {
+        font-size: 26px;
+      }
+      .hero-app-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .hero-app-store,
+      .hero-app-demo-button {
+        width: 100%;
+        justify-content: center;
+        min-height: 44px;
+      }
+      .hero-app-features {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 6px;
+      }
+      .hero-app-feature strong {
+        font-size: 13px;
+      }
+      .hero-app-feature span {
+        font-size: 9px;
+      }
+      .hero-app-visual {
+        min-height: 340px;
+        max-width: 320px;
+      }
+      .hero-app-phone {
+        width: 180px;
+        min-height: 320px;
+        padding: 10px;
+        border-radius: 24px;
+      }
+      .hero-app-phone-screen {
+        min-height: 300px;
+        padding: 12px 10px 10px;
+        border-radius: 18px;
+      }
+      .hero-app-phone-primary {
+        right: 32px;
+        top: 0;
+      }
+      .hero-app-phone-secondary {
+        right: -8px;
+        top: 24px;
+        transform: rotate(-5deg) scale(.85);
+      }
+      .phone-loader .skeleton-avatar {
+        width: 38px;
+        height: 38px;
+        margin-bottom: 8px;
+      }
+      .phone-loader .skeleton-line {
+        height: 8px;
+        margin-bottom: 5px;
+      }
+      .phone-loader .skeleton-button {
+        height: 32px;
+        margin-top: 4px;
+      }
+      .hero-app-floating-badge {
+        width: 140px;
+        padding: 8px 12px;
+        bottom: 12px;
+        left: 2px;
+        border-radius: 14px;
+      }
+      .hero-app-floating-badge strong {
+        font-size: 11px;
+      }
+      .hero-app-floating-badge span {
+        font-size: 9px;
+      }
+      .hero-app-kicker {
+        font-size: 9px;
+        padding: 3px 10px;
+      }
+    }
+
+    /* ── FORM ── */
+    .form-container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    .field-hint {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.15);
+      margin-top: 0.3rem;
+    }
+
+    .form-divider {
+      border: 0;
+      height: 1px;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.04), transparent);
+      margin: 1.5rem 0;
+    }
+
+    .social-link-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 0.4rem 0.75rem 0.4rem 0.75rem;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      transition: background 0.2s;
+    }
+    .social-link-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .social-link-item input {
+      border: none;
+      background: transparent;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+      color: #f1f5f9;
+      width: 100%;
+    }
+    .social-link-item input::placeholder {
+      color: rgba(255, 255, 255, 0.12);
+    }
+    .social-link-item input:focus {
+      box-shadow: none;
+      outline: none;
+    }
+
+    .add-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.25);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.6rem 0;
+      transition: color 0.2s;
+    }
+    .add-link-btn:hover {
+      color: #a78bfa;
+    }
+
+    .referral-wrapper {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+    }
+    .referral-wrapper .referral-prefix {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0 1rem;
+      border-radius: 0.75rem 0 0 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-right: none;
+      color: rgba(255, 255, 255, 0.2);
+      font-size: 0.8rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .referral-wrapper input {
+      border-radius: 0 0.75rem 0.75rem 0;
+      border-left: none;
+    }
+
+    .style-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .style-preview-box {
+      width: 100%;
+      height: 80px;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: background 0.3s ease;
+      margin-top: 0.5rem;
+    }
+
+    .profile-upload .upload-hint {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.12);
+      margin-top: 0.15rem;
+    }
+
+    @media (max-width: 640px) {
+      .form-container {
+        padding: 0 1rem 3rem;
+      }
+      .style-grid {
+        grid-template-columns: 1fr;
+      }
+      .handle-prefix {
+        font-size: 0.7rem;
+        padding: 0.75rem 0.7rem;
+      }
+    }
+    @media (max-width: 400px) {
+      .form-container {
+        padding: 0 0.75rem 2.5rem;
+      }
+    }
+
+    /* ─── NAVIGATION ─── */
+    .nav-container {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      right: 1rem;
+      z-index: 9999;
+      max-width: 80rem;
+      margin: 0 auto;
+      width: calc(100% - 2rem);
+      border-radius: 1rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      transition: background 0.3s ease;
+    }
+    .nav-container.scrolled {
+      background: rgba(0, 0, 0, 0.75);
+    }
+    @media (min-width: 768px) {
+      .nav-container {
+        left: 2rem;
+        right: 2rem;
+        width: auto;
+      }
+    }
+
+    .nav-link {
+      position: relative;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.5);
+      transition: color 0.3s ease;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+    }
+    .nav-link:hover {
+      color: #3ABEF9;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .nav-link.active {
+      color: #3ABEF9;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0 1.25rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+    .nav-cta:hover {
+      border-color: #3ABEF9;
+      box-shadow: 0 0 20px rgba(58, 190, 249, 0.15);
+      background: rgba(58, 190, 249, 0.05);
+    }
+    .nav-cta svg {
+      margin-left: 0.5rem;
+    }
+
+    #mobile-menu {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 0.75rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+    #mobile-menu a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.6);
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    #mobile-menu a:hover {
+      color: #3ABEF9;
+      background: rgba(58, 190, 249, 0.08);
+    }
+    #mobile-menu a.active {
+      color: #3ABEF9;
+    }
+    #mobile-menu .mobile-cta {
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+      justify-content: center;
+      margin-top: 0.5rem;
+      color: #fff;
+    }
+    #mobile-menu .mobile-cta:hover {
+      border-color: #3ABEF9;
+      background: rgba(58, 190, 249, 0.08);
+    }
+    #mobile-menu-button {
+      padding: 0.5rem;
+      border-radius: 9999px;
+      color: rgba(255, 255, 255, 0.5);
+      transition: all 0.2s ease;
+    }
+    #mobile-menu-button:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+  </style>
 </head>
 
-<body class="min-h-screen text-white justify-center items-center">
-    <a href="https://tccards.tn/plans/" data-tooltip="Back to Home"
-    class="sticky top-4 left-4 md:fixed md:top-8 md:left-10 flex items-center justify-center w-20 h-10 rounded-full bg-gray-800/50 backdrop-blur-sm border border-white-700 text-white hover:text-blue-500 hover:border-blue-500 transition-all duration-300" style="z-index: +9999;">
-     <i class="fas fa-arrow-left"> BACK</i>
-  </a>
-  
-    <!-- Main Content -->
-    <div class="max-w-6xl mx-auto px-4 py-16">
-        <!-- Hero Section -->
-        <div class="text-center mb-16 space-y-4">
-            <h1
-                class="text-5xl font-bold bg-clip-text text-transparent bg-purple-400 py-2">
-                Start Your Digital Journey
-            </h1>
-            <p class="text-xl text-gray-400">Get started with your digital presence - No Credit Card Required</p>
+<body>
+
+  <!-- ─── MAIN NAVIGATION ─── -->
+  <nav class="nav-container" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-3 md:py-4">
+        <a href="https://tccards.tn" class="flex items-center group rounded-lg hover:bg-gray-800/50 transition-colors duration-200 p-1">
+          <img src="https://tccards.tn/Assets/150.png" alt="tccards logo" class="h-9 w-9 md:h-10 md:w-10 rounded-full">
+        </a>
+
+        <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <a href="https://tccards.tn/#how-it-works" class="nav-link">How It Works</a>
+          <a href="https://tccards.tn/#faq" class="nav-link">FAQ</a>
+          <a href="https://tccards.tn/help/" class="nav-link">Support</a>
+          <a href="https://tccards.tn/plans/basic/" class="nav-cta">
+            Upgrade to Basic
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
         </div>
 
-        <!-- Main Content Grid -->
-        <div class="grid lg:grid-cols-2 gap-12 items-start">
-            <!-- Pricing Card -->
-            <div
-                class="glass-effect rounded-2xl p-8 border border-gray-800 shadow-2xl hover:border-purple-400/50 transition-all">
-                <!-- Price Header -->
-                <div class="flex justify-between items-start mb-8">
-                    <div>
-                        <h2 class="text-3xl font-bold">Free Plan</h2>
-                        <p class="text-gray-400 mt-2">Perfect for starters</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-4xl font-bold text-purple-400">0 TND</p>
-                        <p class="text-sm text-purple-300">No Credit Card Required</p>
-                    </div>
-                </div>
+        <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
 
-                <!-- Features Scroll -->
-                <div class="bg-black/40 rounded-xl p-6 mb-8">
-                    <h3 class="font-semibold text-purple-400 flex items-center gap-2 mb-4">
-                        <i class="fas fa-star"></i>
-                        What's Included:
-                        <div class="mx-auto grid h-[100%] w-[100%] animate-skew-scroll grid-cols-1 gap-5 sm:w-[600px] sm:grid-cols-2"
-                            style="mask-composite: intersect; -webkit-mask-composite: intersect; mask-image: 
-                                linear-gradient(to right, transparent, black 5rem),
-                                linear-gradient(to left, transparent, black 5rem),
-                                linear-gradient(to bottom, transparent, black 5rem),
-                                linear-gradient(to top, transparent, black 5rem);
-                            ">
-                        </div>
-                    </h3>
-                </div>
-
-                <!-- CTA Button -->
-                <a href="#start">
-                    <button
-                        class="w-full py-4 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold rounded-xl transition-all transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 shadow-lg">
-                        Start Free Trial
-                    </button>
-                </a>
-            </div>
-
-            <!-- Benefits Section -->
-            <div class="space-y-6">
-                <div class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl">
-                    <h3 class="text-2xl font-bold mb-4 text-purple-400">Why Try Free Plan?</h3>
-                    <p class="text-gray-300 leading-relaxed text-lg">
-                        Perfect for individuals starting their digital journey. Test our platform with no commitment and
-                        establish your online presence instantly.
-                    </p>
-                </div>
-
-                <div class="grid gap-6">
-                    <div
-                        class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-purple-400/30 transition-all">
-                        <i class="fas fa-bolt text-3xl text-purple-400 mb-4"></i>
-                        <h4 class="text-xl font-semibold mb-2">Instant Setup</h4>
-                        <p class="text-gray-400">Get your digital presence up and running in minutes</p>
-                    </div>
-
-                    <div
-                        class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-purple-400/30 transition-all">
-                        <i class="fas fa-shield-alt text-3xl text-purple-400 mb-4"></i>
-                        <h4 class="text-xl font-semibold mb-2">No Risk Trial</h4>
-                        <p class="text-gray-400">Try our platform without any financial commitment</p>
-                    </div>
-
-                    <div
-                        class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl hover:border-purple-400/30 transition-all">
-                        <i class="fas fa-arrow-up text-3xl text-purple-400 mb-4"></i>
-                        <h4 class="text-xl font-semibold mb-2">Easy Upgrade</h4>
-                        <p class="text-gray-400">Upgrade to paid plans anytime for more features</p>
-                    </div>
-                </div>
-            </div>
+      <div id="mobile-menu" class="hidden md:hidden pb-4 mt-2 mx-2">
+        <div class="flex flex-col gap-1 p-2">
+          <a href="https://tccards.tn/#how-it-works"><i class="fas fa-cog w-5 text-center"></i> How It Works</a>
+          <a href="https://tccards.tn/#faq"><i class="fas fa-question-circle w-5 text-center"></i> FAQ</a>
+          <a href="https://tccards.tn/help/"><i class="fas fa-life-ring w-5 text-center"></i> Support</a>
+          <a href="https://tccards.tn/plans/basic/" class="mobile-cta">
+            Upgrade to Basic
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
         </div>
+      </div>
     </div>
-    <!-- Form Section -->
-    <section id="start"
-        class="flex-grow flex justify-center items-center flex-col space-y-6 w-full max-w-4xl px-4 mx-auto mb-24">
-        <h2 class="text-3xl font-bold text-center text-white py-16">Design Your Digital Profile</h2>
-        <form method="POST" id="data-fill" class="space-y-6 w-full lg:w-8/12 rounded-xl shadow-xl p-8">
-            <!-- Profile Section -->
-            <div class="text-center space-y-4 text-white">
-                <div class="relative w-32 h-32 mx-auto">
-                    <div class="absolute inset-0 rounded-full animate-spin border-4 border-transparent border-t-blue-500 pointer-events-none"></div>
-                    <img src="https://tccards.tn/Assets/150.png" 
-                         alt="profile-picture" 
-                         id="profile-picture"
-                         class="relative z-10 w-32 h-32 rounded-full object-cover mx-auto cursor-pointer hover:ring-blue-500/50 hover:ring-4 hover:p-2 transition-all" />
-                  </div>
-                  <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
-                  <label for="image-input" class="cursor-pointer text-sm text-gray-400">Click to add picture</label>
-                  <h3 class="text-lg font-semibold">Profile Details</h3>
-                <input type="text" id="user-name" name="user-name" placeholder="Enter your name"
-                    class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                <input type="text" id="user-tagline" name="user-tagline" placeholder="write something"
-                    class="border border-white/50 w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-            </div>
-            <!-- Profile Link -->
-            <div class="space-y-2">
-                <div class="flex items-center">
-                    <span class="bg-gray-700 text-white p-3 rounded-l-lg whitespace-nowrap">at.tccards.tn/@</span>
-                    <input type="text" id="user-link" name="link" required
-                        title="Only letters, numbers, and hyphens allowed" placeholder="your-username"
-                        aria-label="Profile Link"
-                        pattern="^[a-zA-Z][a-zA-Z0-9-]*$"
-                        title="Username must start with a letter and can only contain letters, numbers, and hyphens"
-                        class="w-full bg-gray-900/20 text-white rounded-r-lg p-3 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all"
-                        required>
-                </div>
-                <p class="text-xs text-gray-400">This will be your permanent profile URL</p>
-            </div>
-            <!-- Social Links Section -->
-            <div id="dynamic-links" class="space-y-4 w-full">
-                <div class="bg-white/10 p-4 rounded border border-white/50 shadow-md">
-                    <label class="block text-white font-semibold mb-4">Social Links</label>
-                    <ul class="space-y-2">
-                        <li
-                            class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20">
-                            <i class="fa fa-link text-xl text-white mr-3"></i>
-                            <input type="url" name="social-links[]" placeholder="https://domain.com/path"
-                                class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                        </li>
-                    </ul>
-                </div>
-                <button type="button" id="add-link-btn"
-                    class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl">
-                    <i class="fa fa-plus text-sm"></i>
-                    Add Another Link
-                </button>
-            </div>
+  </nav>
+  <br><br><br>
 
-            <!-- Style Selection (Modified) -->
-            <div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
-                <label class="block text-white font-semibold mb-4">Choose Your Style</label>
+  <!-- ─── HERO ─── -->
+  <section class="hero-app-section pt-24 pb-4" style="padding-top: 8rem;">
+    <div class="hero-app-content">
+      <div class="hero-app-kicker">
+        <i class="fas fa-gem text-purple-400 text-xs"></i> Free Plan
+      </div>
+      <h3 class="hero-app-title">
+        Start your <span>digital identity</span>.
+      </h3>
+      <p class="hero-app-text">
+        Create your free digital business card instantly. Share your links, socials, and contact info — no credit card, no commitment, just your presence.
+      </p>
+      <div class="hero-app-actions">
+        <a class="hero-app-store" href="#start">
+          <span class="hero-app-store-icon"><i class="fas fa-rocket text-xs"></i></span>
+          Claim yours
+        </a>
+        <a class="hero-app-demo-button" href="https://card.tccards.tn/@Random-profile" target="_blank">
+          <i class="fas fa-eye mr-2 text-sm"></i> See example
+        </a>
+      </div>
+      <div class="hero-app-features">
+        <div class="hero-app-feature">
+          <strong>Free</strong>
+          <span>No cost</span>
+        </div>
+        <div class="hero-app-feature">
+          <strong>Instant</strong>
+          <span>Setup in minutes</span>
+        </div>
+        <div class="hero-app-feature">
+          <strong>Eco</strong>
+          <span>Digital only</span>
+        </div>
+      </div>
+    </div>
+    <!-- Phone Mockup -->
+    <div class="hero-app-visual">
+      <div class="hero-app-phone hero-app-phone-primary">
+        <div class="hero-app-phone-screen phone-loader">
+          <div class="skeleton-avatar"></div>
+          <div class="skeleton-line w-2/3 mx-auto"></div>
+          <div class="skeleton-line w-1/2 mx-auto" style="margin-bottom:12px;"></div>
+          <div class="skeleton-divider"></div>
+          <div class="skeleton-line w-full"></div>
+          <div class="skeleton-button glow"></div>
+          <div class="skeleton-button glow"></div>
+          <div class="skeleton-button glow"></div>
+          <div class="skeleton-dots">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-app-phone hero-app-phone-secondary">
+        <div class="hero-app-phone-screen phone-loader">
+          <div class="skeleton-avatar" style="background:rgba(255,255,255,0.03);"></div>
+          <div class="skeleton-line w-2/3 mx-auto"></div>
+          <div class="skeleton-line w-1/2 mx-auto" style="margin-bottom:12px;"></div>
+          <div class="skeleton-divider"></div>
+          <div class="skeleton-line w-full"></div>
+          <div class="skeleton-divider"></div>
+          <div class="skeleton-button" style="background:rgba(255,255,255,0.02);"></div>
+          <div class="skeleton-button" style="background:rgba(255,255,255,0.02);"></div>
+          <div class="skeleton-button" style="background:rgba(255,255,255,0.02);"></div>
+        </div>
+      </div>
+      <div class="hero-app-floating-badge">
+        <strong><i class="fas fa-id-badge mr-1.5 text-purple-400 text-xs"></i> free identity</strong>
+        <span>build your webfolio at no cost.</span>
+      </div>
+    </div>
+  </section>
 
-                <!-- Professional Gradients -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                    <button type="button"
-                        class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform"
-                        data-style="corporateGradient">
-                        <div class="h-20 rounded"
-                            style="background: linear-gradient(145deg, rgb(9, 9, 11), rgb(24, 24, 27), rgb(9, 9, 11))">
-                        </div>
-                        <p class="mt-2 text-sm">Executive</p>
-                    </button>
+  <!-- ─── COUNTER ─── -->
+  <section class="max-w-3xl mx-auto px-4 pb-6 py-10 text-center">
+    <div class="bg-white/5 backdrop-blur-md border border-white/5 rounded-2xl p-6 max-w-md mx-auto">
+      <p class="text-xs text-gray-400 uppercase tracking-wider font-medium">Free Accounts Created</p>
+      <div class="text-5xl sm:text-6xl font-extrabold bg-gradient-to-r from-purple-400 to-emerald-400 bg-clip-text text-transparent leading-none" id="activeCounter">Loading...</div>
+      <p class="text-xs text-gray-500 mt-1" id="counterMeta">Syncing live data...</p>
+    </div>
+  </section>
 
-                    <button type="button"
-                        class="style-preset p-4 rounded-lg border-2 hover:scale-105 transition-transform"
-                        data-style="oceanGradient">
-                        <div class="h-20 rounded"
-                            style="background: linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))">
-                        </div>
-                        <p class="mt-2 text-sm">Professional</p>
-                    </button>
-                </div>
+  <!-- ─── FORM ─── -->
+  <div class="form-container py-8" id="start">
+    <div class="rounded-2xl p-6 md:p-8 bg-white/5 backdrop-blur-md">
+      <form method="POST" id="data-fill" class="space-y-6">
+
+        <!-- 1. PROFILE PICTURE -->
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-camera text-purple-400"></i> Profile Picture</div>
+          <div class="flex flex-col items-center justify-center text-center pt-1 pb-3">
+            <div class="profile-pic-wrapper mb-3">
+              <div class="ring-spin"></div>
+              <img src="https://tccards.tn/Assets/150.png" alt="profile" id="profile-picture"
+              class="relative z-10 w-24 h-24 rounded-full object-cover cursor-pointer hover:ring-2 hover:ring-purple-500/50 transition-all" />
             </div>
+            <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
+            <label for="image-input" class="cursor-pointer inline-flex items-center gap-2 text-sm font-medium text-white/30 hover:text-purple-400 transition-colors py-1.5">
+              <i class="fas fa-upload"></i> Upload photo
+            </label>
+            <span class="upload-hint">JPEG, PNG, GIF · max 5MB</span>
+          </div>
+        </div>
 
-            <!-- Contact Section -->
-            <div class="space-y-4 w-full bg-white/10 p-6 rounded-xl border border-white/50 shadow-lg">
-                <label class="block text-white font-semibold mb-4">Contact Button Details</label>
-                <input type="email" name="email" placeholder="Email"
-                    class="w-full bg-transparent text-white p-2 rounded focus:outline-none" required />
-                <hr>
-                <input type="tel" name="phone" placeholder="Phone"
-                    class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                <hr>
-                <input type="text" name="address" placeholder="Address"
-                    class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-                <p class="text-xs mt-2"><b>Name, Picture, Tagline </b>: will automatically be added!</p>
+        <hr class="form-divider" />
+
+        <!-- 2. NAME + TAGLINE -->
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-user text-purple-400"></i> Personal Info</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="block text-xs font-medium text-white/40">Full Name <span class="text-red-500">*</span></label>
+              <input type="text" id="user-name" name="user-name" placeholder="e.g. John Doe" required
+              class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500 focus:ring-3 focus:ring-purple-500/12 focus:bg-white/10 transition-all text-sm" />
             </div>
+            <div class="space-y-1">
+              <label class="block text-xs font-medium text-white/40">Tagline</label>
+              <input type="text" id="user-tagline" name="user-tagline" placeholder="e.g. Digital Strategist"
+              class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500 focus:ring-3 focus:ring-purple-500/12 focus:bg-white/10 transition-all text-sm" />
+            </div>
+          </div>
+        </div>
 
-            <!-- Submit Button (Enhanced) -->
-            <button id="saveContactBtn" type="submit"
-                class="w-full md:w-auto mx-auto block text-center bg-blue-500 hover:bg-blue-600 text-white py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                Create Your Digital Card
+        <hr class="form-divider" />
+
+        <!-- 3. EMAIL + HANDLE -->
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-id-card text-purple-400"></i> Your Identity</div>
+          <div class="space-y-1 mb-3">
+            <label class="block text-xs font-medium text-white/40">Email <span class="text-red-500">*</span></label>
+            <input type="email" name="email" placeholder="you@example.com" required
+            class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500 focus:ring-3 focus:ring-purple-500/12 focus:bg-white/10 transition-all text-sm" />
+          </div>
+          <div class="space-y-1">
+            <label class="block text-xs font-medium text-white/40">Your Handle <span class="text-red-500">*</span></label>
+            <div class="flex items-center">
+              <span class="handle-prefix">at.tccards.tn/@</span>
+              <input type="text" id="user-link" name="link" required
+              title="Letters, numbers, hyphens only" placeholder="yourname"
+              pattern="[a-zA-Z0-9-]+"
+              class="handle-input w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500 focus:ring-3 focus:ring-purple-500/12 focus:bg-white/10 transition-all text-sm" />
+            </div>
+            <div id="handle-validation-message" class="validation-message"></div>
+            <p class="field-hint">Permanent URL · 3–20 chars, letters/numbers/hyphens</p>
+          </div>
+        </div>
+
+        <hr class="form-divider" />
+
+        <!-- 4. SOCIAL LINKS -->
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-share-alt text-purple-400"></i> Social Links <span class="text-xs font-normal text-gray-500">(max 6)</span></div>
+          <div id="dynamic-links" class="space-y-3">
+            <div class="bg-white/5 rounded-xl p-4 border border-white/5">
+              <ul class="space-y-2" id="socialLinkList">
+                <li class="social-link-item group">
+                  <i class="fa fa-link text-purple-400 text-sm"></i>
+                  <input type="url" name="social-links[]" placeholder="https://linkedin.com/in/yourname"
+                  class="flex-1 bg-transparent text-white placeholder:text-white/20 focus:outline-none text-sm" />
+                  <button type="button" class="remove-link-btn text-red-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+              <button type="button" id="add-link-btn" class="add-link-btn">
+                <i class="fas fa-plus-circle"></i> Add another link
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <hr class="form-divider" />
+
+        <!-- 5. STYLE -->
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-palette text-purple-400"></i> Choose Your Style</div>
+          <div class="style-grid">
+            <button type="button" class="style-preset selected" data-style="corporateGradient">
+              <div class="preview-box" style="background: linear-gradient(145deg, rgb(9,9,11), rgb(24,24,27), rgb(9,9,11));"></div>
+              <p class="text-xs text-center text-gray-400 mt-1.5">Executive</p>
             </button>
-        </form>
-    </section>
+            <button type="button" class="style-preset" data-style="oceanGradient">
+              <div class="preview-box" style="background: linear-gradient(145deg, rgb(2,6,23), rgb(15,23,42), rgb(2,6,23));"></div>
+              <p class="text-xs text-center text-gray-400 mt-1.5">Professional</p>
+            </button>
+          </div>
+          <p class="field-hint mt-2">Pick a color theme for your webfolio.</p>
+        </div>
 
-    <footer class="text-gray-400 py-6 text-center">
-        <p>&copy; 2024 Total Connect. All rights reserved.</p>
-    </footer>
-    <center>
-        <img src="https://tccards.tn//Assets/zfooter.gif" alt="cute animation" class="mt-8 center">
-    </center>
+        <hr class="form-divider" />
 
-    <script>
-        const items = [
-            { id: '1', text: 'Pre-designed webfolio', icon: 'fa-globe' },
-            { id: '2', text: '3 media links', icon: 'fa-link' },
-            { id: '3', text: 'Mobile-friendly design', icon: 'fa-mobile' },
-            { id: '4', text: 'Share via Custom Link', icon: 'fa-share' },
-            { id: '5', text: 'Contact Button', icon: 'fa-address-book' }
-        ];
+        <!-- 6. PHONE + ADDRESS -->
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-address-card text-purple-400"></i> Contact Details</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="block text-xs font-medium text-white/40">Phone</label>
+              <input type="tel" name="phone" placeholder="+216 99 999 999"
+              class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500 focus:ring-3 focus:ring-purple-500/12 focus:bg-white/10 transition-all text-sm" />
+            </div>
+            <div class="space-y-1">
+              <label class="block text-xs font-medium text-white/40">Address</label>
+              <input type="text" name="address" placeholder="City, Country"
+              class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500 focus:ring-3 focus:ring-purple-500/12 focus:bg-white/10 transition-all text-sm" />
+            </div>
+          </div>
+        </div>
 
+        <!-- SUBMIT -->
+        <button id="saveContactBtn" type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-500 to-emerald-400 hover:shadow-xl hover:shadow-purple-500/20 hover:-translate-y-0.5 transition-all duration-200 text-sm">
+          <i class="fas fa-rocket"></i> Create Your Digital Card
+        </button>
 
-        function createCard(item) {
-            const card = document.createElement('div');
-            card.className = `
-                flex items-center space-x-3 
-                rounded-lg border border-gray-800 px-4 py-3
-                shadow-md transition-all
-                hover:border-purple-500/30
-                hover:bg-gray-900/50
-                backdrop-blur
-            `;
-            card.innerHTML = `
-                <i class="fas ${item.icon} text-purple-400"></i>
-                <p class="text-gray-300">${item.text}</p>
-            `;
-            return card;
+        <p class="text-xs text-center text-gray-500 mt-4">By continuing you agree to our <a href="https://tccards.tn/pp/" class="text-purple-400 hover:text-purple-300 transition-colors">Privacy Policy</a>. Your data is secure.</p>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400" style="background-image: url(Assets/footer-gradient.webp);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="space-y-4">
+          <a href="https://tccards.tn" title="main"><img src="/Assets/150.png" alt="Total Connect Logo" class="h-8 mx-auto md:mx-0"></a>
+          <p class="text-gray-400 text-sm"><b>No handing over. No paper shuffle.</b> <br> You tap. They get everything. You're done. <br></p>
+          <p class="text-gray-400 text-sm md:hidden">tccards.tn is the future of networking. <br> tccards.tn turns your card into a moment <br>— smooth, smart, unforgettable — <br> No more printing costs. No more outdated info.</p>
+          <p class="text-gray-400 text-sm md:hidden">Your card is a tap away from their phone. <br> Just one tap, and your presence lives in their pocket. You don't give your card away — you leave a mark. <br><hr><br><strong>Be remembered, not handed off.</strong></p>
+          <div class="flex space-x-4 justify-center md:justify-start">
+            <a href="https://www.facebook.com/tccards.tn" title="facebook" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/tccards.tn/" title="Instagram" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/tccards/" title="LinkedIn" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Products</h3>
+          <ul class="space-y-2">
+            <li><a href="/plans" class="text-sm text-gray-500 hover:text-white p-2">Plans</a></li>
+            <li><a href="/plans/events" class="text-sm text-gray-500 hover:text-white p-2">Events Solutions</a></li>
+            <li><a href="/plans/enterprise/" class="text-sm text-gray-500 hover:text-white p-2">Enterprise Solutions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Support</h3>
+          <ul class="space-y-2">
+            <li><a href="/help" class="text-sm text-gray-500 hover:text-white p-2">Help Center</a></li>
+            <li><a href="https://edit.tccards.tn" class="text-sm text-gray-500 hover:text-white p-2">Edit Profile</a></li>
+            <li><a href="/pp/" class="text-sm text-gray-500 hover:text-white p-2">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Interested ?</h3>
+          <ul class="space-y-2">
+            <li><a href="/About/" class="text-sm text-gray-500 hover:text-white p-2">About Us</a></li>
+            <li><a href="/" class="text-sm text-gray-500 hover:text-white p-2">Careers</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 text-center border-t border-gray-800 pt-6">
+        <p class="text-gray-500 text-sm">&copy; 2026 Total Connect. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── SCRIPTS ─── -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
+
+  <script type="module" src="main.js">
+  </script>
+
+  <!-- URL auto-fill for handle -->
+  <script>
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const username = urlParams.get('username');
+      if (username) {
+        const input = document.getElementById('user-link');
+        if (input) {
+          input.value = decodeURIComponent(username);
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+          input.style.borderColor = '#8b5cf6';
+          input.style.boxShadow = '0 0 0 3px rgba(139, 92, 246, 0.25)';
+          setTimeout(() => {
+            input.style.borderColor = '';
+            input.style.boxShadow = '';
+          }, 2000);
         }
+      }
+    })();
+  </script>
 
-        const container = document.querySelector('.animate-skew-scroll');
-        if (container) {
-            try {
-                container.innerHTML = '';
-                // Create infinite loop by tripling items
-                const tripleItems = [...items, ...items, ...items];
-                tripleItems.forEach(item => {
-                    container.appendChild(createCard(item));
-                });
-            } catch (error) {
-                console.error('Error:', error);
-                container.innerHTML = '<div class="text-red-400">Error loading features</div>';
-            }
+  <!-- ─── NAV SCRIPT ─── -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const nav = document.getElementById('mainNav');
+      const menuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      function updateNavScrolled() {
+        if (window.scrollY > 20) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
         }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="module" src="main.js"></script>
+      }
+      window.addEventListener('scroll', updateNavScrolled, { passive: true });
+      updateNavScrolled();
+
+      if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+          menuButton.setAttribute('aria-expanded', !isExpanded);
+          mobileMenu.classList.toggle('hidden');
+          const icon = menuButton.querySelector('svg');
+          if (!isExpanded) {
+            icon.innerHTML = `<path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>`;
+          } else {
+            icon.innerHTML = `<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>`;
+          }
+        });
+
+        window.addEventListener('scroll', function() {
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            menuButton.setAttribute('aria-expanded', 'false');
+            const icon = menuButton.querySelector('svg');
+            icon.innerHTML = `<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>`;
+          }
+        }, { passive: true });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            menuButton.setAttribute('aria-expanded', 'false');
+            const icon = menuButton.querySelector('svg');
+            icon.innerHTML = `<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>`;
+          }
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            mobileMenu.classList.add('hidden');
+            menuButton.setAttribute('aria-expanded', 'false');
+            const icon = menuButton.querySelector('svg');
+            icon.innerHTML = `<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>`;
+          });
+        });
+      }
+    });
+  </script>
 </body>
-
 </html>
