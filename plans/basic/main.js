@@ -1,7 +1,8 @@
+// main.js
 import { CONFIG, stylePresets } from "./config.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize all elements
+  // ─── Element references ────────────────────────────────────
   const elements = {
     profilePicture: document.getElementById("profile-picture"),
     imageInput: document.getElementById("image-input"),
@@ -16,17 +17,62 @@ document.addEventListener("DOMContentLoaded", () => {
     userPhone: document.querySelector('input[name="phone"]'),
     userAddress: document.querySelector('input[name="address"]'),
     referralCode: document.getElementById("referral-code"),
+    handleValidationMessage: document.getElementById("handle-validation-message"),
   };
 
-  // Validate elements exist
+  // ─── Validate elements ────────────────────────────────────
   for (const [key, element] of Object.entries(elements)) {
     if (!element && key !== "stylePresets") {
-      // stylePresets is optional
       console.error(`Element '${key}' not found`);
       return;
     }
   }
-  // ===== REFERRAL CODE VALIDATION =====
+
+  // ─── LIVE COUNTER ────────────────────────────────────────
+  async function loadLiveCounter() {
+    const counter = document.getElementById("activeCounter");
+    const counterMeta = document.getElementById("counterMeta");
+
+    if (!counter) return;
+
+    counter.textContent = "Loading...";
+    if (counterMeta) counterMeta.textContent = "Syncing live data...";
+
+    try {
+      const response = await fetch(`${CONFIG.googleScriptUrl}?get_stats=true`);
+      if (!response.ok) throw new Error("Request failed");
+
+      const data = await response.json();
+      const totalCount = Number(data.totalCount || 0);
+      const monthlyGrowth = Number(data.monthlyGrowth || 0);
+
+      const target = Number.isFinite(totalCount) ? totalCount : 0;
+      const step = Math.max(1, Math.ceil(target / 55));
+      let current = 0;
+      const ticker = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          current = target;
+          clearInterval(ticker);
+        }
+        counter.textContent = current.toLocaleString();
+      }, 25);
+
+      if (counterMeta) {
+        counterMeta.textContent = monthlyGrowth > 0
+          ? `+${monthlyGrowth.toLocaleString()} this month`
+          : "No new accounts this month";
+      }
+    } catch (error) {
+      console.error("Live counter failed:", error);
+      counter.textContent = "—";
+      if (counterMeta) counterMeta.textContent = "Live count unavailable";
+    }
+  }
+
+  void loadLiveCounter();
+
+  // ─── REFERRAL CODE VALIDATION ────────────────────────────
   if (elements.referralCode) {
     let debounceTimer;
 
@@ -34,62 +80,54 @@ document.addEventListener("DOMContentLoaded", () => {
       clearTimeout(debounceTimer);
       const code = elements.referralCode.value.trim().toUpperCase();
 
-      // Clear previous states
       elements.referralCode.classList.remove("valid", "invalid");
       document.getElementById("ticket").textContent = "";
-      // Show loading indicator while validating
-      document.getElementById("ticket").innerHTML =
-        '<i class="fas fa-spinner fa-spin"></i>  Validating...';
-      document.getElementById("ticket").style.color =
-        "#FFEE0E";
-      if (code.length === 5) {
+      document.getElementById("ticket").innerHTML = '<i class="fas fa-spinner fa-spin"></i>  Validating...';
+      document.getElementById("ticket").style.color = "#FBBF24";
+
+      if (code.length >=5) { // Minimum length for a valid code
         debounceTimer = setTimeout(async () => {
           try {
             const response = await fetch(
-              `${
-                CONFIG.googleScriptUrl
-              }?check_referral=true&code=${encodeURIComponent(code)}`
+              `${CONFIG.googleScriptUrl}?check_referral=true&code=${encodeURIComponent(code)}`
             );
             const result = await response.json();
-
-            if (result.codeExists) {
-              elements.referralCode.classList.add("valid");
-              document.getElementById(
-                "ticket"
-              ).textContent = `✓ Valid ${result.codeDetails.discountValue}`;
-              document.getElementById(
-                "ticket"
-              ).style.color = "#F5B9EB";
-            } else {
-              elements.referralCode.classList.add("invalid");
-              document.getElementById(
-                "ticket"
-              ).textContent = "✗ Invalid code";
-              document.getElementById(
-                "ticket"
-              ).style.color = "#EF4444";
-            }
+              if (result.codeExists) {
+                elements.referralCode.classList.add("valid");
+                const details = result.codeDetails;
+                let msg = "";
+                if (details.type === "discount") {
+                  msg = `✓ Valid discount: ${details.value}`;
+                } else if (details.type === "event") {
+                  msg = `✓ Valid event code: ${details.value}`;
+                } else {
+                  msg = `✓ Valid code: ${details.label || details.value}`;
+                }
+                document.getElementById("ticket").textContent = msg;
+                document.getElementById("ticket").style.color = "#34d399"; // green
+              } else {
+                elements.referralCode.classList.add("invalid");
+                document.getElementById("ticket").textContent = "✗ Invalid or expired code";
+                document.getElementById("ticket").style.color = "#EF4444";
+              }
           } catch (error) {
             console.error("Validation error:", error);
-            document.getElementById("ticket").textContent =
-              "Error validating code";
-            document.getElementById("ticket").style.color =
-              "#F59E0B";
+            document.getElementById("ticket").textContent = "Error validating code";
+            document.getElementById("ticket").style.color = "#F59E0B";
           }
         }, 500);
       }
     });
 
-    // Force uppercase input
+    // Force uppercase
     elements.referralCode.addEventListener("keyup", () => {
       elements.referralCode.value = elements.referralCode.value.toUpperCase();
     });
   }
 
-  // ===== IMAGE HANDLING =====
+  // ─── IMAGE HANDLING ──────────────────────────────────────
   function handleImageUpload(file, targetElement) {
     if (!file) {
-      // Reset to default image if no file is selected
       targetElement.src = "https://tccards.tn/Assets/150.png";
       return;
     }
@@ -117,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     reader.onerror = () => {
       console.error("Error reading file");
-      targetElement.src = "https://tccards.tn/Assets/150.png"; // Reset to default image on error
+      targetElement.src = "https://tccards.tn/Assets/150.png";
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -127,37 +165,24 @@ document.addEventListener("DOMContentLoaded", () => {
     reader.readAsDataURL(file);
   }
 
-  elements.profilePicture.addEventListener("click", () =>
-    elements.imageInput.click()
-  );
+  elements.profilePicture.addEventListener("click", () => elements.imageInput.click());
   elements.imageInput.addEventListener("change", (e) => {
-    const file = e.target.files?.[0]; // Safe access using optional chaining
+    const file = e.target.files?.[0];
     handleImageUpload(file, elements.profilePicture);
   });
 
-  // In your form submission, update the image handling part:
-  if (elements.imageInput.files && elements.imageInput.files[0]) {
-    swalInstance.update({
-      title: "Uploading image...",
-      text: "Processing your profile picture...",
-      allowOutsideClick: false,
-      showConfirmButton: false,
-      didOpen: () => Swal.showLoading(),
-    });
-  }
-
-  // ===== SOCIAL LINKS MANAGEMENT =====
+  // ─── SOCIAL LINKS MANAGEMENT ────────────────────────────
   function createSocialLink() {
     return `
-      <li class="flex items-center bg-white/10 p-2 rounded shadow-md border border-white/30 hover:bg-white/20 relative group">
-          <i class="fa fa-link text-xl text-white mr-3"></i>
-          <input type="url" name="social-links[]" placeholder="https://domain.com/path" 
-              class="w-full bg-transparent text-white p-2 rounded focus:outline-none" />
-          <button type="button" class="remove-link-btn absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+      <li class="social-link-item group">
+        <i class="fa fa-link text-purple-400 text-sm"></i>
+        <input type="url" name="social-links[]" placeholder="https://domain.com/path"
+          class="flex-1 bg-transparent text-white placeholder-gray-500 focus:outline-none text-sm" />
+        <button type="button" class="remove-link-btn text-red-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
-          </button>
+        </button>
       </li>`;
   }
 
@@ -181,12 +206,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ul.insertAdjacentHTML("beforeend", createSocialLink());
     ul.lastElementChild
       .querySelector(".remove-link-btn")
-      .addEventListener("click", function () {
+      .addEventListener("click", function() {
         this.closest("li").remove();
       });
   });
 
-  // ===== STYLE PRESETS ===== (Single implementation)
+  // ─── STYLE PRESETS ──────────────────────────────────────
   document.querySelectorAll(".style-preset").forEach((button) => {
     button.addEventListener("click", (e) => {
       e.preventDefault();
@@ -195,23 +220,114 @@ document.addEventListener("DOMContentLoaded", () => {
         .forEach((btn) => btn.classList.remove("selected"));
       button.classList.add("selected");
 
-      // Optional: Apply style preview
       const style = stylePresets[button.dataset.style];
       if (style) document.body.style.background = style.background;
     });
   });
 
-  // ===== FORM SUBMISSION =====
+  // ─── DUPLICATE CHECK ────────────────────────────────────
   let debounceTimer;
+  let handledLinksCache = [];
+  let knownLinksPromise = null;
+  let handleDebounceTimer = null;
+
+  async function loadKnownLinks() {
+    if (knownLinksPromise) return knownLinksPromise;
+
+    knownLinksPromise = (async () => {
+      try {
+        const response = await fetch(`${CONFIG.googleScriptUrl}?get_all_links=true`);
+        if (!response.ok) throw new Error("Could not load handles");
+        const data = await response.json();
+        handledLinksCache = Array.isArray(data.links) ? data.links : [];
+      } catch (error) {
+        console.error("Known links load failed:", error);
+        handledLinksCache = [];
+      }
+    })();
+
+    return knownLinksPromise;
+  }
+
+  function setHandleValidationState(status, message) {
+    const target = elements.handleValidationMessage;
+    if (!target) return;
+
+    target.className = "validation-message";
+    if (status === "valid") target.classList.add("valid");
+    if (status === "invalid") target.classList.add("invalid");
+    target.innerHTML = message;
+  }
+
+  async function validateHandleAvailability({ force = false } = {}) {
+    const rawHandle = elements.userLink.value.trim();
+
+    if (!rawHandle) {
+      setHandleValidationState("", "");
+      return { available: true, checked: false };
+    }
+
+    if (!CONFIG.linkRegex.test(rawHandle)) {
+      setHandleValidationState("invalid", "✗ Handle must be 3-20 chars, letters, numbers, or hyphens.");
+      return { available: false, checked: true };
+    }
+
+    if (!force) {
+      await loadKnownLinks();
+      if (handledLinksCache.includes(rawHandle)) {
+        setHandleValidationState("invalid", "✗ This handle is already taken");
+        return { available: false, checked: true };
+      }
+    }
+
+    setHandleValidationState("", '<i class="fas fa-spinner fa-spin"></i> Checking availability...');
+
+    try {
+      const res = await fetch(
+        `${CONFIG.googleScriptUrl}?check_duplicates=true&email=${encodeURIComponent("")}&link=${encodeURIComponent(rawHandle)}`
+      );
+      const result = await res.json();
+
+      if (result.linkExists) {
+        setHandleValidationState("invalid", "✗ This handle is already taken");
+        return { available: false, checked: true };
+      }
+
+      setHandleValidationState("valid", "✓ This handle is available");
+      return { available: true, checked: true };
+    } catch (error) {
+      console.error("Handle validation failed:", error);
+      setHandleValidationState("invalid", "⚠ Could not verify handle right now");
+      return { available: false, checked: true };
+    }
+  }
+
+  elements.userLink.addEventListener("input", () => {
+    clearTimeout(handleDebounceTimer);
+    const rawHandle = elements.userLink.value.trim();
+
+    if (!rawHandle) {
+      setHandleValidationState("", "");
+      return;
+    }
+
+    if (!CONFIG.linkRegex.test(rawHandle)) {
+      setHandleValidationState("invalid", "✗ Handle must be 3-20 chars, letters, numbers, or hyphens.");
+      return;
+    }
+
+    handleDebounceTimer = setTimeout(() => {
+      void validateHandleAvailability();
+    }, 2500);
+  });
+
   async function checkDuplicatesDebounced(email, link) {
     clearTimeout(debounceTimer);
     return new Promise((resolve) => {
       debounceTimer = setTimeout(async () => {
         try {
           const res = await fetch(
-            `${
-              CONFIG.googleScriptUrl
-            }?check_duplicates=true&email=${encodeURIComponent(email)}&link=${encodeURIComponent(link)}`
+            `${CONFIG.googleScriptUrl}?check_duplicates=true&email=${encodeURIComponent(email)}&link=${encodeURIComponent(link)}`
           );
           resolve(await res.json());
         } catch (error) {
@@ -222,6 +338,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // ─── CLOUDINARY UPLOAD ──────────────────────────────────
   async function uploadToCloudinary(file) {
     const formData = new FormData();
     formData.append("file", file);
@@ -229,8 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(
-        "https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload",
-        {
+        "https://api.cloudinary.com/v1_1/dufg7fm4stt/image/upload", {
           method: "POST",
           body: formData,
         }
@@ -251,16 +367,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ===== FORM SUBMISSION HANDLER =====
+  // ─── FORM SUBMISSION ────────────────────────────────────
   elements.form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // form validation
     const email = elements.userEmail.value.trim();
     const link = elements.userLink.value.trim();
     const name = elements.userName.value.trim();
-    const referralCode = elements.referralCode.value.trim();
-    
+
     if (!name || !link || !email) {
       Swal.fire({
         icon: "error",
@@ -293,15 +407,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const swalInstance = Swal.fire({
       title: "Submitting...",
       text: "Please wait while we create your webfolio.",
-      background:
-        "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
+      background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
       color: "#fff",
       allowOutsideClick: false,
       didOpen: () => Swal.showLoading(),
     });
 
     try {
-      // First handle image upload if there's a file
       let profilePictureUrl = "";
       if (elements.imageInput.files[0]) {
         swalInstance.update({
@@ -311,12 +423,9 @@ document.addEventListener("DOMContentLoaded", () => {
           showConfirmButton: false,
           didOpen: () => Swal.showLoading(),
         });
-        profilePictureUrl = await uploadToCloudinary(
-          elements.imageInput.files[0]
-        );
+        profilePictureUrl = await uploadToCloudinary(elements.imageInput.files[0]);
       }
 
-      // Then collect form data with the uploaded image URL
       const formData = {
         name: elements.userName.value.trim(),
         email: elements.userEmail.value.trim(),
@@ -325,19 +434,17 @@ document.addEventListener("DOMContentLoaded", () => {
         phone: elements.userPhone.value.trim() || "",
         address: elements.userAddress.value.trim() || "",
         social_links: Array.from(
-          document.querySelectorAll('input[name="social-links[]"]')
-        )
+            document.querySelectorAll('input[name="social-links[]"]')
+          )
           .map((input) => input.value.trim())
           .filter(Boolean)
           .join(","),
-        style:
-          document.querySelector(".style-preset.selected")?.dataset.style ||
+        style: document.querySelector(".style-preset.selected")?.dataset.style ||
           "default",
-        profilePic: profilePictureUrl, // Use the URL from Cloudinary
+        profilePic: profilePictureUrl,
         referralCode: elements.referralCode.value.trim() || "",
       };
 
-      // Update Swal for duplicate check
       swalInstance.update({
         title: "Checking availability...",
         text: "Verifying your information...",
@@ -345,6 +452,11 @@ document.addEventListener("DOMContentLoaded", () => {
         showConfirmButton: false,
         didOpen: () => Swal.showLoading(),
       });
+
+      const { available: handleAvailable } = await validateHandleAvailability({ force: true });
+      if (!handleAvailable) {
+        throw new Error("This handle is already taken");
+      }
 
       const { emailExists, linkExists } = await checkDuplicatesDebounced(
         formData.email,
@@ -356,7 +468,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       }
 
-      // Update Swal for upload
       swalInstance.update({
         title: "Uploading...",
         text: "Crafting your webfolio...",
@@ -371,13 +482,11 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       }
 
-      // Submit to GAS
       const response = await fetch(
         `${CONFIG.googleScriptUrl}?${new URLSearchParams(formData)}`
       );
       if (!response.ok) throw new Error("Submission failed. Please try again.");
 
-      // Success
       await Swal.fire({
         icon: "success",
         title: "Success!",
@@ -386,27 +495,24 @@ document.addEventListener("DOMContentLoaded", () => {
               <a href="https://card.tccards.tn/profile/@${formData.link}" target="_blank">
                 card.tccards.tn/@${formData.link}
               </a>`,
-        background:
-          "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
+        background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
         confirmButtonText: "View My Webfolio",
       }).then(() => {
         window.location.href = `https://card.tccards.tn/profile/@${formData.link}`;
       });
 
-      // Reset form and image preview
       elements.form.reset();
-      elements.profilePicture.src = "https://tccards.tn/Assets/default.png"; // Reset to default image
+      elements.profilePicture.src = "https://tccards.tn/Assets/150.png";
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Error",
         text: error.message,
-        background:
-          "linear-gradient(145deg, rgb(23, 7, 2), rgb(37, 42, 15), rgb(23, 2, 4))",
+        background: "linear-gradient(145deg, rgb(23, 7, 2), rgb(37, 42, 15), rgb(23, 2, 4))",
       });
     } finally {
       elements.submitBtn.disabled = false;
-      elements.profilePicture.src = "https://tccards.tn/Assets/150.png"; // Reset to default image
+      elements.profilePicture.src = "https://tccards.tn/Assets/150.png";
     }
   });
 });

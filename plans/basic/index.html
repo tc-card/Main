@@ -2,29 +2,22 @@
 <html class="scroll-smooth" lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Basic Plan – tccards</title>
-  <meta name="description" content="Create your digital business card in minutes. Professional NFC-enabled profile with instant sharing.">
-  <link rel="icon" href="https://tccards.tn/Assets/150.png" type="image/x-icon">
+  <meta name="description" content="Create your digital business card in minutes. Professional NFC-enabled profile with instant sharing." />
+  <link rel="icon" href="https://tccards.tn/Assets/150.png" type="image/x-icon" />
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
 
-  <!-- Tailwind + FA -->
   <script src="https://cdn.tailwindcss.com">
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
   <style>
     /* ── base ── */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background: #0a0a0f;
@@ -32,131 +25,67 @@
       min-height: 100vh;
     }
 
-    /* ── glass ── */
-    .glass {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 1.5rem;
-    }
-    .glass-light {
-      background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    /* ── inputs ── */
-    input,
-    select {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 0.75rem;
-      padding: 0.7rem 1rem;
-      color: #f1f5f9;
-      width: 100%;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      font-size: 0.9rem;
-    }
-    input::placeholder,
-    select::placeholder {
-      color: rgba(255, 255, 255, 0.25);
-    }
-    input:focus,
-    select:focus {
-      outline: none;
-      border-color: #8b5cf6;
-      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
-      background: rgba(255, 255, 255, 0.06);
-    }
-    input.valid {
-      border-color: #34d399;
-      box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.15);
-    }
-    input.invalid {
-      border-color: #ef4444;
-      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
-    }
-
-    /* ── progress ── */
-    .step-indicator {
-      width: 2.5rem;
-      height: 2.5rem;
+    /* ── shared utilities ── */
+    .ring-spin {
+      position: absolute;
+      inset: -3px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 0.85rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid rgba(255, 255, 255, 0.08);
+      border: 2px solid transparent;
+      border-top-color: #8b5cf6;
+      animation: spin 1.8s linear infinite;
+      pointer-events: none;
+      opacity: 0.25;
+    }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .handle-prefix {
+      background: rgba(255, 255, 255, 0.03);
       color: rgba(255, 255, 255, 0.25);
-      transition: all 0.3s ease;
+      font-size: 0.8rem;
+      padding: 0.9rem 1rem;
+      border-radius: 0.75rem 0 0 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-right: none;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    .handle-input {
+      border-radius: 0 0.75rem 0.75rem 0;
+      border-left: none;
+    }
+
+    .profile-pic-wrapper {
+      position: relative;
       flex-shrink: 0;
     }
-    .step-indicator.active {
-      background: #8b5cf6;
-      border-color: #8b5cf6;
-      color: #fff;
-      box-shadow: 0 0 24px rgba(139, 92, 246, 0.3);
+
+    .remove-link-btn {
+      opacity: 0;
+      transition: opacity 0.2s ease;
     }
-    .step-indicator.done {
-      background: rgba(52, 211, 153, 0.15);
-      border-color: #34d399;
-      color: #34d399;
-    }
-    .step-line {
-      flex: 1;
-      height: 2px;
-      background: rgba(255, 255, 255, 0.06);
-      margin: 0 0.25rem;
-      border-radius: 4px;
-      transition: background 0.4s ease;
-    }
-    .step-line.done {
-      background: #8b5cf6;
-    }
-    .progress-text {
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.4);
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      margin-top: 0.5rem;
-    }
-    .progress-bar {
-      width: 100%;
-      height: 3px;
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
-      overflow: hidden;
-      margin-top: 0.25rem;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #8b5cf6, #34d399);
-      transition: width 0.5s ease;
-      width: 0%;
+    li:hover .remove-link-btn {
+      opacity: 1;
     }
 
-    /* ── step content ── */
-    .step-content {
-      display: none;
-      animation: fadeSlide 0.4s ease forwards;
+    .validation-message {
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
     }
-    .step-content.active {
-      display: block;
+    .validation-message.valid {
+      color: #34d399;
     }
-    @keyframes fadeSlide {
-      0% {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .validation-message.invalid {
+      color: #ef4444;
+    }
+    .validation-message .fa-spinner {
+      color: #fbbf24;
     }
 
     /* ── style presets ── */
@@ -170,12 +99,12 @@
     }
     .style-preset:hover {
       transform: translateY(-2px);
-      border-color: rgba(139, 92, 246, 0.3);
+      border-color: rgba(139, 92, 246, 0.25);
     }
     .style-preset.selected {
       border-color: #8b5cf6;
-      background: rgba(139, 92, 246, 0.08);
-      box-shadow: 0 0 24px rgba(139, 92, 246, 0.12);
+      background: rgba(139, 92, 246, 0.06);
+      box-shadow: 0 0 30px rgba(139, 92, 246, 0.08);
     }
     .style-preset .preview-box {
       height: 56px;
@@ -183,201 +112,692 @@
       transition: all 0.3s ease;
     }
 
-    /* ── social links ── */
-    .remove-link-btn {
-      opacity: 0;
-      transition: opacity 0.2s ease;
+    /* ── HERO ── */
+    .hero-app-section {
+      position: relative;
+      z-index: 2;
+      width: min(100%, 1120px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, .85fr);
+      gap: 80px;
+      align-items: center;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
     }
-    li:hover .remove-link-btn {
-      opacity: 1;
+    .hero-app-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: rgba(139, 92, 246, 0.10);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      color: #a78bfa;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+    }
+    .hero-app-title {
+      margin: 0 0 12px;
+      font-size: clamp(36px, 5.5vw, 64px);
+      line-height: .98;
+      font-weight: 900;
+      letter-spacing: -.06em;
+      color: #ffffff;
+    }
+    .hero-app-title span {
+      background: linear-gradient(90deg, #a78bfa, #34d399);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-app-text {
+      margin: 0 0 22px;
+      max-width: 520px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .7);
+    }
+    .hero-app-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .hero-app-store {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all .25s ease;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      color: #fff;
+      box-shadow: 0 12px 32px rgba(139, 92, 246, 0.2);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+    }
+    .hero-app-store:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(139, 92, 246, 0.3);
+    }
+    .hero-app-store-icon {
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 12px;
+    }
+    .hero-app-demo-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all .25s ease;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .08);
+      color: #fff;
+      backdrop-filter: blur(12px);
+    }
+    .hero-app-demo-button:hover {
+      background: rgba(255, 255, 255, .08);
+      transform: translateY(-2px);
+    }
+    .hero-app-features {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 520px;
+    }
+    .hero-app-feature {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid rgba(255, 255, 255, .05);
+    }
+    .hero-app-feature strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 17px;
+      line-height: 1.1;
+      font-weight: 800;
+      color: #fff;
+    }
+    .hero-app-feature span {
+      display: block;
+      font-size: 11px;
+      line-height: 1.4;
+      font-weight: 500;
+      color: rgba(255, 255, 255, .45);
+    }
+    .hero-app-visual {
+      position: relative;
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-app-phone {
+      position: absolute;
+      width: 250px;
+      min-height: 460px;
+      padding: 14px;
+      border-radius: 36px;
+      background: #14141f;
+      border: 1px solid rgba(255, 255, 255, .08);
+      box-shadow: 0 40px 80px rgba(0, 0, 0, .5);
+      transition: transform 0.3s ease;
+    }
+    .hero-app-phone-primary {
+      right: 80px;
+      top: 0;
+      z-index: 3;
+      transform: rotate(3deg);
+    }
+    .hero-app-phone-secondary {
+      right: -10px;
+      top: 44px;
+      z-index: 2;
+      opacity: .6;
+      transform: rotate(-6deg) scale(.90);
+    }
+    .hero-app-phone-screen {
+      min-height: 432px;
+      border-radius: 24px;
+      background: radial-gradient(circle at 20% 18%, rgba(139, 92, 246, 0.06), transparent 40%),
+        linear-gradient(180deg, #1a1a2e, #0a0a0f);
+      border: 1px solid rgba(255, 255, 255, .04);
+      padding: 18px 14px 14px;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone-loader .skeleton-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      flex-shrink: 0;
+      margin: 0 auto 10px;
+    }
+    .phone-loader .skeleton-line {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      margin-bottom: 7px;
+    }
+    .phone-loader .skeleton-line.w-2\/3 {
+      width: 66%;
+    }
+    .phone-loader .skeleton-line.w-1\/2 {
+      width: 50%;
+    }
+    .phone-loader .skeleton-line.w-full {
+      width: 100%;
+    }
+    .phone-loader .skeleton-button {
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      margin-top: 5px;
+    }
+    .phone-loader .skeleton-button.glow {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(52, 211, 153, 0.06));
+      border-color: rgba(139, 92, 246, 0.08);
+    }
+    .phone-loader .skeleton-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.03);
+      margin: 10px 0 8px;
+    }
+    .phone-loader .skeleton-dots {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .phone-loader .skeleton-dots span {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .hero-app-floating-badge {
+      position: absolute;
+      left: 0;
+      bottom: 36px;
+      z-index: 4;
+      width: 190px;
+      padding: 12px 16px;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, .06);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, .4);
+    }
+    .hero-app-floating-badge strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 800;
+      color: #f1f5f9;
+      margin-bottom: 2px;
+    }
+    .hero-app-floating-badge span {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      color: #94a3b8;
     }
 
-    /* ── handle prefix ── */
-    .handle-prefix {
-      background: rgba(255, 255, 255, 0.04);
-      color: rgba(255, 255, 255, 0.3);
-      font-size: 0.8rem;
-      padding: 0.7rem 1rem;
-      border-radius: 0.75rem 0 0 0.75rem;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-right: none;
-      white-space: nowrap;
-      font-weight: 500;
+    @media (max-width: 1024px) {
+      .hero-app-section {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        padding: 1.5rem;
+      }
+      .hero-app-visual {
+        max-width: 440px;
+        width: 100%;
+        margin: 0 auto;
+        min-height: 420px;
+      }
+      .hero-app-phone-primary {
+        right: 50px;
+        top: 0;
+      }
+      .hero-app-phone-secondary {
+        right: -16px;
+        top: 36px;
+      }
     }
-    .handle-input {
+    @media (max-width: 768px) {
+      .hero-app-section {
+        padding: 1rem;
+        gap: 20px;
+      }
+      .hero-app-title {
+        font-size: 32px;
+      }
+      .hero-app-text {
+        font-size: 15px;
+      }
+      .hero-app-features {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+      }
+      .hero-app-feature {
+        padding: 10px 12px;
+      }
+      .hero-app-feature strong {
+        font-size: 15px;
+      }
+      .hero-app-visual {
+        min-height: 380px;
+        max-width: 380px;
+      }
+      .hero-app-phone {
+        width: 210px;
+        min-height: 380px;
+        padding: 12px;
+        border-radius: 30px;
+      }
+      .hero-app-phone-screen {
+        min-height: 356px;
+        padding: 14px 12px 12px;
+        border-radius: 20px;
+      }
+      .hero-app-phone-primary {
+        right: 40px;
+        top: 0;
+      }
+      .hero-app-phone-secondary {
+        right: -12px;
+        top: 28px;
+      }
+      .phone-loader .skeleton-avatar {
+        width: 44px;
+        height: 44px;
+      }
+      .hero-app-floating-badge {
+        width: 160px;
+        padding: 10px 14px;
+        bottom: 20px;
+        left: 4px;
+      }
+      .hero-app-floating-badge strong {
+        font-size: 13px;
+      }
+      .hero-app-floating-badge span {
+        font-size: 10px;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero-app-title {
+        font-size: 26px;
+      }
+      .hero-app-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .hero-app-store,
+      .hero-app-demo-button {
+        width: 100%;
+        justify-content: center;
+        min-height: 44px;
+      }
+      .hero-app-features {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 6px;
+      }
+      .hero-app-feature strong {
+        font-size: 13px;
+      }
+      .hero-app-feature span {
+        font-size: 9px;
+      }
+      .hero-app-visual {
+        min-height: 340px;
+        max-width: 320px;
+      }
+      .hero-app-phone {
+        width: 180px;
+        min-height: 320px;
+        padding: 10px;
+        border-radius: 24px;
+      }
+      .hero-app-phone-screen {
+        min-height: 300px;
+        padding: 12px 10px 10px;
+        border-radius: 18px;
+      }
+      .hero-app-phone-primary {
+        right: 32px;
+        top: 0;
+      }
+      .hero-app-phone-secondary {
+        right: -8px;
+        top: 24px;
+        transform: rotate(-5deg) scale(.85);
+      }
+      .phone-loader .skeleton-avatar {
+        width: 38px;
+        height: 38px;
+        margin-bottom: 8px;
+      }
+      .phone-loader .skeleton-line {
+        height: 8px;
+        margin-bottom: 5px;
+      }
+      .phone-loader .skeleton-button {
+        height: 32px;
+        margin-top: 4px;
+      }
+      .hero-app-floating-badge {
+        width: 140px;
+        padding: 8px 12px;
+        bottom: 12px;
+        left: 2px;
+        border-radius: 14px;
+      }
+      .hero-app-floating-badge strong {
+        font-size: 11px;
+      }
+      .hero-app-floating-badge span {
+        font-size: 9px;
+      }
+      .hero-app-kicker {
+        font-size: 9px;
+        padding: 3px 10px;
+      }
+    }
+
+    /* ── FORM ── */
+    .form-container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    .field-hint {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.15);
+      margin-top: 0.3rem;
+    }
+
+    .form-divider {
+      border: 0;
+      height: 1px;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.04), transparent);
+      margin: 1.5rem 0;
+    }
+
+    .social-link-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 0.4rem 0.75rem 0.4rem 0.75rem;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      transition: background 0.2s;
+    }
+    .social-link-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .social-link-item input {
+      border: none;
+      background: transparent;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+      color: #f1f5f9;
+      width: 100%;
+    }
+    .social-link-item input::placeholder {
+      color: rgba(255, 255, 255, 0.12);
+    }
+    .social-link-item input:focus {
+      box-shadow: none;
+      outline: none;
+    }
+
+    .add-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.25);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.6rem 0;
+      transition: color 0.2s;
+    }
+    .add-link-btn:hover {
+      color: #a78bfa;
+    }
+
+    .referral-wrapper {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+    }
+    .referral-wrapper .referral-prefix {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0 1rem;
+      border-radius: 0.75rem 0 0 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-right: none;
+      color: rgba(255, 255, 255, 0.2);
+      font-size: 0.8rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .referral-wrapper input {
       border-radius: 0 0.75rem 0.75rem 0;
       border-left: none;
     }
 
-    /* ── profile pic ── */
-    .profile-pic-wrapper {
-      position: relative;
-      flex-shrink: 0;
+    .style-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
     }
-    .profile-pic-wrapper .ring-spin {
-      position: absolute;
-      inset: -3px;
-      border-radius: 50%;
-      border: 2px solid transparent;
-      border-top-color: #8b5cf6;
-      animation: spin 1.8s linear infinite;
-      pointer-events: none;
-      opacity: 0.3;
-    }
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* ── buttons ── */
-    .btn-ghost {
-      background: rgba(255, 255, 255, 0.04);
-      color: rgba(255, 255, 255, 0.6);
+    .style-preview-box {
+      width: 100%;
+      height: 80px;
+      border-radius: 0.75rem;
       border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 0.75rem;
-      padding: 0.6rem 1.2rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
-      cursor: pointer;
-      font-size: 0.85rem;
-    }
-    .btn-ghost:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-      color: #fff;
-      border: none;
-      border-radius: 0.75rem;
-      padding: 0.6rem 1.6rem;
-      font-weight: 600;
-      transition: all 0.25s ease;
-      cursor: pointer;
-      font-size: 0.85rem;
-      box-shadow: 0 4px 16px rgba(139, 92, 246, 0.2);
-    }
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 24px rgba(139, 92, 246, 0.3);
-    }
-    .btn-submit {
-      background: linear-gradient(135deg, #8b5cf6, #34d399);
-      color: #fff;
-      border: none;
-      border-radius: 0.75rem;
-      padding: 0.7rem 2rem;
-      font-weight: 600;
-      transition: all 0.25s ease;
-      cursor: pointer;
-      font-size: 0.9rem;
-      box-shadow: 0 4px 16px rgba(139, 92, 246, 0.2);
-    }
-    .btn-submit:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 24px rgba(139, 92, 246, 0.35);
+      transition: background 0.3s ease;
+      margin-top: 0.5rem;
     }
 
-    /* ── counter ── */
-    .counter-number {
-      font-size: 3.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #a78bfa, #34d399);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-    }
-
-    /* ── section title ── */
-    .section-title {
+    .profile-upload .upload-hint {
       font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #a78bfa;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.75rem;
-    }
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, rgba(167, 139, 250, 0.2), transparent);
+      color: rgba(255, 255, 255, 0.12);
+      margin-top: 0.15rem;
     }
 
-    /* ── responsive ── */
     @media (max-width: 640px) {
-      .step-actions {
-        flex-wrap: wrap;
-        justify-content: center;
+      .form-container {
+        padding: 0 1rem 3rem;
       }
-      .step-actions .btn-ghost,
-      .step-actions .btn-primary,
-      .step-actions .btn-submit {
-        flex: 1;
-        justify-content: center;
-        min-width: 100px;
+      .style-grid {
+        grid-template-columns: 1fr;
       }
-      .step-indicator {
-        width: 2rem;
-        height: 2rem;
+      .handle-prefix {
         font-size: 0.7rem;
+        padding: 0.75rem 0.7rem;
       }
-      .counter-number {
-        font-size: 2.5rem;
+    }
+    @media (max-width: 400px) {
+      .form-container {
+        padding: 0 0.75rem 2.5rem;
       }
     }
 
-    /* ── footer (matches main site) ── */
-    footer a {
-      color: #9ca3af;
-      transition: color 0.2s;
+    /* ─── NAVIGATION ─── */
+    .nav-container {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      right: 1rem;
+      z-index: 9999;
+      max-width: 80rem;
+      margin: 0 auto;
+      width: calc(100% - 2rem);
+      border-radius: 1rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      transition: background 0.3s ease;
     }
-    footer a:hover {
-      color: #f3f4f6;
+    .nav-container.scrolled {
+      background: rgba(0, 0, 0, 0.75);
+    }
+    @media (min-width: 768px) {
+      .nav-container {
+        left: 2rem;
+        right: 2rem;
+        width: auto;
+      }
     }
 
-    /* ── nav override ── */
     .nav-link {
-      color: rgba(255, 255, 255, 0.6);
-      transition: color 0.2s;
+      position: relative;
       font-size: 0.875rem;
       font-weight: 500;
+      color: rgba(255, 255, 255, 0.5);
+      transition: color 0.3s ease;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
     }
     .nav-link:hover {
-      color: #a78bfa;
+      color: #3ABEF9;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .nav-link.active {
+      color: #3ABEF9;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0 1.25rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+    .nav-cta:hover {
+      border-color: #3ABEF9;
+      box-shadow: 0 0 20px rgba(58, 190, 249, 0.15);
+      background: rgba(58, 190, 249, 0.05);
+    }
+    .nav-cta svg {
+      margin-left: 0.5rem;
+    }
+
+    #mobile-menu {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 0.75rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+    #mobile-menu a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.6);
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    #mobile-menu a:hover {
+      color: #3ABEF9;
+      background: rgba(58, 190, 249, 0.08);
+    }
+    #mobile-menu a.active {
+      color: #3ABEF9;
+    }
+    #mobile-menu .mobile-cta {
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+      justify-content: center;
+      margin-top: 0.5rem;
+      color: #fff;
+    }
+    #mobile-menu .mobile-cta:hover {
+      border-color: #3ABEF9;
+      background: rgba(58, 190, 249, 0.08);
+    }
+    #mobile-menu-button {
+      padding: 0.5rem;
+      border-radius: 9999px;
+      color: rgba(255, 255, 255, 0.5);
+      transition: all 0.2s ease;
+    }
+    #mobile-menu-button:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
     }
   </style>
 </head>
 
 <body>
 
-  <!-- ===== NAV (repurposed for onboarding) ===== -->
-  <nav class="fixed top-4 left-2 right-2 z-50 mx-auto max-w-7xl w-[95%] rounded-2xl backdrop-blur-xl bg-black/40 border border-gray-700/50 shadow-lg">
+  <!-- ─── MAIN NAVIGATION ─── -->
+  <nav class="nav-container" id="mainNav" role="navigation" aria-label="Main navigation">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center py-4">
-        <a href="https://tccards.tn" class="flex items-center group rounded-lg hover:bg-gray-800/70 transition-colors duration-200">
-          <img src="https://tccards.tn/Assets/150.png" alt="tccards" class="h-10 w-10 rounded-full">
+      <div class="flex justify-between items-center py-3 md:py-4">
+        <a href="https://tccards.tn" class="flex items-center group rounded-lg hover:bg-gray-800/50 transition-colors duration-200 p-1">
+          <img src="https://tccards.tn/Assets/150.png" alt="tccards logo" class="h-9 w-9 md:h-10 md:w-10 rounded-full">
         </a>
 
-        <div class="hidden md:flex items-center space-x-6">
-          <a href="https://tccards.tn/plans/" class="nav-link hover:text-purple-400 transition-colors">Plans</a>
-          <a href="https://edit.tccards.tn" class="nav-link hover:text-purple-400 transition-colors">Edit Dashboard</a>
-          <a href="https://tccards.tn/pp/" class="nav-link hover:text-purple-400 transition-colors">Privacy &amp; Policy</a>
-          <a href="https://tccards.tn/plans/free/" class="inline-flex items-center justify-center text-sm font-medium transition-all duration-300 text-white h-10 px-4 rounded-lg border-2 border-gray-700 hover:border-purple-400/50 hover:shadow-lg">
-            Get Started
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2">
+        <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <a href="https://tccards.tn/#faq" class="nav-link">FAQ</a>
+          <a href="https://tccards.tn/help/" class="nav-link">Support</a>
+          <a href="https://edit.tccards.tn" class="nav-link">Edit Dashboard</a>
+          <a href="https://tccards.tn/plans/free/" class="nav-cta">
+            Get Started (Free)
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14"></path>
               <path d="m12 5 7 7-7 7"></path>
             </svg>
           </a>
         </div>
 
-        <button id="mobile-menu-button" class="md:hidden p-2 rounded-full hover:bg-gray-800/50 transition-colors text-gray-300 hover:text-white" aria-expanded="false" aria-controls="mobile-menu">
+        <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="4" x2="20" y1="12" y2="12"></line>
             <line x1="4" x2="20" y1="6" y2="6"></line>
@@ -386,430 +806,349 @@
         </button>
       </div>
 
-      <div id="mobile-menu" class="hidden md:hidden pb-4 mt-2 mx-2 rounded-xl bg-gray-900/90 backdrop-blur-xl border border-gray-700/50 shadow-inner p-2">
-        <div class="flex flex-col gap-3">
-          <a href="https://tccards.tn/plans/" class="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70 flex items-center gap-2">Plans</a>
-          <a href="https://edit.tccards.tn" class="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70 flex items-center gap-2">Edit Dashboard</a>
-          <a href="https://tccards.tn/pp/" class="text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70 flex items-center gap-2">Privacy &amp; Policy</a>
-          <a href="https://tccards.tn/plans/free/" class="mt-2 w-full inline-flex items-center justify-center gap-2 text-sm font-medium transition-all duration-300 text-white h-10 rounded-full border border-white/30 hover:border-purple-400/50">Get Started</a>
+      <div id="mobile-menu" class="hidden md:hidden pb-4 mt-2 mx-2">
+        <div class="flex flex-col gap-1 p-2">
+          <a href="https://tccards.tn/#faq"><i class="fas fa-question-circle w-5 text-center"></i> FAQ</a>
+          <a href="https://tccards.tn/help/"><i class="fas fa-life-ring w-5 text-center"></i> Support</a>
+          <a href="https://edit.tccards.tn"><i class="fas fa-edit w-5 text-center"></i> Edit Dashboard</a>
+          <a href="https://tccards.tn/plans/free/" class="mobile-cta">
+            Get Started (Free)
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- ===== HERO + COUNTER ===== -->
-  <section class="pt-32 pb-12 px-4 text-center max-w-4xl mx-auto">
-    <div class="inline-flex items-center gap-2 bg-purple-500/10 px-4 py-1.5 rounded-full border border-purple-500/20 mb-4">
-      <i class="fas fa-credit-card text-purple-400 text-sm"></i>
-      <span class="text-xs font-medium text-purple-300 tracking-wide">BASIC PLAN</span>
-    </div>
-    <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">Create Your Digital Business Card</h1>
-    <p class="text-gray-400 text-lg max-w-2xl mx-auto">Fill in your details below and we'll build your professional webfolio — ready to share with a tap or a scan.</p>
+  <br><br><br>
 
-    <!-- Counter -->
-    <div class="mt-8 glass p-6 max-w-md mx-auto">
-      <p class="text-sm text-gray-400 uppercase tracking-wider font-medium">Active Basic Accounts</p>
-      <div class="counter-number" id="activeCounter">12,847</div>
-      <p class="text-xs text-gray-500 mt-1">+2,341 this month</p>
+  <!-- ─── HERO ─── -->
+  <section class="hero-app-section pt-24 pb-4" style="padding-top: 8rem;">
+    <div class="hero-app-content">
+      <div class="hero-app-kicker">
+        <i class="fas fa-bolt text-purple-400 text-xs"></i> Digital Business Cards
+      </div>
+      <h3 class="hero-app-title">
+        Your network, <span>upgraded</span>.
+      </h3>
+      <p class="hero-app-text">
+        Create your free digital business card. Share your links, socials, and contact info with a single tap or scan — no more paper, no more handoffs.
+      </p>
+      <div class="hero-app-actions">
+        <a class="hero-app-store" href="#start">
+          <span class="hero-app-store-icon"><i class="fas fa-rocket text-xs"></i></span>
+          Get yours
+        </a>
+        <a class="hero-app-demo-button" href="https://card.tccards.tn/@Random-profile" target="_blank">
+          <i class="fas fa-eye mr-2 text-sm"></i> Check Random
+        </a>
+      </div>
+      <div class="hero-app-features">
+        <div class="hero-app-feature">
+          <strong>NFC</strong>
+          <span>Wireless Sharing</span>
+        </div>
+        <div class="hero-app-feature">
+          <strong>ECO+</strong>
+          <span>Eco-Friendly</span>
+        </div>
+        <div class="hero-app-feature">
+          <strong>1-Tap</strong>
+          <span>Instant Sync</span>
+        </div>
+      </div>
+    </div>
+    <!-- Phone Mockup -->
+    <div class="hero-app-visual">
+      <div class="hero-app-phone hero-app-phone-primary">
+        <div class="hero-app-phone-screen phone-loader">
+          <div class="skeleton-avatar"></div>
+          <div class="skeleton-line w-2/3 mx-auto"></div>
+          <div class="skeleton-line w-1/2 mx-auto" style="margin-bottom:12px;"></div>
+          <div class="skeleton-divider"></div>
+          <div class="skeleton-line w-full"></div>
+          <div class="skeleton-button glow"></div>
+          <div class="skeleton-button glow"></div>
+          <div class="skeleton-button glow"></div>
+          <div class="skeleton-dots">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-app-phone hero-app-phone-secondary">
+        <div class="hero-app-phone-screen phone-loader">
+          <div class="skeleton-avatar" style="background:rgba(255,255,255,0.03);"></div>
+          <div class="skeleton-line w-2/3 mx-auto"></div>
+          <div class="skeleton-line w-1/2 mx-auto" style="margin-bottom:12px;"></div>
+          <div class="skeleton-divider"></div>
+          <div class="skeleton-line w-full"></div>
+          <div class="skeleton-divider"></div>
+          <div class="skeleton-button" style="background:rgba(255,255,255,0.02);"></div>
+          <div class="skeleton-button" style="background:rgba(255,255,255,0.02);"></div>
+          <div class="skeleton-button" style="background:rgba(255,255,255,0.02);"></div>
+        </div>
+      </div>
+      <div class="hero-app-floating-badge">
+        <strong><i class="fas fa-id-badge mr-1.5 text-purple-400 text-xs"></i> identity</strong>
+        <span>impress with your profile instantly.</span>
+      </div>
     </div>
   </section>
 
-  <!-- ===== ONBOARDING FORM ===== -->
-  <section class="max-w-3xl mx-auto px-4 pb-20">
-    <div class="glass p-6 md:p-8 shadow-2xl">
+  <!-- ─── COUNTER ─── -->
+  <section class="max-w-3xl mx-auto px-4 pb-6 py-10 text-center">
+    <div class="bg-white/5 backdrop-blur-md border border-white/5 rounded-2xl p-6 max-w-md mx-auto">
+      <p class="text-xs text-gray-400 uppercase tracking-wider font-medium">Active Basic Accounts</p>
+      <div class="text-5xl sm:text-6xl font-extrabold bg-gradient-to-r from-purple-400 to-emerald-400 bg-clip-text text-transparent leading-none" id="activeCounter">Loading...</div>
+      <p class="text-xs text-gray-500 mt-1" id="counterMeta">Syncing live data...</p>
+    </div>
+  </section>
 
-      <!-- Progress -->
-      <div class="mb-7">
-        <div class="flex items-center">
-          <span class="step-indicator active" data-step="1">1</span>
-          <span class="step-line" data-between="1-2"></span>
-          <span class="step-indicator" data-step="2">2</span>
-          <span class="step-line" data-between="2-3"></span>
-          <span class="step-indicator" data-step="3">3</span>
-          <span class="step-line" data-between="3-4"></span>
-          <span class="step-indicator" data-step="4">4</span>
-        </div>
-        <div class="progress-bar">
-          <div class="progress-bar-fill" id="progressFill" style="width:25%;"></div>
-        </div>
-        <p class="progress-text" id="progressText">Step 1 of 4 · Profile &amp; Personal Info</p>
-      </div>
 
-      <!-- ===== FORM ===== (IDs match main.js) -->
+  <!-- ─── FORM ─── -->
+  <div class="form-container py-8" id="start">
+
+    <div class="rounded-2xl p-6 md:p-8 bg-white/5 backdrop-blur-md">
+
       <form method="POST" id="data-fill" class="space-y-6">
 
-        <!-- STEP 1: Profile + Personal -->
-        <div class="step-content active" data-step="1">
-          <!-- Profile Picture -->
-          <div>
-            <div class="section-title"><i class="fas fa-camera"></i> Profile Picture</div>
-            <div class="flex flex-col sm:flex-row items-center gap-5">
-              <div class="profile-pic-wrapper">
-                <div class="ring-spin"></div>
-                <img src="https://tccards.tn/Assets/150.png" alt="profile" id="profile-picture"
-                class="relative z-10 w-24 h-24 rounded-full object-cover cursor-pointer hover:ring-2 hover:ring-purple-500/50 transition-all" />
-              </div>
-              <div class="flex-1 text-center sm:text-left">
-                <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
-                <label for="image-input" class="cursor-pointer inline-flex items-center gap-2 text-sm text-gray-400 hover:text-purple-400 transition-colors">
-                  <i class="fas fa-upload"></i> Click to upload photo
-                </label>
-                <p class="text-xs text-gray-500 mt-1">JPEG, PNG, GIF · Max 5MB</p>
-              </div>
+        <!-- 1. PROFILE PICTURE -->
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-camera text-purple-400"></i> Profile Picture</div>
+          <div class="flex flex-col items-center justify-center text-center pt-1 pb-3">
+            <div class="profile-pic-wrapper mb-3">
+              <div class="ring-spin"></div>
+              <img src="https://tccards.tn/Assets/150.png" alt="profile" id="profile-picture"
+              class="relative z-10 w-24 h-24 rounded-full object-cover cursor-pointer hover:ring-2 hover:ring-purple-500/50 transition-all" />
             </div>
-          </div>
-
-          <hr class="border-white/5" />
-
-          <!-- Personal Info -->
-          <div>
-            <div class="section-title"><i class="fas fa-user"></i> Personal Info</div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-medium text-gray-400 mb-1">Full Name <span class="text-red-400">*</span></label>
-                <input type="text" id="user-name" name="user-name" placeholder="Your full name" required />
-              </div>
-              <div>
-                <label class="block text-xs font-medium text-gray-400 mb-1">Tagline</label>
-                <input type="text" id="user-tagline" name="user-tagline" placeholder="e.g. Digital Strategist" />
-              </div>
-            </div>
-            <div class="mt-4">
-              <label class="block text-xs font-medium text-gray-400 mb-1">Your Handle <span class="text-red-400">*</span></label>
-              <div class="flex items-center">
-                <span class="handle-prefix">card.tccards.tn/@</span>
-                <input type="text" id="user-link" name="link" required
-                title="Letters, numbers, hyphens only" placeholder="yourname"
-                pattern="[a-zA-Z0-9-]+" class="handle-input" />
-              </div>
-              <p class="text-xs text-gray-500 mt-1.5">Permanent profile URL · 3–20 chars, letters/numbers/hyphens</p>
-            </div>
-          </div>
-
-          <div class="step-actions flex justify-end mt-6 pt-4 border-t border-white/5">
-            <button type="button" class="btn-primary" data-next="2">Next <i class="fas fa-arrow-right ml-1"></i></button>
+            <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
+            <label for="image-input" class="cursor-pointer inline-flex items-center gap-2 text-sm font-medium text-white/30 hover:text-purple-400 transition-colors py-1.5">
+              <i class="fas fa-upload"></i> Upload photo
+            </label>
+            <span class="upload-hint">JPEG, PNG, GIF · max 5MB</span>
           </div>
         </div>
 
-        <!-- STEP 2: Contact -->
-        <div class="step-content" data-step="2">
-          <div>
-            <div class="section-title"><i class="fas fa-envelope"></i> Contact Details</div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-medium text-gray-400 mb-1">Email <span class="text-red-400">*</span></label>
-                <input type="email" name="email" placeholder="you@example.com" required />
-              </div>
-              <div>
-                <label class="block text-xs font-medium text-gray-400 mb-1">Phone</label>
-                <input type="tel" name="phone" placeholder="+216 99 999 999" />
-              </div>
-            </div>
-            <div class="mt-4">
-              <label class="block text-xs font-medium text-gray-400 mb-1">Address</label>
-              <input type="text" name="address" placeholder="City, Country" />
-            </div>
-          </div>
+        <hr class="form-divider" />
 
-          <div class="step-actions flex justify-between mt-6 pt-4 border-t border-white/5">
-            <button type="button" class="btn-ghost" data-prev="1"><i class="fas fa-arrow-left mr-1"></i> Back</button>
-            <button type="button" class="btn-primary" data-next="3">Next <i class="fas fa-arrow-right ml-1"></i></button>
+        <!-- 2. NAME + TAGLINE -->
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-user text-purple-400"></i> Personal Info</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="block text-xs font-medium text-white/40">Full Name <span class="text-red-500">*</span></label>
+              <input type="text" id="user-name" name="user-name" placeholder="e.g. John Doe" required
+              class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500 focus:ring-3 focus:ring-purple-500/12 focus:bg-white/10 transition-all text-sm" />
+            </div>
+            <div class="space-y-1">
+              <label class="block text-xs font-medium text-white/40">Tagline</label>
+              <input type="text" id="user-tagline" name="user-tagline" placeholder="e.g. Digital Strategist"
+              class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500 focus:ring-3 focus:ring-purple-500/12 focus:bg-white/10 transition-all text-sm" />
+            </div>
           </div>
         </div>
 
-        <!-- STEP 3: Social Links -->
-        <div class="step-content" data-step="3">
-          <div>
-            <div class="section-title"><i class="fas fa-share-alt"></i> Social Links <span class="text-xs font-normal text-gray-500">(max 6)</span></div>
-            <div id="dynamic-links" class="space-y-3">
-              <div class="bg-white/5 rounded-xl p-4 border border-white/5">
-                <ul class="space-y-2" id="socialLinkList">
-                  <li class="flex items-center bg-white/5 p-2.5 rounded-lg border border-white/5 hover:bg-white/10 transition-all relative group">
-                    <i class="fa fa-link text-purple-400 mr-3"></i>
-                    <input type="url" name="social-links[]" placeholder="https://linkedin.com/in/yourname"
-                    class="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none text-sm" />
-                    <button type="button" class="remove-link-btn absolute -top-1.5 -right-1.5 bg-red-500/80 hover:bg-red-600 text-white rounded-full p-1 transition-all">
-                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                    </button>
-                  </li>
-                </ul>
-                <button type="button" id="add-link-btn" class="mt-3 text-sm text-purple-400 hover:text-purple-300 transition-colors flex items-center gap-2">
-                  <i class="fas fa-plus-circle"></i> Add another link
-                </button>
-              </div>
-            </div>
+        <hr class="form-divider" />
+
+        <!-- 3. EMAIL + HANDLE -->
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-id-card text-purple-400"></i> Your Identity</div>
+          <div class="space-y-1 mb-3">
+            <label class="block text-xs font-medium text-white/40">Email <span class="text-red-500">*</span></label>
+            <input type="email" name="email" placeholder="you@example.com" required
+            class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500 focus:ring-3 focus:ring-purple-500/12 focus:bg-white/10 transition-all text-sm" />
           </div>
-
-          <div class="step-actions flex justify-between mt-6 pt-4 border-t border-white/5">
-            <button type="button" class="btn-ghost" data-prev="2"><i class="fas fa-arrow-left mr-1"></i> Back</button>
-            <button type="button" class="btn-primary" data-next="4">Next <i class="fas fa-arrow-right ml-1"></i></button>
-          </div>
-        </div>
-
-        <!-- STEP 4: Style + Referral -->
-        <div class="step-content" data-step="4">
-
-          <!-- Style Presets -->
-          <div>
-            <div class="section-title"><i class="fas fa-palette"></i> Choose Your Style</div>
-            <div class="grid grid-cols-2 gap-3">
-              <button type="button" class="style-preset selected" data-style="corporateGradient">
-                <div class="preview-box" style="background: linear-gradient(145deg, rgb(9,9,11), rgb(24,24,27), rgb(9,9,11));"></div>
-                <p class="text-xs text-center text-gray-400 mt-1.5">Executive</p>
-              </button>
-              <button type="button" class="style-preset" data-style="oceanGradient">
-                <div class="preview-box" style="background: linear-gradient(145deg, rgb(2,6,23), rgb(15,23,42), rgb(2,6,23));"></div>
-                <p class="text-xs text-center text-gray-400 mt-1.5">Professional</p>
-              </button>
-            </div>
-            <p class="text-xs text-gray-500 mt-2">Pick a color theme for your webfolio.</p>
-          </div>
-
-          <hr class="border-white/5" />
-
-          <!-- Referral -->
-          <div>
-            <div class="section-title"><i class="fas fa-ticket-alt"></i> Referral Code</div>
+          <div class="space-y-1">
+            <label class="block text-xs font-medium text-white/40">Your Handle <span class="text-red-500">*</span></label>
             <div class="flex items-center">
-              <span id="ticket" class="flex items-center bg-white/5 text-gray-400 text-sm px-4 py-2.5 rounded-l-lg border border-r-0 border-white/10 whitespace-nowrap">
-                <i class="fa fa-ticket mr-2"></i> Code
-              </span>
-              <input type="text" id="referral-code" name="referral-code" placeholder="Enter 5‑character code"
-              pattern="[A-Za-z0-9]{5}" maxlength="5"
-              class="w-full bg-white/5 border border-white/10 rounded-r-lg px-4 py-2.5 text-white placeholder-gray-500 uppercase focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all" />
+              <span class="handle-prefix">card.tccards.tn/@</span>
+              <input type="text" id="user-link" name="link" required
+              title="Letters, numbers, hyphens only" placeholder="yourname"
+              pattern="[a-zA-Z0-9-]+"
+              class="handle-input w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500 focus:ring-3 focus:ring-purple-500/12 focus:bg-white/10 transition-all text-sm" />
             </div>
-            <p id="referral-validation-message" class="text-xs mt-1.5 text-gray-500">Enter a valid 5‑character referral code for a discount.</p>
+            <div id="handle-validation-message" class="validation-message"></div>
+            <p class="field-hint">Permanent URL · 3–20 chars, letters/numbers/hyphens</p>
           </div>
+        </div>
 
-          <div class="step-actions flex justify-between mt-6 pt-4 border-t border-white/5">
-            <button type="button" class="btn-ghost" data-prev="3"><i class="fas fa-arrow-left mr-1"></i> Back</button>
-            <button id="saveContactBtn" type="submit" class="btn-submit">
-              <i class="fas fa-rocket mr-2"></i> Create Your Digital Card
+        <hr class="form-divider" />
+
+        <!-- 4. SOCIAL LINKS -->
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-share-alt text-purple-400"></i> Social Links <span class="text-xs font-normal text-gray-500">(max 6)</span></div>
+          <div id="dynamic-links" class="space-y-3">
+            <div class="bg-white/5 rounded-xl p-4 border border-white/5">
+              <ul class="space-y-2" id="socialLinkList">
+                <li class="social-link-item group">
+                  <i class="fa fa-link text-purple-400 text-sm"></i>
+                  <input type="url" name="social-links[]" placeholder="https://linkedin.com/in/yourname"
+                  class="flex-1 bg-transparent text-white placeholder:text-white/20 focus:outline-none text-sm" />
+                  <button type="button" class="remove-link-btn text-red-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+              <button type="button" id="add-link-btn" class="add-link-btn">
+                <i class="fas fa-plus-circle"></i> Add another link
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <hr class="form-divider" />
+
+        <!-- 5. STYLE -->
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-palette text-purple-400"></i> Choose Your Style</div>
+          <div class="style-grid">
+            <button type="button" class="style-preset selected" data-style="corporateGradient">
+              <div class="preview-box" style="background: linear-gradient(145deg, rgb(9,9,11), rgb(24,24,27), rgb(9,9,11));"></div>
+              <p class="text-xs text-center text-gray-400 mt-1.5">Executive</p>
+            </button>
+            <button type="button" class="style-preset" data-style="oceanGradient">
+              <div class="preview-box" style="background: linear-gradient(145deg, rgb(2,6,23), rgb(15,23,42), rgb(2,6,23));"></div>
+              <p class="text-xs text-center text-gray-400 mt-1.5">Professional</p>
             </button>
           </div>
+          <p class="field-hint mt-2">Pick a color theme for your webfolio.</p>
         </div>
 
-      </form>
+        <hr class="form-divider" />
 
-      <p class="text-xs text-center text-gray-500 mt-4">By continuing you agree to our <a href="https://tccards.tn/pp/" class="text-purple-400 hover:text-purple-300 transition-colors">Privacy Policy</a>. Your data is secure.</p>
-
-    </div>
-  </section>
-
-  <!-- ===== FOOTER (matches main site) ===== -->
-  <footer class="bg-black border-t border-gray-800 py-12 mt-8 text-gray-400">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div class="space-y-4">
-          <a href="https://tccards.tn"><img src="https://tccards.tn/Assets/150.png" alt="Total Connect" class="h-8 mx-auto md:mx-0"></a>
-          <p class="text-gray-400 text-sm"><b>No handing over. No paper shuffle.</b><br>You tap. They get everything. You're done.</p>
-          <div class="flex space-x-4 justify-center md:justify-start">
-            <a href="https://www.facebook.com/tccards.tn" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/tccards.tn/" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.linkedin.com/company/tccards/" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-linkedin-in"></i></a>
+        <!-- 6. PHONE + ADDRESS -->
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-address-card text-purple-400"></i> Contact Details</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="block text-xs font-medium text-white/40">Phone</label>
+              <input type="tel" name="phone" placeholder="+216 99 999 999"
+              class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500 focus:ring-3 focus:ring-purple-500/12 focus:bg-white/10 transition-all text-sm" />
+            </div>
+            <div class="space-y-1">
+              <label class="block text-xs font-medium text-white/40">Address</label>
+              <input type="text" name="address" placeholder="City, Country"
+              class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500 focus:ring-3 focus:ring-purple-500/12 focus:bg-white/10 transition-all text-sm" />
+            </div>
           </div>
         </div>
+
+        <hr class="form-divider" />
+
+        <!-- 7. PRIVILEGE CODE (Event / Discount) -->
         <div>
-          <h3 class="text-white font-semibold mb-4">Products</h3>
-          <ul class="space-y-2">
-            <li><a href="https://tccards.tn/plans" class="text-sm text-gray-500 hover:text-white">Plans</a></li>
-            <li><a href="https://tccards.tn/plans/events" class="text-sm text-gray-500 hover:text-white">Events Solutions</a></li>
-            <li><a href="https://tccards.tn/plans/enterprise/" class="text-sm text-gray-500 hover:text-white">Enterprise Solutions</a></li>
-          </ul>
+        <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3">
+            <i class="fas fa-ticket-alt text-purple-400"></i> Privilege Code
         </div>
-        <div>
-          <h3 class="text-white font-semibold mb-4">Support</h3>
-          <ul class="space-y-2">
-            <li><a href="https://tccards.tn/help" class="text-sm text-gray-500 hover:text-white">Help Center</a></li>
-            <li><a href="https://edit.tccards.tn" class="text-sm text-gray-500 hover:text-white">Edit Profile</a></li>
-            <li><a href="https://tccards.tn/pp/" class="text-sm text-gray-500 hover:text-white">Privacy Policy</a></li>
-          </ul>
+        <div class="referral-wrapper">
+            <span class="referral-prefix"><i class="fa fa-ticket mr-2"></i> Code</span>
+            <input type="text" id="referral-code" name="referral-code" 
+                placeholder="Enter your code (e.g., EVENT24)" 
+                pattern="[A-Za-z0-9]{5,}" maxlength="20"
+                class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500 focus:ring-3 focus:ring-purple-500/12 focus:bg-white/10 transition-all text-sm uppercase" />
         </div>
-        <div>
-          <h3 class="text-white font-semibold mb-4">Interested ?</h3>
-          <ul class="space-y-2">
-            <li><a href="https://tccards.tn/About/" class="text-sm text-gray-500 hover:text-white">About Us</a></li>
-            <li><a href="https://tccards.tn/" class="text-sm text-gray-500 hover:text-white">Careers</a></li>
-          </ul>
+        <div id="ticket" class="validation-message"></div>
+        <p class="field-hint">Enter your event or discount code (if you have one).</p>
         </div>
+
+        <!-- SUBMIT -->
+        <button id="saveContactBtn" type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-500 to-emerald-400 hover:shadow-xl hover:shadow-purple-500/20 hover:-translate-y-0.5 transition-all duration-200 text-sm">
+          <i class="fas fa-rocket"></i> Create Your Digital Card
+        </button>
+
+        <p class="text-xs text-center text-gray-500 mt-4">By continuing you agree to our <a href="https://tccards.tn/pp/" class="text-purple-400 hover:text-purple-300 transition-colors">Privacy Policy</a>. Your data is secure.</p>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ─── FOOTER ─── -->
+
+  <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400" style="background-image: url(Assets/footer-gradient.webp);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="space-y-4"><a href="https://tccards.tn" title="main"><img src="/Assets/150.png" alt="Total Connect Logo" class="h-8 mx-auto md:mx-0"></a><p class="text-gray-400 text-sm"><b>No handing over. No paper shuffle.</b> <br> You tap. They get everything. You're done. <br></p><p class="text-gray-400 text-sm md:hidden">tccards.tn is the future of networking. <br> tccards.tn turns your card into a moment <br>— smooth, smart, unforgettable — <br> No more printing costs. No more outdated info.</p><p class="text-gray-400 text-sm md:hidden">Your card is a tap away from their phone. <br> Just one tap, and your presence lives in their pocket. You don't give your card away — you leave a mark. <br><hr><br><strong>Be remembered, not handed off.</strong></p><div class="flex space-x-4 justify-center md:justify-start"><a href="https://www.facebook.com/tccards.tn" title="facebook" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-facebook-f"></i></a><a href="https://www.instagram.com/tccards.tn/" title="Instagram" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-instagram"></i></a><a href="https://www.linkedin.com/company/tccards/" title="LinkedIn" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-linkedin-in"></i></a></div></div>
+        <div><h3 class="text-white font-semibold mb-4">Products</h3><ul class="space-y-2"><li><a href="/plans" class="text-sm text-gray-500 hover:text-white p-2">Plans</a></li><li><a href="/plans/events" class="text-sm text-gray-500 hover:text-white p-2">Events Solutions</a></li><li><a href="/plans/enterprise/" class="text-sm text-gray-500 hover:text-white p-2">Enterprise Solutions</a></li></ul></div>
+        <div><h3 class="text-white font-semibold mb-4">Support</h3><ul class="space-y-2"><li><a href="/help" class="text-sm text-gray-500 hover:text-white p-2">Help Center</a></li><li><a href="https://edit.tccards.tn" class="text-sm text-gray-500 hover:text-white p-2">Edit Profile</a></li><li><a href="/pp/" class="text-sm text-gray-500 hover:text-white p-2">Privacy Policy</a></li></ul></div>
+        <div><h3 class="text-white font-semibold mb-4">Interested ?</h3><ul class="space-y-2"><li><a href="/About/" class="text-sm text-gray-500 hover:text-white p-2">About Us</a></li><li><a href="/" class="text-sm text-gray-500 hover:text-white p-2">Careers</a></li></ul></div>
       </div>
-      <div class="mt-8 text-center border-t border-gray-800 pt-6">
-        <p class="text-gray-500 text-sm">&copy; 2026 Total Connect. All rights reserved.</p>
-      </div>
+      <div class="mt-8 text-center border-t border-gray-800 pt-6"><p class="text-gray-500 text-sm">&copy; 2026 Total Connect. All rights reserved.</p></div>
     </div>
   </footer>
 
-  <!-- ===== SCRIPTS ===== -->
+  <!-- ─── SCRIPTS ─── -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js">
   </script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
   </script>
 
-  <!-- config + main (unchanged) -->
-  <script type="module" src="config.js">
-  </script>
   <script type="module" src="main.js">
   </script>
 
-  <!-- ===== WIZARD NAV ===== -->
+  <!-- ─── NAV SCRIPT ─── -->
   <script>
-    (function() {
-      'use strict';
-
-      const totalSteps = 4;
-      let currentStep = 1;
-
-      const progressFill = document.getElementById('progressFill');
-      const progressText = document.getElementById('progressText');
-      const indicators = document.querySelectorAll('.step-indicator');
-      const lines = document.querySelectorAll('.step-line');
-      const contents = document.querySelectorAll('.step-content');
-
-      const labels = [
-        'Profile &amp; Personal Info',
-        'Contact Details',
-        'Social Links',
-        'Style &amp; Referral'
-      ];
-
-      function updateUI(step) {
-        const pct = (step / totalSteps) * 100;
-        if (progressFill) progressFill.style.width = pct + '%';
-        if (progressText) progressText.innerHTML = 'Step ' + step + ' of ' + totalSteps + ' · ' + labels[step - 1];
-
-        indicators.forEach(el => {
-          const s = parseInt(el.dataset.step, 10);
-          el.classList.remove('active', 'done');
-          if (s === step) el.classList.add('active');
-          else if (s < step) el.classList.add('done');
-        });
-
-        lines.forEach(el => {
-          const [from, to] = el.dataset.between.split('-').map(Number);
-          el.classList.toggle('done', step > from);
-        });
-
-        contents.forEach(el => {
-          const s = parseInt(el.dataset.step, 10);
-          el.classList.toggle('active', s === step);
-        });
-
-        currentStep = step;
-      }
-
-      function goToStep(step) {
-        if (step < 1 || step > totalSteps) return;
-        if (step > currentStep) {
-          const active = document.querySelector('.step-content.active');
-          if (active) {
-            const reqs = active.querySelectorAll('input[required]');
-            let valid = true;
-            reqs.forEach(inp => {
-              if (!inp.value.trim()) {
-                inp.style.borderColor = '#ef4444';
-                valid = false;
-              } else {
-                inp.style.borderColor = '';
-              }
-            });
-            if (!valid) {
-              Swal.fire({
-                icon: 'info',
-                title: 'Please fill in all required fields',
-                toast: true,
-                position: 'top-center',
-                showConfirmButton: false,
-                timer: 2000,
-                background: 'rgba(17,24,39,0.95)',
-                color: '#fff',
-              });
-              return;
-            }
-          }
-        }
-        updateUI(step);
-      }
-
-      document.querySelectorAll('[data-next]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const n = parseInt(btn.dataset.next, 10);
-          if (n) goToStep(n);
-        });
-      });
-      document.querySelectorAll('[data-prev]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const p = parseInt(btn.dataset.prev, 10);
-          if (p) goToStep(p);
-        });
-      });
-
-      indicators.forEach(el => {
-        el.addEventListener('click', () => {
-          const s = parseInt(el.dataset.step, 10);
-          if (s < currentStep) goToStep(s);
-        });
-        el.style.cursor = 'pointer';
-      });
-
-      document.querySelectorAll('.style-preset').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          document.querySelectorAll('.style-preset').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-        });
-      });
-
-      // Mobile menu toggle
-      const menuBtn = document.getElementById('mobile-menu-button');
+    document.addEventListener('DOMContentLoaded', function() {
+      const nav = document.getElementById('mainNav');
+      const menuButton = document.getElementById('mobile-menu-button');
       const mobileMenu = document.getElementById('mobile-menu');
-      menuBtn.addEventListener('click', () => {
-        const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
-        menuBtn.setAttribute('aria-expanded', !expanded);
-        mobileMenu.classList.toggle('hidden');
-        const icon = menuBtn.querySelector('svg');
-        if (!expanded) {
-          icon.innerHTML =
-            '<path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>';
+
+      function updateNavScrolled() {
+        if (window.scrollY > 20) {
+          nav.classList.add('scrolled');
         } else {
-          icon.innerHTML =
-            '<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>';
+          nav.classList.remove('scrolled');
         }
-      });
-      document.querySelectorAll('#mobile-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.add('hidden');
-          menuBtn.setAttribute('aria-expanded', 'false');
-          const icon = menuBtn.querySelector('svg');
-          icon.innerHTML =
-            '<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>';
+      }
+      window.addEventListener('scroll', updateNavScrolled, { passive: true });
+      updateNavScrolled();
+
+      if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+          menuButton.setAttribute('aria-expanded', !isExpanded);
+          mobileMenu.classList.toggle('hidden');
+          const icon = menuButton.querySelector('svg');
+          if (!isExpanded) {
+            icon.innerHTML = `<path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>`;
+          } else {
+            icon.innerHTML = `<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>`;
+          }
         });
-      });
 
-      updateUI(1);
-      console.log('✅ Onboarding wizard ready');
-    })();
+        window.addEventListener('scroll', function() {
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            menuButton.setAttribute('aria-expanded', 'false');
+            const icon = menuButton.querySelector('svg');
+            icon.innerHTML = `<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>`;
+          }
+        }, { passive: true });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            menuButton.setAttribute('aria-expanded', 'false');
+            const icon = menuButton.querySelector('svg');
+            icon.innerHTML = `<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>`;
+          }
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            mobileMenu.classList.add('hidden');
+            menuButton.setAttribute('aria-expanded', 'false');
+            const icon = menuButton.querySelector('svg');
+            icon.innerHTML = `<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>`;
+          });
+        });
+      }
+    });
   </script>
-
-  <!-- ===== COUNTER ANIMATION (placeholder) ===== -->
-  <script>
-    // You'll replace this with your DB call later
-    (function() {
-      const el = document.getElementById('activeCounter');
-      if (!el) return;
-      const target = 12847;
-      let current = 0;
-      const step = Math.ceil(target / 60);
-      const interval = setInterval(() => {
-        current += step;
-        if (current >= target) {
-          current = target;
-          clearInterval(interval);
-        }
-        el.textContent = current.toLocaleString();
-      }, 30);
-    })();
-  </script>
-
 </body>
-
 </html>
