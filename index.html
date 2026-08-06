@@ -137,7 +137,7 @@
         "@type": "Offer",
         "name": "Free Plan",
         "description": "Create your free TC Card digital identity with basic features. Includes customizable personal information fields, simple share options, a mobile-responsive design for your profile, and the ability to generate a shareable link. No NFC card included - digital profile only watermark present.",
-        "url": "https://tccards.tn/plans/free/"
+        "url": "https://tccards.tn/plans/free/#start"
       },
       {
         "@type": "Offer", 
@@ -356,47 +356,57 @@
   <div class="header-wrapper">
     <canvas id="color-bends-canvas"></canvas>
     <header class="header-content" id="home">
-      <div class="max-w-3xl mx-auto text-center">
-        <div class="inline-flex items-center gap-2 bg-gray-900 backdrop-blur px-3 py-1 rounded-full text-sm font-medium mb-4">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-100 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-yellow-400"></span>
-          </span>
-          <p class="bg-gradient-to-br from-blue-200 via-blue-500 to-blue-100 bg-clip-text text-transparent">
-            Digital Business Cards
-          </p>
-        </div>
+  <div class="max-w-3xl mx-auto text-center">
+    <!-- 标签 -->
+    <div class="mb-3">
+      <span class="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/30 text-blue-300 text-sm font-medium tracking-wider">
+        ✦ Free Plan Available
+      </span>
+    </div>
+    <!-- 主标题 -->
+    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-3 text-white leading-tight">
+      Your digital identity
+      <span class="bg-gradient-to-br from-blue-200 via-blue-400 to-blue-600 bg-clip-text text-transparent">
+        starts here
+      </span>
+    </h2>
+    <!-- 副文案 -->
+    <p class="text-base sm:text-lg text-gray-300/90 mb-8 max-w-lg mx-auto">
+      Claim your unique @username and build your professional webfolio in minutes — no credit card needed.
+    </p>
 
-        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight tracking-tight">
-          <span class="bg-gradient-to-br from-blue-100 via-blue-400 to-blue-600 bg-clip-text text-transparent">
-            Tap. Connect.
-          </span>
-          <span class="text-[#00ffff] drop-shadow-[0_0_8px_#00ffff] animate-pulse">
-            Be Remembered.
-          </span>
-        </h1>
-
-        <p class="text-lg sm:text-xl lg:text-2xl text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed">
-          No paper. No handoffs. Just one smooth tap — and they've got you.
-          <span class="block mt-2">
-            This isn't a business card. It's your first impression — evolved.
-          </span>
-        </p>
-
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
-          <a href="#learn-more"
-            class="group px-8 py-4 border-2 border-blue-400 text-white rounded-xl font-semibold bg-gray-900 hover:bg-blue-500 transition-all duration-300 flex items-center gap-2">
-            <span class="relative flex items-center">Learn More</span>
-            <span class="inline-block ml-2 transition-transform group-hover:translate-x-2">→</span>
-          </a>
-          <a href="/plans/"
-            class="group px-8 py-4 border-2 border-yellow-400 text-yellow-200 rounded-xl font-semibold bg-yellow-900 hover:bg-yellow-500 transition-all duration-300 flex items-center gap-2">
-            <span class="relative flex items-center">Get Started</span>
-            <span class="inline-block ml-2 transition-transform group-hover:translate-x-2">→</span>
-          </a>
-        </div>
+    <!-- 输入区 -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-xl mx-auto">
+      <div class="flex items-center w-full sm:flex-1 bg-gray-900/60 backdrop-blur-sm rounded-xl border border-gray-700/60 overflow-hidden focus-within:border-blue-400/70 transition-colors">
+        <span class="text-gray-400 px-4 py-3.5 whitespace-nowrap text-sm font-mono border-r border-gray-700/50 bg-gray-800/30">
+          at.tccards.tn/@
+        </span>
+        <input
+          type="text"
+          id="username-input"
+          placeholder="yourname"
+          class="bg-transparent text-white px-4 py-3.5 w-full focus:outline-none text-sm sm:text-base"
+          pattern="^[a-zA-Z][a-zA-Z0-9-]*$"
+          title="Start with a letter, use letters, numbers, or hyphens"
+          autocomplete="off"
+          spellcheck="false"
+        />
       </div>
-    </header>
+      <button
+        id="go-button"
+        class="px-8 py-3.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-xl transition-all transform hover:scale-[1.03] shadow-lg shadow-blue-500/30 w-full sm:w-auto flex items-center justify-center gap-1.5 group"
+      >
+        Go <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
+      </button>
+    </div>
+
+    <!-- 底部提示 -->
+    <p class="text-xs text-gray-400/80 mt-4 flex items-center justify-center gap-2">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-green-400"></span>
+      Free to start • No credit card required • Instant setup
+    </p>
+  </div>
+</header>
   </div>
 
   <!-- Rest of content unchanged -->
@@ -558,7 +568,59 @@
   <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="script.js"></script>
-  
+  <script>
+  (function() {
+    const input = document.getElementById('username-input');
+    const goBtn = document.getElementById('go-button');
+
+    function getUsername() {
+      return input.value.trim();
+    }
+
+    function isValidUsername(name) {
+      return /^[a-zA-Z][a-zA-Z0-9-]*$/.test(name);
+    }
+
+    function showError() {
+      input.classList.add('border-red-500', 'ring-2', 'ring-red-500/40');
+      input.style.backgroundColor = 'rgba(220, 38, 38, 0.08)';
+      setTimeout(() => {
+        input.classList.remove('border-red-500', 'ring-2', 'ring-red-500/40');
+        input.style.backgroundColor = '';
+      }, 1800);
+    }
+
+    function goToOnboarding() {
+      const name = getUsername();
+      if (!name) {
+        input.focus();
+        showError();
+        return;
+      }
+      if (!isValidUsername(name)) {
+        showError();
+        return;
+      }
+      // 跳转到免费套餐注册页，带上用户名参数
+      window.location.href = '/plans/free/#start?username=' + encodeURIComponent(name);
+    }
+
+    goBtn.addEventListener('click', goToOnboarding);
+
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        goToOnboarding();
+      }
+    });
+
+    input.addEventListener('input', function() {
+      input.classList.remove('border-red-500', 'ring-2', 'ring-red-500/40');
+      input.style.backgroundColor = '';
+    });
+  })();
+</script>
+  <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
   <!-- Three.js Shader Background - only inside header-wrapper -->
   <script type="module">
     import * as THREE from 'three';
