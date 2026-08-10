@@ -99,13 +99,14 @@ document.addEventListener("DOMContentLoaded", () => {
           current = target;
           clearInterval(ticker);
         }
-        counter.textContent = current.toLocaleString();
+        // Update the counter display with text
+        counter.textContent = current.toLocaleString()+"+ Active accounts";
       }, 25);
 
       if (counterMeta) {
         counterMeta.textContent = monthlyGrowth > 0
           ? `+${monthlyGrowth.toLocaleString()} this month`
-          : "No new accounts this month";
+          : "Be the first to join this month!";
       }
     } catch (error) {
       console.error("Live counter failed:", error);

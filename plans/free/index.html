@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="scroll-smooth" lang="en">
 
 <head>
   <meta charset="UTF-8" />
@@ -20,7 +20,7 @@
     /* ── base ── */
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: #0a0a0f;
+      background: #000 url(https://tccards.tn/Assets/bg.png) center / cover no-repeat fixed;
       color: #f1f5f9;
       min-height: 100vh;
     }
@@ -774,7 +774,7 @@
   </style>
 </head>
 
-<body>
+<body class="fade-in">
 
   <!-- ─── MAIN NAVIGATION ─── -->
   <nav class="nav-container" id="mainNav" role="navigation" aria-label="Main navigation">
@@ -896,16 +896,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ─── COUNTER ─── -->
-  <section class="max-w-3xl mx-auto px-4 pb-6 py-10 text-center">
-    <div class="bg-white/5 backdrop-blur-md border border-white/5 rounded-2xl p-6 max-w-md mx-auto">
-      <p class="text-xs text-gray-400 uppercase tracking-wider font-medium">Free Accounts Created</p>
-      <div class="text-5xl sm:text-6xl font-extrabold bg-gradient-to-r from-purple-400 to-emerald-400 bg-clip-text text-transparent leading-none" id="activeCounter">Loading...</div>
-      <p class="text-xs text-gray-500 mt-1" id="counterMeta">Syncing live data...</p>
-    </div>
-  </section>
-
   <!-- ─── FORM ─── -->
   <div class="form-container py-8" id="start">
     <div class="rounded-2xl p-6 md:p-8 bg-white/5 backdrop-blur-md">
