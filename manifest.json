@@ -1,0 +1,32 @@
+{
+  "id": "/?utm_source=pwa",
+  "name": "TC Cards - Digital & NFC Business Cards",
+  "short_name": "TC Cards",
+  "description": "Transform your networking experience with instant-sharing digital and NFC business cards in Tunisia.",
+  "start_url": "/?utm_source=pwa",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "categories": ["business", "productivity", "technology", "communication", "networking", "social", "utilities", "lifestyle", "personalization", "tools", "education", "entertainment", "finance", "health", "news", "shopping", "travel", "sports", "weather", "food", "music", "photography", "video", "art", "design", "fashion", "gaming", "science", "politics", "culture", "history", "religion", "spirituality", "self-improvement", "career", "parenting", "relationships", "hobbies", "outdoors", "fitness", "wellness", "technology news", "tech reviews", "app reviews", "web development", "mobile development", "programming tutorials", "coding challenges", "open source projects", "startups", "entrepreneurship", "marketing strategies", "branding tips", "social media marketing", "content creation", "influencer marketing", "digital marketing trends"],
+  "icons": [
+    {
+      "src": "https://www.tccards.tn/Assets/ASbg.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/Assets/150.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/Assets/150.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
