@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - TC Cards | Secure Digital Business Cards</title>
-    <meta name="description"
-     content="digital business cards, NFC business cards, eco-friendly networking, modern business cards, digital profile management, contactless sharing, professional networking, digital identity, smart business cards, sustainable networking solutions, carte de visite numérique, carte professionnelle NFC, réseautage écologique, carte intelligente, gestion de profil numérique, partage sans contact, بطاقات أعمال رقمية, بطاقات ذكية, بطاقات NFC, التواصل الاحترافي, الهوية الرقمية, البطاقات الذكية, حلول التواصل المستدامة">
+    <meta name="description" content="digital business cards, NFC business cards, eco-friendly networking, modern business cards, digital profile management, contactless sharing, professional networking">
     <meta name="robots" content="index, follow">
     <link rel="icon" href="https://tccards.tn/Assets/150.png" type="image/x-icon">
     <link rel="canonical" href="https://tccards.tn/privacy-policy">
@@ -16,214 +15,176 @@
     <meta property="og:url" content="https://tccards.tn/privacy-policy">
     <meta property="og:type" content="website">
     
-    <!-- Preload important resources -->
-    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    <!-- Styles and Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        primary: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bae6fd',
-                            300: '#7dd3fc',
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
-                        },
-                        secondary: {
-                            50: '#f5f3ff',
-                            100: '#ede9fe',
-                            200: '#ddd6fe',
-                            300: '#c4b5fd',
-                            400: '#a78bfa',
-                            500: '#8b5cf6',
-                            600: '#7c3aed',
-                            700: '#6d28d9',
-                            800: '#5b21b6',
-                            900: '#4c1d95',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
-                    },
+                    fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] }
                 }
             }
         }
     </script>
-    
-    <!-- Lottie Animations -->
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js" crossorigin="anonymous"></script>
-    
+
+    <!-- Three.js Shader Background -->
+    <script type="importmap">
+        { "imports": { "three": "https://unpkg.com/three@0.128.0/build/three.module.js" } }
+    </script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; background: #000; }
         
-        body {
-            font-family: 'Inter', sans-serif;
+        /* Fixed 3D Canvas Background (Original Blue/Purple from Main Page) */
+        #color-bends-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
         }
         
-        .gradient-bg {
-            background: radial-gradient(ellipse at top left, rgba(29, 78, 216, 0.15) 0%, transparent 50%), 
-                        radial-gradient(ellipse at bottom right, rgba(124, 58, 237, 0.15) 0%, transparent 50%), 
-                        linear-gradient(to bottom, #0f172a, #020617);
+        /* Dark overlay for readability */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: -1;
+            pointer-events: none;
         }
         
-        .policy-section {
+        /* EXACT Dark Glassmorphism Card Styling */
+        .glass-card {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
         
-        .policy-section:hover {
+        .glass-card:hover {
+            background: rgba(31, 41, 55, 0.205);
+            border-color: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
+
+        /* Removed the left-side thick border and heavy blue accents */
+
+        /* Fade-in */
+        .fade-in { opacity: 0; transition: opacity 0.5s ease-in-out; }
+        html.is-loaded .fade-in { opacity: 1; }
         
-        .highlight-box {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .highlight-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
-        }
-        
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-        
+        .animate-float { animation: float 6s ease-in-out infinite; }
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-15px); }
             100% { transform: translateY(0px); }
         }
         
-        .privacy-decor {
-            pointer-events: none;
-            user-select: none;
-        }
-        
-        .glow {
-            filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
-        }
+        .glow { filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5)); }
+
+        /* Navbar Styling Match */
+        .nav-link { transition: color 0.3s ease; }
+        .nav-link:hover { color: #3ABEF9; }
     </style>
-    <script>
-        
-// smooth landing animation on page loading/opening
-const fadeInElements = document.querySelectorAll('.fade-in');
-const FADE_IN_DURATION = '0.5s';
-const FADE_OUT_DURATION = '0.3s';
-const TRANSITION_TIMING = 'ease-in-out';
-const NAVIGATION_DELAY = 500;
-
-// Initial setup - hide elements before animation
-fadeInElements.forEach(element => {
-    element.style.opacity = '0';
-    element.style.transition = `opacity ${FADE_IN_DURATION} ${TRANSITION_TIMING}`;
-});
-
-// Fade in elements when DOM is ready 
-document.addEventListener('DOMContentLoaded', () => {
-    requestAnimationFrame(() => {
-        fadeInElements.forEach(element => {
-            element.style.opacity = '1';
-        });
-    });
-});
-
-// Handle link transitions
-document.addEventListener('click', e => {
-    const link = e.target.closest('a');
-    if (!link) return;
-
-    // Check if link is external or internal route
-    const href = link.getAttribute('href');
-    if (!href.startsWith('http') && !href.startsWith('/')) return;
-
-    e.preventDefault();
-
-    // Fade out smoothly
-    fadeInElements.forEach(element => {
-        element.style.transition = `opacity ${FADE_OUT_DURATION} ${TRANSITION_TIMING}`;
-        element.style.opacity = '0';
-    });
-
-    // Navigate after fade completes
-    setTimeout(() => {
-        window.location.href = href;
-    }, NAVIGATION_DELAY);
-});
-
-    </script>
 </head>
-<body class="min-h-screen gradient-bg text-gray-100 relative overflow-x-hidden">
-    <a href="https://tccards.tn/" data-tooltip="Back to Home"
-    class="sticky top-4 left-4 md:fixed md:top-8 md:left-10 flex items-center justify-center w-20 h-10 rounded-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 text-white hover:text-yellow-500 hover:border-yellow-500 transition-all duration-300" style="z-index: +9999;">
-     <i class="fas fa-arrow-left"> BACK</i>
-  </a>
-    
-    <!-- Animated background elements -->
-    <div class="privacy-decor fixed inset-0 z-0 opacity-10">
-        <div class="absolute top-10 left-10 w-64 h-64 rounded-full bg-blue-500 mix-blend-screen filter blur-3xl opacity-10 animate-float"></div>
-        <div class="absolute bottom-10 right-10 w-64 h-64 rounded-full bg-purple-500 mix-blend-screen filter blur-3xl opacity-10 animate-float" style="animation-delay: 2s;"></div>
-        <div class="absolute top-1/3 right-1/4 w-96 h-96 rounded-full bg-indigo-500 mix-blend-screen filter blur-3xl opacity-5 animate-float" style="animation-delay: 4s;"></div>
-    </div>
+<body class="min-h-screen text-gray-100 relative">
+
+    <!-- Fixed 3D Background (Original Blue/Purple Colors) -->
+    <canvas id="color-bends-canvas"></canvas>
+    <div class="bg-overlay"></div>
+
+    <!-- Navbar (Matched to Main Page) -->
+    <nav class="fixed top-4 left-2 right-2 z-50 mx-auto max-w-7xl w-[95%] rounded-2xl backdrop-blur-xl bg-black/40 border border-gray-700/50 shadow-lg">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <a href="https://www.tccards.tn" class="flex items-center group rounded-lg hover:bg-gray-800/70 backdrop-filter hover:backdrop-blur-lg transition-colors duration-200">
+                    <img src="https://tccards.tn/Assets/150.png" alt="Logo" class="h-10 w-10 rounded-full">
+                </a>
+
+                <div class="hidden md:flex items-center space-x-6" role="navigation" aria-label="Main navigation">
+                    <a href="https://tccards.tn/#features" class="text-sm font-medium text-gray-300 nav-link px-3 py-1.5 rounded-lg hover:bg-white/10">Features</a>
+                    <a href="https://tccards.tn/#how-it-works" class="text-sm font-medium text-gray-300 nav-link px-3 py-1.5 rounded-lg hover:bg-white/10">How It Works</a>
+                    <a href="https://tccards.tn/#Pricing" class="text-sm font-medium text-gray-300 nav-link px-3 py-1.5 rounded-lg hover:bg-white/10">Pricing</a>
+                    <a href="https://tccards.tn/#faq" class="text-sm font-medium text-gray-300 nav-link px-3 py-1.5 rounded-lg hover:bg-white/10">FAQ</a>
+                    <a href="https://edit.tccards.tn" class="text-sm font-medium text-gray-300 nav-link px-3 py-1.5 rounded-lg hover:bg-white/10">Edit Profile</a>
+                    <a href="https://tccards.tn/plans/" target="_blank" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all duration-300 text-white h-10 px-4 rounded-lg hover:shadow-lg border-2 border-gray-700">
+                        Get Started <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-full hover:bg-gray-800/50 text-gray-300 hover:text-white transition-colors duration-200" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu">
+                        <line x1="4" x2="20" y1="12" y2="12"></line>
+                        <line x1="4" x2="20" y1="6" y2="6"></line>
+                        <line x1="4" x2="20" y1="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="mobile-menu" class="hidden md:hidden pb-4 mt-2 mx-2 rounded-xl bg-gray-900/90 backdrop-blur-xl border border-gray-700/50 shadow-inner p-2" role="navigation" aria-label="Mobile navigation">
+                <div class="flex flex-col gap-3">
+                    <a href="https://tccards.tn/#features" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70">Features</a>
+                    <a href="https://tccards.tn/#how-it-works" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70">How It Works</a>
+                    <a href="https://tccards.tn/#Pricing" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70">Pricing</a>
+                    <a href="https://tccards.tn/#faq" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70">FAQ</a>
+                    <a href="https://edit.tccards.tn" target="_blank" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70">Edit Profile</a>
+                    <a href="https://tccards.tn/plans/" class="mt-2">
+                        <button class="w-full inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all duration-300 text-white h-10 rounded-full hover:bg-blue-600 hover:border-blue-400 border border-white">Get Started <i class="fas fa-arrow-right"></i></button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <!-- Main content -->
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
-        <!-- Header with animation -->
-        <header class="text-center mb-16" role="banner">
-            <div class="flex justify-center mb-6 glow" aria-hidden="true">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10 mt-10">
+        <!-- Header -->
+        <header class="text-center mb-16 fade-in">
+            <div class="flex justify-center mb-6 glow">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
             </div>
-            <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500" id="privacy-policy-title">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
                 Privacy Policy
             </h1>
-            <p class="text-lg text-gray-300 max-w-2xl mx-auto" aria-labelledby="privacy-policy-title">
-                Your privacy is our priority. This document explains how TC Cards collects, uses, and protects your information.
+            <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                Your privacy is our priority. This document explains how TC Cards collects, uses, and protects your information in a transparent, legal, and secure manner.
             </p>
         </header>
 
         <!-- Last updated badge -->
-        <div class="flex justify-center mb-12">
-            <div class="inline-flex items-center px-4 py-2 rounded-full bg-gray-800/50 border border-gray-700 text-sm text-gray-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Last updated: May 27, 2026
+        <div class="flex justify-center mb-12 fade-in">
+            <div class="inline-flex items-center px-4 py-2 rounded-full bg-gray-800/50 border border-gray-700/50 text-sm text-gray-300 backdrop-blur-md">
+                <i class="fas fa-clock mr-2"></i> Effective Date: May 27, 2026
             </div>
         </div>
 
         <!-- Policy sections -->
-        <div class="space-y-8 px-4 sm:px-6 lg:px-8">
+        <div class="space-y-8 fade-in">
             <!-- Introduction -->
-            <section class="policy-section bg-gray-900/50 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-gray-800/50 highlight-box">
+            <section class="glass-card p-6 sm:p-8 rounded-2xl">
                 <div class="flex flex-col sm:flex-row items-start">
                     <div class="flex-shrink-0 mr-0 sm:mr-4 mb-4 sm:mb-0">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-500/10 border border-blue-500/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-white/10 border border-white/10">
+                            <i class="fas fa-info-circle text-gray-300"></i>
                         </div>
                     </div>
                     <div class="flex-1">
-                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-blue-400">1. Introduction</h2>
+                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-white">1. Introduction</h2>
                         <div class="text-gray-300 space-y-4 text-sm sm:text-base">
-                            <p>Welcome to TC Cards ("we," "our," or "us"). We provide innovative NFC digital business card solutions to help professionals in Tunisia and beyond connect seamlessly.</p>
-                            <p>This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our services through our website <a href="https://tccards.tn" class="text-blue-400 hover:underline">tccards.tn</a> or our mobile applications.</p>
+                            <p>Welcome to TC Cards ("we," "our," or "us"). We provide innovative NFC digital business card solutions to help professionals in Tunisia and beyond connect seamlessly. We operate in strict compliance with international data protection regulations.</p>
+                            <p>This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our services through our website <a href="https://tccards.tn" class="text-gray-300 underline hover:text-white">tccards.tn</a> or our mobile applications.</p>
                             <p>By accessing or using our service, you agree to the collection and use of information in accordance with this policy.</p>
                         </div>
                     </div>
@@ -231,19 +192,17 @@ document.addEventListener('click', e => {
             </section>
 
             <!-- Information Collection -->
-            <section class="policy-section bg-gray-900/50 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-gray-800/50 highlight-box">
+            <section class="glass-card p-6 sm:p-8 rounded-2xl">
                 <div class="flex flex-col sm:flex-row items-start">
                     <div class="flex-shrink-0 mr-0 sm:mr-4 mb-4 sm:mb-0">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-500/10 border border-blue-500/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                            </svg>
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-white/10 border border-white/10">
+                            <i class="fas fa-database text-gray-300"></i>
                         </div>
                     </div>
                     <div class="flex-1">
-                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-blue-400">2. Information We Collect</h2>
+                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-white">2. Information We Collect</h2>
                         <div class="text-gray-300 text-sm sm:text-base">
-                            <p class="mb-4">We collect several types of information to provide and improve our services:</p>
+                            <p class="mb-4">We collect several types of information to provide, improve, and secure our services:</p>
                             
                             <h3 class="text-lg sm:text-xl font-medium mb-2 text-gray-200 mt-6">Personal Information</h3>
                             <ul class="list-disc list-inside space-y-2 pl-4 mb-6">
@@ -269,58 +228,36 @@ document.addEventListener('click', e => {
             </section>
 
             <!-- Use of Information -->
-            <section class="policy-section bg-gray-900/50 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-gray-800/50 highlight-box">
+            <section class="glass-card p-6 sm:p-8 rounded-2xl">
                 <div class="flex flex-col sm:flex-row items-start">
                     <div class="flex-shrink-0 mr-0 sm:mr-4 mb-4 sm:mb-0">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-500/10 border border-blue-500/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                            </svg>
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-white/10 border border-white/10">
+                            <i class="fas fa-shield-alt text-gray-300"></i>
                         </div>
                     </div>
                     <div class="flex-1">
-                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-blue-400">3. How We Use Your Information</h2>
+                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-white">3. How We Use Your Information</h2>
                         <div class="text-gray-300 text-sm sm:text-base">
-                            <p class="mb-4">We use the collected data for various purposes:</p>
+                            <p class="mb-4">We use the collected data for various legal and operational purposes:</p>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mt-6">
                                 <div class="bg-gray-800/30 p-4 rounded-lg border border-gray-700/50">
-                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                        </svg>
-                                        Service Provision
-                                    </h3>
+                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base"><i class="fas fa-check-circle text-gray-300 mr-2"></i> Service Provision</h3>
                                     <p class="text-xs sm:text-sm text-gray-300">To create and manage your digital business card, process transactions, and provide customer support.</p>
                                 </div>
                                 
                                 <div class="bg-gray-800/30 p-4 rounded-lg border border-gray-700/50">
-                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
-                                        Service Improvement
-                                    </h3>
+                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base"><i class="fas fa-chart-line text-gray-300 mr-2"></i> Service Improvement</h3>
                                     <p class="text-xs sm:text-sm text-gray-300">To analyze usage patterns, develop new features, and enhance our services.</p>
                                 </div>
                                 
                                 <div class="bg-gray-800/30 p-4 rounded-lg border border-gray-700/50">
-                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                        </svg>
-                                        Security & Protection
-                                    </h3>
+                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base"><i class="fas fa-lock text-gray-300 mr-2"></i> Security & Protection</h3>
                                     <p class="text-xs sm:text-sm text-gray-300">To monitor and prevent security incidents, fraud, and unauthorized access.</p>
                                 </div>
                                 
                                 <div class="bg-gray-800/30 p-4 rounded-lg border border-gray-700/50">
-                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                        </svg>
-                                        Communication
-                                    </h3>
+                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base"><i class="fas fa-envelope text-gray-300 mr-2"></i> Communication</h3>
                                     <p class="text-xs sm:text-sm text-gray-300">To send service notifications, updates, and marketing communications (with your consent).</p>
                                 </div>
                             </div>
@@ -332,17 +269,15 @@ document.addEventListener('click', e => {
             </section>
 
             <!-- Data Sharing -->
-            <section class="policy-section bg-gray-900/50 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-gray-800/50 highlight-box">
+            <section class="glass-card p-6 sm:p-8 rounded-2xl">
                 <div class="flex flex-col sm:flex-row items-start">
                     <div class="flex-shrink-0 mr-0 sm:mr-4 mb-4 sm:mb-0">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-500/10 border border-blue-500/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                            </svg>
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-white/10 border border-white/10">
+                            <i class="fas fa-users text-gray-300"></i>
                         </div>
                     </div>
                     <div class="flex-1">
-                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-blue-400">4. Data Sharing & Disclosure</h2>
+                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-white">4. Data Sharing & Disclosure</h2>
                         <div class="text-gray-300 space-y-4 text-sm sm:text-base">
                             <p>We may share your information in the following circumstances:</p>
                             
@@ -368,25 +303,21 @@ document.addEventListener('click', e => {
             </section>
 
             <!-- Data Security -->
-            <section class="policy-section bg-gray-900/50 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-gray-800/50 highlight-box">
+            <section class="glass-card p-6 sm:p-8 rounded-2xl">
                 <div class="flex flex-col sm:flex-row items-start">
                     <div class="flex-shrink-0 mr-0 sm:mr-4 mb-4 sm:mb-0">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-500/10 border border-blue-500/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                            </svg>
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-white/10 border border-white/10">
+                            <i class="fas fa-fingerprint text-gray-300"></i>
                         </div>
                     </div>
                     <div class="flex-1">
-                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-blue-400">5. Data Security</h2>
+                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-white">5. Data Security</h2>
                         <div class="text-gray-300 space-y-4 text-sm sm:text-base">
                             <p>We implement robust security measures to protect your personal information:</p>
                             
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
                                 <div class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-0.5 mr-2 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
+                                    <i class="fas fa-check text-green-400 mt-0.5 mr-2"></i>
                                     <div>
                                         <h3 class="font-medium text-gray-200 text-sm sm:text-base">Encryption</h3>
                                         <p class="text-xs sm:text-sm text-gray-300">All data is encrypted in transit (TLS 1.2+) and at rest using industry-standard AES-256 encryption.</p>
@@ -394,9 +325,7 @@ document.addEventListener('click', e => {
                                 </div>
                                 
                                 <div class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-0.5 mr-2 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
+                                    <i class="fas fa-check text-green-400 mt-0.5 mr-2"></i>
                                     <div>
                                         <h3 class="font-medium text-gray-200 text-sm sm:text-base">Access Controls</h3>
                                         <p class="text-xs sm:text-sm text-gray-300">Strict role-based access controls limit who can access sensitive data within our organization.</p>
@@ -404,9 +333,7 @@ document.addEventListener('click', e => {
                                 </div>
                                 
                                 <div class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-0.5 mr-2 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
+                                    <i class="fas fa-check text-green-400 mt-0.5 mr-2"></i>
                                     <div>
                                         <h3 class="font-medium text-gray-200 text-sm sm:text-base">Regular Audits</h3>
                                         <p class="text-xs sm:text-sm text-gray-300">We conduct regular security assessments and penetration testing.</p>
@@ -414,9 +341,7 @@ document.addEventListener('click', e => {
                                 </div>
                                 
                                 <div class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-0.5 mr-2 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
+                                    <i class="fas fa-check text-green-400 mt-0.5 mr-2"></i>
                                     <div>
                                         <h3 class="font-medium text-gray-200 text-sm sm:text-base">Compliance</h3>
                                         <p class="text-xs sm:text-sm text-gray-300">We adhere to international data protection standards and Tunisian data protection laws.</p>
@@ -431,82 +356,56 @@ document.addEventListener('click', e => {
             </section>
 
             <!-- Your Rights -->
-            <section class="policy-section bg-gray-900/50 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-gray-800/50 highlight-box">
+            <section class="glass-card p-6 sm:p-8 rounded-2xl">
                 <div class="flex flex-col sm:flex-row items-start">
                     <div class="flex-shrink-0 mr-0 sm:mr-4 mb-4 sm:mb-0">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-500/10 border border-blue-500/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-white/10 border border-white/10">
+                            <i class="fas fa-user-check text-gray-300"></i>
                         </div>
                     </div>
                     <div class="flex-1">
-                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-blue-400">6. Your Data Rights</h2>
+                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-white">6. Your Data Rights</h2>
                         <div class="text-gray-300 text-sm sm:text-base">
                             <p class="mb-4">Depending on your jurisdiction, you may have the following rights regarding your personal data:</p>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mt-6">
                                 <div class="bg-gray-800/30 p-4 rounded-lg border border-gray-700/50">
-                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                        </svg>
-                                        Access
-                                    </h3>
+                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base"><i class="fas fa-eye text-gray-300 mr-2"></i> Access</h3>
                                     <p class="text-xs sm:text-sm text-gray-300">Request a copy of the personal data we hold about you.</p>
                                 </div>
                                 
                                 <div class="bg-gray-800/30 p-4 rounded-lg border border-gray-700/50">
-                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
-                                        Rectification
-                                    </h3>
+                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base"><i class="fas fa-edit text-gray-300 mr-2"></i> Rectification</h3>
                                     <p class="text-xs sm:text-sm text-gray-300">Correct inaccurate or incomplete personal data.</p>
                                 </div>
                                 
                                 <div class="bg-gray-800/30 p-4 rounded-lg border border-gray-700/50">
-                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                        Erasure
-                                    </h3>
+                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base"><i class="fas fa-trash-alt text-gray-300 mr-2"></i> Erasure</h3>
                                     <p class="text-xs sm:text-sm text-gray-300">Request deletion of your personal data under certain conditions.</p>
                                 </div>
                                 
                                 <div class="bg-gray-800/30 p-4 rounded-lg border border-gray-700/50">
-                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                                        </svg>
-                                        Portability
-                                    </h3>
+                                    <h3 class="font-medium text-gray-200 mb-2 flex items-center text-sm sm:text-base"><i class="fas fa-download text-gray-300 mr-2"></i> Portability</h3>
                                     <p class="text-xs sm:text-sm text-gray-300">Receive your data in a structured, commonly used format.</p>
                                 </div>
                             </div>
                             
-                            <p class="mt-6">To exercise these rights, please contact us at <a href="mailto:privacy@tccards.tn" class="text-blue-400 hover:underline">privacy@tccards.tn</a>. We may need to verify your identity before processing your request.</p>
+                            <p class="mt-6">To exercise these rights, please contact us at <a href="mailto:privacy@tccards.tn" class="text-gray-300 underline hover:text-white">privacy@tccards.tn</a>. We may need to verify your identity before processing your request.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- International Transfers -->
-            <section class="policy-section bg-gray-900/50 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-gray-800/50 highlight-box">
+            <section class="glass-card p-6 sm:p-8 rounded-2xl">
                 <div class="flex flex-col sm:flex-row items-start">
                     <div class="flex-shrink-0 mr-0 sm:mr-4 mb-4 sm:mb-0">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-500/10 border border-blue-500/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-                            </svg>
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-white/10 border border-white/10">
+                            <i class="fas fa-globe text-gray-300"></i>
                         </div>
                     </div>
                     <div class="flex-1">
-                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-blue-400">7. International Data Transfers</h2>
+                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-white">7. International Data Transfers</h2>
                         <div class="text-gray-300 space-y-4 text-sm sm:text-base">
                             <p>Your information, including personal data, may be transferred to — and maintained on — computers located outside of Tunisia where the data protection laws may differ.</p>
                             <p>If you are located outside Tunisia and choose to provide information to us, please note that we transfer the data, including personal data, to Tunisia and process it there.</p>
@@ -517,33 +416,20 @@ document.addEventListener('click', e => {
             </section>
 
             <!-- Contact Information -->
-            <section class="policy-section bg-gray-900/50 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-gray-800/50 highlight-box">
+            <section class="glass-card p-6 sm:p-8 rounded-2xl">
                 <div class="flex flex-col sm:flex-row items-start">
                     <div class="flex-shrink-0 mr-0 sm:mr-4 mb-4 sm:mb-0">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-500/10 border border-blue-500/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-white/10 border border-white/10">
+                            <i class="fas fa-comments text-gray-300"></i>
                         </div>
                     </div>
                     <div class="flex-1">
-                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-blue-400">8. Contact Us</h2>
+                        <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-white">8. Contact Us</h2>
                         <div class="text-gray-300 space-y-4 text-sm sm:text-base">
-                            <p>If you have any questions about this Privacy Policy, please contact us:</p>
+                            <p>If you have any questions about this Privacy Policy or how we handle your data, please contact our Data Protection Officer:</p>
                             <ul class="space-y-2">
-                                <li class="flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                    <a href="mailto:privacy@tccards.tn" class="text-blue-400 hover:underline">privacy@tccards.tn</a>
-                                </li>
-                                <li class="flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    TC Cards, Tunisia
-                                </li>
+                                <li class="flex items-center"><i class="fas fa-envelope text-gray-300 mr-2"></i><a href="mailto:privacy@tccards.tn" class="text-gray-300 underline hover:text-white">privacy@tccards.tn</a></li>
+                                <li class="flex items-center"><i class="fas fa-map-marker-alt text-gray-300 mr-2"></i> TC Cards, Tunisia</li>
                             </ul>
                         </div>
                     </div>
@@ -551,92 +437,297 @@ document.addEventListener('click', e => {
             </section>
         </div>
     </div>
-  <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400"
-    style="background-image: url(https://tccards.tn/Assets/footer-gradient.webp);">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <!-- Company Info -->
-        <div class="space-y-4">
-          <a href="https://tccards.tn" title="main">
-            <img src="/Assets/150.png" alt="Total Connect Logo" class="h-8 mx-auto md:mx-0"></a>
-          <p class="text-gray-400 text-sm">
-            <b>No handing over. No paper shuffle.</b> <br>
-            You tap. They get everything. You’re done. <br>
-          </p>
-          <p class="text-gray-400 text-sm md:hidden">
-            tccards.tn is the future of networking. <br>
-            tccards.tn turns your card into a moment <br>— smooth, smart, unforgettable — <br>
-            No more printing costs. No more outdated info.
-          </p>
-          <p class="text-gray-400 text-sm md:hidden">
-            Your card is a tap away from their phone. <br>
-            Just one tap, and your presence lives in their pocket.
-            You don’t give your card away — you leave a mark. <br>
-            <hr>
-            <br>
-            <strong>Be remembered, not handed off.</strong>
-          </p>
-          <div class="flex space-x-4 justify-center md:justify-start">
-            <a href="https://www.facebook.com/tccards.tn" title="facebook"
-              class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://www.instagram.com/tccards.tn/" title="Instagram"
-              class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.linkedin.com/company/tccards/" title="LinkedIn"
-              class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-          </div>
-        </div>
 
-        <!-- Products -->
-        <div>
-          <h3 class="text-white font-semibold mb-4">Products</h3>
-          <ul class="space-y-2">
-            <li><a href="/plans" class="text-sm text-gray-500 hover:text-white  p-2 ">Plans
-              </a></li>
-            <li><a href="/plans/events" class="text-sm text-gray-500 hover:text-white  p-2 ">Events
-                Solutions</a></li>
-            <li><a href="/plans/enterprise/" class="text-sm text-gray-500 hover:text-white  p-2 ">Enterprise
-                Solutions</a></li>
-          </ul>
+    <!-- Footer (Matched to main page) -->
+    <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400" style="background-image: url(https://tccards.tn/Assets/footer-gradient.webp);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="space-y-4">
+                    <a href="https://tccards.tn" title="main"><img src="/Assets/150.png" alt="Total Connect Logo" class="h-8 mx-auto md:mx-0"></a>
+                    <p class="text-gray-400 text-sm"><b>No handing over. No paper shuffle.</b> <br> You tap. They get everything. You're done.</p>
+                    <div class="flex space-x-4 justify-center md:justify-start">
+                        <a href="https://www.facebook.com/tccards.tn" class="text-gray-400 hover:text-white p-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/tccards.tn/" class="text-gray-400 hover:text-white p-2"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/tccards/" class="text-gray-400 hover:text-white p-2"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Products</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/plans" class="text-sm text-gray-500 hover:text-white">Plans</a></li>
+                        <li><a href="/plans/events" class="text-sm text-gray-500 hover:text-white">Events Solutions</a></li>
+                        <li><a href="/plans/enterprise/" class="text-sm text-gray-500 hover:text-white">Enterprise Solutions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/help" class="text-sm text-gray-500 hover:text-white">Help Center</a></li>
+                        <li><a href="https://edit.tccards.tn" class="text-sm text-gray-500 hover:text-white">Edit Profile</a></li>
+                        <li><a href="/pp/" class="text-sm text-gray-500 hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Interested?</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/About/" class="text-sm text-gray-500 hover:text-white">About Us</a></li>
+                        <li><a href="/careers/" class="text-sm text-gray-500 hover:text-white">Careers</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 text-center border-t border-gray-800 pt-6">
+                <p class="text-gray-500 text-sm">&copy; 2026 Total Connect. All rights reserved.</p>
+            </div>
         </div>
-        <!-- Support -->
-        <div>
-          <h3 class="text-white font-semibold mb-4">Support</h3>
-          <ul class="space-y-2">
-            <li><a href="/help" class="text-sm text-gray-500 hover:text-white  p-2 ">Help
-                Center</a></li>
-            <li><a href="https://edit.tccards.tn" class="text-sm text-gray-500 hover:text-white  p-2 ">Edit
-                Profile</a></li>
-            <li><a href="/pp/" class="text-sm text-gray-500 hover:text-white  p-2 ">Privacy
-                Policy</a></li>
-          </ul>
-        </div>
-        <!-- Contact -->
-        <div>
-          <h3 class="text-white font-semibold mb-4">Interested ?</h3>
-          <ul class="space-y-2">
-            <li><a href="/About/" class="text-sm text-gray-500 hover:text-white  p-2 ">About
-                Us</a></li>
-            <li><a href="/" class="text-sm text-gray-500 hover:text-white  p-2 ">Careers</a>
-            </li>
-            <!-- <li><a href="#home"
-                class="text-sm text-gray-500 hover:text-white  p-2 ">Blog</a>
-            </li>
-            <li><a href="#home"
-                class="text-sm text-gray-500 hover:text-white  p-2 ">Press</a>
-            </li> -->
-          </ul>
-        </div>
-      </div>
-      <div class="mt-8 text-center border-t border-gray-800 pt-6">
-        <p class="text-gray-500 text-sm">&copy; 2026 Total Connect. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
+    </footer>
+
+    <!-- Scripts for Fade-in and Mobile Menu -->
+    <script>
+        const fadeInElements = document.querySelectorAll('.fade-in');
+        document.addEventListener('DOMContentLoaded', () => {
+            document.documentElement.classList.add('is-loaded');
+            requestAnimationFrame(() => {
+                fadeInElements.forEach(element => element.style.opacity = '1');
+            });
+        });
+
+        document.addEventListener('click', e => {
+            const link = e.target.closest('a');
+            if (!link) return;
+            const href = link.getAttribute('href');
+            if (!href.startsWith('http') && !href.startsWith('/')) return;
+
+            e.preventDefault();
+            fadeInElements.forEach(element => {
+                element.style.transition = `opacity 0.3s ease-in-out`;
+                element.style.opacity = '0';
+            });
+            setTimeout(() => { window.location.href = href; }, 300);
+        });
+
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden');
+            
+            const menuIcon = mobileMenuButton.querySelector('svg');
+            if (!isExpanded) {
+                menuIcon.innerHTML = `<path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>`;
+            } else {
+                menuIcon.innerHTML = `<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>`;
+            }
+        });
+    </script>
+
+    <!-- Three.js Shader Background (Original Blue/Purple Colors) -->
+    <script type="module">
+        import * as THREE from 'three';
+
+        const MAX_COLORS = 8;
+        const isMobile = window.innerWidth < 768;
+
+        const frag = `
+            #define MAX_COLORS ${MAX_COLORS}
+            uniform vec2 uCanvas;
+            uniform float uTime;
+            uniform float uSpeed;
+            uniform vec2 uRot;
+            uniform int uColorCount;
+            uniform vec3 uColors[MAX_COLORS];
+            uniform int uTransparent;
+            uniform float uScale;
+            uniform float uFrequency;
+            uniform float uWarpStrength;
+            uniform vec2 uPointer;
+            uniform float uMouseInfluence;
+            uniform float uParallax;
+            uniform float uNoise;
+            uniform int uIterations;
+            uniform float uIntensity;
+            uniform float uBandWidth;
+            varying vec2 vUv;
+
+            void main() {
+                float t = uTime * uSpeed;
+                vec2 p = vUv * 2.0 - 1.0;
+                p += uPointer * uParallax * 0.1;
+                vec2 rp = vec2(p.x * uRot.x - p.y * uRot.y, p.x * uRot.y + p.y * uRot.x);
+                vec2 q = vec2(rp.x * (uCanvas.x / uCanvas.y), rp.y);
+                q /= max(uScale, 0.0001);
+                q /= 0.5 + 0.2 * dot(q, q);
+                q += 0.2 * cos(t) - 7.56;
+                vec2 toward = (uPointer - rp);
+                q += toward * uMouseInfluence * 0.2;
+
+                for (int j = 0; j < 5; j++) {
+                    if (j >= uIterations - 1) break;
+                    vec2 rr = sin(1.5 * (q.yx * uFrequency) + 2.0 * cos(q * uFrequency));
+                    q += (rr - q) * 0.15;
+                }
+
+                vec3 col = vec3(0.0);
+                float a = 1.0;
+
+                if (uColorCount > 0) {
+                    vec2 s = q;
+                    vec3 sumCol = vec3(0.0);
+                    float cover = 0.0;
+                    for (int i = 0; i < MAX_COLORS; ++i) {
+                        if (i >= uColorCount) break;
+                        s -= 0.01;
+                        vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+                        float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+                        float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+                        float kMix = pow(kBelow, 0.3);
+                        float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+                        vec2 disp = (r - s) * kBelow;
+                        vec2 warped = s + disp * gain;
+                        float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+                        float m = mix(m0, m1, kMix);
+                        float w = 1.0 - exp(-uBandWidth / exp(uBandWidth * m));
+                        sumCol += uColors[i] * w;
+                        cover = max(cover, w);
+                    }
+                    col = clamp(sumCol, 0.0, 1.0);
+                    a = uTransparent > 0 ? cover : 1.0;
+                } else {
+                    vec2 s = q;
+                    for (int k = 0; k < 3; ++k) {
+                        s -= 0.01;
+                        vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+                        float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+                        float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+                        float kMix = pow(kBelow, 0.3);
+                        float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+                        vec2 disp = (r - s) * kBelow;
+                        vec2 warped = s + disp * gain;
+                        float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+                        float m = mix(m0, m1, kMix);
+                        col[k] = 1.0 - exp(-uBandWidth / exp(uBandWidth * m));
+                    }
+                    a = uTransparent > 0 ? max(max(col.r, col.g), col.b) : 1.0;
+                }
+
+                col *= uIntensity;
+
+                if (uNoise > 0.0001) {
+                    float n = fract(sin(dot(gl_FragCoord.xy + vec2(uTime), vec2(12.9898, 78.233))) * 43758.5453123);
+                    col += (n - 0.5) * uNoise;
+                    col = clamp(col, 0.0, 1.0);
+                }
+
+                vec3 rgb = (uTransparent > 0) ? col * a : col;
+                gl_FragColor = vec4(rgb, a);
+            }
+        `;
+
+        const vert = `
+            varying vec2 vUv;
+            void main() {
+                vUv = uv;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        `;
+
+        const canvas = document.getElementById('color-bends-canvas');
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: 'high-performance' });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 1.5));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        const geometry = new THREE.PlaneGeometry(2, 2);
+
+        const colors = ['#3ABEF9', '#3572EF', '#06B6D4', '#2DD4BF', '#FBBF24', '#A855F7'];
+        const colorVecs = colors.map(hex => {
+            const r = parseInt(hex.slice(1,3),16)/255;
+            const g = parseInt(hex.slice(3,5),16)/255;
+            const b = parseInt(hex.slice(5,7),16)/255;
+            return new THREE.Vector3(r,g,b);
+        });
+        const uColorsArray = Array.from({ length: MAX_COLORS }, () => new THREE.Vector3(0,0,0));
+        for(let i=0; i<colorVecs.length; i++) uColorsArray[i].copy(colorVecs[i]);
+
+        const material = new THREE.ShaderMaterial({
+            vertexShader: vert,
+            fragmentShader: frag,
+            uniforms: {
+                uCanvas:        { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+                uTime:          { value: 0 },
+                uSpeed:         { value: 0.32 },
+                uRot:           { value: new THREE.Vector2(1, 0) },
+                uColorCount:    { value: colorVecs.length },
+                uColors:        { value: uColorsArray },
+                uTransparent:   { value: 1 },
+                uScale:         { value: 1.05 },
+                uFrequency:     { value: 1.6 },
+                uWarpStrength:  { value: 1.15 },
+                uPointer:       { value: new THREE.Vector2(0, 0) },
+                uMouseInfluence:{ value: isMobile ? 0 : 1.2 },
+                uParallax:      { value: 0.6 },
+                uNoise:         { value: isMobile ? 0 : 0.04 },
+                uIterations:    { value: isMobile ? 2 : 3 },
+                uIntensity:     { value: 1.5 },
+                uBandWidth:     { value: 8.5 }
+            },
+            transparent: true
+        });
+
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+
+        const clock = new THREE.Clock();
+        let autoRotateAngle = 0;
+        const autoRotateSpeed = 8;
+        const pointerTarget  = new THREE.Vector2(0, 0);
+        const pointerCurrent = new THREE.Vector2(0, 0);
+
+        let isVisible = true;
+        let rafId = null;
+
+        document.addEventListener('visibilitychange', () => {
+            isVisible = !document.hidden;
+            if (isVisible && rafId === null) scheduleFrame();
+        });
+
+        window.addEventListener('pointermove', (e) => {
+            pointerTarget.set((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1);
+        });
+
+        function animate() {
+            rafId = null;
+            if (!isVisible) return;
+
+            const delta = clock.getDelta();
+            const elapsed = clock.getElapsedTime();
+
+            pointerCurrent.lerp(pointerTarget, 0.08);
+            material.uniforms.uPointer.value.copy(pointerCurrent);
+
+            autoRotateAngle += autoRotateSpeed * delta;
+            const rad = autoRotateAngle * Math.PI / 180;
+            material.uniforms.uRot.value.set(Math.cos(rad), Math.sin(rad));
+
+            material.uniforms.uTime.value = elapsed;
+            renderer.render(scene, camera);
+            scheduleFrame();
+        }
+
+        function scheduleFrame() { rafId = requestAnimationFrame(animate); }
+
+        let resizeTimer = null;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                material.uniforms.uCanvas.value.set(window.innerWidth, window.innerHeight);
+            }, 100);
+        });
+
+        scheduleFrame();
+    </script>
 </body>
 </html>

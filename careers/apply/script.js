@@ -34,7 +34,6 @@ const jobs = {
         type: "Full Time",
         requirements: ["Digital Marketing", "Campaign Management", "Analytics", "Strategic Planning"]
     }
-    // ... other jobs
 };
   
 function displayJobDetails() {
@@ -62,39 +61,37 @@ function displayJobDetails() {
   
       container.innerHTML = `
         <div class="max-w-4xl mx-auto">
-          <h1 class="text-4xl font-bold mb-8 text-blue-500">${job.title}</h1>
+          <h1 class="text-4xl font-bold mb-8 text-white fade-in">${job.title}</h1>
           
-          <div class="bg-gray-800/50 p-8 rounded-xl mb-10 shadow-lg">
+          <div class="glass-card p-8 rounded-xl mb-10 shadow-lg">
             <div class="flex items-center gap-4 mb-6">
-              <div class="bg-blue-500/10 px-4 py-2 rounded-full">
-                <p class="text-blue-400 font-medium">${job.location}</p>
+              <div class="bg-gray-800/50 px-4 py-2 rounded-full border border-gray-700/50">
+                <p class="text-blue-400 font-medium"><i class="fas fa-map-marker-alt mr-1"></i> ${job.location}</p>
               </div>
-              <div class="bg-green-500/10 px-4 py-2 rounded-full">
-                <p class="text-green-400 font-medium">${job.type}</p>
+              <div class="bg-gray-800/50 px-4 py-2 rounded-full border border-gray-700/50">
+                <p class="text-green-400 font-medium"><i class="fas fa-clock mr-1"></i> ${job.type}</p>
               </div>
             </div>
 
             <section class="mb-8">
-              <h2 class="text-2xl font-semibold mb-4 text-gray-100">Job Description</h2>
+              <h2 class="text-2xl font-semibold mb-4 text-white">Job Description</h2>
               <p class="text-gray-300 leading-relaxed">${job.description}</p>
             </section>
 
             <section>
-              <h2 class="text-2xl font-semibold mb-4 text-gray-100">Requirements</h2>
+              <h2 class="text-2xl font-semibold mb-4 text-white">Requirements</h2>
               <ul class="grid grid-cols-2 gap-3">
                 ${job.requirements.map(req => `
                   <li class="flex items-center gap-2 text-gray-300">
-                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                    </svg>
+                    <i class="fas fa-check-circle text-blue-500"></i>
                     ${req}
                   </li>
                 `).join('')}
               </ul>
             </section>
           </div>
-          <div class="bg-gradient-to-b from-gray-900 to-gray-800 p-8 rounded-xl shadow-lg">
-            <h2 class="text-2xl font-semibold mb-6 text-gray-100">Apply Now</h2>
+          <div class="glass-card p-8 rounded-xl shadow-lg">
+            <h2 class="text-2xl font-semibold mb-6 text-white">Apply Now</h2>
             ${renderForm(job)}
           </div>
         </div>
@@ -117,26 +114,26 @@ function renderForm(job) {
         <div class="flex flex-col">
           <label for="name" class="text-gray-300 font-medium mb-2">Full Name</label>
           <input type="text" id="name" name="name" required 
-            class="bg-gray-700/50 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+            class="input-dark rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
         </div>
         
         <div class="flex flex-col">
           <label for="email" class="text-gray-300 font-medium mb-2">Email Address</label>
           <input type="email" id="email" name="email" required
-            class="bg-gray-700/50 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+            class="input-dark rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
         </div>
       </div>
 
       <div class="flex flex-col">
         <label for="resume" class="text-gray-300 font-medium mb-2">Resume/CV</label>
         <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required
-          class="bg-gray-700/50 rounded-lg p-3 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-500 file:text-white hover:file:bg-blue-600 transition">
+          class="input-dark rounded-lg p-3 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-500 file:text-white hover:file:bg-blue-600 transition">
       </div>
 
       <div class="flex flex-col">
         <label for="cover" class="text-gray-300 font-medium mb-2">Cover Letter</label>
         <textarea id="cover" name="cover" rows="4" required
-          class="bg-gray-700/50 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          class="input-dark rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
           placeholder="Tell us why you're the perfect fit for this role..."></textarea>
       </div>
 

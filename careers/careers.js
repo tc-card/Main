@@ -1,15 +1,36 @@
 // Initialize jobs array and render on page load
 document.addEventListener("DOMContentLoaded", () => {
   renderJobs();
-  initializeDarkMode();
+});
+
+document.querySelectorAll('.faq-button').forEach(button => {
+  button.addEventListener('click', () => {
+    const answer = button.nextElementSibling;
+    const arrow = button.querySelector('svg');
+    
+    // Toggle answer visibility
+    answer.classList.toggle('hidden');
+    
+    // Rotate arrow
+    arrow.style.transform = answer.classList.contains('hidden') 
+      ? 'rotate(0deg)' 
+      : 'rotate(180deg)';
+    
+    // Close other answers
+    document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
+      if (otherAnswer !== answer && !otherAnswer.classList.contains('hidden')) {
+        otherAnswer.classList.add('hidden');
+        otherAnswer.previousElementSibling.querySelector('svg').style.transform = 'rotate(0deg)';
+      }
+    });
+  });
 });
 
 const jobs = [
   {
     id: "junior-frontend-dev",
     title: "Junior Frontend Developer",
-    description:
-      "Join our team as a Frontend Developer! We're looking for candidates with experience in HTML, CSS and JavaScript. You'll work with modern frameworks like React and explore cutting-edge web technologies including NFC integration.",
+    description: "Join our team as a Frontend Developer! We're looking for candidates with experience in HTML, CSS and JavaScript. You'll work with modern frameworks like React and explore cutting-edge web technologies including NFC integration.",
     location: "Sfax",
     type: "Part-time/Flexible",
     requirements: ["HTML/CSS", "JavaScript", "React basics"],
@@ -17,8 +38,7 @@ const jobs = [
   {
     id: "junior-backend-dev",
     title: "Junior Backend Developer",
-    description:
-      "We're seeking a Backend Developer with foundational knowledge in Python and database management. Experience with PHP and data sorting algorithms is a plus. You'll learn enterprise-level database solutions like BigQuery and develop robust backend systems.",
+    description: "We're seeking a Backend Developer with foundational knowledge in Python and database management. Experience with PHP and data sorting algorithms is a plus.",
     location: "Sfax",
     type: "Part-time/Flexible",
     requirements: ["Python", "Basic SQL", "PHP"],
@@ -26,21 +46,15 @@ const jobs = [
   {
     id: "fullstack-dev",
     title: "Full Stack Developer",
-    description:
-      "Looking for developers with end-to-end application development experience. Ideal candidates have built complete web applications and are eager to learn professional development workflows, testing practices, and deployment strategies.",
+    description: "Looking for developers with end-to-end application development experience.",
     location: "Remote",
     type: "Part-time/Flexible",
-    requirements: [
-      "Frontend Development",
-      "Backend Development",
-      "Database Management",
-    ],
+    requirements: ["Frontend Development", "Backend Development", "Database Management"],
   },
   {
     id: "devops-engineer",
     title: "DevOps Engineer",
-    description:
-      "Join our DevOps team to build and maintain our automation infrastructure. You'll work on email campaign automation, monitoring systems, and help optimize our deployment pipelines using modern DevOps tools and practices.",
+    description: "Join our DevOps team to build and maintain our automation infrastructure.",
     location: "Remote",
     type: "Part-time/Flexible",
     requirements: ["CI/CD", "Monitoring Tools", "Automation Scripts"],
@@ -48,21 +62,14 @@ const jobs = [
   {
     id: "senior-marketing",
     title: "Senior Marketing Specialist",
-    description:
-      "Seeking an experienced marketing professional to lead our growth initiatives. The ideal candidate has proven success in digital marketing campaigns, strategic planning, and data-driven decision making. Help shape our marketing direction and drive measurable results.",
+    description: "Seeking an experienced marketing professional to lead our growth initiatives.",
     location: "Sfax",
     type: "Full Time",
-    requirements: [
-      "Digital Marketing",
-      "Campaign Management",
-      "Analytics",
-      "Strategic Planning",
-    ],
+    requirements: ["Digital Marketing", "Campaign Management", "Analytics", "Strategic Planning"],
   },
-  // ... other job objects ...
 ];
 
-// Improved renderJobs function with error handling
+// Improved renderJobs function with glass cards
 function renderJobs() {
   try {
     const container = document.getElementById("jobs-container");
@@ -71,23 +78,23 @@ function renderJobs() {
     container.innerHTML = jobs
       .map(
         (job) => `
-            <div class="bg-gray-800/50 p-6 rounded-xl fade-in relative hover:shadow-lg hover:bg-gray-700/50 transition-all duration-300">
+            <div class="glass-card p-6 rounded-xl fade-in relative hover:shadow-xl transition-all duration-300">
                 <a href="/careers/apply/?id=${job.id}" target="_blank">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-xl font-semibold">${job.title}</h3>
-                    <span class="text-gray-400">
+                    <h3 class="text-xl font-semibold text-white">${job.title}</h3>
+                    <span class="text-gray-400 text-sm">
                         <i class="fas fa-clock mr-1"></i>${job.type}
                     </span>
                 </div>
                 <div class="flex items-center mb-4">
                     <i class="fas fa-map-marker-alt text-gray-400 mr-2"></i>
-                    <p class="text-gray-400">${job.location}</p>
+                    <p class="text-gray-300">${job.location}</p>
                 </div>
                 <div class="flex flex-wrap gap-2 mb-6">
                     ${job.requirements
                       .map(
                         (req) => `
-                        <span class="bg-gray-700/50 px-3 py-1 rounded-full text-sm text-gray-300">
+                        <span class="bg-gray-800/50 px-3 py-1 rounded-full text-sm text-gray-300 border border-gray-700/50">
                             ${req}
                         </span>
                     `
@@ -95,7 +102,9 @@ function renderJobs() {
                       .join("")}
                 </div>
                 
-                    <i class="fas fa-arrow-right ml-2 hover:text-blue-600 hover:scale-150"></i>
+                    <span class="text-blue-400 font-medium text-sm flex items-center gap-2 hover:text-blue-300">
+                        Apply Now <i class="fas fa-arrow-right"></i>
+                    </span>
                 </a>
             </div>
         `
