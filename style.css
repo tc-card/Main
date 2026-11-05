@@ -139,6 +139,54 @@ body {
     width: 100%;
 }
 
+.pricing-plan-link {
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.pricing-plan-link:hover,
+.pricing-plan-link:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(58, 190, 249, 0.55);
+    outline: none;
+}
+
+@media (max-width: 768px) {
+    body {
+        background-attachment: scroll;
+    }
+
+    .header-wrapper,
+    .header-content {
+        min-height: auto;
+    }
+
+    .header-content {
+        padding: 7rem 1rem 4rem;
+    }
+
+    #color-bends-canvas {
+        opacity: 0.65;
+    }
+
+    .carousel {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .glass-effect {
+        border-radius: 1.5rem;
+        padding: 1.25rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pricing-plan-link {
+        transition: none;
+    }
+}
+
 /* Custom Cursors */
 .card-hover {
     cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👏</text></svg>") 16 0, auto;

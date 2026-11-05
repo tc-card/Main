@@ -112,6 +112,15 @@
       <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd"/>
     </svg>`;
 
+  function getPlanLink(link) {
+    const username = new URLSearchParams(window.location.search).get('username');
+    if (!username) return link;
+
+    const url = new URL(link, window.location.href);
+    url.searchParams.set('username', username);
+    return `${url.pathname}${url.search}${url.hash}`;
+  }
+
   // ─── Card generator ────────────────────────────────────
   // Every plan — free, paid, or coming-soon — renders through this one
   // function, so the markup for a "card" only ever lives in one place.
@@ -158,13 +167,13 @@
       `;
     } else if (plan.tier === "Free") {
       buttonHtml = `
-        <a href="${plan.link}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold ${colors.text} ring-1 ${colors.ring} hover:${colors.bg} hover:text-black transition-all duration-300">
+        <a href="${getPlanLink(plan.link)}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold ${colors.text} ring-1 ${colors.ring} hover:${colors.bg} hover:text-black transition-all duration-300">
           Start Free
         </a>
       `;
     } else {
       buttonHtml = `
-        <a href="${plan.link}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold ${colors.text} ring-1 ${colors.ring} hover:${colors.bg} ${colors.ttext} transition-all duration-300">
+        <a href="${getPlanLink(plan.link)}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold ${colors.text} ring-1 ${colors.ring} hover:${colors.bg} ${colors.ttext} transition-all duration-300">
           Get ${plan.tier} Plan
         </a>
       `;

@@ -39,8 +39,6 @@
   <link rel="shortcut icon" href="https://tccards.tn/Assets/152.png" type="image/x-icon">
   <link rel="icon" href="Assets/150.png" type="image/x-icon">
 
-  <link rel="preload" href="https://tccards.tn/Assets/TC-cards.mp4" as="video">
-
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
@@ -400,7 +398,6 @@
       </button>
     </div>
 
-    <!-- 底部提示 -->
     <p class="text-xs text-gray-400/80 mt-4 flex items-center justify-center gap-2">
       <span class="inline-block w-1.5 h-1.5 rounded-full bg-green-400"></span>
       Free to start • No credit card required • Instant setup
@@ -462,10 +459,10 @@
 
       <center>
         <div class="carousel max-w-6xl grid md:grid-cols-2 gap-8 items-center justify-center p-4">
-          <div class="p-2 min-h-48 min-w-48"><img src="https://www.gstatic.com/identity/boq/accountsettingsmobile/contacts_card_scene_316x112_30b26c263ec7d6c2839b403059092259.png" alt="Image 1" class="w-full h-64 object-contain"></div>
-          <div class="p-2 min-h-48 min-w-48"><img src="https://www.gstatic.com/identity/boq/accountsettingsmobile/aboutme_scene_316x112_371ea487b68d0298cc54522403223de1.png" alt="Image 2" class="w-full h-64 object-contain"></div>
-          <div class="p-2 min-h-48 min-w-48"><img src="https://www.gstatic.com/identity/boq/accountsettingsmobile/dataandpersonalization_scene_data_from_apps_and_services_360x128_877863d7f505d4450e595dcb69ccfb28.png" alt="Image 3" class="w-full h-64 object-contain"></div>
-          <div class="p-2 min-h-48 min-w-48"><img src="https://www.gstatic.com/identity/boq/accountsettingsmobile/profile_scene_visible_360x128_18500c161aac04e9279fbb234b7de818.png" alt="Image 4" class="w-full h-64 object-contain"></div>
+          <div class="p-2 min-h-48 min-w-48"><img loading="lazy" decoding="async" src="https://www.gstatic.com/identity/boq/accountsettingsmobile/contacts_card_scene_316x112_30b26c263ec7d6c2839b403059092259.png" alt="Image 1" class="w-full h-64 object-contain"></div>
+          <div class="p-2 min-h-48 min-w-48"><img loading="lazy" decoding="async" src="https://www.gstatic.com/identity/boq/accountsettingsmobile/aboutme_scene_316x112_371ea487b68d0298cc54522403223de1.png" alt="Image 2" class="w-full h-64 object-contain"></div>
+          <div class="p-2 min-h-48 min-w-48"><img loading="lazy" decoding="async" src="https://www.gstatic.com/identity/boq/accountsettingsmobile/dataandpersonalization_scene_data_from_apps_and_services_360x128_877863d7f505d4450e595dcb69ccfb28.png" alt="Image 3" class="w-full h-64 object-contain"></div>
+          <div class="p-2 min-h-48 min-w-48"><img loading="lazy" decoding="async" src="https://www.gstatic.com/identity/boq/accountsettingsmobile/profile_scene_visible_360x128_18500c161aac04e9279fbb234b7de818.png" alt="Image 4" class="w-full h-64 object-contain"></div>
         </div>
       </center>
 
@@ -525,7 +522,20 @@
       <div class="absolute top-0 right-0 w-64 h-64 -mt-32"></div>
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <div><h2 class="text-4xl md:text-5xl font-bold mb-6">Pricing That <br>Makes <span class="text-brand-blue">Sense</span>.</h2><p class="text-gray-400 mb-8 text-lg">Whether you're a freelancer or a global enterprise, we have a plan that fits your networking needs.</p><ul class="space-y-4 mb-10"><li class="flex items-center gap-3"><i class="fas fa-check text-brand-blue"></i><span>One-time payment for Basic cards</span></li><li class="flex items-center gap-3"><i class="fas fa-check text-brand-blue"></i><span>No hidden monthly fees</span></li><li class="flex items-center gap-3"><i class="fas fa-check text-brand-blue"></i><span>Free digital-only tier available</span></li></ul><a href="/plans/" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all duration-300 text-white h-10 px-4 rounded-lg hover:from-border-dark hover:to-border-light hover:shadow-lg hover:shadow-light-blue border-2 border-gray-700">View All Plans</a></div>
-        <div class="grid gap-4"><div class="p-6 rounded-2xl bg-white/5 border border-white/10 flex justify-between items-center group hover:bg-white/10 transition-colors"><div><h4 class="font-bold text-lg">Free</h4><p class="text-sm text-gray-500">Digital-only identity</p></div><div class="text-right"><div class="font-bold text-xl">0 TND</div><div class="text-xs text-gray-500">30 days</div></div></div><div class="p-6 rounded-2xl bg-brand-blue/10 border border-brand-blue/30 flex justify-between items-center group hover:bg-brand-blue/20 transition-colors"><div><h4 class="font-bold text-lg text-brand-blue">Basic</h4><p class="text-sm text-gray-500">Physical NFC Card + Profile</p></div><div class="text-right"><div class="font-bold text-xl text-brand-blue">34.9 TND</div><div class="text-xs text-gray-500">One-time</div></div></div><div class="p-6 rounded-2xl bg-white/5 border border-white/10 flex justify-between items-center group hover:bg-white/10 transition-colors opacity-60"><div><h4 class="font-bold text-lg">Standard</h4><p class="text-sm text-gray-500">Advanced Analytics + Custom Design</p></div><div class="text-right"><div class="font-bold text-xl">Coming Soon</div></div></div></div>
+        <div class="grid gap-4">
+          <a href="/plans/free/" class="pricing-plan-link p-6 rounded-2xl bg-white/5 border border-white/10 flex justify-between items-center group hover:bg-white/10 transition-colors" aria-label="Choose Free plan">
+            <div><h4 class="font-bold text-lg">Free</h4><p class="text-sm text-gray-500">Digital-only identity</p></div>
+            <div class="text-right"><div class="font-bold text-xl">0 TND</div><div class="text-xs text-gray-500">30 days</div></div>
+          </a>
+          <a href="/plans/basic/" class="pricing-plan-link p-6 rounded-2xl bg-brand-blue/10 border border-brand-blue/30 flex justify-between items-center group hover:bg-brand-blue/20 transition-colors" aria-label="Choose Basic plan">
+            <div><h4 class="font-bold text-lg text-brand-blue">Basic</h4><p class="text-sm text-gray-500">Physical NFC Card + Profile Dashboard</p></div>
+            <div class="text-right"><div class="font-bold text-xl text-brand-blue">34.9 TND</div><div class="text-xs text-gray-500">One-time</div></div>
+          </a>
+          <div class="p-6 rounded-2xl bg-white/5 border border-white/10 flex justify-between items-center opacity-60" aria-disabled="true">
+            <div><h4 class="font-bold text-lg">Standard</h4><p class="text-sm text-gray-500">Advanced Analytics + Custom Design</p></div>
+            <div class="text-right"><div class="font-bold text-xl">Coming Soon</div></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -565,9 +575,9 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="script.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script defer src="script.js"></script>
   <script>
   (function() {
     const input = document.getElementById('username-input');
@@ -602,7 +612,7 @@
         return;
       }
       // 跳转到免费套餐注册页，带上用户名参数
-      window.location.href = '/plans/free/#start?username=' + encodeURIComponent(name);
+      window.location.href = '/plans/?username=' + encodeURIComponent(name) + '#pricing';
     }
 
     goBtn.addEventListener('click', goToOnboarding);

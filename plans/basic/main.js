@@ -8,6 +8,20 @@ const FADE_OUT_DURATION = '0.3s';
 const TRANSITION_TIMING = 'ease-in-out';
 const NAVIGATION_DELAY = 500;
 
+function getUsernameFromUrl() {
+  const queryUsername = new URLSearchParams(window.location.search).get('username');
+  if (queryUsername) return queryUsername.trim();
+
+  const hashQuery = window.location.hash.split('?')[1];
+  return hashQuery ? (new URLSearchParams(hashQuery).get('username') || '').trim() : '';
+}
+
+function prefillUsername() {
+  const input = document.getElementById('user-link');
+  const username = getUsernameFromUrl();
+  if (input && username && !input.value) input.value = username;
+}
+
 // Initial setup - hide elements before animation
 fadeInElements.forEach(element => {
     element.style.opacity = '0';
@@ -16,6 +30,7 @@ fadeInElements.forEach(element => {
 
 // Fade in elements when DOM is ready 
 document.addEventListener('DOMContentLoaded', () => {
+  prefillUsername();
     requestAnimationFrame(() => {
         fadeInElements.forEach(element => {
             element.style.opacity = '1';
