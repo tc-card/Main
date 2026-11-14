@@ -8,12 +8,20 @@ const REFERRAL_CODES = [
     label: "Discount"
   },
   {
-    code: "EVENT24",
-    validFrom: "2026-08-01",
-    validTo: "2026-08-15",
+    code: "GMC26",
+    validFrom: "2026-08-08",
+    validTo: "2026-08-10",
     type: "event",
-    value: "TechSummit 2026",
-    label: "Tech Summit 2026"
+    value: "AI MEET TN",
+    label: "GMC MEET AI&STARTUP"
+  },
+  {
+    code: "NAU-26",
+    validFrom: "2026-08-08",
+    validTo: "2026-08-10",
+    type: "Free",
+    value: "Ali wants feedback",
+    label: "share the idea and share your thoughts"
   }
 ];
 
@@ -230,1032 +238,125 @@ function createDefaultEmailBody(name, address, link, phone, profilePic, codeDeta
   
   return html;
 }
-function createEmailBody(name ,address ,link, phone ,profilePic) {
+function createEmailBody(name, address, link, phone, profilePic) {
   return `
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-              * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-      }
-      body {
-        font-family:
-          Inter,
-          -apple-system,
-          BlinkMacSystemFont,
-          sans-serif;
-        line-height: 1.6;
-        background-color: rgb(15, 23, 42);
-        margin-top: 0px;
-        margin-right: 0px;
-        margin-bottom: 0px;
-        margin-left: 0px;
-        padding-top: 0px;
-        padding-right: 0px;
-        padding-bottom: 0px;
-        padding-left: 0px;
-        -webkit-font-smoothing: antialiased;
-        color: white !important;
-      }
-      .container {
-        max-width: 600px;
-        margin-top: 0px;
-        margin-right: auto;
-        margin-bottom: 0px;
-        margin-left: auto;
-        padding-top: 0px;
-        padding-right: 20px;
-        padding-bottom: 0px;
-        padding-left: 20px;
-      }
-      .card {
-        background-image: linear-gradient(145deg, rgb(30, 41, 59), rgb(15, 23, 42));
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-repeat: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: initial;
-        border-top-left-radius: 16px;
-        border-top-right-radius: 16px;
-        border-bottom-right-radius: 16px;
-        border-bottom-left-radius: 16px;
-        margin-top: 40px;
-        margin-right: auto;
-        margin-bottom: 40px;
-        margin-left: auto;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 25px -5px;
-        border-top-width: 1px;
-        border-right-width: 1px;
-        border-bottom-width: 1px;
-        border-left-width: 1px;
-        border-top-style: solid;
-        border-right-style: solid;
-        border-bottom-style: solid;
-        border-left-style: solid;
-        border-top-color: rgba(255, 255, 255, 0.05);
-        border-right-color: rgba(255, 255, 255, 0.05);
-        border-bottom-color: rgba(255, 255, 255, 0.05);
-        border-left-color: rgba(255, 255, 255, 0.05);
-        border-image-source: none;
-        border-image-slice: 100%;
-        border-image-width: 1;
-        border-image-outset: 0;
-        border-image-repeat: stretch;
-      }
-      .header {
-        padding-top: 40px;
-        padding-right: 30px;
-        padding-bottom: 30px;
-        padding-left: 30px;
-        text-align: center;
-        background-image: linear-gradient(
-          135deg,
-          rgb(110, 72, 170),
-          rgb(157, 80, 187)
-        );
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-repeat: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: initial;
-        position: relative;
-        overflow-x: hidden;
-        overflow-y: hidden;
-      }
-      .header::after {
-        content: "";
-        position: absolute;
-        top: -50%;
-        right: -50%;
-        width: 100%;
-        height: 200%;
-        background-image: radial-gradient(
-          circle,
-          rgba(255, 255, 255, 0.1) 0%,
-          transparent 70%
-        );
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-repeat: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: initial;
-        transform: rotate(30deg);
-      }
-      .content {
-        padding-top: 30px;
-        padding-right: 30px;
-        padding-bottom: 30px;
-        padding-left: 30px;
-      }
-      .avatar-container {
-        position: relative;
-        width: 110px;
-        height: 110px;
-        margin-top: 0px;
-        margin-right: auto;
-        margin-bottom: 20px;
-        margin-left: auto;
-      }
-      .avatar {
-        width: 100%;
-        height: 100%;
-        border-top-left-radius: 50%;
-        border-top-right-radius: 50%;
-        border-bottom-right-radius: 50%;
-        border-bottom-left-radius: 50%;
-        object-fit: cover;
-        border-top-width: 3px;
-        border-right-width: 3px;
-        border-bottom-width: 3px;
-        border-left-width: 3px;
-        border-top-style: solid;
-        border-right-style: solid;
-        border-bottom-style: solid;
-        border-left-style: solid;
-        border-top-color: rgba(255, 255, 255, 0.15);
-        border-right-color: rgba(255, 255, 255, 0.15);
-        border-bottom-color: rgba(255, 255, 255, 0.15);
-        border-left-color: rgba(255, 255, 255, 0.15);
-        border-image-source: none;
-        border-image-slice: 100%;
-        border-image-width: 1;
-        border-image-outset: 0;
-        border-image-repeat: stretch;
-        display: block;
-        transition-behavior: normal;
-        transition-duration: 0.3s;
-        transition-timing-function: ease;
-        transition-delay: 0s;
-        transition-property: all;
-        position: relative;
-        z-index: 2;
-      }
-      .avatar-container::before {
-        content: "";
-        position: absolute;
-        top: -5px;
-        left: -5px;
-        right: -5px;
-        bottom: -5px;
-        background-image: linear-gradient(
-          45deg,
-          rgb(110, 72, 170),
-          rgb(183, 148, 244)
-        );
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-repeat: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: initial;
-        border-top-left-radius: 50%;
-        border-top-right-radius: 50%;
-        border-bottom-right-radius: 50%;
-        border-bottom-left-radius: 50%;
-        z-index: 1;
-        opacity: 0.7;
-        transition-behavior: normal;
-        transition-duration: 0.3s;
-        transition-timing-function: ease;
-        transition-delay: 0s;
-        transition-property: all;
-      }
-      .avatar-container:hover::before {
-        top: -8px;
-        left: -8px;
-        right: -8px;
-        bottom: -8px;
-        opacity: 0.9;
-      }
-      .avatar-container:hover .avatar {
-        transform: scale(1.05);
-        box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 15px;
-      }
-      h1 {
-        font-size: 26px;
-        font-weight: 700;
-        margin-top: 0px;
-        margin-right: 0px;
-        margin-bottom: 10px;
-        margin-left: 0px;
-        color: white;
-        position: relative;
-        z-index: 2;
-      }
-      .subtitle {
-        font-size: 16px;
-        color: rgba(255, 255, 255, 0.8);
-        margin-top: 0px;
-        margin-right: 0px;
-        margin-bottom: 20px;
-        margin-left: 0px;
-        position: relative;
-        z-index: 2;
-      }
-      .user-link {
-        display: inline-block;
-        background-image: initial;
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-repeat: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: rgba(255, 255, 255, 0.1);
-        color: white;
-        padding-top: 10px;
-        padding-right: 20px;
-        padding-bottom: 10px;
-        padding-left: 20px;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-        border-bottom-right-radius: 8px;
-        border-bottom-left-radius: 8px;
-        font-weight: 600;
-        margin-top: 10px;
-        margin-right: 0px;
-        margin-bottom: 10px;
-        margin-left: 0px;
-        text-decoration-line: none;
-        text-decoration-thickness: initial;
-        text-decoration-style: initial;
-        text-decoration-color: initial;
-        transition-behavior: normal;
-        transition-duration: 0.2s;
-        transition-timing-function: ease;
-        transition-delay: 0s;
-        transition-property: all;
-        border-top-width: 1px;
-        border-right-width: 1px;
-        border-bottom-width: 1px;
-        border-left-width: 1px;
-        border-top-style: solid;
-        border-right-style: solid;
-        border-bottom-style: solid;
-        border-left-style: solid;
-        border-top-color: rgba(255, 255, 255, 0.2);
-        border-right-color: rgba(255, 255, 255, 0.2);
-        border-bottom-color: rgba(255, 255, 255, 0.2);
-        border-left-color: rgba(255, 255, 255, 0.2);
-        border-image-source: none;
-        border-image-slice: 100%;
-        border-image-width: 1;
-        border-image-outset: 0;
-        border-image-repeat: stretch;
-        position: relative;
-        z-index: 2;
-      }
-      .user-link:hover {
-        background-image: initial;
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-repeat: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: rgba(255, 255, 255, 0.2);
-        transform: translateY(-2px);
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
-      }
-      .notice-box {
-        background-image: initial;
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-repeat: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: rgba(30, 64, 175, 0.1);
-        border-left-width: 4px;
-        border-left-style: solid;
-        border-left-color: rgb(110, 72, 170);
-        padding-top: 14px;
-        padding-right: 18px;
-        padding-bottom: 14px;
-        padding-left: 18px;
-        border-top-left-radius: 0px;
-        border-top-right-radius: 8px;
-        border-bottom-right-radius: 8px;
-        border-bottom-left-radius: 0px;
-        margin-top: 25px;
-        margin-right: 0px;
-        margin-bottom: 25px;
-        margin-left: 0px;
-        display: flex;
-        align-items: center;
-        row-gap: 12px;
-        column-gap: 12px;
-        transition-behavior: normal;
-        transition-duration: 0.3s;
-        transition-timing-function: ease;
-        transition-delay: 0s;
-        transition-property: all;
-      }
-      .notice-box:hover {
-        transform: translateX(5px);
-        box-shadow: rgba(110, 72, 170, 0.3) 5px 0px 15px -5px;
-      }
-      .notice-icon {
-        font-size: 20px;
-        color: rgb(183, 148, 244);
-      }
-      .table-container {
-        margin-top: 30px;
-        margin-right: 0px;
-        margin-bottom: 30px;
-        margin-left: 0px;
-        background-image: initial;
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-repeat: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: rgba(30, 41, 59, 0.5);
-        border-top-left-radius: 12px;
-        border-top-right-radius: 12px;
-        border-bottom-right-radius: 12px;
-        border-bottom-left-radius: 12px;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        border-top-width: 1px;
-        border-right-width: 1px;
-        border-bottom-width: 1px;
-        border-left-width: 1px;
-        border-top-style: solid;
-        border-right-style: solid;
-        border-bottom-style: solid;
-        border-left-style: solid;
-        border-top-color: rgba(255, 255, 255, 0.05);
-        border-right-color: rgba(255, 255, 255, 0.05);
-        border-bottom-color: rgba(255, 255, 255, 0.05);
-        border-left-color: rgba(255, 255, 255, 0.05);
-        border-image-source: none;
-        border-image-slice: 100%;
-        border-image-width: 1;
-        border-image-outset: 0;
-        border-image-repeat: stretch;
-        transition-behavior: normal;
-        transition-duration: 0.3s;
-        transition-timing-function: ease;
-        transition-delay: 0s;
-        transition-property: all;
-      }
-      .table-container:hover {
-        transform: translateY(-3px);
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 20px -5px;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      th,
-      td {
-        padding-top: 18px;
-        padding-right: 18px;
-        padding-bottom: 18px;
-        padding-left: 18px;
-        text-align: left;
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        border-bottom-color: rgba(255, 255, 255, 0.05);
-      }
-      th {
-        background-color: rgba(110, 72, 170, 0.2);
-        color: rgb(183, 148, 244);
-        font-weight: 600;
-        width: 35%;
-      }
-      td {
-        color: rgb(226, 232, 240);
-        vertical-align: top;
-      }
-      .badge {
-        display: inline-block;
-        padding-top: 6px;
-        padding-right: 12px;
-        padding-bottom: 6px;
-        padding-left: 12px;
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
-        border-bottom-right-radius: 6px;
-        border-bottom-left-radius: 6px;
-        font-size: 14px;
-        font-weight: 600;
-        margin-bottom: 5px;
-      }
-      .badge-basic {
-        background-image: initial;
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-repeat: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: rgba(110, 72, 170, 0.2);
-        color: rgb(183, 148, 244);
-        border-top-width: 1px;
-        border-right-width: 1px;
-        border-bottom-width: 1px;
-        border-left-width: 1px;
-        border-top-style: solid;
-        border-right-style: solid;
-        border-bottom-style: solid;
-        border-left-style: solid;
-        border-top-color: rgba(183, 148, 244, 0.3);
-        border-right-color: rgba(183, 148, 244, 0.3);
-        border-bottom-color: rgba(183, 148, 244, 0.3);
-        border-left-color: rgba(183, 148, 244, 0.3);
-        border-image-source: none;
-        border-image-slice: 100%;
-        border-image-width: 1;
-        border-image-outset: 0;
-        border-image-repeat: stretch;
-      }
-      .feature-list {
-        margin-top: 0px;
-        margin-right: 0px;
-        margin-bottom: 0px;
-        margin-left: 0px;
-        padding-left: 0px;
-        list-style-type: none;
-      }
-      .feature-list li {
-        position: relative;
-        padding-left: 20px;
-        margin-bottom: 8px;
-      }
-      .feature-list li::before {
-        content: "•";
-        position: absolute;
-        left: 0px;
-        color: rgb(183, 148, 244);
-        font-weight: bold;
-      }
-      .delivery-card {
-        background-image: initial;
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-repeat: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: rgba(30, 41, 59, 0.5);
-        border-top-left-radius: 12px;
-        border-top-right-radius: 12px;
-        border-bottom-right-radius: 12px;
-        border-bottom-left-radius: 12px;
-        padding-top: 20px;
-        padding-right: 20px;
-        padding-bottom: 20px;
-        padding-left: 20px;
-        margin-top: 30px;
-        margin-right: 0px;
-        margin-bottom: 30px;
-        margin-left: 0px;
-        border-top-width: 1px;
-        border-right-width: 1px;
-        border-bottom-width: 1px;
-        border-left-width: 1px;
-        border-top-style: dashed;
-        border-right-style: dashed;
-        border-bottom-style: dashed;
-        border-left-style: dashed;
-        border-top-color: rgba(183, 148, 244, 0.3);
-        border-right-color: rgba(183, 148, 244, 0.3);
-        border-bottom-color: rgba(183, 148, 244, 0.3);
-        border-left-color: rgba(183, 148, 244, 0.3);
-        border-image-source: none;
-        border-image-slice: 100%;
-        border-image-width: 1;
-        border-image-outset: 0;
-        border-image-repeat: stretch;
-        transition-behavior: normal;
-        transition-duration: 0.3s;
-        transition-timing-function: ease;
-        transition-delay: 0s;
-        transition-property: all;
-      }
-      .delivery-card:hover {
-        border-top-style: solid;
-        border-right-style: solid;
-        border-bottom-style: solid;
-        border-left-style: solid;
-        transform: translateY(-3px);
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 20px -5px;
-      }
-      .delivery-header {
-        display: flex;
-        align-items: center;
-        row-gap: 12px;
-        column-gap: 12px;
-        margin-bottom: 18px;
-      }
-      .delivery-icon {
-        font-size: 24px;
-        color: rgb(183, 148, 244);
-      }
-      .delivery-title {
-        font-weight: 600;
-        color: white;
-        font-size: 18px;
-      }
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding-top: 14px;
-        padding-right: 24px;
-        padding-bottom: 14px;
-        padding-left: 24px;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-        border-bottom-right-radius: 8px;
-        border-bottom-left-radius: 8px;
-        font-weight: 600;
-        margin-top: 5px;
-        margin-right: 5px;
-        margin-bottom: 5px;
-        margin-left: 5px;
-        text-decoration-line: none;
-        text-decoration-thickness: initial;
-        text-decoration-style: initial;
-        text-decoration-color: initial;
-        text-align: center;
-        transition-behavior: normal;
-        transition-duration: 0.2s;
-        transition-timing-function: ease;
-        transition-delay: 0s;
-        transition-property: all;
-        border-top-width: medium;
-        border-right-width: medium;
-        border-bottom-width: medium;
-        border-left-width: medium;
-        border-top-style: none;
-        border-right-style: none;
-        border-bottom-style: none;
-        border-left-style: none;
-        border-top-color: currentcolor;
-        border-right-color: currentcolor;
-        border-bottom-color: currentcolor;
-        border-left-color: currentcolor;
-        border-image-source: none;
-        border-image-slice: 100%;
-        border-image-width: 1;
-        border-image-outset: 0;
-        border-image-repeat: stretch;
-        cursor: pointer;
-        font-size: 15px;
-      }
-      .btn-primary {
-        background-image: initial;
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-repeat: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: rgb(110, 72, 170);
-        color: white;
-      }
-      .btn-primary:hover {
-        background-image: initial;
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-repeat: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: rgb(93, 61, 153);
-        box-shadow: rgba(110, 72, 170, 0.4) 0px 6px 15px;
-        transform: translateY(-2px);
-      }
-      .btn-secondary {
-        background-image: initial;
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-repeat: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: rgba(30, 41, 59, 0.5);
-        color: rgb(183, 148, 244);
-        border-top-width: 1px;
-        border-right-width: 1px;
-        border-bottom-width: 1px;
-        border-left-width: 1px;
-        border-top-style: solid;
-        border-right-style: solid;
-        border-bottom-style: solid;
-        border-left-style: solid;
-        border-top-color: rgba(183, 148, 244, 0.3);
-        border-right-color: rgba(183, 148, 244, 0.3);
-        border-bottom-color: rgba(183, 148, 244, 0.3);
-        border-left-color: rgba(183, 148, 244, 0.3);
-        border-image-source: none;
-        border-image-slice: 100%;
-        border-image-width: 1;
-        border-image-outset: 0;
-        border-image-repeat: stretch;
-      }
-      .btn-secondary:hover {
-        background-image: initial;
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-repeat: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: rgba(110, 72, 170, 0.1);
-        box-shadow: rgba(110, 72, 170, 0.2) 0px 6px 15px;
-        transform: translateY(-2px);
-      }
-      .action-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        row-gap: 15px;
-        column-gap: 15px;
-        margin-top: 30px;
-        margin-right: 0px;
-        margin-bottom: 30px;
-        margin-left: 0px;
-      }
-      .footer {
-        text-align: center;
-        padding-top: 25px;
-        padding-right: 20px;
-        padding-bottom: 25px;
-        padding-left: 20px;
-        color: rgb(148, 163, 184);
-        font-size: 14px;
-        line-height: 1.6;
-      }
-      .animate {
-        animation-duration: 0.6s;
-        animation-timing-function: ease;
-        animation-delay: 0s;
-        animation-iteration-count: 1;
-        animation-direction: normal;
-        animation-fill-mode: forwards;
-        animation-play-state: running;
-        animation-name: fadeIn;
-        animation-timeline: auto;
-        animation-range-start: normal;
-        animation-range-end: normal;
-      }
-      .delay-1 {
-        animation-delay: 0.1s;
-      }
-      .delay-2 {
-        animation-delay: 0.2s;
-      }
-      .delay-3 {
-        animation-delay: 0.3s;
-      }
-      #im6tt {
-        color: #fff;
-      }
-      #ia69c {
-        color: #fff;
-      }
-      #i439k {
-        width: 100%;
-        border-collapse: collapse;
-        border: none;
-      }
-      #iu6gd {
-        width: 130px;
-        color: #94a3b8;
-        font-weight: 500;
-        padding: 8px 0;
-        vertical-align: top;
-      }
-      #iphq8 {
-        color: #e2e8f0;
-        padding: 8px 0;
-        vertical-align: top;
-      }
-      #id3o3 {
-        width: 130px;
-        color: #94a3b8;
-        font-weight: 500;
-        padding: 8px 0;
-        vertical-align: top;
-      }
-      #is30p {
-        color: #e2e8f0;
-        padding: 8px 0;
-        vertical-align: top;
-      }
-      #iqeku {
-        width: 130px;
-        color: #94a3b8;
-        font-weight: 500;
-        padding: 8px 0;
-        vertical-align: top;
-      }
-      #icowf {
-        color: #e2e8f0;
-        padding: 8px 0;
-        vertical-align: top;
-      }
-      #ipnng {
-        width: 130px;
-        color: #94a3b8;
-        font-weight: 500;
-        padding: 8px 0;
-        vertical-align: top;
-      }
-      #i3dpw {
-        color: #e2e8f0;
-        padding: 8px 0;
-        vertical-align: top;
-      }
-      #iqozg {
-        width: 100%;
-        border-collapse: collapse;
-        border: none;
-      }
-      #if9ya {
-        width: 130px;
-        color: #94a3b8;
-        font-weight: 500;
-        padding: 8px 0;
-        vertical-align: top;
-      }
-      #itgzp {
-        color: #e2e8f0;
-        padding: 8px 0;
-        vertical-align: top;
-      }
-      #ic71k {
-        width: 130px;
-        color: #94a3b8;
-        font-weight: 500;
-        padding: 8px 0;
-        vertical-align: top;
-      }
-      #i1c6yq {
-        color: #e2e8f0;
-        padding: 8px 0;
-        vertical-align: top;
-      }
-      #is2yeh {
-        width: 130px;
-        color: #94a3b8;
-        font-weight: 500;
-        padding: 8px 0;
-        vertical-align: top;
-      }
-      #iu7kkq {
-        color: #e2e8f0;
-        padding: 8px 0;
-        vertical-align: top;
-      }
-      #ikf5z3 {
-        color: #fff;
-      }
-      #id9whu {
-        color: #fff;
-      }
-      #inam9d {
-        text-align: center;
-        font-size: 14px;
-        color: #94a3b8;
-        margin-top: 10px;
-      }
-      #iufs7m {
-        color: #b794f4;
-        text-decoration: none;
-        font-weight: 500;
-      }
-      #ir9zow {
-        margin-top: 15px;
-      }
-      #iyhx05 {
-        color: #94a3b8;
-        text-decoration: underline;
-      }
-      #inbcn6 {
-        color: #94a3b8;
-        text-decoration: underline;
-      }
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0px);
-        }
-      }
-      @media (max-width: 480px) {
-        .header {
-          padding-top: 30px;
-          padding-right: 20px;
-          padding-bottom: 30px;
-          padding-left: 20px;
-        }
-        .content {
-          padding-top: 25px;
-          padding-right: 20px;
-          padding-bottom: 25px;
-          padding-left: 20px;
-        }
-        th,
-        td {
-          padding-top: 14px;
-          padding-right: 12px;
-          padding-bottom: 14px;
-          padding-left: 12px;
-          display: block;
-          width: 100%;
-        }
-        th {
-          border-bottom-width: medium;
-          border-bottom-style: none;
-          border-bottom-color: currentcolor;
-          padding-bottom: 5px;
-        }
-        td {
-          padding-top: 5px;
-          padding-bottom: 15px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <div class="container">
-      <div class="card">
-        <div class="header">
-          <div class="avatar-container animate">
-            <img
-              src="${profilePic || 'https://via.placeholder.com/150/1e293b/b794f4?text=TC'}"
-              alt="${name}'s Profile Picture"
-              class="avatar"
-            />
-          </div>
-          <h1 class="animate delay-1">Your Digital Card is Ready! 🎉</h1>
-          <p class="subtitle animate delay-1">
-            Connect with style and simplicity
-          </p>
-          <a
-            href="https://card.tccards.tn/@${link}"
-            class="user-link animate delay-2"
-            id="im6tt"
-            >card.tccards.tn/@${link}</a
-          >
-        </div>
-        <div class="content">
-          <div class="notice-box animate delay-2">
-            <span class="notice-icon">✨</span
-            ><span id="ia69c"
-              >Your digital profile will be activated within 24 hours of payment
-              confirmation!</span
-            >
-          </div>
-          <div class="table-container animate delay-1">
-            <table>
-              <tbody>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark">
+<title>Order Received</title>
+<style>
+p { color: #171717 !important; font-size: 14px !important; line-height: 24px !important; margin: 0 0 16px 0 !important; }
+h1 { color: #171717 !important; font-size: 24px !important; line-height: 32px !important; font-weight: 600 !important; letter-spacing: -0.02em !important; margin: 0 0 24px 0 !important; padding: 0 !important; }
+a { color: #0067D6 !important; text-decoration: none !important; }
+strong { color: #171717 !important; font-weight: 600 !important; }
+hr { border-top: 1px solid #E6E6E6 !important; border-bottom: none !important; border-left: none !important; border-right: none !important; }
+.footer-text { color: #7D7D7D !important; font-size: 12px !important; line-height: 1.5 !important; margin: 0 0 8px 0 !important; }
+.footer-text a { color: #7D7D7D !important; text-decoration: underline !important; font-weight: 400 !important; }
+.brand-logo { display: block; filter: invert(0); }
+.detail-label { color: #7D7D7D !important; font-size: 13px !important; line-height: 20px !important; }
+.detail-value { color: #171717 !important; font-size: 14px !important; line-height: 20px !important; }
+.btn-link { color: #ffffff !important; text-decoration: none !important; }
+
+@media (prefers-color-scheme: dark) {
+  html, body { background-color: #0A0A0A !important; }
+  body, p, td, th, span { color: #ededed !important; }
+  h1, strong { color: #ffffff !important; }
+  a { color: #4da3ff !important; }
+  .footer-text, .footer-text p { color: #7D7D7D !important; }
+  .footer-text a { color: #7D7D7D !important; }
+  hr { border-top-color: #333333 !important; }
+  .brand-logo { filter: invert(1) !important; }
+  .tccards-details-block { background-color: #1F1F1F !important; color: #ffffff !important; }
+  .detail-label { color: #8F8F8F !important; }
+  .detail-value { color: #EDEDED !important; }
+  .btn-link { color: #ffffff !important; }
+}
+</style>
+</head>
+<body style="background-color:#ffffff; margin:0; padding:0;">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="width:100% !important;">
+  <tr>
+    <td align="center">
+      <table style="margin:40px 0;" width="600" border="0" cellspacing="0" cellpadding="40">
+        <tr>
+          <td align="center">
+            <div style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; text-align:left; width:465px;">
+
+              <div style="margin-bottom:48px">
+                <img src="https://edit.tccards.tn/Assets/images/logo.png" width="24" height="21" alt="tccards.tn" class="brand-logo">
+              </div>
+
+              ${profilePic ? `<div style="margin-bottom:24px"><img src="${profilePic}" width="48" height="48" alt="${name}" style="display:block; border-radius:50%; object-fit:cover;"></div>` : ''}
+
+              <h1>Order received, <strong>${name}</strong>!</h1>
+              <p>Thanks for your order — we've received it. Our team will reach out to you soon to confirm the details with you.</p>
+              <p>Here are the details we have on file:</p>
+
+              <!-- Details Block -->
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" style="width:100% !important; margin:24px 0;">
                 <tr>
-                  <th>Plan Name</th>
-                  <td><span class="badge badge-basic">Basic Plan</span></td>
-                </tr>
-                <tr>
-                  <th>Features</th>
-                  <td>
-                    <ul class="feature-list">
-                      <li>Basic Digital Profile</li>
-                      <li>Editing dashboard</li>
-                      <li>1 NFC Card (shipping soon)</li>
-                      <li>6 Media links</li>
-                      <li>Basic analytics</li>
-                    </ul>
+                  <td bgcolor="#F2F2F2" class="tccards-details-block" style="border-radius:8px; padding:20px 24px; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="width:100% !important;">
+                      <tr>
+                        <td class="detail-label" width="140" style="padding:8px 0; vertical-align:top;">Name</td>
+                        <td class="detail-value" style="padding:8px 0; vertical-align:top;">${name}</td>
+                      </tr>
+                      <tr>
+                        <td class="detail-label" style="padding:8px 0; vertical-align:top;">Digital Card</td>
+                        <td class="detail-value" style="padding:8px 0; vertical-align:top; word-break:break-all;">
+                          <a href="https://card.tccards.tn/@${link}" target="_blank">card.tccards.tn/@${link}</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="detail-label" style="padding:8px 0; vertical-align:top;">Shipping Address</td>
+                        <td class="detail-value" style="padding:8px 0; vertical-align:top;">${address || 'The address you provided on your card'}</td>
+                      </tr>
+                      <tr>
+                        <td class="detail-label" style="padding:8px 0; vertical-align:top;">Phone</td>
+                        <td class="detail-value" style="padding:8px 0; vertical-align:top;">${phone || 'The number you provided'}</td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="delivery-card animate delay-2">
-            <div class="delivery-header">
-              <span class="delivery-icon">📦</span
-              ><span class="delivery-title">NFC Card Delivery</span>
+              </table>
+
+              <p>You don't need to do anything right now. We'll confirm your order with you before anything ships.</p>
+
+              <!-- Button -->
+              <table border="0" cellspacing="0" cellpadding="0" style="margin:8px 0 0 0;">
+                <tr>
+                  <td align="center" bgcolor="#0067D6" style="border-radius:6px;">
+                    <a href="https://card.tccards.tn/@${link}" target="_blank" class="btn-link" style="display:inline-block; padding:12px 24px; font-size:14px; font-weight:600; line-height:20px; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;">View My Digital Card</a>
+                  </td>
+                </tr>
+              </table>
+
+              <hr style="margin:44px 0 32px 0; width:100%;">
+
+              <!-- Footer -->
+              <p class="footer-text" style="margin-bottom: 20px;">
+                <strong>Need help?</strong> If you have any questions about this order, reply to this email or contact us at <a href="mailto:info@tccards.tn">info@tccards.tn</a>.
+              </p>
+
+              <p class="footer-text">
+                &copy; ${new Date().getFullYear()} <a href="https://tccards.tn" target="_blank">tccards.tn</a>. All rights reserved.<br>
+                This is an automated message, please do not reply to this email.
+              </p>
+
             </div>
-            <table id="i439k">
-              <tbody>
-                <tr>
-                  <td id="iu6gd">Status</td>
-                  <td id="iphq8">Preparing for shipment</td>
-                </tr>
-                <tr>
-                  <td id="id3o3">Estimated Delivery</td>
-                  <td id="is30p">3-7 business days</td>
-                </tr>
-                <tr>
-                  <td id="iqeku">Shipping Address</td>
-                  <td id="icowf">
-                    ${address || 'The address you provided on your card'}
-                  </td>
-                </tr>
-                <tr>
-                  <td id="ipnng">Tracking</td>
-                  <td id="i3dpw">
-                    You will be contacted by our delivery team via phone:
-                    <strong>${phone || 'the number you provided'}</strong>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="delivery-card animate delay-2">
-            <div class="delivery-header">
-              <span class="delivery-icon">🚚</span
-              ><span class="delivery-title">Payment Options</span>
-            </div>
-            <table id="iqozg">
-              <tbody>
-                <tr>
-                  <td id="if9ya">In Person 🧑🏻</td>
-                  <td id="itgzp">Delivery: 7dt</td>
-                </tr>
-                <tr>
-                  <td id="ic71k">Your Card</td>
-                  <td id="i1c6yq">At 65dt</td>
-                </tr>
-                <tr>
-                  <td id="is2yeh">Discounts ?</td>
-                  <td id="iu7kkq">
-                    If you entered a valid referral code, you have a 10%
-                    discount on your card
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="action-grid animate delay-3">
-            <a
-              href="https://card.tccards.tn/@${link}"
-              class="btn btn-primary"
-              id="ikf5z3"
-            >
-              View My Digital Card </a
-            ><a
-              href="https://edit.tccards.tn/"
-              class="btn btn-secondary"
-              id="id9whu"
-            >
-              Edit My Profile
-            </a>
-          </div>
-          <p id="inam9d">
-            Need help?
-            <a href="mailto:info@tccards.tn" id="iufs7m"
-              >Contact our support team</a
-            >
-          </p>
-        </div>
-      </div>
-      <div class="footer">
-        <p>
-          © ${new Date().getFullYear()} Total Connect. All rights reserved.
-        </p>
-        <p id="ir9zow">
-          <a href="https://tccards.tn/pp" id="iyhx05">Privacy Policy</a> •
-          <a href="https://edit.tccards.tn" id="inbcn6">Seek Help</a>
-        </p>
-      </div>
-    </div>
-  </body>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+</body>
 </html>
 `;
 }
