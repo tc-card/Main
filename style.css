@@ -35,6 +35,145 @@ body {
 }
 .fade-in { animation: fadeIn 1s ease-in-out; }
 
+
+    /* ── Navigation ──────────────────────────────────── */
+    .nav-container {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      right: 1rem;
+      z-index: 9999;
+      max-width: 80rem;
+      margin: 0 auto;
+      width: calc(100% - 2rem);
+      border-radius: 1rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      transition: background 0.3s ease;
+    }
+
+    .nav-container.scrolled {
+      background: rgba(0, 0, 0, 0.75);
+    }
+
+    @media (min-width: 768px) {
+      .nav-container {
+        left: 2rem;
+        right: 2rem;
+        width: auto;
+      }
+    }
+
+    .nav-link {
+      position: relative;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.5);
+      transition: color 0.3s ease;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+    }
+
+    .nav-link:hover {
+      color: #3ABEF9;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-link.active {
+      color: #3ABEF9;
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 2px;
+      background: #3ABEF9;
+      border-radius: 2px;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0 1.25rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+
+    .nav-cta:hover {
+      border-color: #3ABEF9;
+      box-shadow: 0 0 20px rgba(58, 190, 249, 0.15);
+      background: rgba(58, 190, 249, 0.05);
+    }
+
+    .nav-cta svg {
+      margin-left: 0.5rem;
+    }
+
+    #mobile-menu {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 0.75rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+
+    #mobile-menu a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.6);
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    #mobile-menu a:hover {
+      color: #3ABEF9;
+      background: rgba(58, 190, 249, 0.08);
+    }
+
+    #mobile-menu .mobile-cta {
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+      justify-content: center;
+      margin-top: 0.5rem;
+      color: #fff;
+    }
+
+    #mobile-menu .mobile-cta:hover {
+      border-color: #3ABEF9;
+      background: rgba(58, 190, 249, 0.08);
+    }
+
+    #mobile-menu-button {
+      padding: 0.5rem;
+      border-radius: 9999px;
+      color: rgba(255, 255, 255, 0.5);
+      transition: all 0.2s ease;
+    }
+
+    #mobile-menu-button:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
 /* ==========================================================================
    TCCARD HERO LAYOUT
    ========================================================================== */
