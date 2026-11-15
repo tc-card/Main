@@ -20,9 +20,7 @@
 
     <style>
         body { font-family: 'Inter', sans-serif; overflow-x: hidden; background: #000; }
-        html{ scroll-behavior: smooth; 
-        }
-        /* CONTAINED HERO SHADER */
+        html{ scroll-behavior: smooth; }
         #hero-shader-canvas {
             position: absolute;
             top: 0; left: 0;
@@ -30,8 +28,6 @@
             z-index: 0;
             pointer-events: none;
         }
-
-        /* Dark overlay for readability */
         .hero-overlay {
             position: absolute;
             top: 0; left: 0;
@@ -40,8 +36,6 @@
             z-index: 1;
             pointer-events: none;
         }
-        
-        /* EXACT Dark Glassmorphism Card Styling */
         .glass-card {
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(20px);
@@ -49,14 +43,11 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
-        
         .glass-card:hover {
             background: rgba(31, 41, 55, 0.205);
             border-color: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
         }
-        
-        /* Input Styling */
         .input-dark {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -67,19 +58,15 @@
             border-color: #3b82f6;
             box-shadow: 0 0 0 2px rgba(59,130,246,0.5);
         }
-        
-        /* Fade-in */
         .fade-in { opacity: 0; transition: opacity 0.5s ease-in-out; }
         html.is-loaded .fade-in { opacity: 1; }
-
-        /* Navbar Styling Match */
         .nav-link { transition: color 0.3s ease; }
         .nav-link:hover { color: #3ABEF9; }
     </style>
 </head>
 <body class="min-h-screen text-gray-100 relative">
 
-    <!-- Navbar (Matched to Main Page) -->
+    <!-- Navbar -->
     <nav class="fixed top-4 left-2 right-2 z-50 mx-auto max-w-7xl w-[95%] rounded-2xl backdrop-blur-xl bg-black/40 border border-gray-700/50 shadow-lg">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-4">
@@ -90,7 +77,7 @@
                 <div class="hidden md:flex items-center space-x-6" role="navigation" aria-label="Main navigation">
                     <a href="https://tccards.tn/#features" class="text-sm font-medium text-gray-300 nav-link px-3 py-1.5 rounded-lg hover:bg-white/10">Features</a>
                     <a href="https://tccards.tn/#how-it-works" class="text-sm font-medium text-gray-300 nav-link px-3 py-1.5 rounded-lg hover:bg-white/10">How It Works</a>
-                    <a href="https://tccards.tn/#Pricing" class="text-sm font-medium text-gray-300 nav-link px-3 py-1.5 rounded-lg hover:bg-white/10">Pricing</a>
+                    <a href="https://tccards.tn/#pricing" class="text-sm font-medium text-gray-300 nav-link px-3 py-1.5 rounded-lg hover:bg-white/10">Pricing</a>
                     <a href="https://tccards.tn/#faq" class="text-sm font-medium text-gray-300 nav-link px-3 py-1.5 rounded-lg hover:bg-white/10">FAQ</a>
                     <a href="https://edit.tccards.tn" class="text-sm font-medium text-gray-300 nav-link px-3 py-1.5 rounded-lg hover:bg-white/10">Edit Profile</a>
                     <a href="https://tccards.tn/plans/" target="_blank" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all duration-300 text-white h-10 px-4 rounded-lg hover:shadow-lg border-2 border-gray-700">
@@ -111,7 +98,7 @@
                 <div class="flex flex-col gap-3">
                     <a href="https://tccards.tn/#features" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70">Features</a>
                     <a href="https://tccards.tn/#how-it-works" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70">How It Works</a>
-                    <a href="https://tccards.tn/#Pricing" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70">Pricing</a>
+                    <a href="https://tccards.tn/#pricing" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70">Pricing</a>
                     <a href="https://tccards.tn/#faq" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70">FAQ</a>
                     <a href="https://edit.tccards.tn" target="_blank" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-colors py-2 px-3 rounded-lg hover:bg-gray-800/70">Edit Profile</a>
                     <a href="https://tccards.tn/plans/" class="mt-2">
@@ -122,7 +109,7 @@
         </div>
     </nav>
 
-    <!-- MODERN HERO SECTION (WITH SHADER BACKGROUND) -->
+    <!-- HERO SECTION -->
     <div class="hero-wrapper relative overflow-hidden h-[70vh] min-h-[500px] flex items-center justify-center" id="hero-section">
         <canvas id="hero-shader-canvas"></canvas>
         <div class="hero-overlay"></div>
@@ -149,7 +136,10 @@
             </div>
         </div>
     </div>
-<div class="py-6 text-black" id="question-form">.</div><br>
+    
+    <!-- FIXED: Changed ID to question-form-spacer so the anchor link goes to the actual form -->
+    <div class="py-6 text-black" id="question-form-spacer">.</div><br>
+    
     <!-- Main Content -->
     <div class="max-w-4xl mx-auto px-6 py-20 relative z-10" id="main-content">
         <!-- Question Form Section -->
@@ -257,7 +247,6 @@
         </div>
     </footer>
 
-    <!-- Scripts for Fade-in and Mobile Menu -->
     <script>
         const fadeInElements = document.querySelectorAll('.fade-in');
         document.addEventListener('DOMContentLoaded', () => {
@@ -266,7 +255,6 @@
                 fadeInElements.forEach(element => element.style.opacity = '1');
             });
         });
-
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenuButton.addEventListener('click', () => {
@@ -274,8 +262,6 @@
         });
     </script>
     <script src="main.js"></script>
-
-    <!-- CONTAINED Three.js Shader Background -->
     <script type="module">
         import * as THREE from 'three';
 

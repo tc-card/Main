@@ -225,8 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
     reader.readAsDataURL(file);
   }
 
-  elements.profilePicture.addEventListener("click", () => elements.imageInput.click());
-  elements.imageInput.addEventListener("change", (e) => {
+  elements.profilePicture.addEventListener("click", () => elements.imageInput.click()) || elements.imageInput.addEventListener("change", (e) => {
     const file = e.target.files?.[0];
     handleImageUpload(file, elements.profilePicture);
   });

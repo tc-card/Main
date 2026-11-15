@@ -14,14 +14,6 @@ const REFERRAL_CODES = [
     type: "event",
     value: "AI MEET TN",
     label: "GMC MEET AI&STARTUP"
-  },
-  {
-    code: "NAU-26",
-    validFrom: "2026-08-08",
-    validTo: "2026-08-10",
-    type: "Free",
-    value: "Ali wants feedback",
-    label: "share the idea and share your thoughts"
   }
 ];
 

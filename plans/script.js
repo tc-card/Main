@@ -34,8 +34,7 @@
     {
       tier: "Basic",
       price: "31.5 TND",
-      originalPrice: "35 TND",
-      description: "Perfect for individuals and small businesses starting with NFC technology.",
+      description: "One reusable NFC card, an editable digital profile and QR code sharing. 7 TND delivery; 38.5 TND total before eligible discounts.",
       features: [
         "1 NFC Card",
         "Pre-designed webfolio",
@@ -50,7 +49,7 @@
         "No Analytics Dashboard"
       ],
       link: "/plans/basic/",
-      badge: { label: "Most Popular", position: "right" },
+      badge: { label: "TCcard + profile", position: "right" },
       featured: true
     }
   ];
