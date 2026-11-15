@@ -46,9 +46,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
 
-  <!-- jQuery -->
+  <!-- jQuery (Load ONCE only) -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+  <!-- Slick Carousel JS -->
+  <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  
   <!-- Three.js core -->
   <script type="importmap">
     {
@@ -193,6 +195,50 @@
     }
     body {
       overflow-x: hidden;
+    }
+    /* Modal — positioned & styled explicitly so it doesn't depend on JIT Tailwind */
+    #profileModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      padding: 1rem;
+    }
+    #profileModal.show {
+      display: flex;
+    }
+
+    /* Inner card background (replaces bg-[#09090b] which isn't compiled) */
+    #profileModal > div {
+      background: #09090b;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      max-width: 28rem;
+      width: 100%;
+      padding: 1.5rem;
+      position: relative;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Carousel — keep px-2 (already on each slide) and drop the extra slick padding */
+    .profiles-carousel .slick-list {
+      margin: 0 -8px;
+    }
+    .profiles-carousel .slick-dots {
+      bottom: -25px;      /* default, fits inside pb-8 */
+    }
+    .profiles-carousel .slick-dots li button:before {
+      color: #ffffff;
+      opacity: 0.4;
+    }
+    .profiles-carousel .slick-dots li.slick-active button:before {
+      color: #3ABEF9;
+      opacity: 1;
     }
   </style>
 </head>
@@ -519,10 +565,115 @@
       <div class="mt-8 text-center border-t border-gray-800 pt-6"><p class="text-gray-500 text-sm">&copy; 2026 Total Connect. All rights reserved.</p></div>
     </div>
   </footer>
+  <!-- Profile Examples Modal (Mobile Only) -->
+  <div id="profileModal" role="dialog" aria-modal="true" aria-label="Explore Profiles">
+    <div>
+      <!-- Close Button -->
+      <button id="closeProfileModal" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
 
+      <h3 class="text-2xl font-bold text-white mb-2 text-center">Explore Profiles</h3>
+      <p class="text-sm text-gray-400 text-center mb-6">See what a TCcard looks like in the real world.</p>
+
+      <!-- Link Card to random profile -->
+      <a href="https://card.tccards.tn/@random" target="_blank" rel="noopener noreferrer" class="block bg-blue-500/10 border border-blue-500/30 rounded-xl p-5 mb-8 hover:bg-blue-500/20 hover:border-blue-400 transition-all text-center group">
+        <span class="block text-blue-400 font-semibold mb-1 group-hover:text-blue-300">Try a random profile</span>
+        <span class="text-sm text-gray-400">card.tccards.tn/@random</span>
+      </a>
+
+      <!-- Carousel of Profiles -->
+      <div class="profiles-carousel pb-8">
+        <!-- Profile 1 -->
+        <div class="px-2">
+          <a href="https://card.tccards.tn/@yasmine" target="_blank" class="block bg-[#18181b] border border-gray-700 rounded-xl p-6 text-center hover:border-gray-500 transition-colors">
+            <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full mx-auto mb-3 flex items-center justify-center text-white text-xl font-bold shadow-lg">Y</div>
+            <h4 class="text-white font-medium text-lg">Yasmine K.</h4>
+            <p class="text-xs text-gray-400">Architect · Tunis</p>
+          </a>
+        </div>
+        <!-- Profile 2 -->
+        <div class="px-2">
+          <a href="https://card.tccards.tn/@ahmed" target="_blank" class="block bg-[#18181b] border border-gray-700 rounded-xl p-6 text-center hover:border-gray-500 transition-colors">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full mx-auto mb-3 flex items-center justify-center text-white text-xl font-bold shadow-lg">A</div>
+            <h4 class="text-white font-medium text-lg">Ahmed T.</h4>
+            <p class="text-xs text-gray-400">Developer · Sousse</p>
+          </a>
+        </div>
+        <!-- Profile 3 -->
+        <div class="px-2">
+          <a href="https://card.tccards.tn/@sarah" target="_blank" class="block bg-[#18181b] border border-gray-700 rounded-xl p-6 text-center hover:border-gray-500 transition-colors">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-teal-500 rounded-full mx-auto mb-3 flex items-center justify-center text-white text-xl font-bold shadow-lg">S</div>
+            <h4 class="text-white font-medium text-lg">Sarah M.</h4>
+            <p class="text-xs text-gray-400">Designer · Sfax</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
   <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script type="module" src="script.js"></script>
-  
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const exploreBtn  = document.querySelector('a[href="#profile-studio"]');
+      const profileModal = document.getElementById('profileModal');
+      const closeBtn     = document.getElementById('closeProfileModal');
+      let carouselInitialized = false;
+
+      if (!exploreBtn || !profileModal) return;
+
+      function openModal() {
+        profileModal.classList.add('show');
+        document.body.style.overflow = 'hidden'; // Lock scroll
+
+        if (!carouselInitialized &&
+            typeof jQuery !== 'undefined' &&
+            typeof jQuery.fn.slick === 'function') {
+          // Wait for the modal to be laid out before Slick measures widths
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              jQuery('.profiles-carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                adaptiveHeight: true,
+                autoplay: true,
+                autoplaySpeed: 3500,
+                arrows: false
+              });
+              carouselInitialized = true;
+            });
+          });
+        }
+      }
+
+      function closeModal() {
+        profileModal.classList.remove('show');
+        document.body.style.overflow = ''; // Unlock scroll
+      }
+
+      exploreBtn.addEventListener('click', function (e) {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          openModal();
+        }
+      });
+
+      closeBtn.addEventListener('click', closeModal);
+      profileModal.addEventListener('click', function (e) {
+        if (e.target === profileModal) closeModal();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && profileModal.classList.contains('show')) closeModal();
+      });
+    });
+  </script>
+
   <script type="module">
     import * as THREE from 'three';
 
