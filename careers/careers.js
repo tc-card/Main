@@ -59,14 +59,22 @@ const jobs = [
   //   type: "Part-time/Flexible",
   //   requirements: ["CI/CD", "Monitoring Tools", "Automation Scripts"],
   // },
+  // {
+  //   id: "senior-marketing",
+  //   title: "Senior Marketing Specialist",
+  //   description: "Seeking an experienced marketing professional to lead our growth initiatives.",
+  //   location: "Sfax",
+  //   type: "Part-time",
+  //   requirements: ["Digital Marketing", "Campaign Management", "Analytics", "Strategic Planning"],
+  // },
   {
-    id: "senior-marketing",
-    title: "Senior Marketing Specialist",
-    description: "Seeking an experienced marketing professional to lead our growth initiatives.",
-    location: "Sfax",
-    type: "Part-time",
-    requirements: ["Digital Marketing", "Campaign Management", "Analytics", "Strategic Planning"],
-  },
+    id: "marketing-assistant",
+    title: 'Marketing Assistant',
+    description: 'We are looking for a Marketing Assistant to support our marketing team in executing campaigns, managing social media, and assisting with content creation. The ideal candidate is organized, creative, and eager to learn about marketing strategies, Take part ownership in tccards once proven themselves.',
+    location: 'Sfax',
+    type: 'Part-time/Flexible',
+    requirements: ['Social Media Management', 'Media Creation', 'Organization Skills','Digital desinger']
+  }
 ];
 
 // Improved renderJobs function with glass cards
