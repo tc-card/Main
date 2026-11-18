@@ -254,11 +254,14 @@ body {
   background: linear-gradient(115deg, #b8d9ff, #78a8ff);
   box-shadow: 0 .7rem 2rem rgba(82, 143, 255, .2);
 }
+#home .tc-hero-actions .tc-button-primary { color: #fff; background: linear-gradient(115deg, #3b82f6, #2563eb); box-shadow: 0 .7rem 2rem rgba(37,99,235,.3); }
+#home .tc-hero-actions .tc-button-primary:hover { background: linear-gradient(115deg, #2563eb, #1d4ed8); }
 .tc-button-primary span {
   padding-left: .7rem;
   border-left: 1px solid rgba(7, 17, 31, .25);
   font-size: .84rem;
 }
+#home .tc-hero-actions .tc-button-primary span { border-left-color: rgba(255,255,255,.45); }
 .tc-button-secondary {
   color: #e2e8f0;
   border: 1px solid rgba(148, 163, 184, .26);

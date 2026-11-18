@@ -18,7 +18,7 @@
 
 <body class="bg-gray-900 text-white fade-in">
 
-  <!-- ─── MAIN NAVIGATION (unchanged) ─── -->
+  <!-- ─── NAVIGATION (unchanged) ─── -->
   <nav class="nav-container" id="mainNav" role="navigation" aria-label="Main navigation">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center py-3 md:py-4">
@@ -52,10 +52,8 @@
     </div>
   </nav>
 
-  <br><br><br>
-
   <!-- ─── HERO ─── -->
-  <section class="hero-section" style="padding-top: 6rem;">
+  <section class="hero-section">
     <div>
       <div class="hero-kicker"><i class="fas fa-bolt text-purple-400 text-xs"></i> Digital Business Cards</div>
       <h1 class="hero-title">Your network, <span>upgraded</span>.</h1>
@@ -73,7 +71,6 @@
       </div>
     </div>
 
-    <!-- Phone Preview -->
     <div class="phone-visual">
       <div class="phone-frame-secondary">
         <div class="phone-screen">
@@ -114,29 +111,97 @@
         <ul class="editor-features">
           <li><i class="fas fa-check"></i> Live editing</li>
           <li><i class="fas fa-check"></i> Instant sync</li>
-          <li><i class="fas fa-check"></i> Profile analytics</li>
+          <li class="editor-feature-locked"><i class="fas fa-lock"></i> Profile analytics <span class="editor-plan-badge">Standard</span></li>
           <li><i class="fas fa-check"></i> No reprints, ever</li>
         </ul>
         <a href="https://edit.tccards.tn" class="hero-btn-primary"><i class="fas fa-external-link-alt"></i> Open Editor</a>
       </div>
 
-      <div class="editor-window">
-        <div class="editor-window-bar"><span></span><span></span><span></span></div>
-        <div class="editor-window-body">
-          <div class="editor-field">
-            <span class="editor-label">Full Name</span>
-            <span class="editor-value">John Doe</span>
-          </div>
-          <div class="editor-field">
-            <span class="editor-label">Tagline</span>
-            <span class="editor-value">Digital Strategist</span>
-          </div>
-          <div class="editor-field">
-            <span class="editor-label">Links</span>
-            <div class="editor-chips">
-              <span class="editor-chip"><i class="fab fa-linkedin-in"></i></span>
-              <span class="editor-chip"><i class="fab fa-instagram"></i></span>
-              <span class="editor-chip"><i class="fas fa-globe"></i></span>
+      <!-- Editor mockup (inline preview, matches real editor) -->
+      <div class="editor-window" role="img" aria-label="Screenshot of the tccards profile editor">
+        <div class="editor-titlebar">
+          <div class="editor-dots"><span></span><span></span><span></span></div>
+          <div class="editor-url"><a href="https://edit.tccards.tn" target="_blank" rel="noopener noreferrer">edit.tccards.tn</a></div>
+          <div class="editor-titlebar-spacer"></div>
+        </div>
+
+        <div class="editor-app">
+          <aside class="editor-sidebar">
+            <div class="editor-sidebar-avatar">JD</div>
+            <button type="button" class="editor-nav-item active" title="Profile"><i class="fas fa-user-edit"></i></button>
+            <button type="button" class="editor-nav-item" title="QR Code"><i class="fas fa-qrcode"></i></button>
+            <button type="button" class="editor-nav-item locked" title="Analytics — available on Standard">
+              <i class="fas fa-chart-line"></i>
+              <span class="editor-nav-lock"><i class="fas fa-lock"></i></span>
+            </button>
+            <button type="button" class="editor-nav-item" title="Settings"><i class="fas fa-cog"></i></button>
+            <div class="editor-nav-sep"></div>
+            <button type="button" class="editor-nav-item logout" title="Sign out"><i class="fas fa-sign-out-alt"></i></button>
+          </aside>
+
+          <div class="editor-content">
+            <div class="editor-header-row">
+              <div class="min-w-0">
+                <div class="editor-greeting-kicker">Welcome back</div>
+                <div class="editor-greeting-name">John</div>
+              </div>
+              <span class="editor-autosave-pill"><i class="fas fa-clock"></i> Auto-save</span>
+            </div>
+
+            <div class="editor-card">
+              <div class="editor-card-title">Personal Information</div>
+              <div class="editor-field-group">
+                <span class="editor-field-label">Full Name</span>
+                <div class="editor-input focused">John Doe</div>
+              </div>
+              <div class="editor-field-group">
+                <span class="editor-field-label">Tagline</span>
+                <div class="editor-input">Digital Strategist</div>
+              </div>
+              <div class="editor-mini-row">
+                <div>
+                  <div class="editor-mini-label">Accent</div>
+                  <div class="editor-swatches">
+                    <span class="editor-swatch selected" style="background:#3b82f6"></span>
+                    <span class="editor-swatch" style="background:#a78bfa"></span>
+                    <span class="editor-swatch" style="background:#34d399"></span>
+                    <span class="editor-swatch" style="background:#f59e0b"></span>
+                  </div>
+                </div>
+                <div>
+                  <div class="editor-mini-label">Layout</div>
+                  <div class="editor-templates">
+                    <span class="editor-template-tile selected">▭</span>
+                    <span class="editor-template-tile">◠</span>
+                    <span class="editor-template-tile">◫</span>
+                    <span class="editor-template-tile">···</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="editor-card editor-card-preview">
+              <div class="editor-card-title">Live Preview</div>
+              <div class="editor-preview-mini">
+                <div class="editor-preview-avatar">JD</div>
+                <div class="editor-preview-info">
+                  <div class="editor-preview-name">John Doe</div>
+                  <div class="editor-preview-tagline">Digital Strategist</div>
+                </div>
+                <div class="editor-preview-icons">
+                  <span><i class="fab fa-linkedin-in"></i></span>
+                  <span><i class="fab fa-instagram"></i></span>
+                  <span><i class="fas fa-envelope"></i></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="editor-savebar">
+              <span class="editor-save-status"><i class="fas fa-circle-check"></i> Saved · 30s ago</span>
+              <div class="editor-save-actions">
+                <button type="button" class="editor-icon-btn cancel" title="Cancel"><i class="fas fa-rotate-left"></i></button>
+                <button type="button" class="editor-icon-btn save" title="Save"><i class="fas fa-check"></i></button>
+              </div>
             </div>
           </div>
         </div>
@@ -146,48 +211,71 @@
 
   <!-- ─── PRICING ─── -->
   <section class="pricing-section" id="pricing">
-    <div class="hero-kicker"><i class="fas fa-tag text-xs"></i> Simple Pricing</div>
-    <h2 class="pricing-title">One card. <span>Flexible</span> activation.</h2>
-    <p class="pricing-subtitle">Buy your NFC card once, then pick a monthly or yearly profile activation.</p>
+    <div class="hero-kicker"><i class="fas fa-tag text-xs"></i> Basic Plan</div>
+    <h2 class="pricing-title">One card. <span>Everything</span> included.</h2>
+    <p class="pricing-subtitle">One reusable NFC card, an editable digital profile and QR code sharing.</p>
 
-    <div class="pricing-grid">
-      <!-- Card one-time -->
-      <div class="pricing-card">
-        <div class="pricing-label">NFC Card</div>
-        <div class="pricing-price">49<small>TND</small></div>
-        <div class="pricing-note">One-time purchase</div>
-        <ul class="pricing-features">
-          <li>Premium NFC card</li>
-          <li>Free delivery in Tunisia</li>
-          <li>Hardware lifetime warranty</li>
-        </ul>
+    <div class="pricing-card featured">
+      <div class="pricing-label">Basic NFC Card</div>
+
+      <div class="pricing-price-block">
+        <div class="pricing-price-row">
+          <div class="pricing-price" id="cardPriceWrap" aria-hidden="true">31.5<small>TND</small></div>
+          <span class="pricing-free-badge" id="cardFreeBadge" hidden><i class="fas fa-gift"></i> Card free</span>
+        </div>
+        <div class="pricing-delivery" aria-hidden="true"></div>
+        <div class="pricing-total">
+          <span class="pricing-total-value" id="totalValue">47.5 TND</span>
+          <span class="pricing-total-label" id="totalLabel">first month · card and delivery included</span>
+        </div>
       </div>
 
-      <!-- Activation with toggle -->
-      <div class="pricing-card featured">
-        <div class="pricing-label">Profile Activation</div>
+      <div class="pricing-columns">
+        <div class="pricing-col">
+          <p class="pricing-col-title included"><i class="fas fa-circle-check"></i> Included</p>
+          <ul class="pricing-features">
+            <li>1 NFC Card</li>
+            <li>8 pre-designed templates</li>
+            <li>6 media links</li>
+            <li>Email support</li>
+            <li>QR code emailing</li>
+            <li>Editing dashboard</li>
+          </ul>
+        </div>
+        <div class="pricing-col">
+          <p class="pricing-col-title excluded"><i class="fas fa-circle-xmark"></i> Not included</p>
+          <ul class="pricing-features excluded">
+            <li>Customizable card design</li>
+            <li>Analytics dashboard <span class="pricing-inline-tag">Standard</span></li>
+            <li>Action button (get in touch only)</li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="#data-fill" class="pricing-cta">
+        <i class="fas fa-rocket"></i> Get Your Basic Card
+      </a>
+
+      <div class="pricing-renewal">
+        <span class="pricing-renewal-label"><i class="fas fa-rotate"></i> Profile activation</span>
         <div class="billing-toggle">
           <button type="button" class="active" data-billing="monthly">Monthly</button>
-          <button type="button" data-billing="yearly">Yearly <span class="save-badge">−20%</span></button>
+          <button type="button" data-billing="yearly">Yearly <span class="save-badge">save 50%</span></button>
+          <button type="button" data-billing="2year">2 Years <span class="save-badge">Card free</span></button>
         </div>
-        <div class="pricing-price" id="activationPrice">9<small>TND/mo</small></div>
-        <div class="pricing-note" id="activationNote">Billed monthly</div>
-        <ul class="pricing-features">
-          <li>Unlimited edits</li>
-          <li>All social links</li>
-          <li>Profile analytics</li>
-          <li>NFC hosting</li>
-        </ul>
+        <span class="pricing-renewal-price" id="activationPrice">
+          <span id="renewalRate">9 TND/mo</span>
+          <small id="renewalSub">billed monthly at 9 TND</small>
+        </span>
       </div>
     </div>
   </section>
 
   <!-- ─── FORM ─── -->
-  <div class="form-container py-8">
-    <div class="rounded-2xl p-6 md:p-8 bg-white/5 backdrop-blur-md">
+  <div class="form-container">
+    <div class="rounded-2xl p-4 sm:p-6 md:p-8 bg-white/5 backdrop-blur-md">
       <form method="POST" id="data-fill" class="space-y-6">
 
-        <!-- 1. PROFILE PICTURE -->
         <div>
           <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-camera text-purple-400"></i> Profile Picture</div>
           <div class="flex flex-col items-center justify-center text-center pt-1 pb-3">
@@ -206,7 +294,6 @@
 
         <hr class="form-divider" />
 
-        <!-- 2. NAME + TAGLINE -->
         <div>
           <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-user text-purple-400"></i> Personal Info</div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -223,7 +310,6 @@
 
         <hr class="form-divider" />
 
-        <!-- 3. EMAIL + HANDLE -->
         <div>
           <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-id-card text-purple-400"></i> Your Identity</div>
           <div class="space-y-1 mb-3">
@@ -245,7 +331,6 @@
 
         <hr class="form-divider" />
 
-        <!-- 4. SOCIAL LINKS -->
         <div>
           <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-share-alt text-purple-400"></i> Social Links <span class="text-xs font-normal text-gray-500">(max 6)</span></div>
           <div id="dynamic-links" class="space-y-3">
@@ -268,7 +353,6 @@
 
         <hr class="form-divider" />
 
-        <!-- 5. STYLE -->
         <div>
           <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-palette text-purple-400"></i> Choose Your Style</div>
           <div class="style-grid">
@@ -286,7 +370,6 @@
 
         <hr class="form-divider" />
 
-        <!-- 6. PHONE + ADDRESS -->
         <div>
           <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-address-card text-purple-400"></i> Contact Details</div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -303,7 +386,6 @@
 
         <hr class="form-divider" />
 
-        <!-- 7. PRIVILEGE CODE -->
         <div>
           <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-ticket-alt text-purple-400"></i> Privilege Code</div>
           <div class="referral-wrapper">
@@ -317,7 +399,6 @@
           <p class="field-hint">Enter your event or discount code (if you have one).</p>
         </div>
 
-        <!-- SUBMIT -->
         <button id="saveContactBtn" type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-500 to-emerald-400 hover:shadow-xl hover:shadow-purple-500/20 hover:-translate-y-0.5 transition-all duration-200 text-sm">
           <i class="fas fa-rocket"></i> Create Your Digital Card
         </button>
@@ -340,15 +421,13 @@
     </div>
   </footer>
 
-  <!-- ─── SCRIPTS ─── -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script type="module" src="main.js"></script>
 
-  <!-- Nav + Billing toggle -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      /* ---- NAV (unchanged) ---- */
+      /* ---- NAV ---- */
       const nav = document.getElementById('mainNav');
       const menuButton = document.getElementById('mobile-menu-button');
       const mobileMenu = document.getElementById('mobile-menu');
@@ -379,21 +458,63 @@
         document.addEventListener('keydown', e => e.key === 'Escape' && !mobileMenu.classList.contains('hidden') && closeMenu());
         mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
       }
+      /* ---- RENEWAL TOGGLE ---- */
+      const CARD_PRICE = 31.5;
+      const DELIVERY = 7;
 
-      /* ---- PRICING TOGGLE ---- */
-      const priceEl = document.getElementById('activationPrice');
-      const noteEl  = document.getElementById('activationNote');
+      const plans = {
+        monthly: {
+          total: CARD_PRICE + DELIVERY + 9,
+          totalLabel: 'first month · card and delivery included',
+          rate: '9 TND/mo',
+          sub: 'billed monthly at 9 TND',
+          free: false
+        },
+        yearly: {
+          total: CARD_PRICE + DELIVERY + (4.5 * 12), // 92.5
+          totalLabel: 'first year · billed yearly',
+          rate: '4.5 TND/mo',
+          sub: 'billed 54 TND/year · save 50%',
+          free: false
+        },
+        '2year': {
+          total: DELIVERY + (4.5 * 24),              // 115 (card waived)
+          totalLabel: 'two years · card included free',
+          rate: '4.5 TND/mo',
+          sub: 'billed 108 TND / 2 years · card free',
+          free: true
+        }
+      };
+
+      const cardPriceWrap = document.getElementById('cardPriceWrap');
+      const cardFreeBadge = document.getElementById('cardFreeBadge');
+      const totalValueEl  = document.getElementById('totalValue');
+      const totalLabelEl  = document.getElementById('totalLabel');
+      const renewalRateEl = document.getElementById('renewalRate');
+      const renewalSubEl  = document.getElementById('renewalSub');
+
       document.querySelectorAll('.billing-toggle button').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('.billing-toggle button').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          if (btn.dataset.billing === 'yearly') {
-            priceEl.innerHTML = '89<small>TND/yr</small>';
-            noteEl.textContent = 'Billed yearly · save 20%';
+
+          const plan = plans[btn.dataset.billing];
+          if (!plan) return;
+
+          if (plan.free) {
+            cardPriceWrap.classList.add('is-free');
+            cardPriceWrap.innerHTML = `<span class="strike">31.5</span>FREE`;
+            cardFreeBadge.hidden = false;
           } else {
-            priceEl.innerHTML = '9<small>TND/mo</small>';
-            noteEl.textContent = 'Billed monthly';
+            cardPriceWrap.classList.remove('is-free');
+            cardPriceWrap.innerHTML = `31.5<small>TND</small>`;
+            cardFreeBadge.hidden = true;
           }
+
+          totalValueEl.textContent = plan.total.toFixed(1) + ' TND';
+          totalLabelEl.textContent = plan.totalLabel;
+          renewalRateEl.textContent = plan.rate;
+          renewalSubEl.textContent  = plan.sub;
         });
       });
     });

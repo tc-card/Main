@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Standard Plan – tccards</title>
+    <meta name="description" content="One editable profile, up to five NFC cards, profile analytics, and included delivery. Standard starts at 129.5 TND for the first year." />
+  <link rel="icon" href="https://tccards.tn/Assets/150.png" type="image/x-icon" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="bg-gray-900 text-white fade-in">
+
+  <!-- ─── NAVIGATION (unchanged) ─── -->
+  <nav class="nav-container" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-3 md:py-4">
+        <a href="https://tccards.tn" class="flex items-center group rounded-lg hover:bg-gray-800/50 transition-colors duration-200 p-1">
+          <img src="https://tccards.tn/Assets/150.png" alt="tccards logo" class="h-9 w-9 md:h-10 md:w-10 rounded-full">
+        </a>
+        <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <a href="https://tccards.tn/#faq" class="nav-link">FAQ</a>
+          <a href="https://tccards.tn/help/" class="nav-link">Support</a>
+          <a href="https://edit.tccards.tn" class="nav-link">Edit Dashboard</a>
+          <a href="https://tccards.tn/help/" class="nav-cta">
+            Get Help
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </div>
+        <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden pb-4 mt-2 mx-2">
+        <div class="flex flex-col gap-1 p-2">
+          <a href="https://tccards.tn/#faq"><i class="fas fa-question-circle w-5 text-center"></i> FAQ</a>
+          <a href="https://tccards.tn/help/"><i class="fas fa-life-ring w-5 text-center"></i> Support</a>
+          <a href="https://edit.tccards.tn"><i class="fas fa-edit w-5 text-center"></i> Edit Dashboard</a>
+          <a href="https://tccards.tn/help/" class="mobile-cta">
+            Get Help
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero-section">
+    <div>
+      <div class="hero-kicker"><i class="fas fa-chart-line text-purple-400 text-xs"></i> For people who meet people</div>
+      <h1 class="hero-title">Make every<br><span>connection count.</span></h1>
+      <p class="hero-text">
+        A polished digital profile, up to five NFC cards linked to it, and analytics that show how people engage. Made for founders, professionals, and thoughtful gifts.
+      </p>
+      <div class="hero-actions">
+        <a class="hero-btn-primary" href="#pricing"><i class="fas fa-layer-group"></i> Explore Standard</a>
+        <a class="hero-btn-secondary" href="#data-fill"><i class="fas fa-arrow-down"></i> Create your profile</a>
+      </div>
+      <div class="hero-features">
+        <div class="hero-feature"><strong>05</strong><span>Cards for your profile</span></div>
+        <div class="hero-feature"><strong>Live</strong><span>Profile analytics</span></div>
+        <div class="hero-feature"><strong>One tap</strong><span>Instant sharing</span></div>
+      </div>
+    </div>
+
+    <div class="insight-visual" aria-label="Illustrative profile analytics and NFC cards">
+      <div class="insight-panel">
+        <div class="insight-panel-top"><span><i class="fas fa-chart-line"></i> Your profile insights</span><span class="insight-period">Last 30 days</span></div>
+        <div class="insight-stat"><strong>Profile activity</strong><span>See views and contact actions</span></div>
+        <div class="insight-chart" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="insight-divider"></div>
+        <div class="insight-card-row"><span class="insight-nfc"><i class="fas fa-wifi"></i></span><span><b>One profile</b><small>Up to five cards linked to it</small></span><span class="insight-card-count">05</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EDITOR SHOWCASE ─── -->
+  <section class="section-block">
+    <div class="editor-inner">
+      <div>
+        <div class="hero-kicker"><i class="fas fa-sliders-h text-xs"></i> Edit Dashboard</div>
+        <h2 class="editor-title">Your details change.<br><span>Your card doesn’t.</span></h2>
+        <p class="editor-text">
+          Refresh your photo, links, and contact details whenever life or work changes. Your profile updates behind the same cards, and analytics help you see what people respond to.
+        </p>
+        <ul class="editor-features">
+          <li><i class="fas fa-check"></i> Live editing</li>
+          <li><i class="fas fa-check"></i> Instant sync</li>
+          <li><i class="fas fa-chart-line"></i> Profile analytics</li>
+          <li><i class="fas fa-check"></i> No reprints, ever</li>
+        </ul>
+        <a href="https://edit.tccards.tn" class="hero-btn-primary"><i class="fas fa-external-link-alt"></i> Manage your profiles</a>
+      </div>
+
+      <!-- Editor mockup (inline preview, matches real editor) -->
+      <div class="editor-window" role="img" aria-label="Screenshot of the tccards profile editor">
+        <div class="editor-titlebar">
+          <div class="editor-dots"><span></span><span></span><span></span></div>
+          <div class="editor-url"><a href="https://edit.tccards.tn" target="_blank" rel="noopener noreferrer">edit.tccards.tn</a></div>
+          <div class="editor-titlebar-spacer"></div>
+        </div>
+
+        <div class="editor-app">
+          <aside class="editor-sidebar">
+            <div class="editor-sidebar-avatar">JD</div>
+            <button type="button" class="editor-nav-item" title="Profile"><i class="fas fa-user-edit"></i></button>
+            <button type="button" class="editor-nav-item" title="QR Code"><i class="fas fa-qrcode"></i></button>
+            <button type="button" class="editor-nav-item active" title="Analytics"><i class="fas fa-chart-line"></i></button>
+            <button type="button" class="editor-nav-item" title="Settings"><i class="fas fa-cog"></i></button>
+            <div class="editor-nav-sep"></div>
+            <button type="button" class="editor-nav-item logout" title="Sign out"><i class="fas fa-sign-out-alt"></i></button>
+          </aside>
+
+          <div class="editor-content">
+            <div class="editor-header-row">
+              <div class="min-w-0">
+                <div class="editor-greeting-kicker">Welcome back</div>
+                <div class="editor-greeting-name">John</div>
+              </div>
+              <span class="editor-autosave-pill"><i class="fas fa-clock"></i> Auto-save</span>
+            </div>
+
+            <div class="editor-card">
+              <div class="editor-card-title">Personal Information</div>
+              <div class="editor-field-group">
+                <span class="editor-field-label">Full Name</span>
+                <div class="editor-input focused">John Doe</div>
+              </div>
+              <div class="editor-field-group">
+                <span class="editor-field-label">Tagline</span>
+                <div class="editor-input">Digital Strategist</div>
+              </div>
+              <div class="editor-mini-row">
+                <div>
+                  <div class="editor-mini-label">Accent</div>
+                  <div class="editor-swatches">
+                    <span class="editor-swatch selected" style="background:#3b82f6"></span>
+                    <span class="editor-swatch" style="background:#a78bfa"></span>
+                    <span class="editor-swatch" style="background:#34d399"></span>
+                    <span class="editor-swatch" style="background:#f59e0b"></span>
+                  </div>
+                </div>
+                <div>
+                  <div class="editor-mini-label">Layout</div>
+                  <div class="editor-templates">
+                    <span class="editor-template-tile selected">▭</span>
+                    <span class="editor-template-tile">◠</span>
+                    <span class="editor-template-tile">◫</span>
+                    <span class="editor-template-tile">···</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="editor-card editor-card-preview">
+              <div class="editor-card-title">Live Preview</div>
+              <div class="editor-preview-mini">
+                <div class="editor-preview-avatar">JD</div>
+                <div class="editor-preview-info">
+                  <div class="editor-preview-name">John Doe</div>
+                  <div class="editor-preview-tagline">Digital Strategist</div>
+                </div>
+                <div class="editor-preview-icons">
+                  <span><i class="fab fa-linkedin-in"></i></span>
+                  <span><i class="fab fa-instagram"></i></span>
+                  <span><i class="fas fa-envelope"></i></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="editor-savebar">
+              <span class="editor-save-status"><i class="fas fa-circle-check"></i> Saved · 30s ago</span>
+              <div class="editor-save-actions">
+                <button type="button" class="editor-icon-btn cancel" title="Cancel"><i class="fas fa-rotate-left"></i></button>
+                <button type="button" class="editor-icon-btn save" title="Save"><i class="fas fa-check"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PRICING ─── -->
+  <section class="pricing-section" id="pricing">
+    <div class="hero-kicker"><i class="fas fa-tag text-xs"></i> Standard Plan</div>
+    <h2 class="pricing-title">More ways to share. <span>One profile to manage.</span></h2>
+    <p class="pricing-subtitle">One profile, up to five linked NFC cards, profile analytics, and delivery included. Annual billing only.</p>
+
+    <div class="pricing-card featured">
+      <div class="pricing-label">Standard · one profile, up to 5 cards</div>
+
+      <div class="pricing-price-block">
+        <div class="pricing-price-row">
+          <div class="pricing-price">129.5<small>TND</small></div>
+        </div>
+        <div class="pricing-total">
+          <span class="pricing-total-label">First year · one profile, up to 5 cards, analytics, and delivery included</span>
+        </div>
+      </div>
+
+      <div class="pricing-columns">
+        <div class="pricing-col">
+          <p class="pricing-col-title included"><i class="fas fa-circle-check"></i> Included</p>
+          <ul class="pricing-features">
+            <li>One editable digital profile</li>
+            <li>Up to 5 NFC cards linked to your profile</li>
+            <li>8 pre-designed templates</li>
+            <li>6 media links</li>
+            <li>Email support</li>
+            <li>QR code emailing</li>
+            <li>Profile editing dashboard</li>
+            <li>Profile views and contact-action analytics</li>
+          </ul>
+        </div>
+        <div class="pricing-col">
+          <p class="pricing-col-title excluded"><i class="fas fa-circle-xmark"></i> Not included</p>
+          <ul class="pricing-features excluded">
+            <li>Customizable card design</li>
+            <li>Action button (get in touch only)</li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="#data-fill" class="pricing-cta">
+        <i class="fas fa-rocket"></i> Create your Standard profile
+      </a>
+
+      <div class="pricing-renewal">
+        <span class="pricing-renewal-label"><i class="fas fa-rotate"></i> Profile activation</span>
+        <div class="billing-toggle" aria-label="Annual billing only"><span class="active">Annual billing only</span></div>
+        <span class="pricing-renewal-price" id="activationPrice">
+          <span id="renewalRate">72 TND/year</span>
+          <small id="renewalSub">after the first year · no monthly billing</small>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FORM ─── -->
+  <div class="form-container">
+    <div class="rounded-2xl p-4 sm:p-6 md:p-8 bg-white/5 backdrop-blur-md">
+      <form method="POST" id="data-fill" class="space-y-6">
+
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-camera text-purple-400"></i> Profile Picture</div>
+          <div class="flex flex-col items-center justify-center text-center pt-1 pb-3">
+            <div class="profile-pic-wrapper mb-3">
+              <div class="ring-spin"></div>
+              <img src="https://tccards.tn/Assets/150.png" alt="profile" id="profile-picture"
+                   class="relative z-10 w-24 h-24 rounded-full object-cover cursor-pointer hover:ring-2 hover:ring-purple-500/50 transition-all" />
+            </div>
+            <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
+            <label for="image-input" class="cursor-pointer inline-flex items-center gap-2 text-sm font-medium text-white/30 hover:text-purple-400 transition-colors py-1.5">
+              <i class="fas fa-upload"></i> Upload photo
+            </label>
+            <span class="field-hint">JPEG, PNG, GIF · max 5MB</span>
+          </div>
+        </div>
+
+        <hr class="form-divider" />
+
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-user text-purple-400"></i> Personal Info</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="block text-xs font-medium text-white/40" for="user-name">Full Name <span class="text-red-500">*</span></label>
+              <input type="text" id="user-name" name="user-name" placeholder="e.g. John Doe" required class="form-input" />
+            </div>
+            <div class="space-y-1">
+              <label class="block text-xs font-medium text-white/40" for="user-tagline">Tagline</label>
+              <input type="text" id="user-tagline" name="user-tagline" placeholder="e.g. Digital Strategist" class="form-input" />
+            </div>
+          </div>
+        </div>
+
+        <hr class="form-divider" />
+
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-id-card text-purple-400"></i> Your Identity</div>
+          <div class="space-y-1 mb-3">
+            <label class="block text-xs font-medium text-white/40">Email <span class="text-red-500">*</span></label>
+            <input type="email" name="email" placeholder="you@example.com" required class="form-input" />
+          </div>
+          <div class="space-y-1">
+            <label class="block text-xs font-medium text-white/40" for="user-link">Your Handle <span class="text-red-500">*</span></label>
+            <div class="flex items-center">
+              <span class="handle-prefix">my.tccards.tn/@</span>
+              <input type="text" id="user-link" name="link" required minlength="3" maxlength="15"
+                     title="Letters, numbers, hyphens only" placeholder="yourname"
+                     pattern="[a-zA-Z0-9-]+" class="form-input handle-input" />
+            </div>
+            <div id="handle-validation-message" class="validation-message"></div>
+            <p class="field-hint">Permanent URL · 3–15 characters, starts with a letter</p>
+          </div>
+        </div>
+
+        <hr class="form-divider" />
+
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-share-alt text-purple-400"></i> Social Links <span class="text-xs font-normal text-gray-500">(max 6)</span></div>
+          <div id="dynamic-links" class="space-y-3">
+            <div class="bg-white/5 rounded-xl p-4 border border-white/5">
+              <ul class="space-y-2" id="socialLinkList">
+                <li class="social-link-item group">
+                  <i class="fa fa-link text-purple-400 text-sm"></i>
+                  <input type="url" name="social-links[]" placeholder="https://linkedin.com/in/yourname" />
+                  <button type="button" class="remove-link-btn text-red-400 hover:text-red-500 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                  </button>
+                </li>
+              </ul>
+              <button type="button" id="add-link-btn" class="add-link-btn">
+                <i class="fas fa-plus-circle"></i> Add another link
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <hr class="form-divider" />
+
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-palette text-purple-400"></i> Choose Your Style</div>
+          <div class="style-grid">
+            <button type="button" class="style-preset selected" data-style="corporateGradient">
+              <div class="preview-box" style="background: linear-gradient(145deg, rgb(9,9,11), rgb(24,24,27), rgb(9,9,11));"></div>
+              <p class="text-xs text-center text-gray-400 mt-1.5">Executive</p>
+            </button>
+            <button type="button" class="style-preset" data-style="oceanGradient">
+              <div class="preview-box" style="background: linear-gradient(145deg, rgb(2,6,23), rgb(15,23,42), rgb(2,6,23));"></div>
+              <p class="text-xs text-center text-gray-400 mt-1.5">Professional</p>
+            </button>
+          </div>
+          <p class="field-hint mt-2">Pick a color theme for your page. You can change this later.</p>
+        </div>
+
+        <hr class="form-divider" />
+
+        <div>
+          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-address-card text-purple-400"></i> Contact Details</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="block text-xs font-medium text-white/40">Phone</label>
+              <input type="tel" name="phone" placeholder="+216 99 999 999" class="form-input" />
+            </div>
+            <div class="space-y-1">
+              <label class="block text-xs font-medium text-white/40">Address</label>
+              <input type="text" name="address" placeholder="City, Country" class="form-input" />
+            </div>
+          </div>
+        </div>
+
+        <hr class="form-divider" />
+
+        <button id="saveContactBtn" type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-500 to-emerald-400 hover:shadow-xl hover:shadow-purple-500/20 hover:-translate-y-0.5 transition-all duration-200 text-sm">
+          <i class="fas fa-rocket"></i> Create Your Digital Card
+        </button>
+
+        <p class="text-xs text-center text-gray-500 mt-4">By continuing you agree to our <a href="https://tccards.tn/pp/" class="text-purple-400 hover:text-purple-300 transition-colors">Privacy Policy</a>. Your data is secure.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ─── FOOTER (unchanged) ─── -->
+  <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400" style="background-image: url(Assets/footer-gradient.webp);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="space-y-4"><a href="https://tccards.tn" title="main"><img src="/Assets/150.png" alt="Total Connect Logo" class="h-8 mx-auto md:mx-0"></a><p class="text-gray-400 text-sm"><b>No handing over. No paper shuffle.</b> <br> You tap. They get everything. You're done. <br></p><p class="text-gray-400 text-sm md:hidden">tccards.tn is the future of networking. <br> tccards.tn turns your card into a moment <br>— smooth, smart, unforgettable — <br> No more printing costs. No more outdated info.</p><p class="text-gray-400 text-sm md:hidden">Your card is a tap away from their phone. <br> Just one tap, and your presence lives in their pocket. You don't give your card away — you leave a mark. <br><hr><br><strong>Be remembered, not handed off.</strong></p><div class="flex space-x-4 justify-center md:justify-start"><a href="https://www.facebook.com/tccards.tn" title="facebook" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-facebook-f"></i></a><a href="https://www.instagram.com/tccards.tn/" title="Instagram" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-instagram"></i></a><a href="https://www.linkedin.com/company/tccards/" title="LinkedIn" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-linkedin-in"></i></a></div></div>
+        <div><h3 class="text-white font-semibold mb-4">Products</h3><ul class="space-y-2"><li><a href="/plans" class="text-sm text-gray-500 hover:text-white p-2">Plans</a></li><li><a href="/plans/events" class="text-sm text-gray-500 hover:text-white p-2">Events Solutions</a></li><li><a href="/plans/enterprise/" class="text-sm text-gray-500 hover:text-white p-2">Enterprise Solutions</a></li></ul></div>
+        <div><h3 class="text-white font-semibold mb-4">Support</h3><ul class="space-y-2"><li><a href="/help" class="text-sm text-gray-500 hover:text-white p-2">Help Center</a></li><li><a href="https://edit.tccards.tn" class="text-sm text-gray-500 hover:text-white p-2">Edit Profile</a></li><li><a href="/pp/" class="text-sm text-gray-500 hover:text-white p-2">Privacy Policy</a></li></ul></div>
+        <div><h3 class="text-white font-semibold mb-4">Interested ?</h3><ul class="space-y-2"><li><a href="/About/" class="text-sm text-gray-500 hover:text-white p-2">About Us</a></li><li><a href="/careers/" class="text-sm text-gray-500 hover:text-white p-2">Careers</a></li></ul></div>
+      </div>
+      <div class="mt-8 text-center border-t border-gray-800 pt-6"><p class="text-gray-500 text-sm">&copy; 2026 Total Connect. All rights reserved.</p></div>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="module" src="main.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      /* ---- NAV ---- */
+      const nav = document.getElementById('mainNav');
+      const menuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      function updateNavScrolled() {
+        nav.classList.toggle('scrolled', window.scrollY > 20);
+      }
+      window.addEventListener('scroll', updateNavScrolled, { passive: true });
+      updateNavScrolled();
+
+      const closedIcon = `<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>`;
+      const openIcon   = `<path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>`;
+
+      if (menuButton && mobileMenu) {
+        function closeMenu() {
+          mobileMenu.classList.add('hidden');
+          menuButton.setAttribute('aria-expanded', 'false');
+          menuButton.querySelector('svg').innerHTML = closedIcon;
+        }
+        menuButton.addEventListener('click', function (e) {
+          e.stopPropagation();
+          const open = menuButton.getAttribute('aria-expanded') === 'true';
+          menuButton.setAttribute('aria-expanded', String(!open));
+          mobileMenu.classList.toggle('hidden');
+          menuButton.querySelector('svg').innerHTML = open ? closedIcon : openIcon;
+        });
+        window.addEventListener('scroll', () => !mobileMenu.classList.contains('hidden') && closeMenu(), { passive: true });
+        document.addEventListener('keydown', e => e.key === 'Escape' && !mobileMenu.classList.contains('hidden') && closeMenu());
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+      }
+      /* ---- RENEWAL TOGGLE ---- */
+    });
+  </script>
+</body>
+</html>

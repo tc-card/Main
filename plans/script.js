@@ -33,11 +33,14 @@
     },
     {
       tier: "Basic",
-      price: "31.5 TND",
-      description: "One reusable NFC card, an editable digital profile and QR code sharing. 7 TND delivery; 38.5 TND total before eligible discounts.",
+      price: "9 TND/mo",
+      priceNote: "47.5 TND upfront · card, delivery, and first month",
+      renewal: "Billed monthly. Annual: 92.5 TND first year, then 54 TND/year.",
+      longTerm: "2 years: 115 TND upfront · card included free",
+      description: "One reusable NFC card, an editable digital profile, and QR code sharing.",
       features: [
         "1 NFC Card",
-        "Pre-designed webfolio",
+        "8 pre-designed templates",
         "6 media links",
         "Email support",
         "QR code emailing",
@@ -46,51 +49,55 @@
       ],
       limitations: [
         "Customizable Card",
-        "No Analytics Dashboard"
+        "Analytics Dashboard"
       ],
       link: "/plans/basic/",
       badge: { label: "TCcard + profile", position: "right" },
       featured: true
+    },
+    {
+      tier: "Standard",
+      price: "129.5 TND",
+      priceNote: "first year · delivery included",
+      description: "One editable profile, up to five NFC cards linked to it, and analytics for profile views and contact actions.",
+      renewal: "Then 72 TND/year · annual renewal",
+      features: [
+        "One editable profile",
+        "Up to 5 NFC cards linked to your profile",
+        "8 pre-designed templates",
+        "6 media links",
+        "Email support",
+        "QR code emailing",
+        "Editing dashboard",
+        "Views and contact-action analytics",
+        "Contact Button"
+      ],
+      limitations: ["Customizable Card"],
+      link: "/plans/standard/",
+      badge: { label: "One profile · 5 cards", position: "right" }
     }
   ];
 
-  // const advancedPlans = [
-  //   {
-  //     tier: "Standard",
-  //     price: "80 TND",
-  //     description: "Essential features to enhance your business presence.",
-  //     features: [
-  //       "5 NFC Cards",
-  //       "Customizable Card",
-  //       "Unlimited media links",
-  //       "Email support",
-  //       "Custom branding",
-  //       "Remove our watermark",
-  //       "Analytics Dashboard"
-  //     ],
-  //     link: "/plans/standard/",
-  //     badge: { label: "Coming Soon", position: "right" },
-  //     disabled: true
-  //   },
-  //   {
-  //     tier: "Enterprise",
-  //     price: "Custom Pricing",
-  //     description: "Tailored solutions for enterprises with advanced needs.",
-  //     features: [
-  //       "Unlimited NFC Cards",
-  //       "Custom webfolio design",
-  //       "Dedicated account manager",
-  //       "Priority support",
-  //       "SLA guarantee",
-  //       "Custom integrations",
-  //       "Custom Domain",
-  //       "Custom Forms"
-  //     ],
-  //     link: "/plans/enterprise/",
-  //     badge: { label: "Coming Soon", position: "right" },
-  //     disabled: true
-  //   }
-  // ];
+  const advancedPlans = [
+    {
+      // tier: "Enterprise",
+      // price: "Custom Pricing",
+      // description: "Tailored solutions for teams with advanced needs.",
+      // features: [
+      //   "Unlimited NFC Cards",
+      //   "Custom webfolio design",
+      //   "Dedicated account manager",
+      //   "Priority support",
+      //   "SLA guarantee",
+      //   "Custom integrations",
+      //   "Custom Domain",
+      //   "Custom Forms"
+      // ],
+      // link: "/plans/enterprise/",
+      // badge: { label: "Coming Soon", position: "right" },
+      // disabled: true
+    }
+  ];
 
   // ─── Color mapping ─────────────────────────────────────
   // ring: card border | text: price/heading accent | bg: hover fill for CTA
@@ -157,6 +164,27 @@
       </div>
     ` : '';
 
+    const pricingOptionsHtml = plan.pricingOptions ? `
+      <div class="mt-5 rounded-xl border border-gray-700/70 bg-black/20 p-4">
+        <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Upfront and renewal options</p>
+        <ul class="space-y-3">
+          ${plan.pricingOptions.map(option => `
+            <li class="border-b border-gray-700/60 pb-3 last:border-0 last:pb-0">
+              <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                <span class="text-sm font-semibold text-gray-200">${option.term}</span>
+                <span class="text-sm font-bold ${colors.text}">${option.upfront}</span>
+              </div>
+              <p class="mt-1 text-xs text-gray-400">Card price: ${option.cardFree ? `<span class="line-through text-gray-500">${option.cardPrice}</span> <strong class="text-green-400">FREE</strong> <span class="text-green-400">· card on us</span>` : option.cardPrice}</p>
+              <p class="mt-1 text-xs text-gray-400">${option.includes}</p>
+              <p class="text-xs text-gray-500">${option.renewal}</p>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    ` : '';
+    const priceNoteHtml = plan.priceNote ? `<span class="ml-2 text-sm text-gray-400">${plan.priceNote}</span>` : '';
+    const renewalHtml = plan.renewal ? `<p class="mt-2 text-sm text-gray-400">${plan.renewal}</p>${plan.longTerm ? `<p class="mt-1 text-sm text-gray-400">${plan.longTerm}</p>` : ''}` : '';
+
     let buttonHtml;
     if (plan.disabled) {
       buttonHtml = `
@@ -183,8 +211,10 @@
         role="region" aria-labelledby="${titleId}" aria-describedby="${descId}">
         ${tagElement}
         <h3 id="${titleId}" class="text-base font-semibold ${colors.text} pt-1">${plan.tier}</h3>
-        <p id="${descId}" class="mt-4 flex items-baseline gap-x-2">${priceHtml}</p>
+        <p id="${descId}" class="mt-4 flex flex-wrap items-baseline gap-x-2">${priceHtml}${priceNoteHtml}</p>
+        ${renewalHtml}
         <p class="mt-4 text-base text-gray-300">${plan.description}</p>
+        ${pricingOptionsHtml}
         <ul class="mt-8 space-y-3 text-sm text-gray-300">
           ${plan.features.map(feature => `
             <li class="flex gap-x-3 items-start">
