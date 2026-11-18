@@ -261,7 +261,7 @@ hr { border-top: 1px solid #E6E6E6 !important; border-bottom: none !important; b
   .footer-text, .footer-text p { color: #7D7D7D !important; }
   .footer-text a { color: #7D7D7D !important; }
   hr { border-top-color: #333333 !important; }
-  .brand-logo { filter: invert(1) !important; }
+    .brand-logo { display: block; filter: invert(0); background-color: 50% transparent; border-radius: 25px; background-color: black; }
   .tccards-details-block { background-color: #1F1F1F !important; color: #ffffff !important; }
   .detail-label { color: #8F8F8F !important; }
   .detail-value { color: #EDEDED !important; }
