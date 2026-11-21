@@ -22,13 +22,11 @@ function prefillUsername() {
   if (input && username && !input.value) input.value = username;
 }
 
-// Initial setup - hide elements before animation
 fadeInElements.forEach(element => {
     element.style.opacity = '0';
     element.style.transition = `opacity ${FADE_IN_DURATION} ${TRANSITION_TIMING}`;
 });
 
-// Fade in elements when DOM is ready 
 document.addEventListener('DOMContentLoaded', () => {
   prefillUsername();
     requestAnimationFrame(() => {
@@ -38,30 +36,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Handle link transitions
 document.addEventListener('click', e => {
     const link = e.target.closest('a');
     if (!link) return;
 
-    // Check if link is external or internal route
     const href = link.getAttribute('href');
-    if (!href.startsWith('http') && !href.startsWith('/')) return;
+    if (!href || (!href.startsWith('http') && !href.startsWith('/'))) return;
 
     e.preventDefault();
 
-    // Fade out smoothly
     fadeInElements.forEach(element => {
         element.style.transition = `opacity ${FADE_OUT_DURATION} ${TRANSITION_TIMING}`;
         element.style.opacity = '0';
     });
 
-    // Navigate after fade completes
     setTimeout(() => {
         window.location.href = href;
     }, NAVIGATION_DELAY);
 });
+
 document.addEventListener("DOMContentLoaded", () => {
-  // ─── Element references ────────────────────────────────────
   const elements = {
     profilePicture: document.getElementById("profile-picture"),
     imageInput: document.getElementById("image-input"),
@@ -78,12 +72,28 @@ document.addEventListener("DOMContentLoaded", () => {
     handleValidationMessage: document.getElementById("handle-validation-message"),
   };
 
-  // ─── Validate elements ────────────────────────────────────
   for (const [key, element] of Object.entries(elements)) {
     if (!element && key !== "stylePresets") {
       console.error(`Element '${key}' not found`);
       return;
     }
+  }
+
+  // ─── Helper: parse Apps Script JSON, surface real errors ──
+  async function readJson(response) {
+    if (!response.ok) {
+      throw new Error(`Server returned ${response.status}`);
+    }
+    let data;
+    try {
+      data = await response.json();
+    } catch (e) {
+      throw new Error("Server returned invalid JSON");
+    }
+    if (data && data.status === "error") {
+      throw new Error(data.message || "Request failed");
+    }
+    return data || {};
   }
 
   // ─── LIVE COUNTER ────────────────────────────────────────
@@ -98,9 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(`${CONFIG.googleScriptUrl}?get_stats=true`);
-      if (!response.ok) throw new Error("Request failed");
-
-      const data = await response.json();
+      const data = await readJson(response);
       const totalCount = Number(data.totalCount || 0);
       const monthlyGrowth = Number(data.monthlyGrowth || 0);
 
@@ -113,8 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
           current = target;
           clearInterval(ticker);
         }
-        // Update the counter display with text
-        counter.textContent = current.toLocaleString()+"+ Active accounts";
+        counter.textContent = current.toLocaleString() + "+ Active accounts";
       }, 25);
 
       if (counterMeta) {
@@ -171,7 +178,10 @@ document.addEventListener("DOMContentLoaded", () => {
     reader.readAsDataURL(file);
   }
 
-  elements.profilePicture.addEventListener("click", () => elements.imageInput.click()) || elements.imageInput.addEventListener("change", (e) => {
+  // Split the two listeners — the old `a || b` idiom silently skipped the
+  // change handler whenever addEventListener happened to return truthy.
+  elements.profilePicture.addEventListener("click", () => elements.imageInput.click());
+  elements.imageInput.addEventListener("change", (e) => {
     const file = e.target.files?.[0];
     handleImageUpload(file, elements.profilePicture);
   });
@@ -230,8 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ─── DUPLICATE CHECK ────────────────────────────────────
-  let debounceTimer;
+  // ─── DUPLICATE CHECK / HANDLE AVAILABILITY ─────────────
   let handledLinksCache = [];
   let knownLinksPromise = null;
   let handleDebounceTimer = null;
@@ -242,8 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
     knownLinksPromise = (async () => {
       try {
         const response = await fetch(`${CONFIG.googleScriptUrl}?get_all_links=true`);
-        if (!response.ok) throw new Error("Could not load handles");
-        const data = await response.json();
+        const data = await readJson(response);
         handledLinksCache = Array.isArray(data.links) ? data.links : [];
       } catch (error) {
         console.error("Known links load failed:", error);
@@ -264,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
     target.innerHTML = message;
   }
 
-  async function validateHandleAvailability({ force = false } = {}) {
+  async function validateHandleAvailability() {
     const rawHandle = elements.userLink.value.trim();
 
     if (!rawHandle) {
@@ -277,12 +285,10 @@ document.addEventListener("DOMContentLoaded", () => {
       return { available: false, checked: true };
     }
 
-    if (!force) {
-      await loadKnownLinks();
-      if (handledLinksCache.includes(rawHandle)) {
-        setHandleValidationState("invalid", "✗ This handle is already taken");
-        return { available: false, checked: true };
-      }
+    await loadKnownLinks();
+    if (handledLinksCache.includes(rawHandle)) {
+      setHandleValidationState("invalid", "✗ This handle is already taken");
+      return { available: false, checked: true };
     }
 
     setHandleValidationState("", '<i class="fas fa-spinner fa-spin"></i> Checking availability...');
@@ -291,9 +297,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const res = await fetch(
         `${CONFIG.googleScriptUrl}?check_duplicates=true&email=${encodeURIComponent("")}&link=${encodeURIComponent(rawHandle)}`
       );
-      const result = await res.json();
+      const data = await res.json();
 
-      if (result.linkExists) {
+      if (data && data.status === "error") {
+        // Don't block the user — the server will re-check on submit.
+        console.warn("Handle check error:", data.message);
+        setHandleValidationState("", "⚠ Could not verify handle right now; will retry on submit.");
+        return { available: true, checked: false };
+      }
+
+      if (data && data.linkExists) {
         setHandleValidationState("invalid", "✗ This handle is already taken");
         return { available: false, checked: true };
       }
@@ -302,8 +315,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return { available: true, checked: true };
     } catch (error) {
       console.error("Handle validation failed:", error);
-      setHandleValidationState("invalid", "⚠ Could not verify handle right now");
-      return { available: false, checked: true };
+      setHandleValidationState("", "⚠ Could not verify handle right now; will retry on submit.");
+      return { available: true, checked: false };
     }
   }
 
@@ -326,21 +339,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2500);
   });
 
-  async function checkDuplicatesDebounced(email, link) {
-    clearTimeout(debounceTimer);
-    return new Promise((resolve) => {
-      debounceTimer = setTimeout(async () => {
-        try {
-          const res = await fetch(
-            `${CONFIG.googleScriptUrl}?check_duplicates=true&email=${encodeURIComponent(email)}&link=${encodeURIComponent(link)}`
-          );
-          resolve(await res.json());
-        } catch (error) {
-          console.error("Duplicate check failed:", error);
-          resolve({ emailExists: true, linkExists: true });
-        }
-      }, 500);
-    });
+  // No debounce, no orphaned Promise. Called exactly once per submit.
+  async function checkDuplicates(email, link) {
+    try {
+      const res = await fetch(
+        `${CONFIG.googleScriptUrl}?check_duplicates=true&email=${encodeURIComponent(email)}&link=${encodeURIComponent(link)}`
+      );
+      const data = await res.json();
+      if (data && data.status === "error") {
+        console.warn("Dupe check error:", data.message);
+        return { emailExists: false, linkExists: false, error: true };
+      }
+      return data || { emailExists: false, linkExists: false };
+    } catch (error) {
+      console.error("Duplicate check failed:", error);
+      // Let the server-side check inside submitStandardSignup_ have the final say.
+      return { emailExists: false, linkExists: false, error: true };
+    }
   }
 
   // ─── CLOUDINARY UPLOAD ──────────────────────────────────
@@ -419,6 +434,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     try {
+      // Upload the avatar exactly once.
       let profilePictureUrl = "";
       if (elements.imageInput.files[0]) {
         swalInstance.update({
@@ -457,12 +473,12 @@ document.addEventListener("DOMContentLoaded", () => {
         didOpen: () => Swal.showLoading(),
       });
 
-      const { available: handleAvailable } = await validateHandleAvailability({ force: true });
+      const { available: handleAvailable } = await validateHandleAvailability();
       if (!handleAvailable) {
         throw new Error("This handle is already taken");
       }
 
-      const { emailExists, linkExists } = await checkDuplicatesDebounced(
+      const { emailExists, linkExists } = await checkDuplicates(
         formData.email,
         formData.link
       );
@@ -473,23 +489,22 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       swalInstance.update({
-        title: "Uploading...",
-        text: "Crafting your webfolio...",
+        title: "Crafting your webfolio...",
+        text: "Almost done...",
         allowOutsideClick: false,
         showConfirmButton: false,
         didOpen: () => Swal.showLoading(),
       });
 
-      if (elements.imageInput.files[0]) {
-        formData.profile_picture = await uploadToCloudinary(
-          elements.imageInput.files[0]
-        );
-      }
-
       const response = await fetch(
         `${CONFIG.googleScriptUrl}?${new URLSearchParams(formData)}`
       );
-      if (!response.ok) throw new Error("Submission failed. Please try again.");
+
+      // Apps Script always returns HTTP 200 — inspect the JSON body.
+      const result = await readJson(response);
+      if (result.status !== "success") {
+        throw new Error(result.message || "Submission failed");
+      }
 
       await Swal.fire({
         icon: "success",
@@ -501,9 +516,9 @@ document.addEventListener("DOMContentLoaded", () => {
               </a>`,
         background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
         confirmButtonText: "View My Webfolio",
-      }).then(() => {
-        window.location.href = `https://my.tccards.tn/@${formData.link}`;
       });
+
+      window.location.href = `https://my.tccards.tn/@${formData.link}`;
 
       elements.form.reset();
       elements.profilePicture.src = "https://tccards.tn/Assets/150.png";

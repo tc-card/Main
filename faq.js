@@ -5,7 +5,11 @@
 const FAQS = [
   {
     q: 'How much does a TCcard order cost?',
-    a: 'Basic can be paid monthly: 47.5 TND upfront for your card, delivery and first month, then 9 TND each month. Annual and two-year options are also available. Standard is billed yearly.',
+    a: 'Basic is one payment of 85 TND: 35 TND for your NFC card with delivery, plus 50 TND for your first year. Two years is 115 TND. Standard is 95 TND for the card and first year, then 60 TND a year. You can pay cash on delivery.',
+  },
+  {
+    q: 'Can I pay cash on delivery?',
+    a: 'Yes. We confirm your order with you before dispatch, and you pay the courier when your TCcard arrives.',
   },
   {
     q: 'What is an NFC card?',
@@ -22,6 +26,10 @@ const FAQS = [
   {
     q: 'Can I update my profile after ordering?',
     a: 'Yes. Edit your profile anytime at <a class="text-blue-300 underline-offset-4 hover:underline" href="https://edit.tccards.tn">edit.tccards.tn</a>. Updating is available on paid plans, and changes show up on the same card.',
+  },
+  {
+    q: 'What happens when my plan ends?',
+    a: 'Nothing is charged automatically. We remind you 30 and 7 days before your plan ends, and you have a 30-day grace period to renew: 50 TND a year on Basic, 60 TND on Standard, by bank transfer or cash.',
   },
   {
     q: 'Can I try it before I buy a card?',

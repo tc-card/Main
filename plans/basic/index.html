@@ -14,39 +14,47 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
+  
+  <link rel="stylesheet" href="https://www.tccards.tn/style.css" />
 </head>
 
 <body class="bg-gray-900 text-white fade-in">
 
-  <!-- ─── NAVIGATION (unchanged) ─── -->
-  <nav class="nav-container" id="mainNav" role="navigation" aria-label="Main navigation">
+  <nav class="fixed top-4 left-2 right-2 z-50 mx-auto max-w-7xl w-[95%] rounded-2xl backdrop-blur-xl border border-gray-700/50 shadow-lg" style="background: url(/Assets/ASbg.png);">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center py-3 md:py-4">
-        <a href="https://tccards.tn" class="flex items-center group rounded-lg hover:bg-gray-800/50 transition-colors duration-200 p-1">
-          <img src="https://tccards.tn/Assets/150.png" alt="tccards logo" class="h-9 w-9 md:h-10 md:w-10 rounded-full">
+      <div class="flex justify-between items-center py-4">
+        <a href="/" class="flex items-center group rounded-lg hover:bg-gray-800/70 backdrop-filter hover:backdrop-blur-lg transition-colors duration-200">
+          <img src="https://tccards.tn/Assets/150.png" alt="Logo" class="h-10 w-10 rounded-full">
         </a>
-        <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
-          <a href="https://tccards.tn/#faq" class="nav-link">FAQ</a>
-          <a href="https://tccards.tn/help/" class="nav-link">Support</a>
-          <a href="https://edit.tccards.tn" class="nav-link">Edit Dashboard</a>
-          <a href="https://tccards.tn/help/" class="nav-cta">
-            Get Help
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+
+        <div class="hidden md:flex items-center space-x-6" role="navigation" aria-label="Main navigation">
+          <a href="#features" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">Features</a>
+          <a href="#how-it-works" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">How It Works</a>
+          <a href="#pricing" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">Pricing</a>
+          <a href="#faq" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">FAQ</a>
+          <a href="https://edit.tccards.tn" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">Edit Profile</a>
+          <a href="/plans/basic/" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all duration-300 text-white h-10 px-4 rounded-lg border-2 border-gray-700 hover:border-gray-500">
+            Get a TCcard
           </a>
         </div>
-        <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+
+        <button id="mobile-menu-button" class="md:hidden p-2 rounded-full hover:bg-gray-800/50 transition-colors text-gray-300 hover:text-white" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu">
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+          </svg>
         </button>
       </div>
-      <div id="mobile-menu" class="hidden md:hidden pb-4 mt-2 mx-2">
-        <div class="flex flex-col gap-1 p-2">
-          <a href="https://tccards.tn/#faq"><i class="fas fa-question-circle w-5 text-center"></i> FAQ</a>
-          <a href="https://tccards.tn/help/"><i class="fas fa-life-ring w-5 text-center"></i> Support</a>
-          <a href="https://edit.tccards.tn"><i class="fas fa-edit w-5 text-center"></i> Edit Dashboard</a>
-          <a href="https://tccards.tn/help/" class="mobile-cta">
-            Get Help
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-          </a>
+
+      <div id="mobile-menu" class="hidden md:hidden pb-4 mt-2 mx-2 rounded-xl bg-gray-900/90 border border-gray-700/50 p-2">
+        <div class="flex flex-col gap-3">
+          <a href="#features" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] py-3 px-3 rounded-lg hover:bg-gray-800/70">Features</a>
+          <a href="#how-it-works" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] py-3 px-3 rounded-lg hover:bg-gray-800/70">How It Works</a>
+          <a href="#pricing" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] py-3 px-3 rounded-lg hover:bg-gray-800/70">Pricing</a>
+          <a href="#faq" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] py-3 px-3 rounded-lg hover:bg-gray-800/70">FAQ</a>
+          <a href="https://edit.tccards.tn" target="_blank" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] py-3 px-3 rounded-lg hover:bg-gray-800/70">Edit Profile</a>
+          <a href="/plans/basic/" class="mt-2 w-full inline-flex items-center justify-center text-sm font-medium text-white h-10 rounded-full border border-white">Get a TCcard</a>
         </div>
       </div>
     </div>
@@ -424,40 +432,10 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script type="module" src="main.js"></script>
+  <script src="https://www.tccards.tn/script.js"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      /* ---- NAV ---- */
-      const nav = document.getElementById('mainNav');
-      const menuButton = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
-
-      function updateNavScrolled() {
-        nav.classList.toggle('scrolled', window.scrollY > 20);
-      }
-      window.addEventListener('scroll', updateNavScrolled, { passive: true });
-      updateNavScrolled();
-
-      const closedIcon = `<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>`;
-      const openIcon   = `<path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>`;
-
-      if (menuButton && mobileMenu) {
-        function closeMenu() {
-          mobileMenu.classList.add('hidden');
-          menuButton.setAttribute('aria-expanded', 'false');
-          menuButton.querySelector('svg').innerHTML = closedIcon;
-        }
-        menuButton.addEventListener('click', function (e) {
-          e.stopPropagation();
-          const open = menuButton.getAttribute('aria-expanded') === 'true';
-          menuButton.setAttribute('aria-expanded', String(!open));
-          mobileMenu.classList.toggle('hidden');
-          menuButton.querySelector('svg').innerHTML = open ? closedIcon : openIcon;
-        });
-        window.addEventListener('scroll', () => !mobileMenu.classList.contains('hidden') && closeMenu(), { passive: true });
-        document.addEventListener('keydown', e => e.key === 'Escape' && !mobileMenu.classList.contains('hidden') && closeMenu());
-        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-      }
       /* ---- RENEWAL TOGGLE ---- */
       const CARD_PRICE = 31.5;
       const DELIVERY = 7;
