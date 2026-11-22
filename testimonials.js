@@ -2,17 +2,17 @@
 import { createMarquee } from './marquee.js';
 
 export const TESTIMONIALS = [
-  { name: 'Ava Green',   username: '@ava',  body: 'Cascade AI made my workflow 10x faster!', country: '🇦🇺 Australia', img: 'https://cdn.21st.dev/assets/mirror/55/55cf6231499bcdc496f15ff1d28d4170ac9b99e9279495caa44fca70886d8b2e.jpg' },
-  { name: 'Ana Miller',  username: '@ana',  body: 'Vertical marquee is a game changer!',     country: '🇩🇪 Germany',   img: 'https://cdn.21st.dev/assets/mirror/f0/f07b84f12ef125cbb837a7bd64da401992f5f62bd55fee10d01cd3dcc8abae80.jpg' },
-  { name: 'Mateo Rossi', username: '@mat',  body: 'Animations are buttery smooth!',          country: '🇮🇹 Italy',     img: 'https://cdn.21st.dev/assets/mirror/7c/7c0d2aa99715b15c218385f5679347782843c02f939d8eee6f9cb1cad6ba6ed0.jpg' },
-  { name: 'Maya Patel',  username: '@maya', body: 'Setup was a breeze!',                     country: '🇮🇳 India',     img: 'https://cdn.21st.dev/assets/mirror/f8/f8f2ddc445b6b2318430260bdebb665c9415865827230565aa42f57c9c794baf.jpg' },
-  { name: 'Noah Smith',  username: '@noah', body: 'Best marquee component!',                 country: '🇺🇸 USA',       img: 'https://cdn.21st.dev/assets/mirror/ae/ae1d49872fdd6f8d9aa933f6ca8bce8cb1ba7e87dfb9d2926661184cb7bfe26d.jpg' },
-  { name: 'Lucas Stone', username: '@luc',  body: 'Very customizable and smooth.',           country: '🇫🇷 France',    img: 'https://cdn.21st.dev/assets/mirror/9a/9aac54d62e727561f6958213b8a3649230a3bba61ba5ddf63c69d3c6e4aecb0a.jpg' },
-  { name: 'Haruto Sato', username: '@haru', body: 'Impressive performance on mobile!',       country: '🇯🇵 Japan',     img: 'https://cdn.21st.dev/assets/mirror/e5/e55f3cdab57eb4084f7006cfe9f7f047e638e1b257a53498aaed14b83087152a.jpg' },
-  { name: 'Emma Lee',    username: '@emma', body: 'Love the pause on hover feature!',        country: '🇨🇦 Canada',    img: 'https://cdn.21st.dev/assets/mirror/03/03410c155320ba33ecb8d798807c6c9610f33b2b2acdd4ed961a68185806df79.jpg' },
-  { name: 'Carlos Ray',  username: '@carl', body: 'Great for testimonials and logos.',       country: '🇪🇸 Spain',     img: 'https://cdn.21st.dev/assets/mirror/b5/b58616f0d669595c9a42d60a0b9803364c9859f1c3db93a5e3dc408b603e03e8.jpg' },
+  { name: 'Amina Ben Salah',   username: '@amina',   body: 'The NFC tap is magic — I shared my full profile at a meetup in one second, no app needed.', country: '🇹🇳 Tunisia', img: 'https://cdn.21st.dev/assets/mirror/55/55cf6231499bcdc496f15ff1d28d4170ac9b99e9279495caa44fca70886d8b2e.jpg' },
+  { name: 'Claire Dubois',     username: '@claire',  body: 'I updated my job title from my phone and the same tccard showed the new version instantly. One card, no reprints.', country: '🇫🇷 France',  img: 'https://cdn.21st.dev/assets/mirror/f0/f07b84f12ef125cbb837a7bd64da401992f5f62bd55fee10d01cd3dcc8abae80.jpg' },
+  { name: 'Youssef Trabelsi',  username: '@youssef', body: 'The Standard plan’s analytics are a game changer — I finally see who opens my profile after every event.', country: '🇹🇳 Tunisia', img: 'https://cdn.21st.dev/assets/mirror/7c/7c0d2aa99715b15c218385f5679347782843c02f939d8eee6f9cb1cad6ba6ed0.jpg' },
+  { name: 'Sarra Ben Youssef', username: '@sarra',   body: 'Setup took minutes. I picked the Basic plan, paid cash on delivery, and my card arrived ready to tap.', country: '🇹🇳 Tunisia', img: 'https://cdn.21st.dev/assets/mirror/f8/f8f2ddc445b6b2318430260bdebb665c9415865827230565aa42f57c9c794baf.jpg' },
+  { name: 'Youssef Trabelsi', username: '@youssef', body: 'I changed my job title from my phone and the same card showed the new version the next time someone tapped it. Two years on the same card, zero reprints.', country: '🇹🇳 Tunisia', img: 'https://cdn.21st.dev/assets/mirror/7c/7c0d2aa99715b15c218385f5679347782843c02f939d8eee6f9cb1cad6ba6ed0.jpg' },
+  { name: 'Ines Mestiri',     username: '@ines',   body: 'Someone at a meetup had an old phone with no NFC. I flipped the card and they scanned the QR code instead. That fallback alone made it worth it.', country: '🇹🇳 Tunisia', img: 'https://cdn.21st.dev/assets/mirror/03/03410c155320ba33ecb8d798807c6c9610f33b2b2acdd4ed961a68185806df79.jpg' },
+  { name: 'Hamza Jaziri',      username: '@hamza',   body: 'I run conferences and the Events plan is exactly what I needed — 10 branded cards, real-time dashboard, and attendee tracking.', country: '🇹🇳 Tunisia', img: 'https://cdn.21st.dev/assets/mirror/ae/ae1d49872fdd6f8d9aa933f6ca8bce8cb1ba7e87dfb9d2926661184cb7bfe26d.jpg' },
+  { name: 'Mehdi Ben Amor',    username: '@mehdi',   body: 'The Standard plan lets me link up to 5 extra cards, so my whole team’s profiles stay under one brand.', country: '🇹🇳 Tunisia', img: 'https://cdn.21st.dev/assets/mirror/9a/9aac54d62e727561f6958213b8a3649230a3bba61ba5ddf63c69d3c6e4aecb0a.jpg' },
+  { name: 'Thomas Reed',       username: '@thomas',  body: 'No automatic renewals is a big deal for me. I pay once, get reminded before expiry, and renew only when I choose.', country: '🇬🇧 UK',      img: 'https://cdn.21st.dev/assets/mirror/e5/e55f3cdab57eb4084f7006cfe9f7f047e638e1b257a53498aaed14b83087152a.jpg' },
+  { name: 'Sami Gharbi',       username: '@sami',    body: 'For our 10-person team, the Enterprise rollout gave us branded cards and a team circle — exactly the consistency we wanted.', country: '🇹🇳 Tunisia', img: 'https://cdn.21st.dev/assets/mirror/b5/b58616f0d669595c9a42d60a0b9803364c9859f1c3db93a5e3dc408b603e03e8.jpg' },
 ];
-
 function el(tag, className, text) {
   const node = document.createElement(tag);
   if (className) node.className = className;
