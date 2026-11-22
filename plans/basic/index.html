@@ -1,24 +1,45 @@
 <!DOCTYPE html>
 <html class="scroll-smooth" lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Basic Plan – tccards</title>
-  <meta name="description" content="Create your digital business card in minutes. Professional NFC-enabled profile with instant sharing." />
-  <link rel="icon" href="https://tccards.tn/Assets/150.png" type="image/x-icon" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
+  <title>Basic plan: NFC card + editable profile | tccards</title>
+  <meta name="description" content="Order your Basic TCcard: NFC card, editable digital profile and QR code. 85 TND for the card and first year, pay cash on delivery.">
+  <meta name="keywords" content="Basic NFC business card, digital business card Tunisia, TCcard Basic, cash on delivery, NFC card 85 TND">
+  <meta name="keywords" lang="fr" content="carte de visite NFC Tunisie, carte numérique Basic, paiement à la livraison">
+  <meta name="keywords" lang="ar" content="بطاقة أعمال ذكية NFC, بطاقة رقمية تونس, الدفع عند الاستلام">
+  <link rel="canonical" href="https://tccards.tn/plans/basic/">
+  <meta property="og:title" content="TCcard Basic: NFC card + editable profile">
+  <meta property="og:description" content="85 TND for the card and your first year. Pay cash on delivery.">
+  <meta property="og:url" content="https://tccards.tn/plans/basic/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Total Connect">
+  <meta property="og:image" content="https://tccards.tn/Assets/4.png">
+  <link rel="icon" href="https://tccards.tn/Assets/150.png" type="image/x-icon">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>tailwind.config = { theme: { extend: { colors: { 'brand-blue': '#3ABEF9' } } } };</script>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
-  
-  <link rel="stylesheet" href="https://www.tccards.tn/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "TCcard Basic",
+    "image": "https://tccards.tn/Assets/4.png",
+    "description": "NFC card with an editable digital profile and QR code. Pay once for the card and your first year, cash on delivery available.",
+    "brand": { "@type": "Brand", "name": "tccards" },
+    "offers": [
+      { "@type": "Offer", "name": "Basic, 1 year", "price": "85", "priceCurrency": "TND", "url": "https://tccards.tn/plans/basic/" },
+      { "@type": "Offer", "name": "Basic, 2 years", "price": "115", "priceCurrency": "TND", "url": "https://tccards.tn/plans/basic/" }
+    ]
+  }
+  </script>
 </head>
 
-<body class="bg-gray-900 text-white fade-in">
+<body class="fade-in flex flex-col items-center bg-black text-white font-nunito overflow-x-hidden">
 
   <nav class="fixed top-4 left-2 right-2 z-50 mx-auto max-w-7xl w-[95%] rounded-2xl backdrop-blur-xl border border-gray-700/50 shadow-lg" style="background: url(/Assets/ASbg.png);">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,12 +49,12 @@
         </a>
 
         <div class="hidden md:flex items-center space-x-6" role="navigation" aria-label="Main navigation">
-          <a href="#features" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">Features</a>
-          <a href="#how-it-works" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">How It Works</a>
-          <a href="#pricing" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">Pricing</a>
-          <a href="#faq" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">FAQ</a>
+          <a href="/#features" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">Features</a>
+          <a href="/#how-it-works" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">How It Works</a>
+          <a href="/plans/#pricing" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">Pricing</a>
+          <a href="/#faq" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">FAQ</a>
           <a href="https://edit.tccards.tn" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] transition-all duration-300 relative group px-3 py-1.5 rounded-lg hover:bg-white/10">Edit Profile</a>
-          <a href="/plans/basic/" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all duration-300 text-white h-10 px-4 rounded-lg border-2 border-gray-700 hover:border-gray-500">
+          <a href="#data-fill" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all duration-300 text-white h-10 px-4 rounded-lg border-2 border-gray-700 hover:border-gray-500">
             Get a TCcard
           </a>
         </div>
@@ -47,380 +68,314 @@
         </button>
       </div>
 
-      <div id="mobile-menu" class="hidden md:hidden pb-4 mt-2 mx-2 rounded-xl bg-gray-900/90 border border-gray-700/50 p-2">
+      <div id="mobile-menu" class="hidden md:hidden pb-4 mt-2 mx-2 rounded-xl border border-gray-700/50 p-2">
         <div class="flex flex-col gap-3">
-          <a href="#features" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] py-3 px-3 rounded-lg hover:bg-gray-800/70">Features</a>
-          <a href="#how-it-works" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] py-3 px-3 rounded-lg hover:bg-gray-800/70">How It Works</a>
-          <a href="#pricing" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] py-3 px-3 rounded-lg hover:bg-gray-800/70">Pricing</a>
-          <a href="#faq" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] py-3 px-3 rounded-lg hover:bg-gray-800/70">FAQ</a>
+          <a href="/#features" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] py-3 px-3 rounded-lg hover:bg-gray-800/70">Features</a>
+          <a href="/#how-it-works" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] py-3 px-3 rounded-lg hover:bg-gray-800/70">How It Works</a>
+          <a href="/plans/#pricing" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] py-3 px-3 rounded-lg hover:bg-gray-800/70">Pricing</a>
+          <a href="/#faq" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] py-3 px-3 rounded-lg hover:bg-gray-800/70">FAQ</a>
           <a href="https://edit.tccards.tn" target="_blank" class="text-sm font-medium text-gray-300 hover:text-[#3ABEF9] py-3 px-3 rounded-lg hover:bg-gray-800/70">Edit Profile</a>
-          <a href="/plans/basic/" class="mt-2 w-full inline-flex items-center justify-center text-sm font-medium text-white h-10 rounded-full border border-white">Get a TCcard</a>
+          <a href="#data-fill" class="mt-2 w-full inline-flex items-center justify-center text-sm font-medium text-white h-10 rounded-full border border-white">Get a TCcard</a>
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- ─── HERO ─── -->
-  <section class="hero-section">
-    <div>
-      <div class="hero-kicker"><i class="fas fa-bolt text-purple-400 text-xs"></i> Digital Business Cards</div>
-      <h1 class="hero-title">Your network, <span>upgraded</span>.</h1>
-      <p class="hero-text">
-        Create your NFC-enabled card that opens a quick-access digital profile. Share links, socials, and contact info with one tap — no more paper, no more handoffs.
-      </p>
-      <div class="hero-actions">
-        <a class="hero-btn-primary" href="#pricing"><i class="fas fa-rocket"></i> Get yours</a>
-        <a class="hero-btn-secondary" href="https://card.tccards.tn/@Random-profile" target="_blank"><i class="fas fa-eye"></i> Check a Random Card</a>
-      </div>
-      <div class="hero-features">
-        <div class="hero-feature"><strong>NFC</strong><span>Wireless Sharing</span></div>
-        <div class="hero-feature"><strong>ECO+</strong><span>Eco-Friendly</span></div>
-        <div class="hero-feature"><strong>1-Tap</strong><span>Instant Sync</span></div>
-      </div>
-    </div>
+  <main class="w-full">
 
-    <div class="phone-visual">
-      <div class="phone-frame-secondary">
-        <div class="phone-screen">
-          <div class="phone-avatar" style="width:44px;height:44px;font-size:15px;background:linear-gradient(135deg,#34d399,#06b6d4);">JD</div>
-          <div class="phone-name" style="font-size:12px;">Jane Doe</div>
-          <div class="phone-tagline" style="margin-bottom:0;">Product Designer</div>
+    <!-- HERO -->
+    <section class="relative w-full px-4 pb-16 pt-28 sm:px-6 sm:pt-36 lg:pb-24">
+      <div class="pointer-events-none absolute left-1/2 top-24 -z-10 h-[460px] w-[720px] max-w-full -translate-x-1/2 rounded-full bg-blue-600/15 blur-[120px]"></div>
+
+      <div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+
+        <div class="text-center lg:text-left">
+          <span class="inline-flex items-center gap-2 rounded-full bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-gray-300"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>Basic plan · pay on delivery</span>
+          <h1 class="mt-5 text-4xl font-bold tracking-tight sm:text-6xl">Your network,<br><span class="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">upgraded.</span></h1>
+          <p class="mx-auto mt-5 max-w-lg text-base leading-relaxed text-gray-400 sm:text-lg lg:mx-0">One NFC card opens your digital profile. Tap it on any phone to share your links, socials and contact info. No app, no paper.</p>
+
+          <div class="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
+            <a href="#data-fill" class="inline-flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 px-7 text-sm font-semibold text-white shadow-lg shadow-blue-700/20 transition hover:from-blue-500 hover:to-blue-600 sm:w-auto"><i class="fas fa-rocket" aria-hidden="true"></i> Get yours</a>
+            <a href="https://card.tccards.tn/@Random-profile" target="_blank" rel="noopener" class="inline-flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-xl bg-white/5 px-7 text-sm font-semibold text-white transition-colors hover:bg-white/10 sm:w-auto"><i class="fas fa-eye" aria-hidden="true"></i> See a live card</a>
+          </div>
+
+          <p class="mt-5 text-sm text-gray-400"><span class="font-semibold text-white">85 TND</span> for the card, delivery and your first year. You pay the courier.</p>
+
+          <ul class="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-400 lg:justify-start">
+            <li><i class="fas fa-wifi mr-2 text-blue-400" aria-hidden="true"></i>NFC + QR code</li>
+            <li><i class="fas fa-leaf mr-2 text-blue-400" aria-hidden="true"></i>Eco-friendly</li>
+            <li><i class="fas fa-bolt mr-2 text-blue-400" aria-hidden="true"></i>Update anytime</li>
+          </ul>
+          <p class="mt-4 text-sm text-gray-500"><strong id="activeCounter" class="font-semibold text-gray-200">Loading...</strong> <span id="counterMeta">Syncing live data...</span></p>
         </div>
-      </div>
 
-      <div class="phone-frame">
-        <div class="phone-screen">
-          <div class="phone-avatar">JD</div>
-          <div class="phone-name">John Doe</div>
-          <div class="phone-tagline">Digital Strategist</div>
-          <div class="phone-link"><i class="fas fa-envelope"></i> john@example.com</div>
-          <div class="phone-link"><i class="fas fa-phone"></i> +216 99 999 999</div>
-          <div class="phone-link"><i class="fab fa-linkedin-in"></i> linkedin.com/in/johndoe</div>
-          <div class="phone-link"><i class="fab fa-instagram"></i> @johndoe</div>
+        <!-- tap demo: the card taps the phone, a banner appears, the profile opens -->
+        <div id="tap-stage" class="group relative mx-auto h-[27rem] w-full max-w-xs sm:h-[31rem] sm:max-w-sm" data-tap="false" data-banner="false" data-open="false" aria-hidden="true">
+          <img src="/Assets/card-blue.webp" alt="" width="900" height="658" fetchpriority="high"
+               class="absolute left-1/2 top-0 z-0 w-72 -translate-x-1/2 -rotate-6 transition-transform duration-[900ms] ease-out group-data-[tap=true]:translate-y-5 group-data-[tap=true]:-rotate-3 sm:w-80">
+          <div data-float class="absolute -right-2 bottom-10 z-0 w-40 sm:-right-8 sm:w-48"><img src="/Assets/card-orange.webp" alt="" width="900" height="658" class="w-full rotate-12"></div>
+
+          <div class="pointer-events-none absolute left-1/2 top-36 z-20 hidden h-0 w-0 group-data-[tap=true]:block">
+            <span class="absolute -left-12 -top-12 h-24 w-24 animate-ping rounded-full bg-blue-400/25 [animation-duration:1.6s]"></span>
+            <span class="absolute -left-20 -top-20 h-40 w-40 animate-ping rounded-full bg-blue-400/15 [animation-delay:0.3s] [animation-duration:1.6s]"></span>
+          </div>
+
+          <div class="absolute inset-x-8 bottom-0 top-36 z-10 rounded-[2.4rem] bg-zinc-900 p-2 shadow-2xl sm:inset-x-10">
+            <div class="relative h-full overflow-hidden rounded-[2rem] bg-gradient-to-b from-zinc-950 to-black">
+              <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center text-gray-500 transition-opacity duration-500 group-data-[open=true]:opacity-0">
+                <i class="fas fa-wifi rotate-90 text-3xl text-blue-400/70" aria-hidden="true"></i>
+                <p class="text-sm">Hold your phone near a TCcard</p>
+              </div>
+              <div class="absolute inset-x-3 top-3 z-10 flex -translate-y-24 items-center gap-3 rounded-2xl bg-white/10 px-3 py-2.5 text-left backdrop-blur transition-transform duration-500 group-data-[banner=true]:translate-y-0 group-data-[open=true]:-translate-y-24">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-500/30 text-xs font-bold text-blue-100">tc</span>
+                <span class="min-w-0"><span class="block text-[11px] text-gray-400">TCcard detected</span><span class="block truncate text-xs font-medium text-white">card.tccards.tn/@john</span></span>
+              </div>
+              <div class="absolute inset-0 translate-y-8 px-5 pt-12 text-center opacity-0 transition duration-700 group-data-[open=true]:translate-y-0 group-data-[open=true]:opacity-100">
+                <span class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 text-lg font-bold text-white">JD</span>
+                <p class="mt-3 text-base font-semibold text-white">John Doe</p>
+                <p class="text-xs text-gray-400">Digital Strategist</p>
+                <ul class="mt-5 space-y-2 text-xs text-gray-300">
+                  <li class="rounded-lg bg-white/[0.07] px-3 py-2"><i class="fab fa-linkedin mr-2 text-blue-300"></i>linkedin.com/in/john</li>
+                  <li class="rounded-lg bg-white/[0.07] px-3 py-2"><i class="fas fa-phone mr-2 text-blue-300"></i>+216 99 999 999</li>
+                  <li class="rounded-lg bg-blue-600 px-3 py-2.5 font-semibold text-white">Save contact</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="floating-badge">
-        <strong id="activeCounter">Loading...</strong>
-        <span id="counterMeta">Syncing live data...</span>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ─── EDITOR SHOWCASE ─── -->
-  <section class="section-block">
-    <div class="editor-inner">
-      <div>
-        <div class="hero-kicker"><i class="fas fa-sliders-h text-xs"></i> Edit Dashboard</div>
-        <h2 class="editor-title">Update your card <span>anytime</span>.</h2>
-        <p class="editor-text">
-          Change your photo, links, phone, and tagline from our editor dashboard. No reprinting, no extra cost. Every change goes live instantly for everyone who taps your card.
-        </p>
-        <ul class="editor-features">
-          <li><i class="fas fa-check"></i> Live editing</li>
-          <li><i class="fas fa-check"></i> Instant sync</li>
-          <li class="editor-feature-locked"><i class="fas fa-lock"></i> Profile analytics <span class="editor-plan-badge">Standard</span></li>
-          <li><i class="fas fa-check"></i> No reprints, ever</li>
+    <!-- UPDATE ANYTIME -->
+    <section class="w-full max-w-5xl px-4 py-10 sm:px-6">
+      <div class="grid items-center gap-8 rounded-3xl bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-6 sm:p-10 lg:grid-cols-2">
+        <div>
+          <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Update your card <span class="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">anytime</span>.</h2>
+          <p class="mt-4 leading-relaxed text-gray-400">Change your photo, links, phone and tagline from the editor dashboard. No reprinting, no extra cost. Every change goes live for everyone who taps your card.</p>
+          <a href="https://edit.tccards.tn" class="mt-6 inline-flex min-h-[3rem] items-center justify-center gap-2 rounded-lg bg-white/5 px-6 text-sm font-semibold text-white transition-colors hover:bg-white/10"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Open editor</a>
+        </div>
+        <ul class="grid grid-cols-1 gap-3 text-sm text-gray-300 sm:grid-cols-2">
+          <li class="flex items-center gap-3 rounded-2xl bg-white/[0.04] p-4"><i class="fas fa-check text-emerald-400" aria-hidden="true"></i>Live editing</li>
+          <li class="flex items-center gap-3 rounded-2xl bg-white/[0.04] p-4"><i class="fas fa-check text-emerald-400" aria-hidden="true"></i>Instant sync</li>
+          <li class="flex items-center gap-3 rounded-2xl bg-white/[0.04] p-4 text-gray-500"><i class="fas fa-lock text-amber-400" aria-hidden="true"></i>Profile analytics <span class="rounded-full bg-amber-400/15 px-2 py-0.5 text-xs text-amber-200">Standard</span></li>
+          <li class="flex items-center gap-3 rounded-2xl bg-white/[0.04] p-4"><i class="fas fa-check text-emerald-400" aria-hidden="true"></i>No reprints, ever</li>
         </ul>
-        <a href="https://edit.tccards.tn" class="hero-btn-primary"><i class="fas fa-external-link-alt"></i> Open Editor</a>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="mx-auto w-full max-w-3xl scroll-mt-24 px-4 py-16 sm:px-6 sm:py-24">
+      <div class="mb-10 text-center">
+        <h2 class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl">One card. Everything included.</h2>
+        <p class="mt-4 text-lg text-gray-400">One reusable NFC card, an editable digital profile and QR code sharing.</p>
       </div>
 
-      <!-- Editor mockup (inline preview, matches real editor) -->
-      <div class="editor-window" role="img" aria-label="Screenshot of the tccards profile editor">
-        <div class="editor-titlebar">
-          <div class="editor-dots"><span></span><span></span><span></span></div>
-          <div class="editor-url"><a href="https://edit.tccards.tn" target="_blank" rel="noopener noreferrer">edit.tccards.tn</a></div>
-          <div class="editor-titlebar-spacer"></div>
+      <div class="rounded-3xl bg-blue-500/[0.07] p-5 sm:p-8">
+        <div class="flex justify-center">
+          <div role="radiogroup" aria-label="Plan length" class="inline-flex gap-1 rounded-full bg-white/[0.06] p-1.5">
+            <button type="button" role="radio" aria-checked="true" data-term="year" class="min-h-[2.75rem] rounded-full px-5 text-sm font-medium text-gray-300 transition-colors aria-checked:bg-white aria-checked:text-black">1 year</button>
+            <button type="button" role="radio" aria-checked="false" data-term="two" class="min-h-[2.75rem] rounded-full px-5 text-sm font-medium text-gray-300 transition-colors aria-checked:bg-white aria-checked:text-black">2 years <span class="ml-1 text-xs text-blue-300">Best value</span></button>
+          </div>
         </div>
 
-        <div class="editor-app">
-          <aside class="editor-sidebar">
-            <div class="editor-sidebar-avatar">JD</div>
-            <button type="button" class="editor-nav-item active" title="Profile"><i class="fas fa-user-edit"></i></button>
-            <button type="button" class="editor-nav-item" title="QR Code"><i class="fas fa-qrcode"></i></button>
-            <button type="button" class="editor-nav-item locked" title="Analytics — available on Standard">
-              <i class="fas fa-chart-line"></i>
-              <span class="editor-nav-lock"><i class="fas fa-lock"></i></span>
-            </button>
-            <button type="button" class="editor-nav-item" title="Settings"><i class="fas fa-cog"></i></button>
-            <div class="editor-nav-sep"></div>
-            <button type="button" class="editor-nav-item logout" title="Sign out"><i class="fas fa-sign-out-alt"></i></button>
-          </aside>
+        <div class="mt-8 text-center">
+          <p class="text-xs uppercase tracking-wider text-gray-500">You pay once, on delivery</p>
+          <p id="price-total" class="mt-1 text-5xl font-bold text-white">85 TND</p>
+          <p id="price-note" class="mt-1 text-sm text-gray-400">Card 35 + 1 year 50</p>
+          <p id="price-sub" class="text-xs text-gray-500">≈ 4.2 TND / month</p>
+        </div>
 
-          <div class="editor-content">
-            <div class="editor-header-row">
-              <div class="min-w-0">
-                <div class="editor-greeting-kicker">Welcome back</div>
-                <div class="editor-greeting-name">John</div>
-              </div>
-              <span class="editor-autosave-pill"><i class="fas fa-clock"></i> Auto-save</span>
-            </div>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2">
+          <div>
+            <p class="mb-3 flex items-center gap-2 text-sm font-semibold text-emerald-400"><i class="fas fa-circle-check" aria-hidden="true"></i> Included</p>
+            <ul class="space-y-2 text-sm text-gray-300">
+              <li>1 NFC card, delivery included</li>
+              <li>8 pre-designed templates</li>
+              <li>6 media links</li>
+              <li>Email support</li>
+              <li>QR code emailing</li>
+              <li>Editing dashboard</li>
+            </ul>
+          </div>
+          <div>
+            <p class="mb-3 flex items-center gap-2 text-sm font-semibold text-red-300"><i class="fas fa-circle-xmark" aria-hidden="true"></i> Not included</p>
+            <ul class="space-y-2 text-sm text-gray-500">
+              <li>Customizable card design</li>
+              <li>Analytics dashboard <span class="ml-1 rounded-full bg-amber-400/15 px-2 py-0.5 text-xs text-amber-200">Standard</span></li>
+              <li>Action button (get in touch only)</li>
+            </ul>
+          </div>
+        </div>
 
-            <div class="editor-card">
-              <div class="editor-card-title">Personal Information</div>
-              <div class="editor-field-group">
-                <span class="editor-field-label">Full Name</span>
-                <div class="editor-input focused">John Doe</div>
-              </div>
-              <div class="editor-field-group">
-                <span class="editor-field-label">Tagline</span>
-                <div class="editor-input">Digital Strategist</div>
-              </div>
-              <div class="editor-mini-row">
-                <div>
-                  <div class="editor-mini-label">Accent</div>
-                  <div class="editor-swatches">
-                    <span class="editor-swatch selected" style="background:#3b82f6"></span>
-                    <span class="editor-swatch" style="background:#a78bfa"></span>
-                    <span class="editor-swatch" style="background:#34d399"></span>
-                    <span class="editor-swatch" style="background:#f59e0b"></span>
-                  </div>
+        <a href="#data-fill" class="mt-8 inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 px-6 text-sm font-semibold text-white transition-colors hover:from-blue-500 hover:to-blue-600"><i class="fas fa-rocket" aria-hidden="true"></i> Get your Basic card</a>
+
+        <p class="mt-5 text-center text-sm text-gray-400"><i class="fas fa-rotate mr-1.5 text-blue-400" aria-hidden="true"></i>Then renew for <span id="renew-price" class="font-semibold text-white">50 TND / year</span>. Never automatic.</p>
+      </div>
+    </section>
+
+    <!-- FORM -->
+    <section id="order" class="mx-auto w-full max-w-6xl scroll-mt-24 px-4 pb-16 sm:px-6">
+      <div class="mb-8 text-center">
+        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Create your digital card</h2>
+        <p class="mt-3 text-gray-400">Takes about two minutes. Fields marked <span class="text-red-400">*</span> are required. You pay on delivery.</p>
+      </div>
+
+      <div class="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_23rem]">
+        <div class="mx-auto w-full max-w-2xl rounded-3xl bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-5 sm:p-8 lg:max-w-none">
+          <form method="POST" id="data-fill" class="scroll-mt-28 space-y-7">
+            <input type="hidden" id="style-value" name="style-value" value="corporateGradient">
+
+            <div>
+              <h3 class="mb-4 flex items-center gap-3 text-base font-semibold text-white"><span class="flex h-7 w-7 items-center justify-center rounded-full bg-blue-500/20 text-sm text-blue-200">1</span>You</h3>
+              <div class="mb-5 flex flex-col items-center text-center">
+                <div class="relative mb-3">
+                  <div class="pointer-events-none absolute -inset-[3px] animate-spin rounded-full border-2 border-transparent border-t-blue-400/40 [animation-duration:1.8s] motion-reduce:animate-none"></div>
+                  <img src="https://tccards.tn/Assets/150.png" alt="Profile picture. Tap to change" id="profile-picture" width="96" height="96" class="relative z-10 h-24 w-24 cursor-pointer rounded-full object-cover transition hover:ring-2 hover:ring-blue-500/50">
                 </div>
-                <div>
-                  <div class="editor-mini-label">Layout</div>
-                  <div class="editor-templates">
-                    <span class="editor-template-tile selected">▭</span>
-                    <span class="editor-template-tile">◠</span>
-                    <span class="editor-template-tile">◫</span>
-                    <span class="editor-template-tile">···</span>
-                  </div>
+                <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*">
+                <label for="image-input" class="inline-flex min-h-[2.75rem] cursor-pointer items-center gap-2 rounded-lg bg-white/5 px-4 text-sm font-medium text-gray-300 transition-colors hover:bg-white/10 hover:text-white"><i class="fas fa-upload" aria-hidden="true"></i> Upload photo</label>
+                <span class="mt-1.5 text-xs text-white/30">Optional · JPEG, PNG or GIF · big photos are resized for you</span>
+              </div>
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-medium text-white/50" for="user-name">Full name <span class="text-red-400">*</span></label>
+                  <input type="text" id="user-name" name="user-name" placeholder="e.g. John Doe" required autocomplete="name" class="w-full rounded-xl bg-white/[0.05] px-4 py-3 text-base text-white placeholder-white/25 outline-none transition focus:bg-white/[0.09] focus:ring-2 focus:ring-blue-500/50 sm:text-sm [&.valid]:ring-2 [&.valid]:ring-emerald-400/60 [&.invalid]:ring-2 [&.invalid]:ring-red-400/60">
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-medium text-white/50" for="user-tagline">Tagline</label>
+                  <input type="text" id="user-tagline" name="user-tagline" placeholder="e.g. Digital Strategist" class="w-full rounded-xl bg-white/[0.05] px-4 py-3 text-base text-white placeholder-white/25 outline-none transition focus:bg-white/[0.09] focus:ring-2 focus:ring-blue-500/50 sm:text-sm [&.valid]:ring-2 [&.valid]:ring-emerald-400/60 [&.invalid]:ring-2 [&.invalid]:ring-red-400/60">
                 </div>
               </div>
             </div>
 
-            <div class="editor-card editor-card-preview">
-              <div class="editor-card-title">Live Preview</div>
-              <div class="editor-preview-mini">
-                <div class="editor-preview-avatar">JD</div>
-                <div class="editor-preview-info">
-                  <div class="editor-preview-name">John Doe</div>
-                  <div class="editor-preview-tagline">Digital Strategist</div>
+            <hr class="border-0 border-t border-white/[0.08]">
+
+            <div>
+              <h3 class="mb-4 flex items-center gap-3 text-base font-semibold text-white"><span class="flex h-7 w-7 items-center justify-center rounded-full bg-blue-500/20 text-sm text-blue-200">2</span>Your page</h3>
+              <div class="mb-4 space-y-1.5">
+                <label class="block text-xs font-medium text-white/50" for="user-email">Email <span class="text-red-400">*</span></label>
+                <input type="email" id="user-email" name="email" placeholder="you@example.com" required autocomplete="email" inputmode="email" class="w-full rounded-xl bg-white/[0.05] px-4 py-3 text-base text-white placeholder-white/25 outline-none transition focus:bg-white/[0.09] focus:ring-2 focus:ring-blue-500/50 sm:text-sm [&.valid]:ring-2 [&.valid]:ring-emerald-400/60 [&.invalid]:ring-2 [&.invalid]:ring-red-400/60">
+              </div>
+              <div class="space-y-1.5 [&_.validation-message]:mt-1 [&_.validation-message]:flex [&_.validation-message]:items-center [&_.validation-message]:gap-1.5 [&_.validation-message]:text-xs [&_.validation-message.valid]:text-emerald-400 [&_.validation-message.invalid]:text-red-400 [&_.fa-spinner]:text-amber-400">
+                <label class="block text-xs font-medium text-white/50" for="user-link">Your handle <span class="text-red-400">*</span></label>
+                <div class="flex items-stretch">
+                  <span class="flex items-center whitespace-nowrap rounded-l-xl bg-white/[0.04] px-3 text-xs font-medium text-white/40 sm:text-sm">card.tccards.tn/@</span>
+                  <input type="text" id="user-link" name="link" required autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="15"
+                         pattern="[a-zA-Z][a-zA-Z0-9\-]{2,14}" title="3 to 15 characters. Start with a letter, then letters, numbers or hyphens."
+                         placeholder="yourname" class="w-full rounded-xl bg-white/[0.05] px-4 py-3 text-base text-white placeholder-white/25 outline-none transition focus:bg-white/[0.09] focus:ring-2 focus:ring-blue-500/50 sm:text-sm [&.valid]:ring-2 [&.valid]:ring-emerald-400/60 [&.invalid]:ring-2 [&.invalid]:ring-red-400/60 min-w-0 rounded-l-none">
                 </div>
-                <div class="editor-preview-icons">
-                  <span><i class="fab fa-linkedin-in"></i></span>
-                  <span><i class="fab fa-instagram"></i></span>
-                  <span><i class="fas fa-envelope"></i></span>
+                <div id="handle-validation-message" class="validation-message" aria-live="polite"></div>
+                <p class="mt-1.5 text-xs text-white/30">Permanent link · 3 to 15 characters, start with a letter, then letters, numbers or hyphens</p>
+              </div>
+            </div>
+
+            <hr class="border-0 border-t border-white/[0.08]">
+
+            <div>
+              <h3 class="mb-4 flex items-center gap-3 text-base font-semibold text-white"><span class="flex h-7 w-7 items-center justify-center rounded-full bg-blue-500/20 text-sm text-blue-200">3</span>Links</h3>
+              <p class="mb-2 text-xs font-medium text-white/50">Social links <span class="font-normal text-white/30">(up to 6)</span></p>
+              <div id="dynamic-links">
+                <ul id="socialLinkList" class="space-y-2 [&>li]:flex [&>li]:items-center [&>li]:gap-3 [&>li]:rounded-xl [&>li]:bg-white/[0.05] [&>li]:px-3 [&>li]:py-1.5 [&_i]:text-blue-400 [&_input]:min-w-0 [&_input]:text-base sm:[&_input]:text-sm [&_input]:py-2 [&_.remove-link-btn]:p-2 [&_.remove-link-btn]:opacity-100">
+                  <li class="social-link-item group">
+                    <i class="fa fa-link text-sm" aria-hidden="true"></i>
+                    <input type="url" name="social-links[]" placeholder="https://linkedin.com/in/yourname" aria-label="Social link" inputmode="url" class="flex-1 bg-transparent text-white placeholder-white/25 focus:outline-none">
+                  </li>
+                </ul>
+                <button type="button" id="add-link-btn" class="mt-2 inline-flex min-h-[2.75rem] items-center gap-2 rounded-lg px-1 text-sm font-medium text-white/50 transition-colors hover:text-blue-300"><i class="fas fa-plus-circle" aria-hidden="true"></i> Add another link</button>
+              </div>
+
+            </div>
+
+            <hr class="border-0 border-t border-white/[0.08]">
+
+            <div>
+              <h3 class="mb-4 flex items-center gap-3 text-base font-semibold text-white"><span class="flex h-7 w-7 items-center justify-center rounded-full bg-blue-500/20 text-sm text-blue-200">4</span>Your card style</h3>
+              <div data-style-extras>
+                <p class="mb-2 text-xs font-medium text-white/50">Layout</p>
+                <div id="template-grid" class="grid grid-cols-4 gap-2"></div>
+
+                <p class="mb-2 mt-5 text-xs font-medium text-white/50">Accent color</p>
+                <div id="accent-grid" class="flex flex-wrap items-center gap-3"></div>
+              </div>
+
+              <p class="mb-2 mt-5 text-xs font-medium text-white/50">Page background</p>
+              <div class="grid grid-cols-2 gap-3">
+                <button type="button" class="style-preset selected rounded-2xl bg-white/[0.04] p-2 text-left transition hover:-translate-y-0.5 [&.selected]:bg-blue-500/10 [&.selected]:ring-2 [&.selected]:ring-blue-400" data-style="corporateGradient">
+                  <div class="h-14 rounded-xl" style="background: linear-gradient(145deg, rgb(9,9,11), rgb(24,24,27), rgb(9,9,11));"></div>
+                  <p class="mt-1.5 text-center text-xs text-gray-400">Executive</p>
+                </button>
+                <button type="button" class="style-preset rounded-2xl bg-white/[0.04] p-2 text-left transition hover:-translate-y-0.5 [&.selected]:bg-blue-500/10 [&.selected]:ring-2 [&.selected]:ring-blue-400" data-style="oceanGradient">
+                  <div class="h-14 rounded-xl" style="background: linear-gradient(145deg, rgb(2,6,23), rgb(15,23,42), rgb(2,6,23));"></div>
+                  <p class="mt-1.5 text-center text-xs text-gray-400">Professional</p>
+                </button>
+              </div>
+              <p class="mt-1.5 text-xs text-white/30">Pick what you like. You can change it later from the editor.</p>
+
+              <div class="mt-5 lg:hidden">
+                <p class="mb-2 text-xs font-medium text-white/50">Preview</p>
+                <div data-card-wrap class="overflow-hidden rounded-3xl p-3 sm:p-4" style="background: linear-gradient(145deg, rgb(9,9,11), rgb(24,24,27), rgb(9,9,11));">
+                  <div data-card-preview class="mx-auto w-full max-w-md"></div>
                 </div>
               </div>
             </div>
 
-            <div class="editor-savebar">
-              <span class="editor-save-status"><i class="fas fa-circle-check"></i> Saved · 30s ago</span>
-              <div class="editor-save-actions">
-                <button type="button" class="editor-icon-btn cancel" title="Cancel"><i class="fas fa-rotate-left"></i></button>
-                <button type="button" class="editor-icon-btn save" title="Save"><i class="fas fa-check"></i></button>
+            <hr class="border-0 border-t border-white/[0.08]">
+
+            <div>
+              <h3 class="mb-4 flex items-center gap-3 text-base font-semibold text-white"><span class="flex h-7 w-7 items-center justify-center rounded-full bg-blue-500/20 text-sm text-blue-200">5</span>Contact and code</h3>
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-medium text-white/50" for="user-phone">Phone</label>
+                  <input type="tel" id="user-phone" name="phone" placeholder="+216 99 999 999" autocomplete="tel" inputmode="tel" class="w-full rounded-xl bg-white/[0.05] px-4 py-3 text-base text-white placeholder-white/25 outline-none transition focus:bg-white/[0.09] focus:ring-2 focus:ring-blue-500/50 sm:text-sm [&.valid]:ring-2 [&.valid]:ring-emerald-400/60 [&.invalid]:ring-2 [&.invalid]:ring-red-400/60">
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-medium text-white/50" for="user-address">Address</label>
+                  <input type="text" id="user-address" name="address" placeholder="City, Country" class="w-full rounded-xl bg-white/[0.05] px-4 py-3 text-base text-white placeholder-white/25 outline-none transition focus:bg-white/[0.09] focus:ring-2 focus:ring-blue-500/50 sm:text-sm [&.valid]:ring-2 [&.valid]:ring-emerald-400/60 [&.invalid]:ring-2 [&.invalid]:ring-red-400/60">
+                </div>
+              </div>
+              <p class="mt-1.5 text-xs text-white/30">Shown on your card. We also use your phone and email to confirm your order.</p>
+
+              <div class="mt-5 [&_.validation-message]:mt-1 [&_.validation-message]:flex [&_.validation-message]:items-center [&_.validation-message]:gap-1.5 [&_.validation-message]:text-xs [&_.validation-message.valid]:text-emerald-400 [&_.validation-message.invalid]:text-red-400 [&_.fa-spinner]:text-amber-400">
+                <label class="block text-xs font-medium text-white/50" for="referral-code">Privilege code <span class="font-normal text-white/30">(optional)</span></label>
+                <div class="mt-1.5 flex items-stretch">
+                  <span class="flex items-center whitespace-nowrap rounded-l-xl bg-white/[0.04] px-3 text-sm font-medium text-white/40"><i class="fa fa-ticket mr-2" aria-hidden="true"></i> Code</span>
+                  <input type="text" id="referral-code" name="referral-code" placeholder="e.g. EVENT24"
+                         pattern="[A-Za-z0-9]{5,}" maxlength="20" autocapitalize="characters" class="w-full rounded-xl bg-white/[0.05] px-4 py-3 text-base text-white placeholder-white/25 outline-none transition focus:bg-white/[0.09] focus:ring-2 focus:ring-blue-500/50 sm:text-sm [&.valid]:ring-2 [&.valid]:ring-emerald-400/60 [&.invalid]:ring-2 [&.invalid]:ring-red-400/60 min-w-0 rounded-l-none uppercase">
+                </div>
+                <div id="ticket" class="validation-message" aria-live="polite"></div>
               </div>
             </div>
-          </div>
+
+            <div class="rounded-2xl bg-blue-500/[0.08] p-4 text-sm text-gray-300">
+              <p><i class="fas fa-money-bill-wave mr-2 text-blue-400" aria-hidden="true"></i>You pay <strong id="order-total" class="text-white">85 TND (card + 1 year)</strong> to the courier on delivery.</p>
+              <p class="mt-1 text-xs text-gray-500">Nothing is charged now. We confirm your order and plan length with you before dispatch.</p>
+            </div>
+
+            <button id="saveContactBtn" type="submit" class="inline-flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 px-8 text-sm font-semibold text-white shadow-lg shadow-blue-700/20 transition hover:from-blue-500 hover:to-blue-600 disabled:cursor-not-allowed disabled:opacity-60"><i class="fas fa-rocket" aria-hidden="true"></i> Create your digital card</button>
+
+            <p class="text-center text-xs text-gray-500">By continuing you agree to our <a href="https://tccards.tn/pp/" class="text-blue-300 transition-colors hover:text-blue-200">Privacy Policy</a>. Your data is secure.</p>
+          </form>
         </div>
+
+        <!-- live preview (desktop): the real card renderer -->
+        <aside class="hidden lg:block" aria-label="Live preview of your card">
+          <div class="sticky top-28">
+            <p class="mb-3 text-xs uppercase tracking-wider text-gray-500">Live preview</p>
+            <div data-card-wrap class="overflow-hidden rounded-3xl p-3" style="background: linear-gradient(145deg, rgb(9,9,11), rgb(24,24,27), rgb(9,9,11));">
+              <div data-card-preview class="w-[28rem] [zoom:0.74]"></div>
+            </div>
+          </div>
+        </aside>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ─── PRICING ─── -->
-  <section class="pricing-section" id="pricing">
-    <div class="hero-kicker"><i class="fas fa-tag text-xs"></i> Basic Plan</div>
-    <h2 class="pricing-title">One card. <span>Everything</span> included.</h2>
-    <p class="pricing-subtitle">One reusable NFC card, an editable digital profile and QR code sharing.</p>
+  </main>
 
-    <div class="pricing-card featured">
-      <div class="pricing-label">Basic NFC Card</div>
-
-      <div class="pricing-price-block">
-        <div class="pricing-price-row">
-          <div class="pricing-price" id="cardPriceWrap" aria-hidden="true">31.5<small>TND</small></div>
-          <span class="pricing-free-badge" id="cardFreeBadge" hidden><i class="fas fa-gift"></i> Card free</span>
-        </div>
-        <div class="pricing-delivery" aria-hidden="true"></div>
-        <div class="pricing-total">
-          <span class="pricing-total-value" id="totalValue">47.5 TND</span>
-          <span class="pricing-total-label" id="totalLabel">first month · card and delivery included</span>
-        </div>
-      </div>
-
-      <div class="pricing-columns">
-        <div class="pricing-col">
-          <p class="pricing-col-title included"><i class="fas fa-circle-check"></i> Included</p>
-          <ul class="pricing-features">
-            <li>1 NFC Card</li>
-            <li>8 pre-designed templates</li>
-            <li>6 media links</li>
-            <li>Email support</li>
-            <li>QR code emailing</li>
-            <li>Editing dashboard</li>
-          </ul>
-        </div>
-        <div class="pricing-col">
-          <p class="pricing-col-title excluded"><i class="fas fa-circle-xmark"></i> Not included</p>
-          <ul class="pricing-features excluded">
-            <li>Customizable card design</li>
-            <li>Analytics dashboard <span class="pricing-inline-tag">Standard</span></li>
-            <li>Action button (get in touch only)</li>
-          </ul>
-        </div>
-      </div>
-
-      <a href="#data-fill" class="pricing-cta">
-        <i class="fas fa-rocket"></i> Get Your Basic Card
-      </a>
-
-      <div class="pricing-renewal">
-        <span class="pricing-renewal-label"><i class="fas fa-rotate"></i> Profile activation</span>
-        <div class="billing-toggle">
-          <button type="button" class="active" data-billing="monthly">Monthly</button>
-          <button type="button" data-billing="yearly">Yearly <span class="save-badge">save 50%</span></button>
-          <button type="button" data-billing="2year">2 Years <span class="save-badge">Card free</span></button>
-        </div>
-        <span class="pricing-renewal-price" id="activationPrice">
-          <span id="renewalRate">9 TND/mo</span>
-          <small id="renewalSub">billed monthly at 9 TND</small>
-        </span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── FORM ─── -->
-  <div class="form-container">
-    <div class="rounded-2xl p-4 sm:p-6 md:p-8 bg-white/5 backdrop-blur-md">
-      <form method="POST" id="data-fill" class="space-y-6">
-
-        <div>
-          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-camera text-purple-400"></i> Profile Picture</div>
-          <div class="flex flex-col items-center justify-center text-center pt-1 pb-3">
-            <div class="profile-pic-wrapper mb-3">
-              <div class="ring-spin"></div>
-              <img src="https://tccards.tn/Assets/150.png" alt="profile" id="profile-picture"
-                   class="relative z-10 w-24 h-24 rounded-full object-cover cursor-pointer hover:ring-2 hover:ring-purple-500/50 transition-all" />
-            </div>
-            <input type="file" id="image-input" name="profile-picture" class="hidden" accept="image/*" />
-            <label for="image-input" class="cursor-pointer inline-flex items-center gap-2 text-sm font-medium text-white/30 hover:text-purple-400 transition-colors py-1.5">
-              <i class="fas fa-upload"></i> Upload photo
-            </label>
-            <span class="field-hint">JPEG, PNG, GIF · max 5MB</span>
-          </div>
-        </div>
-
-        <hr class="form-divider" />
-
-        <div>
-          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-user text-purple-400"></i> Personal Info</div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="space-y-1">
-              <label class="block text-xs font-medium text-white/40" for="user-name">Full Name <span class="text-red-500">*</span></label>
-              <input type="text" id="user-name" name="user-name" placeholder="e.g. John Doe" required class="form-input" />
-            </div>
-            <div class="space-y-1">
-              <label class="block text-xs font-medium text-white/40" for="user-tagline">Tagline</label>
-              <input type="text" id="user-tagline" name="user-tagline" placeholder="e.g. Digital Strategist" class="form-input" />
-            </div>
-          </div>
-        </div>
-
-        <hr class="form-divider" />
-
-        <div>
-          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-id-card text-purple-400"></i> Your Identity</div>
-          <div class="space-y-1 mb-3">
-            <label class="block text-xs font-medium text-white/40">Email <span class="text-red-500">*</span></label>
-            <input type="email" name="email" placeholder="you@example.com" required class="form-input" />
-          </div>
-          <div class="space-y-1">
-            <label class="block text-xs font-medium text-white/40" for="user-link">Your Handle <span class="text-red-500">*</span></label>
-            <div class="flex items-center">
-              <span class="handle-prefix">card.tccards.tn/@</span>
-              <input type="text" id="user-link" name="link" required
-                     title="Letters, numbers, hyphens only" placeholder="yourname"
-                     pattern="[a-zA-Z0-9-]+" class="form-input handle-input" />
-            </div>
-            <div id="handle-validation-message" class="validation-message"></div>
-            <p class="field-hint">Permanent URL · 3–20 chars, letters/numbers/hyphens</p>
-          </div>
-        </div>
-
-        <hr class="form-divider" />
-
-        <div>
-          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-share-alt text-purple-400"></i> Social Links <span class="text-xs font-normal text-gray-500">(max 6)</span></div>
-          <div id="dynamic-links" class="space-y-3">
-            <div class="bg-white/5 rounded-xl p-4 border border-white/5">
-              <ul class="space-y-2" id="socialLinkList">
-                <li class="social-link-item group">
-                  <i class="fa fa-link text-purple-400 text-sm"></i>
-                  <input type="url" name="social-links[]" placeholder="https://linkedin.com/in/yourname" />
-                  <button type="button" class="remove-link-btn text-red-400 hover:text-red-500 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                  </button>
-                </li>
-              </ul>
-              <button type="button" id="add-link-btn" class="add-link-btn">
-                <i class="fas fa-plus-circle"></i> Add another link
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <hr class="form-divider" />
-
-        <div>
-          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-palette text-purple-400"></i> Choose Your Style</div>
-          <div class="style-grid">
-            <button type="button" class="style-preset selected" data-style="corporateGradient">
-              <div class="preview-box" style="background: linear-gradient(145deg, rgb(9,9,11), rgb(24,24,27), rgb(9,9,11));"></div>
-              <p class="text-xs text-center text-gray-400 mt-1.5">Executive</p>
-            </button>
-            <button type="button" class="style-preset" data-style="oceanGradient">
-              <div class="preview-box" style="background: linear-gradient(145deg, rgb(2,6,23), rgb(15,23,42), rgb(2,6,23));"></div>
-              <p class="text-xs text-center text-gray-400 mt-1.5">Professional</p>
-            </button>
-          </div>
-          <p class="field-hint mt-2">Pick a color theme for your page. You can change this later.</p>
-        </div>
-
-        <hr class="form-divider" />
-
-        <div>
-          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-address-card text-purple-400"></i> Contact Details</div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="space-y-1">
-              <label class="block text-xs font-medium text-white/40">Phone</label>
-              <input type="tel" name="phone" placeholder="+216 99 999 999" class="form-input" />
-            </div>
-            <div class="space-y-1">
-              <label class="block text-xs font-medium text-white/40">Address</label>
-              <input type="text" name="address" placeholder="City, Country" class="form-input" />
-            </div>
-          </div>
-        </div>
-
-        <hr class="form-divider" />
-
-        <div>
-          <div class="flex items-center gap-2 text-sm font-semibold text-white/70 mb-3"><i class="fas fa-ticket-alt text-purple-400"></i> Privilege Code</div>
-          <div class="referral-wrapper">
-            <span class="referral-prefix"><i class="fa fa-ticket mr-2"></i> Code</span>
-            <input type="text" id="referral-code" name="referral-code"
-                   placeholder="Enter your code (e.g., EVENT24)"
-                   pattern="[A-Za-z0-9]{5,}" maxlength="20"
-                   class="form-input uppercase" />
-          </div>
-          <div id="ticket" class="validation-message"></div>
-          <p class="field-hint">Enter your event or discount code (if you have one).</p>
-        </div>
-
-        <button id="saveContactBtn" type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-500 to-emerald-400 hover:shadow-xl hover:shadow-purple-500/20 hover:-translate-y-0.5 transition-all duration-200 text-sm">
-          <i class="fas fa-rocket"></i> Create Your Digital Card
-        </button>
-
-        <p class="text-xs text-center text-gray-500 mt-4">By continuing you agree to our <a href="https://tccards.tn/pp/" class="text-purple-400 hover:text-purple-300 transition-colors">Privacy Policy</a>. Your data is secure.</p>
-      </form>
-    </div>
-  </div>
-
-  <!-- ─── FOOTER (unchanged) ─── -->
-  <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400" style="background-image: url(Assets/footer-gradient.webp);">
+  <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400" style="background-image: url(/Assets/footer-gradient.webp);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div class="space-y-4"><a href="https://tccards.tn" title="main"><img src="/Assets/150.png" alt="Total Connect Logo" class="h-8 mx-auto md:mx-0"></a><p class="text-gray-400 text-sm"><b>No handing over. No paper shuffle.</b> <br> You tap. They get everything. You're done. <br></p><p class="text-gray-400 text-sm md:hidden">tccards.tn is the future of networking. <br> tccards.tn turns your card into a moment <br>— smooth, smart, unforgettable — <br> No more printing costs. No more outdated info.</p><p class="text-gray-400 text-sm md:hidden">Your card is a tap away from their phone. <br> Just one tap, and your presence lives in their pocket. You don't give your card away — you leave a mark. <br><hr><br><strong>Be remembered, not handed off.</strong></p><div class="flex space-x-4 justify-center md:justify-start"><a href="https://www.facebook.com/tccards.tn" title="facebook" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-facebook-f"></i></a><a href="https://www.instagram.com/tccards.tn/" title="Instagram" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-instagram"></i></a><a href="https://www.linkedin.com/company/tccards/" title="LinkedIn" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-linkedin-in"></i></a></div></div>
+        <div class="space-y-4"><a href="https://tccards.tn" title="main"><img src="/Assets/150.png" alt="Total Connect Logo" class="h-8 mx-auto md:mx-0"></a><p class="text-gray-400 text-sm"><b>No handing over. No paper shuffle.</b> <br> You tap. They get everything. You’re done. <br></p><p class="text-gray-400 text-sm md:hidden">tccards.tn is the future of networking. <br> tccards.tn turns your card into a moment <br>— smooth, smart, unforgettable — <br> No more printing costs. No more outdated info.</p><p class="text-gray-400 text-sm md:hidden">Your card is a tap away from their phone. <br> Just one tap, and your presence lives in their pocket. You don’t give your card away — you leave a mark. <br><hr><br><strong>Be remembered, not handed off.</strong></p><div class="flex space-x-4 justify-center md:justify-start"><a href="https://www.facebook.com/tccards.tn" title="facebook" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-facebook-f"></i></a><a href="https://www.instagram.com/tccards.tn/" title="Instagram" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-instagram"></i></a><a href="https://www.linkedin.com/company/tccards/" title="LinkedIn" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-linkedin-in"></i></a></div></div>
         <div><h3 class="text-white font-semibold mb-4">Products</h3><ul class="space-y-2"><li><a href="/plans" class="text-sm text-gray-500 hover:text-white p-2">Plans</a></li><li><a href="/plans/events" class="text-sm text-gray-500 hover:text-white p-2">Events Solutions</a></li><li><a href="/plans/enterprise/" class="text-sm text-gray-500 hover:text-white p-2">Enterprise Solutions</a></li></ul></div>
         <div><h3 class="text-white font-semibold mb-4">Support</h3><ul class="space-y-2"><li><a href="/help" class="text-sm text-gray-500 hover:text-white p-2">Help Center</a></li><li><a href="https://edit.tccards.tn" class="text-sm text-gray-500 hover:text-white p-2">Edit Profile</a></li><li><a href="/pp/" class="text-sm text-gray-500 hover:text-white p-2">Privacy Policy</a></li></ul></div>
         <div><h3 class="text-white font-semibold mb-4">Interested ?</h3><ul class="space-y-2"><li><a href="/About/" class="text-sm text-gray-500 hover:text-white p-2">About Us</a></li><li><a href="/careers/" class="text-sm text-gray-500 hover:text-white p-2">Careers</a></li></ul></div>
@@ -429,73 +384,8 @@
     </div>
   </footer>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script type="module" src="main.js"></script>
-  <script src="https://www.tccards.tn/script.js"></script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      /* ---- RENEWAL TOGGLE ---- */
-      const CARD_PRICE = 31.5;
-      const DELIVERY = 7;
-
-      const plans = {
-        monthly: {
-          total: CARD_PRICE + DELIVERY + 9,
-          totalLabel: 'first month · card and delivery included',
-          rate: '9 TND/mo',
-          sub: 'billed monthly at 9 TND',
-          free: false
-        },
-        yearly: {
-          total: CARD_PRICE + DELIVERY + (4.5 * 12), // 92.5
-          totalLabel: 'first year · billed yearly',
-          rate: '4.5 TND/mo',
-          sub: 'billed 54 TND/year · save 50%',
-          free: false
-        },
-        '2year': {
-          total: DELIVERY + (4.5 * 24),              // 115 (card waived)
-          totalLabel: 'two years · card included free',
-          rate: '4.5 TND/mo',
-          sub: 'billed 108 TND / 2 years · card free',
-          free: true
-        }
-      };
-
-      const cardPriceWrap = document.getElementById('cardPriceWrap');
-      const cardFreeBadge = document.getElementById('cardFreeBadge');
-      const totalValueEl  = document.getElementById('totalValue');
-      const totalLabelEl  = document.getElementById('totalLabel');
-      const renewalRateEl = document.getElementById('renewalRate');
-      const renewalSubEl  = document.getElementById('renewalSub');
-
-      document.querySelectorAll('.billing-toggle button').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.billing-toggle button').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-
-          const plan = plans[btn.dataset.billing];
-          if (!plan) return;
-
-          if (plan.free) {
-            cardPriceWrap.classList.add('is-free');
-            cardPriceWrap.innerHTML = `<span class="strike">31.5</span>FREE`;
-            cardFreeBadge.hidden = false;
-          } else {
-            cardPriceWrap.classList.remove('is-free');
-            cardPriceWrap.innerHTML = `31.5<small>TND</small>`;
-            cardFreeBadge.hidden = true;
-          }
-
-          totalValueEl.textContent = plan.total.toFixed(1) + ' TND';
-          totalLabelEl.textContent = plan.totalLabel;
-          renewalRateEl.textContent = plan.rate;
-          renewalSubEl.textContent  = plan.sub;
-        });
-      });
-    });
-  </script>
+  <script type="module" src="/script.js"></script>
+  <script type="module" src="./basic.js"></script>
 </body>
 </html>

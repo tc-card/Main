@@ -1,5 +1,6 @@
 // main.js
 import { CONFIG, stylePresets } from "./config.js";
+import { toast, dialog, progress } from "./ui.js";
 
 // smooth landing animation on page loading/opening
 const fadeInElements = document.querySelectorAll('.fade-in');
@@ -45,7 +46,8 @@ document.addEventListener('click', e => {
 
     // Check if link is external or internal route
     const href = link.getAttribute('href');
-    if (!href.startsWith('http') && !href.startsWith('/')) return;
+    if (!href || (!href.startsWith('http') && !href.startsWith('/'))) return;
+    if (link.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
 
     e.preventDefault();
 
@@ -142,6 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       elements.referralCode.classList.remove("valid", "invalid");
       document.getElementById("ticket").textContent = "";
+      if (code.length < 5) return;
       document.getElementById("ticket").innerHTML = '<i class="fas fa-spinner fa-spin"></i>  Validating...';
       document.getElementById("ticket").style.color = "#FBBF24";
 
@@ -186,27 +189,27 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ─── IMAGE HANDLING ──────────────────────────────────────
+  const DEFAULT_AVATAR = "https://tccards.tn/Assets/150.png";
+
   function handleImageUpload(file, targetElement) {
     if (!file) {
-      targetElement.src = "https://tccards.tn/Assets/150.png";
+      targetElement.src = DEFAULT_AVATAR;
       return;
     }
 
+    const reject = (message) => {
+      toast(message, "error");
+      elements.imageInput.value = "";
+      targetElement.src = DEFAULT_AVATAR;
+    };
+
     if (!CONFIG.allowedTypes.includes(file.type)) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid File Type",
-        text: "Please upload a valid image file (JPEG, PNG, GIF)",
-      });
-      return;
+      return reject("Please upload a JPEG, PNG or GIF image.");
     }
-    if (file.size > CONFIG.maxFileSize) {
-      Swal.fire({
-        icon: "error",
-        title: "File Too Large",
-        text: "File size must be less than 5MB",
-      });
-      return;
+    // JPEG/PNG are resized before upload, so phone photos are fine. GIFs are sent as they are.
+    const limit = file.type === "image/gif" ? CONFIG.maxFileSize : CONFIG.maxFileSize * 2;
+    if (file.size > limit) {
+      return reject(`That photo is too large. Please choose one under ${Math.round(limit / 1048576)}MB.`);
     }
 
     const reader = new FileReader();
@@ -215,12 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     reader.onerror = () => {
       console.error("Error reading file");
-      targetElement.src = "https://tccards.tn/Assets/150.png";
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Failed to read the image file",
-      });
+      reject("We couldn't read that image. Please try another one.");
     };
     reader.readAsDataURL(file);
   }
@@ -250,15 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentLinks = ul.querySelectorAll("li").length;
 
     if (currentLinks >= 6) {
-      Swal.fire({
-        icon: "info",
-        title: "6 Links Maximum",
-        toast: true,
-        position: "top-center",
-        showConfirmButton: false,
-        timer: 2000,
-        customClass: { popup: "small-toast" },
-      });
+      toast("You can add up to 6 links.", "info");
       return;
     }
 
@@ -327,7 +317,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (!CONFIG.linkRegex.test(rawHandle)) {
-      setHandleValidationState("invalid", "✗ Handle must be 3-20 chars, letters, numbers, or hyphens.");
+      setHandleValidationState("invalid", "✗ 3 to 15 characters. Start with a letter, then letters, numbers or hyphens.");
       return { available: false, checked: true };
     }
 
@@ -371,13 +361,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (!CONFIG.linkRegex.test(rawHandle)) {
-      setHandleValidationState("invalid", "✗ Handle must be 3-20 chars, letters, numbers, or hyphens.");
+      setHandleValidationState("invalid", "✗ 3 to 15 characters. Start with a letter, then letters, numbers or hyphens.");
       return;
     }
 
     handleDebounceTimer = setTimeout(() => {
       void validateHandleAvailability();
-    }, 2500);
+    }, 700);
   });
 
   async function checkDuplicatesDebounced(email, link) {
@@ -426,6 +416,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Shrinks big JPEG/PNG photos before upload (faster on mobile data). Any failure falls back to the original file.
+  async function shrinkImage(file, maxSide = 800) {
+    try {
+      if (!/^image\/(jpeg|png)$/.test(file.type) || file.size < 600 * 1024 || !window.createImageBitmap) return file;
+      const bmp = await createImageBitmap(file);
+      const scale = Math.min(1, maxSide / Math.max(bmp.width, bmp.height));
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.round(bmp.width * scale));
+      canvas.height = Math.max(1, Math.round(bmp.height * scale));
+      canvas.getContext("2d").drawImage(bmp, 0, 0, canvas.width, canvas.height);
+      if (bmp.close) bmp.close();
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, file.type, 0.85));
+      return blob && blob.size < file.size ? new File([blob], file.name, { type: file.type }) : file;
+    } catch (error) {
+      console.warn("Image resize skipped:", error);
+      return file;
+    }
+  }
+
+  function friendlyError(error) {
+    const message = (error && error.message) || "";
+    if (error instanceof TypeError || /failed to fetch|networkerror|load failed/i.test(message)) {
+      return "We couldn't reach the server. Check your connection and try again.";
+    }
+    if (/^Upload failed|No secure URL/i.test(message)) {
+      return "We couldn't upload your photo. Try a smaller image, or continue without one.";
+    }
+    return message || "Something went wrong. Please try again.";
+  }
+
   // ─── FORM SUBMISSION ────────────────────────────────────
   elements.form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -435,54 +455,42 @@ document.addEventListener("DOMContentLoaded", () => {
     const name = elements.userName.value.trim();
 
     if (!name || !link || !email) {
-      Swal.fire({
-        icon: "error",
-        title: "Missing Fields",
-        text: "Please fill in all required fields.",
-      });
+      toast("Please fill in all required fields.", "error");
       return false;
     }
 
     if (!CONFIG.linkRegex.test(link)) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Link",
-        text: "Link must be alphanumeric and between 3-20 characters.",
-      });
+      toast("Your handle must be 3 to 15 characters and start with a letter.", "error");
+      elements.userLink.focus();
       return false;
     }
 
     if (!CONFIG.emailRegex.test(email)) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Email",
-        text: "Please enter a valid email address.",
-      });
+      toast("Please enter a valid email address.", "error");
+      elements.userEmail.focus();
       return false;
     }
 
     elements.submitBtn.disabled = true;
+    const submitLabel = elements.submitBtn.innerHTML;
+    elements.submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Creating your card...';
 
-    const swalInstance = Swal.fire({
-      title: "Submitting...",
-      text: "Please wait while we create your webfolio.",
-      background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-      color: "#fff",
-      allowOutsideClick: false,
-      didOpen: () => Swal.showLoading(),
+    const status = progress({
+      title: "Getting started...",
+      text: "Please wait while we create your digital card.",
+      step: 1,
+      steps: 3,
     });
 
     try {
       let profilePictureUrl = "";
       if (elements.imageInput.files[0]) {
-        swalInstance.update({
-          title: "Uploading image...",
-          text: "Processing your profile picture...",
-          allowOutsideClick: false,
-          showConfirmButton: false,
-          didOpen: () => Swal.showLoading(),
+        status.update({
+          title: "Uploading your photo...",
+          text: "This can take a few seconds on mobile data.",
+          step: 1,
         });
-        profilePictureUrl = await uploadToCloudinary(elements.imageInput.files[0]);
+        profilePictureUrl = await uploadToCloudinary(await shrinkImage(elements.imageInput.files[0]));
       }
 
       const formData = {
@@ -498,18 +506,17 @@ document.addEventListener("DOMContentLoaded", () => {
           .map((input) => input.value.trim())
           .filter(Boolean)
           .join(","),
-        style: document.querySelector(".style-preset.selected")?.dataset.style ||
+        style: document.getElementById("style-value")?.value ||
+          document.querySelector(".style-preset.selected")?.dataset.style ||
           "default",
         profilePic: profilePictureUrl,
         referralCode: elements.referralCode.value.trim() || "",
       };
 
-      swalInstance.update({
+      status.update({
         title: "Checking availability...",
-        text: "Verifying your information...",
-        allowOutsideClick: false,
-        showConfirmButton: false,
-        didOpen: () => Swal.showLoading(),
+        text: "Verifying your handle and email.",
+        step: 2,
       });
 
       const { available: handleAvailable } = await validateHandleAvailability({ force: true });
@@ -527,51 +534,48 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       }
 
-      swalInstance.update({
-        title: "Uploading...",
-        text: "Crafting your webfolio...",
-        allowOutsideClick: false,
-        showConfirmButton: false,
-        didOpen: () => Swal.showLoading(),
+      status.update({
+        title: "Creating your card...",
+        text: "Almost done.",
+        step: 3,
       });
 
-      if (elements.imageInput.files[0]) {
-        formData.profile_picture = await uploadToCloudinary(
-          elements.imageInput.files[0]
-        );
-      }
+      // Same URL under the second key (this used to upload the same photo a second time).
+      if (profilePictureUrl) formData.profile_picture = profilePictureUrl;
 
       const response = await fetch(
         `${CONFIG.googleScriptUrl}?${new URLSearchParams(formData)}`
       );
       if (!response.ok) throw new Error("Submission failed. Please try again.");
 
-      await Swal.fire({
+      status.close();
+      await dialog({
         icon: "success",
-        title: "Success!",
-        color: "#fff",
-        html: `Your webfolio is ready!<br><br>
-              <a href="https://card.tccards.tn/profile/@${formData.link}" target="_blank">
-                card.tccards.tn/@${formData.link}
-              </a>`,
-        background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-        confirmButtonText: "View My Webfolio",
-      }).then(() => {
-        window.location.href = `https://card.tccards.tn/profile/@${formData.link}`;
+        title: "Your card is ready!",
+        html: `<p class="mt-2 text-sm text-gray-400">Your page is live at</p>
+               <p class="mt-1 break-all text-sm font-semibold text-blue-300">card.tccards.tn/@${formData.link}</p>
+               <p class="mt-4 text-sm leading-relaxed text-gray-400">We will contact you to confirm your order and delivery. You pay the courier when your TCcard arrives.</p>`,
+        confirmText: "View my card",
       });
+      window.location.href = `https://card.tccards.tn/profile/@${formData.link}`;
 
       elements.form.reset();
-      elements.profilePicture.src = "https://tccards.tn/Assets/150.png";
+      elements.profilePicture.src = DEFAULT_AVATAR;
     } catch (error) {
-      Swal.fire({
+      status.close();
+      const message = friendlyError(error);
+      await dialog({
         icon: "error",
-        title: "Error",
-        text: error.message,
-        background: "linear-gradient(145deg, rgb(23, 7, 2), rgb(37, 42, 15), rgb(23, 2, 4))",
+        title: "We couldn't finish",
+        text: message,
+        confirmText: "Try again",
       });
+      // take the customer straight to the field that needs fixing
+      if (/email/i.test(message)) elements.userEmail.focus();
+      else if (/handle|link/i.test(message)) elements.userLink.focus();
     } finally {
       elements.submitBtn.disabled = false;
-      elements.profilePicture.src = "https://tccards.tn/Assets/150.png";
+      elements.submitBtn.innerHTML = submitLabel;
     }
   });
 });

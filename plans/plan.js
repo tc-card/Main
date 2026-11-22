@@ -30,13 +30,13 @@ const PLANS = [
     renew: () => '—', payment: 'No payment needed',
   },
   {
-    id: 'basic', name: 'Basic', tagline: 'TCcard + editable profile', thumb: 'https://www.tccards.tn/Assets/plans/card-orange.webp',
+    id: 'basic', name: 'Basic', tagline: 'TCcard + editable profile', thumb: '/Assets/card-blue.webp',
     href: '/plans/basic/', cta: 'Order Basic', featured: true,
     pay: (t) => ({ main: `${fmt(CARD + BASIC[t])} TND`, note: `Card ${CARD} + ${termLabel(t)} ${BASIC[t]}`, sub: perMonth(BASIC[t], t) }),
     renew: (t) => `${fmt(BASIC[t])} ${unit(t)}`, payment: PAY_CARD,
   },
   {
-    id: 'standard', name: 'Standard', tagline: 'Analytics and linked cards', thumb: 'https://www.tccards.tn/Assets/plans/card-orange.webp',
+    id: 'standard', name: 'Standard', tagline: 'Analytics and linked cards', thumb: '/Assets/card-orange.webp',
     href: '/plans/standard/', cta: 'Order Standard',
     pay: (t) => ({ main: `${fmt(CARD + STANDARD[t])} TND`, note: `Card ${CARD} + ${termLabel(t)} ${STANDARD[t]}`, sub: perMonth(STANDARD[t], t) }),
     renew: (t) => `${fmt(STANDARD[t])} ${unit(t)}`, payment: PAY_CARD,

@@ -8,10 +8,10 @@ class CreditCardHero {
       cta: options.cta || "Get your TCcard",
 
       primaryCardImage: options.primaryCardImage ||
-        "./Assets/plans/blue-orange.webp",
+        "/Assets/card-blue.webp",
 
       secondaryCardImage: options.secondaryCardImage ||
-        "https://www.tccards.tn/Assets/plans/card-orange.webp",
+        "/Assets/card-orange.webp",
 
       onCtaClick: options.onCtaClick || (() => {})
     };
