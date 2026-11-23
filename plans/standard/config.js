@@ -1,11 +1,10 @@
 export const CONFIG = {
     maxFileSize: 5 * 1024 * 1024,
     allowedTypes: ['image/jpeg', 'image/png', 'image/gif'],
-    googleScriptUrl: 'https://script.google.com/macros/s/AKfycbyjSiucNkuqZ5ngFV5AwX1rG1ZKSuEmZLmU1mffvW4MDIpxxMhUcuUjc6actnXam9vjdw/exec', // Standard signup Apps Script web app
+    googleScriptUrl: 'https://script.google.com/macros/s/AKfycbw4BEBs0sJfrnwOimlfbTdVdd4JnNvG7rdBEz-bb_oBw5IJNigxNkBi8cMYQL63Yf_hkg/exec',
     emailRegex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-    linkRegex: /^[a-zA-Z][a-zA-Z0-9-]{2,14}$/, // 3-15 chars total: 1 letter + 2-14 more chars
+    linkRegex: /^[a-zA-Z][a-zA-Z0-9-]{2,14}$/,
 };
-
 export const stylePresets = {
     // Professional Gradients
     corporateGradient: {

@@ -1,5 +1,6 @@
 // main.js
 import { CONFIG, stylePresets } from "./config.js";
+import { toast, dialog, progress } from "./ui.js";
 
 // smooth landing animation on page loading/opening
 const fadeInElements = document.querySelectorAll('.fade-in');
@@ -42,6 +43,7 @@ document.addEventListener('click', e => {
 
     const href = link.getAttribute('href');
     if (!href || (!href.startsWith('http') && !href.startsWith('/'))) return;
+    if (link.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
 
     e.preventDefault();
 
@@ -139,27 +141,27 @@ document.addEventListener("DOMContentLoaded", () => {
   void loadLiveCounter();
 
   // ─── IMAGE HANDLING ──────────────────────────────────────
+  const DEFAULT_AVATAR = "https://tccards.tn/Assets/150.png";
+
   function handleImageUpload(file, targetElement) {
     if (!file) {
-      targetElement.src = "https://tccards.tn/Assets/150.png";
+      targetElement.src = DEFAULT_AVATAR;
       return;
     }
 
+    const reject = (message) => {
+      toast(message, "error");
+      elements.imageInput.value = "";
+      targetElement.src = DEFAULT_AVATAR;
+    };
+
     if (!CONFIG.allowedTypes.includes(file.type)) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid File Type",
-        text: "Please upload a valid image file (JPEG, PNG, GIF)",
-      });
-      return;
+      return reject("Please upload a JPEG, PNG or GIF image.");
     }
-    if (file.size > CONFIG.maxFileSize) {
-      Swal.fire({
-        icon: "error",
-        title: "File Too Large",
-        text: "File size must be less than 5MB",
-      });
-      return;
+    // JPEG/PNG are resized before upload, so phone photos are fine. GIFs are sent as they are.
+    const limit = file.type === "image/gif" ? CONFIG.maxFileSize : CONFIG.maxFileSize * 2;
+    if (file.size > limit) {
+      return reject(`That photo is too large. Please choose one under ${Math.round(limit / 1048576)}MB.`);
     }
 
     const reader = new FileReader();
@@ -168,12 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     reader.onerror = () => {
       console.error("Error reading file");
-      targetElement.src = "https://tccards.tn/Assets/150.png";
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Failed to read the image file",
-      });
+      reject("We couldn't read that image. Please try another one.");
     };
     reader.readAsDataURL(file);
   }
@@ -206,15 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentLinks = ul.querySelectorAll("li").length;
 
     if (currentLinks >= 6) {
-      Swal.fire({
-        icon: "info",
-        title: "6 Links Maximum",
-        toast: true,
-        position: "top-center",
-        showConfirmButton: false,
-        timer: 2000,
-        customClass: { popup: "small-toast" },
-      });
+      toast("You can add up to 6 links.", "info");
       return;
     }
 
@@ -272,6 +261,12 @@ document.addEventListener("DOMContentLoaded", () => {
     target.innerHTML = message;
   }
 
+  // Race guard: if the user kept typing while a check was in flight, the
+  // result we're about to apply no longer matches what's in the input.
+  function isStillCurrent(handle) {
+    return elements.userLink.value.trim() === handle;
+  }
+
   async function validateHandleAvailability() {
     const rawHandle = elements.userLink.value.trim();
 
@@ -285,19 +280,37 @@ document.addEventListener("DOMContentLoaded", () => {
       return { available: false, checked: true };
     }
 
-    await loadKnownLinks();
-    if (handledLinksCache.includes(rawHandle)) {
+    // UI magic: show the spinner RIGHT NOW, before any network work.
+    // The user gets instant feedback the moment they blur or type.
+    setHandleValidationState("", '<i class="fas fa-spinner fa-spin"></i> Checking availability...');
+
+    // Fast path: if we already know the local list, we can reject a taken
+    // handle without a round trip.
+    if (handledLinksCache.length && handledLinksCache.includes(rawHandle)) {
+      if (!isStillCurrent(rawHandle)) return { available: true, checked: false };
       setHandleValidationState("invalid", "✗ This handle is already taken");
       return { available: false, checked: true };
     }
 
-    setHandleValidationState("", '<i class="fas fa-spinner fa-spin"></i> Checking availability...');
+    // Slow path (first run only): load the known-links list, keep the spinner up.
+    try {
+      await loadKnownLinks();
+    } catch (_) { /* handled inside loadKnownLinks */ }
+
+    if (!isStillCurrent(rawHandle)) return { available: true, checked: false };
+
+    if (handledLinksCache.includes(rawHandle)) {
+      setHandleValidationState("invalid", "✗ This handle is already taken");
+      return { available: false, checked: true };
+    }
 
     try {
       const res = await fetch(
         `${CONFIG.googleScriptUrl}?check_duplicates=true&email=${encodeURIComponent("")}&link=${encodeURIComponent(rawHandle)}`
       );
       const data = await res.json();
+
+      if (!isStillCurrent(rawHandle)) return { available: true, checked: false };
 
       if (data && data.status === "error") {
         // Don't block the user — the server will re-check on submit.
@@ -315,11 +328,13 @@ document.addEventListener("DOMContentLoaded", () => {
       return { available: true, checked: true };
     } catch (error) {
       console.error("Handle validation failed:", error);
+      if (!isStillCurrent(rawHandle)) return { available: true, checked: false };
       setHandleValidationState("", "⚠ Could not verify handle right now; will retry on submit.");
       return { available: true, checked: false };
     }
   }
 
+  // Typing: debounced check, so the user gets feedback as they go.
   elements.userLink.addEventListener("input", () => {
     clearTimeout(handleDebounceTimer);
     const rawHandle = elements.userLink.value.trim();
@@ -336,7 +351,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     handleDebounceTimer = setTimeout(() => {
       void validateHandleAvailability();
-    }, 2500);
+    }, 700);
+  });
+
+  // Leaving the field: fire immediately. Cancel any pending debounce so we
+  // don't double-check the same value. The spinner appears before any await,
+  // so the user sees "Checking…" the instant they tab/click away.
+  elements.userLink.addEventListener("blur", () => {
+    clearTimeout(handleDebounceTimer);
+    const rawHandle = elements.userLink.value.trim();
+    if (!rawHandle) return;
+    if (!CONFIG.linkRegex.test(rawHandle)) return; // input handler already showed the hint
+    void validateHandleAvailability();
   });
 
   // No debounce, no orphaned Promise. Called exactly once per submit.
@@ -387,6 +413,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Shrinks big JPEG/PNG photos before upload (faster on mobile data). Any failure falls back to the original file.
+  async function shrinkImage(file, maxSide = 800) {
+    try {
+      if (!/^image\/(jpeg|png)$/.test(file.type) || file.size < 600 * 1024 || !window.createImageBitmap) return file;
+      const bmp = await createImageBitmap(file);
+      const scale = Math.min(1, maxSide / Math.max(bmp.width, bmp.height));
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.round(bmp.width * scale));
+      canvas.height = Math.max(1, Math.round(bmp.height * scale));
+      canvas.getContext("2d").drawImage(bmp, 0, 0, canvas.width, canvas.height);
+      if (bmp.close) bmp.close();
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, file.type, 0.85));
+      return blob && blob.size < file.size ? new File([blob], file.name, { type: file.type }) : file;
+    } catch (error) {
+      console.warn("Image resize skipped:", error);
+      return file;
+    }
+  }
+
+  function friendlyError(error) {
+    const message = (error && error.message) || "";
+    if (error instanceof TypeError || /failed to fetch|networkerror|load failed/i.test(message)) {
+      return "We couldn't reach the server. Check your connection and try again.";
+    }
+    if (/^Upload failed|No secure URL/i.test(message)) {
+      return "We couldn't upload your photo. Try a smaller image, or continue without one.";
+    }
+    if (/^Server returned/i.test(message)) {
+      return "The server had a problem. Please try again in a moment.";
+    }
+    return message || "Something went wrong. Please try again.";
+  }
+
   // ─── FORM SUBMISSION ────────────────────────────────────
   elements.form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -396,55 +455,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const name = elements.userName.value.trim();
 
     if (!name || !link || !email) {
-      Swal.fire({
-        icon: "error",
-        title: "Missing Fields",
-        text: "Please fill in all required fields.",
-      });
+      toast("Please fill in all required fields.", "error");
       return false;
     }
 
     if (!CONFIG.linkRegex.test(link)) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Link",
-        text: "Handle must be 3-15 characters, start with a letter, and use only letters, numbers, or hyphens.",
-      });
+      toast("Your handle must be 3 to 15 characters and start with a letter.", "error");
+      elements.userLink.focus();
       return false;
     }
 
     if (!CONFIG.emailRegex.test(email)) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Email",
-        text: "Please enter a valid email address.",
-      });
+      toast("Please enter a valid email address.", "error");
+      elements.userEmail.focus();
       return false;
     }
 
     elements.submitBtn.disabled = true;
+    const submitLabel = elements.submitBtn.innerHTML;
+    elements.submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Creating your profile...';
 
-    const swalInstance = Swal.fire({
-      title: "Submitting...",
-      text: "Please wait while we create your webfolio.",
-      background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-      color: "#fff",
-      allowOutsideClick: false,
-      didOpen: () => Swal.showLoading(),
+    const status = progress({
+      title: "Getting started...",
+      text: "Please wait while we create your profile.",
+      step: 1,
+      steps: 3,
     });
 
     try {
       // Upload the avatar exactly once.
       let profilePictureUrl = "";
       if (elements.imageInput.files[0]) {
-        swalInstance.update({
-          title: "Uploading image...",
-          text: "Processing your profile picture...",
-          allowOutsideClick: false,
-          showConfirmButton: false,
-          didOpen: () => Swal.showLoading(),
+        status.update({
+          title: "Uploading your photo...",
+          text: "This can take a few seconds on mobile data.",
+          step: 1,
         });
-        profilePictureUrl = await uploadToCloudinary(elements.imageInput.files[0]);
+        profilePictureUrl = await uploadToCloudinary(await shrinkImage(elements.imageInput.files[0]));
       }
 
       const formData = {
@@ -460,17 +507,16 @@ document.addEventListener("DOMContentLoaded", () => {
           .map((input) => input.value.trim())
           .filter(Boolean)
           .join(","),
-        style: document.querySelector(".style-preset.selected")?.dataset.style ||
+        style: document.getElementById("style-value")?.value ||
+          document.querySelector(".style-preset.selected")?.dataset.style ||
           "default",
         profilePic: profilePictureUrl,
       };
 
-      swalInstance.update({
+      status.update({
         title: "Checking availability...",
-        text: "Verifying your information...",
-        allowOutsideClick: false,
-        showConfirmButton: false,
-        didOpen: () => Swal.showLoading(),
+        text: "Verifying your handle and email.",
+        step: 2,
       });
 
       const { available: handleAvailable } = await validateHandleAvailability();
@@ -488,50 +534,50 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       }
 
-      swalInstance.update({
-        title: "Crafting your webfolio...",
-        text: "Almost done...",
-        allowOutsideClick: false,
-        showConfirmButton: false,
-        didOpen: () => Swal.showLoading(),
+      status.update({
+        title: "Creating your profile...",
+        text: "Almost done.",
+        step: 3,
       });
 
       const response = await fetch(
         `${CONFIG.googleScriptUrl}?${new URLSearchParams(formData)}`
       );
 
-      // Apps Script always returns HTTP 200 — inspect the JSON body.
+      // Apps Script always returns HTTP 200, so inspect the JSON body.
       const result = await readJson(response);
       if (result.status !== "success") {
         throw new Error(result.message || "Submission failed");
       }
 
-      await Swal.fire({
+      status.close();
+      await dialog({
         icon: "success",
-        title: "Success!",
-        color: "#fff",
-        html: `Your webfolio is ready!<br><br>
-              <a href="https://my.tccards.tn/@${formData.link}" target="_blank">
-                my.tccards.tn/@${formData.link}
-              </a>`,
-        background: "linear-gradient(145deg, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23))",
-        confirmButtonText: "View My Webfolio",
+        title: "Your profile is ready!",
+        html: `<p class="mt-2 text-sm text-gray-400">Your page is live at</p>
+               <p class="mt-1 break-all text-sm font-semibold text-blue-300">my.tccards.tn/@${formData.link}</p>
+               <p class="mt-4 text-sm leading-relaxed text-gray-400">View your profile analytics anytime from the editor. We will contact you to confirm your order and delivery. You pay the courier when your tccards arrive.</p>`,
+        confirmText: "View my profile",
       });
-
       window.location.href = `https://my.tccards.tn/@${formData.link}`;
 
       elements.form.reset();
-      elements.profilePicture.src = "https://tccards.tn/Assets/150.png";
+      elements.profilePicture.src = DEFAULT_AVATAR;
     } catch (error) {
-      Swal.fire({
+      status.close();
+      const message = friendlyError(error);
+      await dialog({
         icon: "error",
-        title: "Error",
-        text: error.message,
-        background: "linear-gradient(145deg, rgb(23, 7, 2), rgb(37, 42, 15), rgb(23, 2, 4))",
+        title: "We couldn't finish",
+        text: message,
+        confirmText: "Try again",
       });
+      // take the customer straight to the field that needs fixing
+      if (/email/i.test(message)) elements.userEmail.focus();
+      else if (/handle|link/i.test(message)) elements.userLink.focus();
     } finally {
       elements.submitBtn.disabled = false;
-      elements.profilePicture.src = "https://tccards.tn/Assets/150.png";
+      elements.submitBtn.innerHTML = submitLabel;
     }
   });
 });

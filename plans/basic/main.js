@@ -308,7 +308,14 @@ document.addEventListener("DOMContentLoaded", () => {
     target.innerHTML = message;
   }
 
-  async function validateHandleAvailability({ force = false } = {}) {
+
+  // Race guard: if the user kept typing while a check was in flight, the
+  // result we're about to apply no longer matches what's in the input.
+  function isStillCurrent(handle) {
+    return elements.userLink.value.trim() === handle;
+  }
+
+  async function validateHandleAvailability() {
     const rawHandle = elements.userLink.value.trim();
 
     if (!rawHandle) {
@@ -317,27 +324,50 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (!CONFIG.linkRegex.test(rawHandle)) {
-      setHandleValidationState("invalid", "✗ 3 to 15 characters. Start with a letter, then letters, numbers or hyphens.");
+      setHandleValidationState("invalid", "✗ Handle must be 3-15 characters, start with a letter, and use only letters, numbers, or hyphens.");
       return { available: false, checked: true };
     }
 
-    if (!force) {
-      await loadKnownLinks();
-      if (handledLinksCache.includes(rawHandle)) {
-        setHandleValidationState("invalid", "✗ This handle is already taken");
-        return { available: false, checked: true };
-      }
+    // UI magic: show the spinner RIGHT NOW, before any network work.
+    // The user gets instant feedback the moment they blur or type.
+    setHandleValidationState("", '<i class="fas fa-spinner fa-spin"></i> Checking availability...');
+
+    // Fast path: if we already know the local list, we can reject a taken
+    // handle without a round trip.
+    if (handledLinksCache.length && handledLinksCache.includes(rawHandle)) {
+      if (!isStillCurrent(rawHandle)) return { available: true, checked: false };
+      setHandleValidationState("invalid", "✗ This handle is already taken");
+      return { available: false, checked: true };
     }
 
-    setHandleValidationState("", '<i class="fas fa-spinner fa-spin"></i> Checking availability...');
+    // Slow path (first run only): load the known-links list, keep the spinner up.
+    try {
+      await loadKnownLinks();
+    } catch (_) { /* handled inside loadKnownLinks */ }
+
+    if (!isStillCurrent(rawHandle)) return { available: true, checked: false };
+
+    if (handledLinksCache.includes(rawHandle)) {
+      setHandleValidationState("invalid", "✗ This handle is already taken");
+      return { available: false, checked: true };
+    }
 
     try {
       const res = await fetch(
         `${CONFIG.googleScriptUrl}?check_duplicates=true&email=${encodeURIComponent("")}&link=${encodeURIComponent(rawHandle)}`
       );
-      const result = await res.json();
+      const data = await res.json();
 
-      if (result.linkExists) {
+      if (!isStillCurrent(rawHandle)) return { available: true, checked: false };
+
+      if (data && data.status === "error") {
+        // Don't block the user — the server will re-check on submit.
+        console.warn("Handle check error:", data.message);
+        setHandleValidationState("", "⚠ Could not verify handle right now; will retry on submit.");
+        return { available: true, checked: false };
+      }
+
+      if (data && data.linkExists) {
         setHandleValidationState("invalid", "✗ This handle is already taken");
         return { available: false, checked: true };
       }
@@ -346,11 +376,13 @@ document.addEventListener("DOMContentLoaded", () => {
       return { available: true, checked: true };
     } catch (error) {
       console.error("Handle validation failed:", error);
-      setHandleValidationState("invalid", "⚠ Could not verify handle right now");
-      return { available: false, checked: true };
+      if (!isStillCurrent(rawHandle)) return { available: true, checked: false };
+      setHandleValidationState("", "⚠ Could not verify handle right now; will retry on submit.");
+      return { available: true, checked: false };
     }
   }
 
+  // Typing: debounced check, so the user gets feedback as they go.
   elements.userLink.addEventListener("input", () => {
     clearTimeout(handleDebounceTimer);
     const rawHandle = elements.userLink.value.trim();
@@ -361,7 +393,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (!CONFIG.linkRegex.test(rawHandle)) {
-      setHandleValidationState("invalid", "✗ 3 to 15 characters. Start with a letter, then letters, numbers or hyphens.");
+      setHandleValidationState("invalid", "✗ Handle must be 3-15 characters, start with a letter, and use only letters, numbers, or hyphens.");
       return;
     }
 
@@ -369,6 +401,18 @@ document.addEventListener("DOMContentLoaded", () => {
       void validateHandleAvailability();
     }, 700);
   });
+
+  // Leaving the field: fire immediately. Cancel any pending debounce so we
+  // don't double-check the same value. The spinner appears before any await,
+  // so the user sees "Checking…" the instant they tab/click away.
+  elements.userLink.addEventListener("blur", () => {
+    clearTimeout(handleDebounceTimer);
+    const rawHandle = elements.userLink.value.trim();
+    if (!rawHandle) return;
+    if (!CONFIG.linkRegex.test(rawHandle)) return; // input handler already showed the hint
+    void validateHandleAvailability();
+  });
+
 
   async function checkDuplicatesDebounced(email, link) {
     clearTimeout(debounceTimer);
