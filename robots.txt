@@ -1,20 +1,16 @@
 User-agent: *
 Allow: /
-Allow: /help/
-Allow: /plans/
 
-# Plan details pages
-Allow: /plans/basic/
-Allow: /plans/enterprise/
-Allow: /plans/free/
-
-# Block assets folders from crawling to save crawl budget
-Disallow: /Assets/
+# Block the application form (transactional, parameterized URLs)
+Disallow: /careers/apply/
+Disallow: /*?id=
 
 # Block config.js files in plan directories
 Disallow: /plans/basic/config.js
 Disallow: /plans/enterprise/config.js
 Disallow: /plans/free/config.js
 
-# Tell search engines where to find your sitemap
+# Note: /Assets/ is intentionally NOT blocked — the logo, OG images,
+# and favicons live there and search/social crawlers must fetch them.
+
 Sitemap: https://tccards.tn/sitemap.xml
