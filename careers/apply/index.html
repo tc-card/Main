@@ -1,88 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="scroll-smooth" lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apply for Position - Total Connect</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="theme-color" content="#000000">
+  <title>Apply | Total Connect Careers</title>
+  <meta name="description" content="Submit your application to join the Total Connect team — the people behind tccards.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://tccards.tn/careers/apply/">
+
+  <meta property="og:title" content="Apply | Total Connect Careers">
+  <meta property="og:description" content="Submit your application to join the Total Connect team.">
+  <meta property="og:url" content="https://tccards.tn/careers/apply/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Total Connect">
+  <meta property="og:image" content="https://tccards.tn/Assets/4.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Apply | Total Connect Careers">
+  <meta name="twitter:description" content="Submit your application to join the Total Connect team.">
+  <meta name="twitter:image" content="https://tccards.tn/Assets/4.png">
+
+  <link rel="shortcut icon" href="https://tccards.tn/Assets/152.png" type="image/x-icon">
+  <link rel="icon" href="/Assets/150.png" type="image/x-icon">
+
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>tailwind.config = { theme: { extend: { colors: { 'brand-blue': '#3ABEF9' } } } };</script>
+  <style type="text/tailwindcss">
+    .glass-card { @apply rounded-2xl bg-white/[0.05] backdrop-blur transition hover:bg-white/[0.08]; }
+    .input-dark { @apply rounded-xl bg-white/[0.05] text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50; }
+  </style>
+
   <script type="importmap">
     { "imports": { "three": "https://unpkg.com/three@0.128.0/build/three.module.js" } }
   </script>
   <style>
-    body { font-family: 'Inter', sans-serif; overflow-x: hidden; background: #000; }
     #color-bends-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; }
-    .bg-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: -1; pointer-events: none; }
-    .glass-card { background: rgba(17, 24, 39, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; }
-    .glass-card:hover { background: rgba(31, 41, 55, 0.9); border-color: rgba(255, 255, 255, 0.25); transform: translateY(-2px); }
+    .bg-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: -1; pointer-events: none; }
     .fade-in { opacity: 0; transition: opacity 0.5s ease-in-out; }
     html.is-loaded .fade-in { opacity: 1; }
-    .glow { filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5)); }
-    .nav-link { transition: color 0.3s ease; }
-    .nav-link:hover { color: #3ABEF9; }
-    
-    /* Inputs styling */
-    .input-dark { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
-    .input-dark:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59,130,246,0.5); }
   </style>
 </head>
-<body class="min-h-screen text-gray-100 relative">
+
+<body class="fade-in flex min-h-screen flex-col bg-black text-white font-nunito overflow-x-hidden">
 
   <canvas id="color-bends-canvas"></canvas>
   <div class="bg-overlay"></div>
 
-  <nav class="fixed top-4 left-2 right-2 z-50 mx-auto max-w-7xl w-[95%] rounded-2xl backdrop-blur-xl bg-black/40 border border-gray-700/50 shadow-lg">
+  <nav class="fixed top-4 left-2 right-2 z-50 mx-auto max-w-7xl w-[95%] rounded-2xl backdrop-blur-xl border border-gray-700/50 shadow-lg" style="background: url(/Assets/ASbg.png);">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center py-4">
-        <a href="https://www.tccards.tn" class="flex items-center group rounded-lg hover:bg-gray-800/70 transition-colors duration-200">
+        <a href="/" class="flex items-center group rounded-lg hover:bg-gray-800/70 backdrop-filter hover:backdrop-blur-lg transition-colors duration-200">
           <img src="https://tccards.tn/Assets/150.png" alt="Logo" class="h-10 w-10 rounded-full">
         </a>
-        <a href="/careers" class="text-sm text-gray-300 hover:text-[#3ABEF9]">Back to Careers</a>
+        <a href="/careers/" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all duration-300 text-white h-10 px-4 rounded-lg border-2 border-gray-700 hover:border-gray-500">
+          <i class="fas fa-arrow-left mr-2"></i>Back to Careers
+        </a>
       </div>
     </div>
   </nav>
 
-  <div class="max-w-4xl mx-auto px-4 py-24 relative z-10 mt-10 fade-in" id="job-details">
-    <!-- Job details will be inserted here -->
-  </div>
+  <main class="w-full flex-1">
+    <div class="mx-auto w-full max-w-4xl px-4 pt-32 pb-12 sm:px-6 relative z-10 fade-in" id="job-details">
+      <!-- Job details + application form are rendered by script.js -->
+    </div>
+  </main>
 
-  <footer class="bg-black border-t border-gray-800 py-12 mt-20 text-gray-400">
+  <footer class="w-full bg-black border-t border-gray-800 py-12 mt-20 text-gray-400" style="background-image: url(/Assets/footer-gradient.webp);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div class="space-y-4">
-            <a href="https://tccards.tn" title="main">
-          <img src="https://tccards.tn/Assets/150.png" alt="Total Connect Logo" class="h-8 mx-auto md:mx-0"></a>
+          <a href="https://tccards.tn" title="main">
+            <img src="/Assets/150.png" alt="Total Connect Logo" class="h-8 mx-auto md:mx-0">
+          </a>
           <p class="text-gray-400 text-sm"><b>No handing over. No paper shuffle.</b> <br> You tap. They get everything. You’re done.</p>
           <div class="flex space-x-4 justify-center md:justify-start">
-            <a href="https://www.facebook.com/tccards.tn" class="text-gray-400 hover:text-white p-2"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/tccards.tn/" class="text-gray-400 hover:text-white p-2"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.linkedin.com/company/tccards/" class="text-gray-400 hover:text-white p-2"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.facebook.com/tccards.tn" title="facebook" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/tccards.tn/" title="Instagram" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/tccards/" title="LinkedIn" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg w-10 h-10 flex items-center justify-center"><i class="fab fa-linkedin-in"></i></a>
           </div>
         </div>
         <div>
           <h3 class="text-white font-semibold mb-4">Products</h3>
           <ul class="space-y-2">
-            <li><a href="https://tccards.tn/plans" class="text-sm text-gray-500 hover:text-white p-2">Plans</a></li>
-            <li><a href="https://tccards.tn/plans/events" class="text-sm text-gray-500 hover:text-white p-2">Events Solutions</a></li>
-            <li><a href="https://tccards.tn/plans/enterprise/" class="text-sm text-gray-500 hover:text-white p-2">Enterprise Solutions</a></li>
+            <li><a href="/plans" class="text-sm text-gray-500 hover:text-white p-2">Plans</a></li>
+            <li><a href="/plans/events" class="text-sm text-gray-500 hover:text-white p-2">Events Solutions</a></li>
+            <li><a href="/plans/enterprise/" class="text-sm text-gray-500 hover:text-white p-2">Enterprise Solutions</a></li>
           </ul>
         </div>
         <div>
           <h3 class="text-white font-semibold mb-4">Support</h3>
           <ul class="space-y-2">
-            <li><a href="https://tccards.tn/help" class="text-sm text-gray-500 hover:text-white p-2">Help Center</a></li>
+            <li><a href="/help" class="text-sm text-gray-500 hover:text-white p-2">Help Center</a></li>
             <li><a href="https://edit.tccards.tn" class="text-sm text-gray-500 hover:text-white p-2">Edit Profile</a></li>
-            <li><a href="https://tccards.tn/pp/" class="text-sm text-gray-500 hover:text-white p-2">Privacy Policy</a></li>
+            <li><a href="/pp/" class="text-sm text-gray-500 hover:text-white p-2">Privacy Policy</a></li>
           </ul>
         </div>
         <div>
           <h3 class="text-white font-semibold mb-4">Interested ?</h3>
           <ul class="space-y-2">
-            <li><a href="https://tccards.tn/About/" class="text-sm text-gray-500 hover:text-white p-2">About Us</a></li>
-            <li><a href="/careers" class="text-sm text-gray-500 hover:text-white p-2">Careers</a></li>
+            <li><a href="/About/" class="text-sm text-gray-500 hover:text-white p-2">About Us</a></li>
+            <li><a href="/careers/" class="text-sm text-gray-500 hover:text-white p-2">Careers</a></li>
           </ul>
         </div>
       </div>
@@ -98,213 +118,214 @@
       document.querySelectorAll('.fade-in').forEach(el => el.style.opacity = '1');
     });
   </script>
-  <script src="script.js"></script>
   <script src="../jobs.js"></script>
-    <script type="module">
-        import * as THREE from 'three';
+  <script src="script.js"></script>
 
-        const MAX_COLORS = 8;
-        const isMobile = window.innerWidth < 768;
+  <script type="module">
+    import * as THREE from 'three';
 
-        const frag = `
-            #define MAX_COLORS ${MAX_COLORS}
-            uniform vec2 uCanvas;
-            uniform float uTime;
-            uniform float uSpeed;
-            uniform vec2 uRot;
-            uniform int uColorCount;
-            uniform vec3 uColors[MAX_COLORS];
-            uniform int uTransparent;
-            uniform float uScale;
-            uniform float uFrequency;
-            uniform float uWarpStrength;
-            uniform vec2 uPointer;
-            uniform float uMouseInfluence;
-            uniform float uParallax;
-            uniform float uNoise;
-            uniform int uIterations;
-            uniform float uIntensity;
-            uniform float uBandWidth;
-            varying vec2 vUv;
+    const MAX_COLORS = 8;
+    const isMobile = window.innerWidth < 768;
 
-            void main() {
-                float t = uTime * uSpeed;
-                vec2 p = vUv * 2.0 - 1.0;
-                p += uPointer * uParallax * 0.1;
-                vec2 rp = vec2(p.x * uRot.x - p.y * uRot.y, p.x * uRot.y + p.y * uRot.x);
-                vec2 q = vec2(rp.x * (uCanvas.x / uCanvas.y), rp.y);
-                q /= max(uScale, 0.0001);
-                q /= 0.5 + 0.2 * dot(q, q);
-                q += 0.2 * cos(t) - 7.56;
-                vec2 toward = (uPointer - rp);
-                q += toward * uMouseInfluence * 0.2;
+    const frag = `
+        #define MAX_COLORS ${MAX_COLORS}
+        uniform vec2 uCanvas;
+        uniform float uTime;
+        uniform float uSpeed;
+        uniform vec2 uRot;
+        uniform int uColorCount;
+        uniform vec3 uColors[MAX_COLORS];
+        uniform int uTransparent;
+        uniform float uScale;
+        uniform float uFrequency;
+        uniform float uWarpStrength;
+        uniform vec2 uPointer;
+        uniform float uMouseInfluence;
+        uniform float uParallax;
+        uniform float uNoise;
+        uniform int uIterations;
+        uniform float uIntensity;
+        uniform float uBandWidth;
+        varying vec2 vUv;
 
-                for (int j = 0; j < 5; j++) {
-                    if (j >= uIterations - 1) break;
-                    vec2 rr = sin(1.5 * (q.yx * uFrequency) + 2.0 * cos(q * uFrequency));
-                    q += (rr - q) * 0.15;
-                }
+        void main() {
+            float t = uTime * uSpeed;
+            vec2 p = vUv * 2.0 - 1.0;
+            p += uPointer * uParallax * 0.1;
+            vec2 rp = vec2(p.x * uRot.x - p.y * uRot.y, p.x * uRot.y + p.y * uRot.x);
+            vec2 q = vec2(rp.x * (uCanvas.x / uCanvas.y), rp.y);
+            q /= max(uScale, 0.0001);
+            q /= 0.5 + 0.2 * dot(q, q);
+            q += 0.2 * cos(t) - 7.56;
+            vec2 toward = (uPointer - rp);
+            q += toward * uMouseInfluence * 0.2;
 
-                vec3 col = vec3(0.0);
-                float a = 1.0;
-
-                if (uColorCount > 0) {
-                    vec2 s = q;
-                    vec3 sumCol = vec3(0.0);
-                    float cover = 0.0;
-                    for (int i = 0; i < MAX_COLORS; ++i) {
-                        if (i >= uColorCount) break;
-                        s -= 0.01;
-                        vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
-                        float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
-                        float kBelow = clamp(uWarpStrength, 0.0, 1.0);
-                        float kMix = pow(kBelow, 0.3);
-                        float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
-                        vec2 disp = (r - s) * kBelow;
-                        vec2 warped = s + disp * gain;
-                        float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
-                        float m = mix(m0, m1, kMix);
-                        float w = 1.0 - exp(-uBandWidth / exp(uBandWidth * m));
-                        sumCol += uColors[i] * w;
-                        cover = max(cover, w);
-                    }
-                    col = clamp(sumCol, 0.0, 1.0);
-                    a = uTransparent > 0 ? cover : 1.0;
-                } else {
-                    vec2 s = q;
-                    for (int k = 0; k < 3; ++k) {
-                        s -= 0.01;
-                        vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
-                        float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(k)) / 4.0);
-                        float kBelow = clamp(uWarpStrength, 0.0, 1.0);
-                        float kMix = pow(kBelow, 0.3);
-                        float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
-                        vec2 disp = (r - s) * kBelow;
-                        vec2 warped = s + disp * gain;
-                        float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(k)) / 4.0);
-                        float m = mix(m0, m1, kMix);
-                        col[k] = 1.0 - exp(-uBandWidth / exp(uBandWidth * m));
-                    }
-                    a = uTransparent > 0 ? max(max(col.r, col.g), col.b) : 1.0;
-                }
-
-                col *= uIntensity;
-
-                if (uNoise > 0.0001) {
-                    float n = fract(sin(dot(gl_FragCoord.xy + vec2(uTime), vec2(12.9898, 78.233))) * 43758.5453123);
-                    col += (n - 0.5) * uNoise;
-                    col = clamp(col, 0.0, 1.0);
-                }
-
-                vec3 rgb = (uTransparent > 0) ? col * a : col;
-                gl_FragColor = vec4(rgb, a);
+            for (int j = 0; j < 5; j++) {
+                if (j >= uIterations - 1) break;
+                vec2 rr = sin(1.5 * (q.yx * uFrequency) + 2.0 * cos(q * uFrequency));
+                q += (rr - q) * 0.15;
             }
-        `;
 
-        const vert = `
-            varying vec2 vUv;
-            void main() {
-                vUv = uv;
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            vec3 col = vec3(0.0);
+            float a = 1.0;
+
+            if (uColorCount > 0) {
+                vec2 s = q;
+                vec3 sumCol = vec3(0.0);
+                float cover = 0.0;
+                for (int i = 0; i < MAX_COLORS; ++i) {
+                    if (i >= uColorCount) break;
+                    s -= 0.01;
+                    vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+                    float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+                    float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+                    float kMix = pow(kBelow, 0.3);
+                    float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+                    vec2 disp = (r - s) * kBelow;
+                    vec2 warped = s + disp * gain;
+                    float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+                    float m = mix(m0, m1, kMix);
+                    float w = 1.0 - exp(-uBandWidth / exp(uBandWidth * m));
+                    sumCol += uColors[i] * w;
+                    cover = max(cover, w);
+                }
+                col = clamp(sumCol, 0.0, 1.0);
+                a = uTransparent > 0 ? cover : 1.0;
+            } else {
+                vec2 s = q;
+                for (int k = 0; k < 3; ++k) {
+                    s -= 0.01;
+                    vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+                    float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+                    float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+                    float kMix = pow(kBelow, 0.3);
+                    float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+                    vec2 disp = (r - s) * kBelow;
+                    vec2 warped = s + disp * gain;
+                    float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+                    float m = mix(m0, m1, kMix);
+                    col[k] = 1.0 - exp(-uBandWidth / exp(uBandWidth * m));
+                }
+                a = uTransparent > 0 ? max(max(col.r, col.g), col.b) : 1.0;
             }
-        `;
 
-        const canvas = document.getElementById('color-bends-canvas');
-        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: 'high-performance' });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 1.5));
-        renderer.setSize(window.innerWidth, window.innerHeight);
+            col *= uIntensity;
 
-        const scene = new THREE.Scene();
-        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-        const geometry = new THREE.PlaneGeometry(2, 2);
+            if (uNoise > 0.0001) {
+                float n = fract(sin(dot(gl_FragCoord.xy + vec2(uTime), vec2(12.9898, 78.233))) * 43758.5453123);
+                col += (n - 0.5) * uNoise;
+                col = clamp(col, 0.0, 1.0);
+            }
 
-        const colors = ['#3ABEF9', '#3572EF', '#06B6D4', '#2DD4BF', '#FBBF24', '#A855F7'];
-        const colorVecs = colors.map(hex => {
-            const r = parseInt(hex.slice(1,3),16)/255;
-            const g = parseInt(hex.slice(3,5),16)/255;
-            const b = parseInt(hex.slice(5,7),16)/255;
-            return new THREE.Vector3(r,g,b);
-        });
-        const uColorsArray = Array.from({ length: MAX_COLORS }, () => new THREE.Vector3(0,0,0));
-        for(let i=0; i<colorVecs.length; i++) uColorsArray[i].copy(colorVecs[i]);
-
-        const material = new THREE.ShaderMaterial({
-            vertexShader: vert,
-            fragmentShader: frag,
-            uniforms: {
-                uCanvas:        { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-                uTime:          { value: 0 },
-                uSpeed:         { value: 0.32 },
-                uRot:           { value: new THREE.Vector2(1, 0) },
-                uColorCount:    { value: colorVecs.length },
-                uColors:        { value: uColorsArray },
-                uTransparent:   { value: 1 },
-                uScale:         { value: 1.05 },
-                uFrequency:     { value: 1.6 },
-                uWarpStrength:  { value: 1.15 },
-                uPointer:       { value: new THREE.Vector2(0, 0) },
-                uMouseInfluence:{ value: isMobile ? 0 : 1.2 },
-                uParallax:      { value: 0.6 },
-                uNoise:         { value: isMobile ? 0 : 0.04 },
-                uIterations:    { value: isMobile ? 2 : 3 },
-                uIntensity:     { value: 1.5 },
-                uBandWidth:     { value: 8.5 }
-            },
-            transparent: true
-        });
-
-        const mesh = new THREE.Mesh(geometry, material);
-        scene.add(mesh);
-
-        const clock = new THREE.Clock();
-        let autoRotateAngle = 0;
-        const autoRotateSpeed = 8;
-        const pointerTarget  = new THREE.Vector2(0, 0);
-        const pointerCurrent = new THREE.Vector2(0, 0);
-
-        let isVisible = true;
-        let rafId = null;
-
-        document.addEventListener('visibilitychange', () => {
-            isVisible = !document.hidden;
-            if (isVisible && rafId === null) scheduleFrame();
-        });
-
-        window.addEventListener('pointermove', (e) => {
-            pointerTarget.set((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1);
-        });
-
-        function animate() {
-            rafId = null;
-            if (!isVisible) return;
-
-            const delta = clock.getDelta();
-            const elapsed = clock.getElapsedTime();
-
-            pointerCurrent.lerp(pointerTarget, 0.08);
-            material.uniforms.uPointer.value.copy(pointerCurrent);
-
-            autoRotateAngle += autoRotateSpeed * delta;
-            const rad = autoRotateAngle * Math.PI / 180;
-            material.uniforms.uRot.value.set(Math.cos(rad), Math.sin(rad));
-
-            material.uniforms.uTime.value = elapsed;
-            renderer.render(scene, camera);
-            scheduleFrame();
+            vec3 rgb = (uTransparent > 0) ? col * a : col;
+            gl_FragColor = vec4(rgb, a);
         }
+    `;
 
-        function scheduleFrame() { rafId = requestAnimationFrame(animate); }
+    const vert = `
+        varying vec2 vUv;
+        void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+    `;
 
-        let resizeTimer = null;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                renderer.setSize(window.innerWidth, window.innerHeight);
-                material.uniforms.uCanvas.value.set(window.innerWidth, window.innerHeight);
-            }, 100);
-        });
+    const canvas = document.getElementById('color-bends-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 1.5));
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
+    const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    const geometry = new THREE.PlaneGeometry(2, 2);
+
+    const colors = ['#3ABEF9', '#3572EF', '#06B6D4', '#2DD4BF', '#FBBF24', '#A855F7'];
+    const colorVecs = colors.map(hex => {
+        const r = parseInt(hex.slice(1,3),16)/255;
+        const g = parseInt(hex.slice(3,5),16)/255;
+        const b = parseInt(hex.slice(5,7),16)/255;
+        return new THREE.Vector3(r,g,b);
+    });
+    const uColorsArray = Array.from({ length: MAX_COLORS }, () => new THREE.Vector3(0,0,0));
+    for(let i=0; i<colorVecs.length; i++) uColorsArray[i].copy(colorVecs[i]);
+
+    const material = new THREE.ShaderMaterial({
+        vertexShader: vert,
+        fragmentShader: frag,
+        uniforms: {
+            uCanvas:        { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+            uTime:          { value: 0 },
+            uSpeed:         { value: 0.32 },
+            uRot:           { value: new THREE.Vector2(1, 0) },
+            uColorCount:    { value: colorVecs.length },
+            uColors:        { value: uColorsArray },
+            uTransparent:   { value: 1 },
+            uScale:         { value: 1.05 },
+            uFrequency:     { value: 1.6 },
+            uWarpStrength:  { value: 1.15 },
+            uPointer:       { value: new THREE.Vector2(0, 0) },
+            uMouseInfluence:{ value: isMobile ? 0 : 1.2 },
+            uParallax:      { value: 0.6 },
+            uNoise:         { value: isMobile ? 0 : 0.04 },
+            uIterations:    { value: isMobile ? 2 : 3 },
+            uIntensity:     { value: 1.5 },
+            uBandWidth:     { value: 8.5 }
+        },
+        transparent: true
+    });
+
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    const clock = new THREE.Clock();
+    let autoRotateAngle = 0;
+    const autoRotateSpeed = 8;
+    const pointerTarget  = new THREE.Vector2(0, 0);
+    const pointerCurrent = new THREE.Vector2(0, 0);
+
+    let isVisible = true;
+    let rafId = null;
+
+    document.addEventListener('visibilitychange', () => {
+        isVisible = !document.hidden;
+        if (isVisible && rafId === null) scheduleFrame();
+    });
+
+    window.addEventListener('pointermove', (e) => {
+        pointerTarget.set((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1);
+    });
+
+    function animate() {
+        rafId = null;
+        if (!isVisible) return;
+
+        const delta = clock.getDelta();
+        const elapsed = clock.getElapsedTime();
+
+        pointerCurrent.lerp(pointerTarget, 0.08);
+        material.uniforms.uPointer.value.copy(pointerCurrent);
+
+        autoRotateAngle += autoRotateSpeed * delta;
+        const rad = autoRotateAngle * Math.PI / 180;
+        material.uniforms.uRot.value.set(Math.cos(rad), Math.sin(rad));
+
+        material.uniforms.uTime.value = elapsed;
+        renderer.render(scene, camera);
         scheduleFrame();
-    </script>
+    }
+
+    function scheduleFrame() { rafId = requestAnimationFrame(animate); }
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            material.uniforms.uCanvas.value.set(window.innerWidth, window.innerHeight);
+        }, 100);
+    });
+
+    scheduleFrame();
+  </script>
 </body>
 </html>
